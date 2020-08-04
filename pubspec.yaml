@@ -21,6 +21,9 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  async: ^2.2.0
+  grpc: ^2.2.0
+  protobuf: ^1.0.1
   flutter:
     sdk: flutter
 

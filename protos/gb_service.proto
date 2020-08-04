@@ -1,0 +1,329 @@
+syntax = "proto3";
+option java_package = "uz.globens";
+
+
+// user management management requests/responses
+message AuthenticateUser {
+  message Request{
+    enum AuthMethod {
+      GOOGLE = 0;
+      FACEBOOK = 1;
+      KAKAOTALK = 3;
+      PHONE = 4;
+    }
+    AuthMethod method = 1;
+    string authKey = 2; // could be : auth token, phone number, etc.
+  }
+  message Response{
+    bool success = 1;
+    int32 sessionKey = 2;
+  }
+}
+message DeactivateUser{
+  message Request{
+    int32 sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateUserDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchUserDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
+// vacancy management requests/responses
+message CreateVacancy{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateVacancyDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateVacancy{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchVacancies{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchVacancyDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
+// vacancy application management requests/responses
+message CreateVacancyApplication{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateVacancyApplicationDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateVacancyApplication{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchMyVacancyApplications{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchVacancyApplicationDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
+// business page management requests/responses
+message CreateBusinessPage{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateBusinessPageDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateBusinessPage{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchBusinessPages{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchBusinessPageDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
+// product management requests/responses
+message CreateProduct{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateProductDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateProduct{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchProducts{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchProductDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message PublishProduct{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UnpublishProduct{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
+// purchase management requests/responses
+message LogPurchase{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchPurchases{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchPurchaseDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
+
+// test proto (rpc)
+message TestSum{
+  message Request{
+    int32 a = 1;
+    int32 b = 2;
+  }
+  message Response{
+    int32 c = 1;
+  }
+}
+
+
+service GlobensService {
+  // user management RPCs
+  rpc authenticateUser (AuthenticateUser.Request) returns (AuthenticateUser.Response) {}
+  rpc deactivateUser (DeactivateUser.Request) returns (DeactivateUser.Response) {}
+  rpc updateUserDetails(UpdateUserDetails.Request) returns (UpdateUserDetails.Response) {}
+  rpc fetchUserDetails(FetchUserDetails.Request) returns (FetchUserDetails.Response) {}
+
+  // vacancy management RPCs
+  rpc createVacancy(CreateVacancy.Request) returns (CreateVacancy.Response) {}
+  rpc updateVacancyDetails(UpdateVacancyDetails.Request) returns (UpdateVacancyDetails.Response) {}
+  rpc uncreateVacancy(UncreateVacancy.Request) returns (UncreateVacancy.Response) {}
+  rpc fetchVacancies(FetchVacancies.Request) returns (FetchVacancies.Response) {}
+  rpc fetchVacancyDetails(FetchVacancyDetails.Request) returns (FetchVacancyDetails.Response) {}
+
+  // vacancy application management RPCs
+  rpc createVacancyApplication(CreateVacancyApplication.Request) returns (CreateVacancyApplication.Response) {}
+  rpc updateVacancyApplicationDetails(UpdateVacancyApplicationDetails.Request) returns (UpdateVacancyApplicationDetails.Response) {}
+  rpc uncreateVacancyApplication(UncreateVacancyApplication.Request) returns (UncreateVacancyApplication.Response) {}
+  rpc fetchMyVacancyApplications(FetchMyVacancyApplications.Request) returns (FetchMyVacancyApplications.Response) {}
+  rpc fetchVacancyApplicationDetails(FetchVacancyApplicationDetails.Request) returns (FetchVacancyApplicationDetails.Response) {}
+
+  // business page management RPCs
+  rpc createBusinessPage(CreateBusinessPage.Request) returns (CreateBusinessPage.Response) {}
+  rpc updateBusinessPageDetails(UpdateBusinessPageDetails.Request) returns (UpdateBusinessPageDetails.Response) {}
+  rpc uncreateBusinessPage(UncreateBusinessPage.Request) returns (UncreateBusinessPage.Response) {}
+  rpc fetchBusinessPages(FetchBusinessPages.Request) returns (FetchBusinessPages.Response) {}
+  rpc fetchBusinessPageDetails(FetchBusinessPageDetails.Request) returns (FetchBusinessPageDetails.Response) {}
+
+  // product management RPCs
+  rpc createProduct(CreateProduct.Request) returns (CreateProduct.Response) {}
+  rpc updateProductDetails(UpdateProductDetails.Request) returns (UpdateProductDetails.Response) {}
+  rpc publishProduct(PublishProduct.Request) returns (PublishProduct.Response) {}
+  rpc unpublishProduct(UnpublishProduct.Request) returns (UnpublishProduct.Response) {}
+  rpc uncreateProduct(UncreateProduct.Request) returns (UncreateProduct.Response) {}
+  rpc fetchProducts(FetchProducts.Request) returns (FetchProducts.Response) {}
+  rpc fetchProductDetails(FetchProductDetails.Request) returns (FetchProductDetails.Response) {}
+
+  // purchase management RPCs
+  rpc logPurchase(LogPurchase.Request) returns (LogPurchase.Response){}
+  rpc fetchPurchases(FetchPurchases.Request) returns (FetchPurchases.Response){}
+  rpc fetchPurchaseDetails(FetchPurchaseDetails.Request) returns (FetchPurchaseDetails.Response){}
+
+
+  // test proto (rpc)
+  rpc testSum(TestSum.Request) returns (TestSum.Response) {}
+}
+
+
+/*
+gRPC HOWTO:
+Compile into python script:
+    python -m grpc_tools.protoc -I=[input directory] --python_out=[output directory] --grpc_python_out=[output directory] [file name].proto
+    python -m grpc_tools.protoc -I=./gb_protos/ --python_out=./gb_grpcs/ --grpc_python_out=./gb_grpcs/ gb_service.proto
+Compile into java source:
+    protoc --java_out=[output directory] --grpc_java_out=[output directory] [file name].proto
+Compile into dart / flutter:
+    protoc -I=[input directory] --dart_out=grpc:[output directory] [file name].proto
+    protoc -I=protos --dart_out=grpc:lib/generated_protos gb_service.proto
+etc.
+*/
