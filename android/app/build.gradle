@@ -38,15 +38,36 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "uz.globens_flutter_client"
-        minSdkVersion 16
-        targetSdkVersion 28
+        applicationId "uz.globens"
+        minSdkVersion 19
+        targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
+    signingConfigs {
+        debug {
+            // todo change keystore location
+            storeFile file('/Users/kevin/globens-dev-key.jks')
+            storePassword 'globens'
+            keyAlias = 'globens'
+            keyPassword 'globens'
+        }
+        release {
+            storeFile file('/Users/kevin/globens-dev-key.jks')
+            storePassword 'globens'
+            keyAlias = 'globens'
+            keyPassword 'globens'
+        }
+    }
+
     buildTypes {
         release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.release
+        }
+        debug {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug

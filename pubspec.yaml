@@ -21,27 +21,40 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  async: ^2.2.0
-  grpc: ^2.2.0
-  protobuf: ^1.0.1
+  # region default
   flutter:
     sdk: flutter
-
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
+  # endregion
+  # region gRPC
+  async: ^2.2.0
+  grpc: ^2.2.0
+  protobuf: ^1.0.1
+  # endregion
+  # region kakao auth
+  kakao_flutter_sdk: ^0.4.2
+  dio: ^3.0.10 #latest version
+  json_annotation: ^3.0.0
+  shared_preferences: ^0.5.8
+  platform: ^2.2.1
+  package_info: ^0.4.1
+  # endregion
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # region kakao auth
+  build_runner: ^1.0.0
+  json_serializable: ^3.2.0
+  # endregion
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
