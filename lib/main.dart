@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/utils.dart';
-import 'package:globens_flutter_client/login/login.dart';
+import 'package:globens_flutter_client/widget_authentication/widget_authentication.dart';
 
 void main() {
   runApp(MyApp());
@@ -43,31 +43,8 @@ class MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Authenticate(),
+      body: AuthenticateWidget(),
       // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
-
-/*
-floatingActionButton: FloatingActionButton(
-        onPressed: incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
- */
-
-/*
-Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
- */
