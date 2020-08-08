@@ -31,14 +31,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void incrementCounter() {
-    runTestSumRpc().then((value) => setState(() {
-          _counter = value;
-        }));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
