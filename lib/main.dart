@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/utils.dart';
+import 'package:globens_flutter_client/login/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,17 +34,31 @@ class MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void incrementCounter() {
-    runTestSumRpc().then((value) => setState((){_counter=value;}));
+    runTestSumRpc().then((value) => setState(() {
+          _counter = value;
+        }));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      backgroundColor: Colors.white,
+      body: Authenticate(),
+      // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+/*
+floatingActionButton: FloatingActionButton(
+        onPressed: incrementCounter,
+        tooltip: 'Increment',
+        child: Icon(Icons.add),
       ),
-      body: Center(
-        child: Column(
+ */
+
+/*
+Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
@@ -55,12 +70,4 @@ class MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
+ */
