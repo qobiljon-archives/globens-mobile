@@ -68,17 +68,13 @@ class AuthenticateWidget extends StatelessWidget {
     // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('User authentication'),
+      ),
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
-            child: Text(
-              "User authentication",
-              style: TextStyle(fontSize: 30.0),
-            ),
-          ),
-          Container(
             width: MediaQuery.of(context).size.width * 0.8,
-            margin: EdgeInsets.only(top: 100.0),
             decoration: BoxDecoration(border: Border.all()),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

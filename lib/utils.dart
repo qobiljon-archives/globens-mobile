@@ -1,6 +1,5 @@
+import 'generated_protos/gb_service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
-import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
-import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 
 Future<int> runTestSumRpc() async {
   final channel = ClientChannel('165.246.42.172', port: 50052, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));

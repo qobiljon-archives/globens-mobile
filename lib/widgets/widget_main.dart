@@ -29,6 +29,9 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Globens'),
+      ),
       backgroundColor: Colors.white,
       body: Center(
         // todo do the main page (i.e., products, categories, ads, search, etc.)
