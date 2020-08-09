@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "829480803516",
+    "firebase_url": "https://globens-uz.firebaseio.com",
+    "project_id": "globens-uz",
+    "storage_bucket": "globens-uz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829480803516:android:27e3ce0de13c64477a84b9",
+        "android_client_info": {
+          "package_name": "uz.globens"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "829480803516-sd5bpssds645ru7kore24cstdhfd2enr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uz.globens",
+            "certificate_hash": "787e5c8cbdd4ae2898ac77b5db1293b3fe63780a"
+          }
+        },
+        {
+          "client_id": "829480803516-qocp2cam1hik5q3atiq8haivk4fs5m8r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyyoxnw9V--cLtoCfj6aT3R4DTDPRUQXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "829480803516-qocp2cam1hik5q3atiq8haivk4fs5m8r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,6 +1,7 @@
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/auth.dart';
-import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/user.dart';
+import 'package:flutter/material.dart';
 
 class AuthenticateWidget extends StatelessWidget {
   void onPhoneAuthClick() {}
@@ -41,7 +42,23 @@ class AuthenticateWidget extends StatelessWidget {
     }
   }
 
-  void onGoogleAuthClick() {}
+  void onGoogleAuthClick() async {
+    GoogleSignIn signIn = GoogleSignIn(
+        scopes: [
+          'https://www.googleapis.com/auth/userinfo.email',
+          'https://www.googleapis.com/auth/userinfo.profile',
+          'openid'
+        ]
+    );
+    try {
+      GoogleSignInAccount account = await signIn.signIn();
+      print('openId: ${account.id}');
+      print('email: ${account.email}');
+      print('email: ${account.displayName}');
+    } catch (e) {
+      print(e);
+    }
+  }
 
   void onFacebookAuthClick() {}
 

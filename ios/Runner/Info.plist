@@ -20,6 +20,14 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakao25bf75f9c559f5f1f78da11571eb818a</string>
+		<string>kakaokompassauth</string>
+		<string>storykompassauth</string>
+		<string>kakaolink</string>
+		<string>kakaotalk-5.9.7</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -40,17 +48,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	  <false/>
-	<key>LSApplicationQueriesSchemes</key>
-      <array>
-          <!-- common -->
-          <string>kakao25bf75f9c559f5f1f78da11571eb818a</string>
-          <!-- KakaoTalk login -->
-          <string>kakaokompassauth</string>
-          <string>storykompassauth</string>
-          <!-- KakaoLink -->
-          <string>kakaolink</string>
-          <string>kakaotalk-5.9.7</string>
-      </array>
+	<false/>
 </dict>
 </plist>

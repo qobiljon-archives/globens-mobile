@@ -41,6 +41,9 @@ dependencies:
   platform: ^2.2.1
   package_info: ^0.4.1
   # endregion
+  # region google auth
+  google_sign_in: ^4.5.1
+  # endregion
 
 dev_dependencies:
   flutter_test:
