@@ -40,6 +40,17 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	  <false/>
+	<key>LSApplicationQueriesSchemes</key>
+      <array>
+          <!-- common -->
+          <string>kakao25bf75f9c559f5f1f78da11571eb818a</string>
+          <!-- KakaoTalk login -->
+          <string>kakaokompassauth</string>
+          <string>storykompassauth</string>
+          <!-- KakaoLink -->
+          <string>kakaolink</string>
+          <string>kakaotalk-5.9.7</string>
+      </array>
 </dict>
 </plist>

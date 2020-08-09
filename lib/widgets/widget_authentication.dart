@@ -1,21 +1,43 @@
-import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/auth.dart';
+import 'package:flutter/material.dart';
+import 'package:kakao_flutter_sdk/user.dart';
 
 class AuthenticateWidget extends StatelessWidget {
   void onPhoneAuthClick() {}
 
   void onKakaoAuthClick() async {
-    try {
-      // todo do by thread
-      print('requesting auth code');
-      String authCode = await AuthCodeClient.instance.request();
-      print('auth code received: $authCode');
-    } on KakaoAuthException catch (e) {
-      print(e);
-    } on KakaoClientException catch (e) {
-      print(e);
-    } catch (e) {
-      print(e);
+    // check if we have previous token available
+    AccessToken token = await AccessTokenStore.instance.fromStore();
+    if (token.refreshToken == null) {
+      try {
+        // check if kakaotalk app is installed
+        String authCode;
+        if (await isKakaoTalkInstalled())
+          authCode = await AuthCodeClient.instance.requestWithTalk();
+        else
+          authCode = await AuthCodeClient.instance.request();
+        print('auth code received: $authCode');
+
+        AccessTokenResponse token = await AuthApi.instance.issueAccessToken(authCode);
+        AccessTokenStore.instance.toStore(token);
+        print('access token received: $token');
+
+        try {
+          User user = await UserApi.instance.me();
+          print('kakao nickname: ${user.kakaoAccount.profile.nickname}');
+          print('kakao email: ${user.kakaoAccount.email}');
+        } on KakaoAuthException catch (e) {
+          print(e);
+        } catch (e) {
+          print(e);
+        }
+      } on KakaoAuthException catch (e) {
+        print(e);
+      } on KakaoClientException catch (e) {
+        print(e);
+      } catch (e) {
+        print(e);
+      }
     }
   }
 
