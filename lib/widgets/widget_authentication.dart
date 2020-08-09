@@ -7,15 +7,15 @@ class AuthenticateWidget extends StatelessWidget {
   void onKakaoAuthClick() async {
     try {
       // todo do by thread
-      print('here');
+      print('requesting auth code');
       String authCode = await AuthCodeClient.instance.request();
-      print(authCode);
+      print('auth code received: $authCode');
     } on KakaoAuthException catch (e) {
-      // some error happened during the course of user login... deal with it.
+      print(e);
     } on KakaoClientException catch (e) {
-      //
+      print(e);
     } catch (e) {
-      //
+      print(e);
     }
   }
 

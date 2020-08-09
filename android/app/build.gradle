@@ -48,13 +48,13 @@ android {
     signingConfigs {
         debug {
             // todo change keystore location
-            storeFile file('/Users/kevin/globens-dev-key.jks')
+            storeFile file('../../globens-dev-key.jks')
             storePassword 'globens'
             keyAlias = 'globens'
             keyPassword 'globens'
         }
         release {
-            storeFile file('/Users/kevin/globens-dev-key.jks')
+            storeFile file('../../globens-dev-key.jks')
             storePassword 'globens'
             keyAlias = 'globens'
             keyPassword 'globens'
