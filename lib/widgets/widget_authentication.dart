@@ -4,8 +4,6 @@ import 'package:kakao_flutter_sdk/user.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticateWidget extends StatelessWidget {
-  void onPhoneAuthClick() {}
-
   void onKakaoAuthClick() async {
     // check if we have previous token available
     AccessToken token = await AccessTokenStore.instance.fromStore();
@@ -54,7 +52,9 @@ class AuthenticateWidget extends StatelessWidget {
     }
   }
 
-  void onFacebookAuthClick() {}
+  void onFacebookAuthClick() {
+    // facebook oauth redirect uri : https://globens-uz.firebaseapp.com/__/auth/handler
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,22 +73,7 @@ class AuthenticateWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
-                  decoration: BoxDecoration(border: Border.all()),
-                  child: RaisedButton(
-                    color: Colors.white,
-                    elevation: 0.0,
-                    child: Text(
-                      "Phone number",
-                      style: TextStyle(fontSize: 20.0),
-                    ),
-                    onPressed: onPhoneAuthClick,
-                  ),
-                ),
-                // todo https://github.com/kakao/kakao_flutter_sdk
+                // todo do ios part when publishing on
                 Container(
                   width: double.infinity,
                   height: 50,
