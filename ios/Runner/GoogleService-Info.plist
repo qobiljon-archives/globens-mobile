@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:829480803516:ios:2969dd57dcee46a97a84b9</string>
+	<string>1:829480803516:ios:186bd993bdcf27767a84b9</string>
 	<key>DATABASE_URL</key>
 	<string>https://globens-uz.firebaseio.com</string>
 </dict>
