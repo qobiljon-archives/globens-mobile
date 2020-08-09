@@ -43,13 +43,7 @@ class AuthenticateWidget extends StatelessWidget {
   }
 
   void onGoogleAuthClick() async {
-    GoogleSignIn signIn = GoogleSignIn(
-        scopes: [
-          'https://www.googleapis.com/auth/userinfo.email',
-          'https://www.googleapis.com/auth/userinfo.profile',
-          'openid'
-        ]
-    );
+    GoogleSignIn signIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
     try {
       GoogleSignInAccount account = await signIn.signIn();
       print('openId: ${account.id}');
