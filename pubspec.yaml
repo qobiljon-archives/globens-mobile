@@ -38,13 +38,23 @@ dependencies:
   kakao_flutter_sdk: ^0.4.2
   dio: ^3.0.10 #latest version
   json_annotation: ^3.0.0
-  shared_preferences: ^0.5.8
   platform: ^2.2.1
   package_info: ^0.4.1
   # endregion
   # region google auth
   google_sign_in: ^4.5.1
   # endregion
+  # region bottom_sheet
+  modal_bottom_sheet: ^0.2.0+1
+  # endregion
+  # region toast
+  fluttertoast: ^7.0.2
+  # endregion
+  # region shared_preferences
+  shared_preferences: ^0.5.8
+  # endregion
+
+
 
 dev_dependencies:
   flutter_test:
