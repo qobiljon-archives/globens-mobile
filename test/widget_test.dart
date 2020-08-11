@@ -5,9 +5,9 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'file:///C:/Users/ilyos/AndroidStudioProjects/globens_flutter_client/lib/widgets/widget_main/widget_main.dart';
-import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/widgets/widget_main.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

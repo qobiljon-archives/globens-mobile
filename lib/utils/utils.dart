@@ -1,4 +1,4 @@
-import '../generated_protos/gb_service.pbgrpc.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
 Future<int> runTestSumRpc() async {

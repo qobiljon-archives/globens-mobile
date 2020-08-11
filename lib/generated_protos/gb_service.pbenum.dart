@@ -15,7 +15,7 @@ class AuthenticateUser_Request_AuthMethod extends $pb.ProtobufEnum {
   static const AuthenticateUser_Request_AuthMethod KAKAOTALK = AuthenticateUser_Request_AuthMethod._(3, 'KAKAOTALK');
   static const AuthenticateUser_Request_AuthMethod PHONE = AuthenticateUser_Request_AuthMethod._(4, 'PHONE');
 
-  static const $core.List<AuthenticateUser_Request_AuthMethod> values = <AuthenticateUser_Request_AuthMethod> [
+  static const $core.List<AuthenticateUser_Request_AuthMethod> values = <AuthenticateUser_Request_AuthMethod>[
     GOOGLE,
     FACEBOOK,
     KAKAOTALK,
@@ -23,8 +23,8 @@ class AuthenticateUser_Request_AuthMethod extends $pb.ProtobufEnum {
   ];
 
   static final $core.Map<$core.int, AuthenticateUser_Request_AuthMethod> _byValue = $pb.ProtobufEnum.initByValue(values);
+
   static AuthenticateUser_Request_AuthMethod valueOf($core.int value) => _byValue[value];
 
   const AuthenticateUser_Request_AuthMethod._($core.int v, $core.String n) : super(v, n);
 }
-
