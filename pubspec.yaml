@@ -53,6 +53,20 @@ dependencies:
   # region shared_preferences
   shared_preferences: ^0.5.8
   # endregion
+  #region flutter_facebok
+  flutter_facebook_login: ^3.0.0
+  #endregion
+  #region http
+  http: ^0.12.0+4
+  #endregion
+  #region json
+  json_conditional: ^1.0.2
+  #endregion
+
+
+
+
+
 
 
 

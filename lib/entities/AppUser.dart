@@ -1,9 +1,15 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/auth.dart';
 import 'package:kakao_flutter_sdk/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as JSON;
+import 'package:json_conditional/json_conditional.dart';
 
 class AppUser {
   // region Constructor & init function
@@ -17,14 +23,22 @@ class AppUser {
     AppUser._singleton = AppUser._internalConstructor();
     AppUser.userPrefs = await SharedPreferences.getInstance();
     if (AppUser.userPrefs.containsKey("authMethod"))
-      AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"));
+      AppUser.setProfileInfo(
+          AuthMethod.values[AppUser.userPrefs.getInt("authMethod")],
+          AppUser.userPrefs.getString("email"),
+          AppUser.userPrefs.getString("displayName"),
+          AppUser.userPrefs.getString("profileImageUrl"));
 
     // setup Kakao auth
     KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a";
     // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported
 
     // setup google auth, etc.
-    googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
+    googleSignIn = GoogleSignIn(scopes: [
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+      'openid'
+    ]);
 
     // todo setup phone, facebook, apple
   }
@@ -34,6 +48,7 @@ class AppUser {
   // region Variables
   static AppUser _singleton;
   static GoogleSignIn googleSignIn;
+  static FacebookLogin facebookLogin;
   static SharedPreferences userPrefs;
 
   static AuthMethod _authMethod = AuthMethod.NONE;
@@ -44,7 +59,8 @@ class AppUser {
   // endregion
 
   // region Setters & getters
-  static void setProfileInfo(AuthMethod authMethod, String email, String displayName, String profileImageUrl) {
+  static void setProfileInfo(AuthMethod authMethod, String email,
+      String displayName, String profileImageUrl) {
     AppUser._authMethod = authMethod;
     AppUser._email = email;
     AppUser._displayName = displayName;
@@ -76,20 +92,25 @@ class AppUser {
   static Future<bool> signIn(AuthMethod authMethod) async {
     switch (authMethod) {
       case AuthMethod.PHONE:
-        Object user = await AppUser._phoneAuth(); // todo change once phone auth is finished
+        Object user = await AppUser
+            ._phoneAuth(); // todo change once phone auth is finished
         if (user == null)
           return false;
         else {
           AppUser.setProfileInfo(AuthMethod.PHONE, null, null, null);
           AppUser.updateUserPrefsData();
         }
-        return true;
+        return true; 
       case AuthMethod.KAKAO:
         User user = await AppUser._kakaoAuth();
         if (user == null)
           return false;
         else {
-          AppUser.setProfileInfo(AuthMethod.KAKAO, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString());
+          AppUser.setProfileInfo(
+              AuthMethod.KAKAO,
+              user.kakaoAccount.email,
+              user.kakaoAccount.profile.nickname,
+              user.kakaoAccount.profile.profileImageUrl.toString());
           AppUser.updateUserPrefsData();
         }
         return true;
@@ -98,21 +119,24 @@ class AppUser {
         if (account == null)
           return false;
         else {
-          AppUser.setProfileInfo(AuthMethod.GOOGLE, account.email, account.displayName, account.photoUrl);
+          AppUser.setProfileInfo(AuthMethod.GOOGLE, account.email,
+              account.displayName, account.photoUrl);
           AppUser.updateUserPrefsData();
         }
         return true;
       case AuthMethod.FACEBOOK:
-        Object user = await AppUser._facebookAuth(); // todo change once facebook auth is finished
-        if (user == null)
-          return false;
-        else {
-          AppUser.setProfileInfo(AuthMethod.FACEBOOK, null, null, null);
+        Map user = await AppUser._facebookAuth();
+        if (user != null) {
+          AppUser.setProfileInfo(AuthMethod.FACEBOOK, user["email"],
+              user["name"], user["picture"]["data"]["url"]);
           AppUser.updateUserPrefsData();
+          return true;
         }
-        return true;
+        return false;
+
       case AuthMethod.APPLE:
-        Object user = await AppUser._appleAuth(); // todo change once apple auth is finished
+        Object user = await AppUser
+            ._appleAuth(); // todo change once apple auth is finished
         if (user == null)
           return false;
         else {
@@ -138,6 +162,9 @@ class AppUser {
           AppUser.clearProfileInfo();
           break;
         case AuthMethod.FACEBOOK:
+          await facebookLogin.logOut();
+          await userPrefs.clear();
+          AppUser.clearProfileInfo();
           break;
         case AuthMethod.APPLE:
           break;
@@ -166,12 +193,11 @@ class AppUser {
       return Container(
           height: MediaQuery.of(context).size.height * 0.4,
           decoration: new BoxDecoration(
-              color: Colors.white,
+              color:Colors.white,
               borderRadius: new BorderRadius.only(
                 topLeft: const Radius.circular(40.0),
                 topRight: const Radius.circular(40.0),
-              )
-          ),
+              )),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -187,6 +213,9 @@ class AppUser {
                     '${AppUser.displayName}',
                     style: TextStyle(fontSize: 30.0),
                   ),
+                ),
+                Container(
+                  child: Text('${AppUser.email}'),
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 10),
@@ -226,7 +255,8 @@ class AppUser {
         else
           authCode = await AuthCodeClient.instance.request(); // web
 
-        AccessTokenResponse token = await AuthApi.instance.issueAccessToken(authCode); // get token
+        AccessTokenResponse token =
+            await AuthApi.instance.issueAccessToken(authCode); // get token
         AccessTokenStore.instance.toStore(token);
       } catch (e) {
         print(e);
@@ -246,9 +276,25 @@ class AppUser {
     return await AppUser.googleSignIn.signIn();
   }
 
-  static Future<Object> _facebookAuth() async {
-    // todo implement phone auth (facebook oauth redirect uri : https://globens-uz.firebaseapp.com/__/auth/handler)
-    return null;
+  static Future<Map> _facebookAuth() async {
+    Map userprofile;
+    facebookLogin = FacebookLogin();
+    final result = await facebookLogin.logIn(['email']);
+
+    if (result.status == FacebookLoginStatus.loggedIn) {
+      final token = result.accessToken.token;
+      print(token.toString());
+      final graphResponse = await http.get(
+          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture, email&access_token=${token}');
+
+      final profile = JSON.jsonDecode(graphResponse.body);
+      userprofile = profile;
+      print(userprofile["name"]);
+      print(userprofile["picture"]["data"]["url"]);
+      return userprofile;
+    } else {
+      return null;
+    }
   }
 
   static Future<Object> _appleAuth() async {

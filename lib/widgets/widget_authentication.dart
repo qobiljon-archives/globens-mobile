@@ -105,7 +105,7 @@ class AuthenticateWidgetState extends State<AuthenticateWidget> {
     );
   }
 
-  // endregion
+  // endregionK
 
   // region Event handlers
   void onPhoneAuthClick() async {

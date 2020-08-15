@@ -50,10 +50,6 @@ class MyHomePageState extends State<MyHomePage> {
           child: Column(
             children: [
               Products(),
-              RaisedButton(
-                child: Text("test"),
-                onPressed: (){},
-              )
             ],
           ),
         )
