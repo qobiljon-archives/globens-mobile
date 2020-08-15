@@ -62,6 +62,12 @@ dependencies:
   #region json
   json_conditional: ^1.0.2
   #endregion
+  #region floating_search_bar
+  floating_search_bar: ^0.3.0
+  #endregion
+  #region flappy_search_bar
+  flappy_search_bar: ^1.7.2
+  #endregion
 
 
 

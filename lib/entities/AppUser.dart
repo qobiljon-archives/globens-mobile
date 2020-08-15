@@ -285,12 +285,10 @@ class AppUser {
       final token = result.accessToken.token;
       print(token.toString());
       final graphResponse = await http.get(
-          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture, email&access_token=${token}');
+          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture,email&access_token=${token}');
 
       final profile = JSON.jsonDecode(graphResponse.body);
       userprofile = profile;
-      print(userprofile["name"]);
-      print(userprofile["picture"]["data"]["url"]);
       return userprofile;
     } else {
       return null;
