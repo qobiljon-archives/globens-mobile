@@ -1,7 +1,7 @@
+import 'package:globens_flutter_client/widgets/search_widget.dart';
 import 'package:globens_flutter_client/widgets/widget_authentication.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:flutter/material.dart';
-import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 // region Main page root
@@ -45,7 +45,14 @@ class MyHomePageState extends State<MyHomePage> {
             actions: [
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 // Icon Button to enter Login/SignIn page
-                IconButton(icon: Icon(Icons.search), onPressed: _searchPage),
+                IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Search()),
+                      );
+                    }),
                 IconButton(
                     icon: Icon(Icons.account_box), onPressed: _profileClick),
               ])
@@ -77,15 +84,6 @@ class MyHomePageState extends State<MyHomePage> {
           MaterialPageRoute(builder: (context) => AuthenticateWidget()));
   }
 
-  void _searchPage() {
-    // showModalBottomSheet(context: context, builder: (context) => Search());
-    showMaterialModalBottomSheet(
-        context: context,
-        expand: true,
-        duration: const Duration(milliseconds: 100),
-        builder: (context, scrollController) => Search());
-  }
-
 // endregion
 }
 // endregion
@@ -113,44 +111,6 @@ class Products extends StatelessWidget {
             ),
           );
         }),
-      ),
-    );
-  }
-}
-
-// endregion
-class Search extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 10.0),
-      child: FloatingSearchBar.builder(
-        itemCount: 100,
-        itemBuilder: (BuildContext context, int index) {
-          return null;
-        },
-        trailing: IconButton(
-          icon: Icon(Icons.clear),
-          onPressed: () {
-
-          },
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        onChanged: (String value) {
-          print("Hi");
-        },
-        onTap: () {},
-
-        decoration: InputDecoration.collapsed(
-          hintText: "Search a product",
-
-
-        ),
       ),
     );
   }
