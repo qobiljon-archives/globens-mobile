@@ -28,6 +28,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   flutter_launcher_icons: ^0.7.5
+  tuple: ^1.0.3
   # endregion
   # region gRPC
   async: ^2.2.0

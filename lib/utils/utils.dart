@@ -1,8 +1,10 @@
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
+import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:grpc/grpc.dart';
 
 Future<int> runTestSumRpc() async {
-  final channel = ClientChannel('192.168.0.7', port: 50052, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   int result;
@@ -18,7 +20,18 @@ Future<int> runTestSumRpc() async {
   return result;
 }
 
-void main() async {
-  int res = await runTestSumRpc();
-  print(res);
+Future<bool> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String accessToken) async {
+  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  try {
+    final response = await stub.authenticateUser(AuthenticateUser_Request()
+      ..accessToken = accessToken
+      ..method = method);
+    await channel.shutdown();
+    return response.success;
+  } catch (e) {
+    await channel.shutdown();
+    return false;
+  }
 }

@@ -8,24 +8,14 @@
 const AuthenticateUser$json = const {
   '1': 'AuthenticateUser',
   '3': const [AuthenticateUser_Request$json, AuthenticateUser_Response$json],
+  '4': const [AuthenticateUser_AuthMethod$json],
 };
 
 const AuthenticateUser_Request$json = const {
   '1': 'Request',
   '2': const [
-    const {'1': 'method', '3': 1, '4': 1, '5': 14, '6': '.AuthenticateUser.Request.AuthMethod', '10': 'method'},
-    const {'1': 'authKey', '3': 2, '4': 1, '5': 9, '10': 'authKey'},
-  ],
-  '4': const [AuthenticateUser_Request_AuthMethod$json],
-};
-
-const AuthenticateUser_Request_AuthMethod$json = const {
-  '1': 'AuthMethod',
-  '2': const [
-    const {'1': 'GOOGLE', '2': 0},
-    const {'1': 'FACEBOOK', '2': 1},
-    const {'1': 'KAKAOTALK', '2': 3},
-    const {'1': 'PHONE', '2': 4},
+    const {'1': 'method', '3': 1, '4': 1, '5': 14, '6': '.AuthenticateUser.AuthMethod', '10': 'method'},
+    const {'1': 'accessToken', '3': 2, '4': 1, '5': 9, '10': 'accessToken'},
   ],
 };
 
@@ -34,6 +24,16 @@ const AuthenticateUser_Response$json = const {
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'sessionKey', '3': 2, '4': 1, '5': 5, '10': 'sessionKey'},
+  ],
+};
+
+const AuthenticateUser_AuthMethod$json = const {
+  '1': 'AuthMethod',
+  '2': const [
+    const {'1': 'GOOGLE', '2': 0},
+    const {'1': 'FACEBOOK', '2': 1},
+    const {'1': 'KAKAOTALK', '2': 3},
+    const {'1': 'PHONE', '2': 4},
   ],
 };
 
@@ -588,3 +588,4 @@ const TestSum_Response$json = const {
     const {'1': 'c', '3': 1, '4': 1, '5': 5, '10': 'c'},
   ],
 };
+

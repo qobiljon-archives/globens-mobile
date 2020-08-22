@@ -9,22 +9,22 @@
 import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-class AuthenticateUser_Request_AuthMethod extends $pb.ProtobufEnum {
-  static const AuthenticateUser_Request_AuthMethod GOOGLE = AuthenticateUser_Request_AuthMethod._(0, 'GOOGLE');
-  static const AuthenticateUser_Request_AuthMethod FACEBOOK = AuthenticateUser_Request_AuthMethod._(1, 'FACEBOOK');
-  static const AuthenticateUser_Request_AuthMethod KAKAOTALK = AuthenticateUser_Request_AuthMethod._(3, 'KAKAOTALK');
-  static const AuthenticateUser_Request_AuthMethod PHONE = AuthenticateUser_Request_AuthMethod._(4, 'PHONE');
+class AuthenticateUser_AuthMethod extends $pb.ProtobufEnum {
+  static const AuthenticateUser_AuthMethod GOOGLE = AuthenticateUser_AuthMethod._(0, 'GOOGLE');
+  static const AuthenticateUser_AuthMethod FACEBOOK = AuthenticateUser_AuthMethod._(1, 'FACEBOOK');
+  static const AuthenticateUser_AuthMethod KAKAOTALK = AuthenticateUser_AuthMethod._(3, 'KAKAOTALK');
+  static const AuthenticateUser_AuthMethod PHONE = AuthenticateUser_AuthMethod._(4, 'PHONE');
 
-  static const $core.List<AuthenticateUser_Request_AuthMethod> values = <AuthenticateUser_Request_AuthMethod>[
+  static const $core.List<AuthenticateUser_AuthMethod> values = <AuthenticateUser_AuthMethod> [
     GOOGLE,
     FACEBOOK,
     KAKAOTALK,
     PHONE,
   ];
 
-  static final $core.Map<$core.int, AuthenticateUser_Request_AuthMethod> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static final $core.Map<$core.int, AuthenticateUser_AuthMethod> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static AuthenticateUser_AuthMethod valueOf($core.int value) => _byValue[value];
 
-  static AuthenticateUser_Request_AuthMethod valueOf($core.int value) => _byValue[value];
-
-  const AuthenticateUser_Request_AuthMethod._($core.int v, $core.String n) : super(v, n);
+  const AuthenticateUser_AuthMethod._($core.int v, $core.String n) : super(v, n);
 }
+
