@@ -9,6 +9,7 @@ message AuthenticateUser {
     FACEBOOK = 1;
     KAKAOTALK = 3;
     PHONE = 4;
+    APPLE = 5;
   }
   message Request{
     AuthMethod method = 1;

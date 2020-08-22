@@ -50,6 +50,30 @@
     			<string>com.googleusercontent.apps.829480803516-t92p94vpsbkbffqf26iul1bpskdr54d5</string>
     		</array>
     	</dict>
+    	<dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <!--
+                  Replace "000000000000" with your Facebook App ID here.
+                  **NOTE**: The scheme needs to start with `fb` and then your ID.
+                -->
+                <string>fb756128655189782</string>
+            </array>
+        </dict>
+    </array>
+
+    <key>FacebookAppID</key>
+    <!-- Replace "000000000000" with your Facebook App ID here. -->
+    <string>756128655189782</string>
+    <key>FacebookDisplayName</key>
+    <!-- Replace "YOUR_APP_NAME" with your Facebook App name. -->
+    <string>Globens Client App</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-share-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
     </array>
 
 	<key>LSRequiresIPhoneOS</key>

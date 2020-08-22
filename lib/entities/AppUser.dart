@@ -83,41 +83,32 @@ class AppUser {
     switch (authMethod) {
       case AuthMethod.PHONE:
         Object user = await AppUser._phoneAuth(); // todo change once phone auth is finished
-        if (user == null)
-          return false;
-        else {
-          AppUser.setProfileInfo(AuthMethod.PHONE, null, null, null);
-          AppUser.updateUserPrefsData();
-        }
+        if (user == null) return false;
+
+        AppUser.setProfileInfo(AuthMethod.PHONE, null, null, null);
+        AppUser.updateUserPrefsData();
         return true;
       case AuthMethod.KAKAO:
         Tuple2<String, User> tp = await AppUser._kakaoAuth();
-        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, tp.item1))
-          return false;
-        else {
-          User user = tp.item2;
-          AppUser.setProfileInfo(AuthMethod.KAKAO, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString());
-          AppUser.updateUserPrefsData();
-        }
+        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, tp.item1)) return false;
+
+        AppUser.setProfileInfo(AuthMethod.KAKAO, tp.item2.kakaoAccount.email, tp.item2.kakaoAccount.profile.nickname, tp.item2.kakaoAccount.profile.profileImageUrl.toString());
+        AppUser.updateUserPrefsData();
         return true;
       case AuthMethod.GOOGLE:
-        GoogleSignInAccount account = await AppUser._googleAuth();
-        if (account == null)
-          return false;
-        else {
-          AppUser.setProfileInfo(AuthMethod.GOOGLE, account.email, account.displayName, account.photoUrl);
-          AppUser.updateUserPrefsData();
-        }
+        Tuple2<String, GoogleSignInAccount> tp = await AppUser._googleAuth();
+        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, tp.item1)) return false;
+
+        AppUser.setProfileInfo(AuthMethod.GOOGLE, tp.item2.email, tp.item2.displayName, tp.item2.photoUrl);
+        AppUser.updateUserPrefsData();
         return true;
       case AuthMethod.FACEBOOK:
-        Map user = await AppUser._facebookAuth();
-        if (user != null) {
-          AppUser.setProfileInfo(AuthMethod.FACEBOOK, user["email"], user["name"], user["picture"]["data"]["url"]);
-          AppUser.updateUserPrefsData();
-          return true;
-        }
-        return false;
+        Tuple2<String, dynamic> tp = await AppUser._facebookAuth();
+        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.FACEBOOK, tp.item1)) return false;
 
+        AppUser.setProfileInfo(AuthMethod.FACEBOOK, tp.item2["email"], tp.item2["name"], tp.item2["picture"]["data"]["url"]);
+        AppUser.updateUserPrefsData();
+        return true;
       case AuthMethod.APPLE:
         Object user = await AppUser._appleAuth(); // todo change once apple auth is finished
         if (user == null)
@@ -256,23 +247,19 @@ class AppUser {
     }
   }
 
-  static Future<GoogleSignInAccount> _googleAuth() async {
-    return await AppUser.googleSignIn.signIn();
+  static Future<Tuple2<String, GoogleSignInAccount>> _googleAuth() async {
+    GoogleSignInAccount account = await AppUser.googleSignIn.signIn();
+    if (account == null) return null;
+    return Tuple2((await account.authentication).accessToken, account);
   }
 
-  static Future<Map> _facebookAuth() async {
-    Map userprofile;
+  static Future<Tuple2<String, dynamic>> _facebookAuth() async {
     facebookLogin = FacebookLogin();
     final result = await facebookLogin.logIn(['email']);
 
     if (result.status == FacebookLoginStatus.loggedIn) {
-      final token = result.accessToken.token;
-      print(token.toString());
-      final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture,email&access_token=${token}');
-
-      final profile = JSON.jsonDecode(graphResponse.body);
-      userprofile = profile;
-      return userprofile;
+      final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture,email&access_token=${result.accessToken.token}');
+      return Tuple2(result.accessToken.token, JSON.jsonDecode(graphResponse.body));
     } else {
       return null;
     }

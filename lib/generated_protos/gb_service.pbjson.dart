@@ -34,6 +34,7 @@ const AuthenticateUser_AuthMethod$json = const {
     const {'1': 'FACEBOOK', '2': 1},
     const {'1': 'KAKAOTALK', '2': 3},
     const {'1': 'PHONE', '2': 4},
+    const {'1': 'APPLE', '2': 5},
   ],
 };
 

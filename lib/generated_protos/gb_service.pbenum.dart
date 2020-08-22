@@ -14,12 +14,14 @@ class AuthenticateUser_AuthMethod extends $pb.ProtobufEnum {
   static const AuthenticateUser_AuthMethod FACEBOOK = AuthenticateUser_AuthMethod._(1, 'FACEBOOK');
   static const AuthenticateUser_AuthMethod KAKAOTALK = AuthenticateUser_AuthMethod._(3, 'KAKAOTALK');
   static const AuthenticateUser_AuthMethod PHONE = AuthenticateUser_AuthMethod._(4, 'PHONE');
+  static const AuthenticateUser_AuthMethod APPLE = AuthenticateUser_AuthMethod._(5, 'APPLE');
 
   static const $core.List<AuthenticateUser_AuthMethod> values = <AuthenticateUser_AuthMethod> [
     GOOGLE,
     FACEBOOK,
     KAKAOTALK,
     PHONE,
+    APPLE,
   ];
 
   static final $core.Map<$core.int, AuthenticateUser_AuthMethod> _byValue = $pb.ProtobufEnum.initByValue(values);
