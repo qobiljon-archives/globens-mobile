@@ -15,7 +15,7 @@ const AuthenticateUser_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'method', '3': 1, '4': 1, '5': 14, '6': '.AuthenticateUser.AuthMethod', '10': 'method'},
-    const {'1': 'accessToken', '3': 2, '4': 1, '5': 9, '10': 'accessToken'},
+    const {'1': 'tokensJson', '3': 2, '4': 1, '5': 9, '10': 'tokensJson'},
   ],
 };
 

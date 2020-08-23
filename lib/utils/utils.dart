@@ -20,14 +20,14 @@ Future<int> runTestSumRpc() async {
   return result;
 }
 
-Future<bool> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String accessToken) async {
+Future<bool> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
   final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   try {
     final response = await stub.authenticateUser(AuthenticateUser_Request()
-      ..accessToken = accessToken
-      ..method = method);
+      ..method = method
+      ..tokensJson = tokensJson);
     await channel.shutdown();
     return response.success;
   } catch (e) {

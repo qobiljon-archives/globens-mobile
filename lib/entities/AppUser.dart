@@ -81,32 +81,41 @@ class AppUser {
   // region Utility functions
   static Future<bool> signIn(AuthMethod authMethod) async {
     switch (authMethod) {
+      case AuthMethod.KAKAO:
+        Tuple2<User, Map> tp = await AppUser._kakaoAuth();
+        User user = tp.item1;
+        Map tokens = tp.item2;
+
+        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, JSON.jsonEncode(tokens))) return false;
+
+        AppUser.setProfileInfo(AuthMethod.KAKAO, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString());
+        AppUser.updateUserPrefsData();
+        return true;
+      case AuthMethod.GOOGLE:
+        Tuple2<GoogleSignInAccount, Map> tp = await AppUser._googleAuth();
+        GoogleSignInAccount user = tp.item1;
+        Map tokens = tp.item2;
+
+        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens))) return false;
+
+        AppUser.setProfileInfo(AuthMethod.GOOGLE, user.email, user.displayName, user.photoUrl);
+        AppUser.updateUserPrefsData();
+        return true;
+      case AuthMethod.FACEBOOK:
+        Tuple2<Map, Map> tp = await AppUser._facebookAuth();
+        Map user = tp.item1;
+        Map tokens = tp.item2;
+
+        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.FACEBOOK, JSON.jsonEncode(tokens))) return false;
+
+        AppUser.setProfileInfo(AuthMethod.FACEBOOK, user["email"], user["name"], user["picture"]["data"]["url"]);
+        AppUser.updateUserPrefsData();
+        return true;
       case AuthMethod.PHONE:
         Object user = await AppUser._phoneAuth(); // todo change once phone auth is finished
         if (user == null) return false;
 
         AppUser.setProfileInfo(AuthMethod.PHONE, null, null, null);
-        AppUser.updateUserPrefsData();
-        return true;
-      case AuthMethod.KAKAO:
-        Tuple2<String, User> tp = await AppUser._kakaoAuth();
-        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, tp.item1)) return false;
-
-        AppUser.setProfileInfo(AuthMethod.KAKAO, tp.item2.kakaoAccount.email, tp.item2.kakaoAccount.profile.nickname, tp.item2.kakaoAccount.profile.profileImageUrl.toString());
-        AppUser.updateUserPrefsData();
-        return true;
-      case AuthMethod.GOOGLE:
-        Tuple2<String, GoogleSignInAccount> tp = await AppUser._googleAuth();
-        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, tp.item1)) return false;
-
-        AppUser.setProfileInfo(AuthMethod.GOOGLE, tp.item2.email, tp.item2.displayName, tp.item2.photoUrl);
-        AppUser.updateUserPrefsData();
-        return true;
-      case AuthMethod.FACEBOOK:
-        Tuple2<String, dynamic> tp = await AppUser._facebookAuth();
-        if (tp == null || !await gprcAuthenticateUser(AuthenticateUser_AuthMethod.FACEBOOK, tp.item1)) return false;
-
-        AppUser.setProfileInfo(AuthMethod.FACEBOOK, tp.item2["email"], tp.item2["name"], tp.item2["picture"]["data"]["url"]);
         AppUser.updateUserPrefsData();
         return true;
       case AuthMethod.APPLE:
@@ -212,16 +221,12 @@ class AppUser {
   // endregion
 
   // region 3rd-party auth methods
-  static Future<Object> _phoneAuth() async {
-    // todo implement phone auth
-    return null;
-  }
+  static Future<Tuple2<User, Map>> _kakaoAuth() async {
+    Map<String, dynamic> tokens = {};
 
-  static Future<Tuple2<String, User>> _kakaoAuth() async {
     AccessToken token = await AccessTokenStore.instance.fromStore();
 
-    String accessToken;
-    if (token.refreshToken == null) {
+    if (token.accessToken == null) {
       // token locally unavailable
       try {
         String authCode; // get auth code
@@ -232,37 +237,62 @@ class AppUser {
 
         AccessTokenResponse token = await AuthApi.instance.issueAccessToken(authCode); // get token
         AccessTokenStore.instance.toStore(token);
-        accessToken = token.accessToken;
+
+        tokens.putIfAbsent("accessToken", () => token.accessToken);
+        tokens.putIfAbsent("expiresIn", () => token.expiresIn);
+        tokens.putIfAbsent("refreshToken", () => token.refreshToken);
+        tokens.putIfAbsent("refreshTokenExpiresIn", () => token.refreshTokenExpiresIn);
+        tokens.putIfAbsent("scopes", () => token.scopes);
+        tokens.putIfAbsent("tokenType", () => token.tokenType);
+
+        return Tuple2(await UserApi.instance.me(), tokens);
       } catch (e) {
         print(e);
-        return null;
       }
     }
-
-    try {
-      return Tuple2(accessToken, await UserApi.instance.me());
-    } catch (e) {
-      print(e);
-      return null;
-    }
+    return null;
   }
 
-  static Future<Tuple2<String, GoogleSignInAccount>> _googleAuth() async {
+  static Future<Tuple2<GoogleSignInAccount, Map>> _googleAuth() async {
+    Map<String, dynamic> tokens = {};
+
     GoogleSignInAccount account = await AppUser.googleSignIn.signIn();
-    if (account == null) return null;
-    return Tuple2((await account.authentication).accessToken, account);
+    if (account != null) {
+      GoogleSignInAuthentication auth = await account.authentication;
+
+      tokens.putIfAbsent("idToken", () => auth.idToken);
+      tokens.putIfAbsent("accessToken", () => auth.accessToken);
+      tokens.putIfAbsent("serverAuthCode", () => auth.serverAuthCode);
+      return Tuple2(account, tokens);
+    }
+
+    return null;
   }
 
-  static Future<Tuple2<String, dynamic>> _facebookAuth() async {
-    facebookLogin = FacebookLogin();
-    final result = await facebookLogin.logIn(['email']);
+  static Future<Tuple2<Map, Map>> _facebookAuth() async {
+    Map<String, dynamic> tokens = {};
 
-    if (result.status == FacebookLoginStatus.loggedIn) {
-      final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture,email&access_token=${result.accessToken.token}');
-      return Tuple2(result.accessToken.token, JSON.jsonDecode(graphResponse.body));
-    } else {
-      return null;
+    facebookLogin = FacebookLogin();
+    FacebookLoginResult facebookLoginResult = await facebookLogin.logIn(['email']);
+
+    if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
+      final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture,email&access_token=${facebookLoginResult.accessToken.token}');
+
+      tokens.putIfAbsent("accessToken", () => facebookLoginResult.accessToken.token);
+      tokens.putIfAbsent("userId", () => facebookLoginResult.accessToken.userId);
+      tokens.putIfAbsent("declinedPermissions", () => facebookLoginResult.accessToken.declinedPermissions.toString());
+      tokens.putIfAbsent("expires", () => facebookLoginResult.accessToken.expires.millisecondsSinceEpoch);
+      tokens.putIfAbsent("permissions", () => facebookLoginResult.accessToken.permissions.toString());
+
+      return Tuple2(JSON.jsonDecode(graphResponse.body), tokens);
     }
+
+    return null;
+  }
+
+  static Future<Object> _phoneAuth() async {
+    // todo implement phone auth
+    return null;
   }
 
   static Future<Object> _appleAuth() async {

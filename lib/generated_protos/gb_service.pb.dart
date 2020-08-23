@@ -16,7 +16,7 @@ export 'gb_service.pbenum.dart';
 class AuthenticateUser_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('AuthenticateUser.Request', createEmptyInstance: create)
     ..e<AuthenticateUser_AuthMethod>(1, 'method', $pb.PbFieldType.OE, defaultOrMaker: AuthenticateUser_AuthMethod.GOOGLE, valueOf: AuthenticateUser_AuthMethod.valueOf, enumValues: AuthenticateUser_AuthMethod.values)
-    ..aOS(2, 'accessToken', protoName: 'accessToken')
+    ..aOS(2, 'tokensJson', protoName: 'tokensJson')
     ..hasRequiredFields = false
   ;
 
@@ -45,13 +45,13 @@ class AuthenticateUser_Request extends $pb.GeneratedMessage {
   void clearMethod() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get accessToken => $_getSZ(1);
+  $core.String get tokensJson => $_getSZ(1);
   @$pb.TagNumber(2)
-  set accessToken($core.String v) { $_setString(1, v); }
+  set tokensJson($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasAccessToken() => $_has(1);
+  $core.bool hasTokensJson() => $_has(1);
   @$pb.TagNumber(2)
-  void clearAccessToken() => clearField(2);
+  void clearTokensJson() => clearField(2);
 }
 
 class AuthenticateUser_Response extends $pb.GeneratedMessage {
