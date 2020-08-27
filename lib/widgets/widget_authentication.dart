@@ -1,6 +1,9 @@
+
+
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/main.dart';
 
 class AuthenticateWidget extends StatefulWidget {
   @override
@@ -12,9 +15,7 @@ class AuthenticateWidgetState extends State<AuthenticateWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('User authentication'),
-      ),
+
       body: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Container(
@@ -104,42 +105,90 @@ class AuthenticateWidgetState extends State<AuthenticateWidget> {
     );
   }
 
-  // endregionK
+  // endregion
+
 
   // region Event handlers
   void onPhoneAuthClick() async {
     if (await AppUser.signIn(AuthMethod.PHONE))
-      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MyStatefulWidget()),
+      );
     else
-      Fluttertoast.showToast(msg: "Failed to login with phone number.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      Fluttertoast.showToast(
+          msg: "Failed to login with phone number.\nPlease try again later!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
   }
 
   void onKakaoAuthClick() async {
     if (await AppUser.signIn(AuthMethod.KAKAO))
-      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MyStatefulWidget()),
+      );
     else
-      Fluttertoast.showToast(msg: "Failed to login with Kakao.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      Fluttertoast.showToast(
+          msg: "Failed to login with Kakao.\nPlease try again later!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
   }
 
   void onGoogleAuthClick() async {
     if (await AppUser.signIn(AuthMethod.GOOGLE))
-      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MyStatefulWidget()),
+      );
     else
-      Fluttertoast.showToast(msg: "Failed to login with Google.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      Fluttertoast.showToast(
+          msg: "Failed to login with Google.\nPlease try again later!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
   }
 
   void onFacebookAuthClick() async {
     if (await AppUser.signIn(AuthMethod.FACEBOOK))
-      Navigator.pop(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MyStatefulWidget()),
+      );
     else
-      Fluttertoast.showToast(msg: "Failed to login with Facebook.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      Fluttertoast.showToast(
+          msg: "Failed to login with Facebook.\nPlease try again later!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
   }
 
   void onAppleAuthClick() async {
     if (await AppUser.signIn(AuthMethod.APPLE))
       Navigator.pop(context);
     else
-      Fluttertoast.showToast(msg: "Failed to login with Apple.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      Fluttertoast.showToast(
+          msg: "Failed to login with Apple.\nPlease try again later!",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey,
+          textColor: Colors.white,
+          fontSize: 16.0);
   }
 // endregion
 }

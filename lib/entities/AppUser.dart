@@ -1,5 +1,6 @@
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
+import 'package:globens_flutter_client/main.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -209,7 +210,10 @@ class AppUser {
                     child: Text("SIGN OUT"),
                     onPressed: () async {
                       await AppUser.signOut();
-                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MyStatefulWidget()),
+                      );
                     },
                   ),
                 ),

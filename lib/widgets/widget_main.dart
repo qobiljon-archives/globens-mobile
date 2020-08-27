@@ -1,11 +1,13 @@
-import 'package:globens_flutter_client/widgets/search_widget.dart';
-import 'package:globens_flutter_client/widgets/widget_authentication.dart';
+import 'package:globens_flutter_client/widgets/widget_search.dart';
+import 'widget_businesspage.dart';
+import 'widget_authentication.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import '';
 
 // region Main page root
-class MyApp extends StatefulWidget {
+/*class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -23,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       home: MyHomePage(),
     );
   }
-}
+}*/
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -37,31 +39,35 @@ class MyHomePageState extends State<MyHomePage> {
     AppUser.init();
     return Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-            title: Text(
-              "Globens",
-              textAlign: TextAlign.center,
-            ),
-            actions: [
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                // Icon Button to enter Login/SignIn page
-                IconButton(
-                    icon: Icon(Icons.search),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Search()),
-                      );
-                    }),
-                IconButton(
-                    icon: Icon(Icons.account_box), onPressed: _profileClick),
-              ])
-            ]),
 
         //main body: 1) products 2)promo
         body: Container(
+          margin: EdgeInsets.only(top: 30.0),
           child: Column(
             children: [
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                // Icon Button to enter Login/SignIn page
+                Container(
+                    margin: EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      "Home",
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue),
+                    )),
+                Container(
+                  margin: EdgeInsets.only(left: 10.0),
+                  child: IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Search()),
+                        );
+                      }),
+                ),
+              ]),
               Products(),
             ],
           ),
@@ -70,19 +76,9 @@ class MyHomePageState extends State<MyHomePage> {
         );
   }
 
-  // endregion
+// endregion
 
-  // region Event handlers
-
-  void _profileClick() {
-    if (AppUser.isAuthenticated())
-      showModalBottomSheet(
-          context: context,
-          builder: (context) => AppUser.getProfileViewContainer(context));
-    else
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => AuthenticateWidget()));
-  }
+// region Event handlers
 
 // endregion
 }
