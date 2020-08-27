@@ -84,58 +84,50 @@ class AppUser {
     switch (authMethod) {
       case AuthMethod.KAKAO:
         Tuple2<User, Map> tp = await AppUser._kakaoAuth();
-        User user = tp.item1;
-        Map tokens = tp.item2;
-        Tuple2<bool, String> response = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, JSON.jsonEncode(tokens));
 
-        if (tp == null || !response.item1) return false;
+        if (tp != null) {
+          User user = tp.item1;
+          Map tokens = tp.item2;
+          Tuple2<bool, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, JSON.jsonEncode(tokens));
 
-        AppUser.setProfileInfo(AuthMethod.KAKAO, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString());
-        AppUser.updateUserPrefsData();
-        return true;
+          if (res.item1) {
+            AppUser.setProfileInfo(AuthMethod.KAKAO, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString());
+            AppUser.updateUserPrefsData();
+          }
+        }
+        return false;
 
       case AuthMethod.GOOGLE:
+        if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
         Tuple2<GoogleSignInAccount, Map> tp = await AppUser._googleAuth();
-        GoogleSignInAccount user = tp.item1;
-        Map tokens = tp.item2;
-        Tuple2<bool, String> response = await gprcAuthenticateUser(AuthentiKcateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
 
-        if (tp == null || !response.item1) return false;
+        if (tp != null) {
+          GoogleSignInAccount user = tp.item1;
+          Map tokens = tp.item2;
+          Tuple2<bool, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
 
-        AppUser.setProfileInfo(AuthMethod.GOOGLE, user.email, user.displayName, user.photoUrl);
-        AppUser.updateUserPrefsData();
-
-        print(response.item2);
-        return true;
+          if (res.item1) {
+            AppUser.setProfileInfo(AuthMethod.GOOGLE, user.email, user.displayName, user.photoUrl);
+            AppUser.updateUserPrefsData();
+            return true;
+          }
+        }
+        return false;
 
       case AuthMethod.FACEBOOK:
         Tuple2<Map, Map> tp = await AppUser._facebookAuth();
-        Map user = tp.item1;
-        Map tokens = tp.item2;
-        Tuple2<bool, String> response = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.FACEBOOK, JSON.jsonEncode(tokens));
-        if (tp == null || !response.item1) return false;
+        if (tp != null) {
+          Map user = tp.item1;
+          Map tokens = tp.item2;
+          Tuple2<bool, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.FACEBOOK, JSON.jsonEncode(tokens));
 
-        AppUser.setProfileInfo(AuthMethod.FACEBOOK, user["email"], user["name"], user["picture"]["data"]["url"]);
-        AppUser.updateUserPrefsData();
-        return true;
-
-      case AuthMethod.PHONE:
-        Object user = await AppUser._phoneAuth(); // todo change once phone auth is finished
-        if (user == null) return false;
-
-        AppUser.setProfileInfo(AuthMethod.PHONE, null, null, null);
-        AppUser.updateUserPrefsData();
-        return true;
-
-      case AuthMethod.APPLE:
-        Object user = await AppUser._appleAuth(); // todo change once apple auth is finished
-        if (user == null)
-          return false;
-        else {
-          AppUser.setProfileInfo(AuthMethod.APPLE, null, null, null);
-          AppUser.updateUserPrefsData();
+          if (res.item1) {
+            AppUser.setProfileInfo(AuthMethod.FACEBOOK, user["email"], user["name"], user["picture"]["data"]["url"]);
+            AppUser.updateUserPrefsData();
+          }
         }
-        return true;
+        return false;
+
       default:
         return false;
     }
@@ -269,6 +261,7 @@ class AppUser {
     Map<String, dynamic> tokens = {};
 
     GoogleSignInAccount account = await AppUser.googleSignIn.signIn();
+
     if (account != null) {
       GoogleSignInAuthentication auth = await account.authentication;
 

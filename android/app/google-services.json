@@ -38,6 +38,13 @@
             {
               "client_id": "829480803516-qocp2cam1hik5q3atiq8haivk4fs5m8r.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "829480803516-t92p94vpsbkbffqf26iul1bpskdr54d5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "uz.globens"
+              }
             }
           ]
         }
