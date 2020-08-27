@@ -4,9 +4,12 @@ import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:grpc/grpc.dart';
 import 'package:tuple/tuple.dart';
 
-
-Future<Tuple2<bool, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
-  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+Future<Tuple2<bool, String>> gprcAuthenticateUser(
+    AuthenticateUser_AuthMethod method, String tokensJson) async {
+  final channel = ClientChannel(grpc_host,
+      port: grpc_port,
+      options:
+          const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   try {
@@ -14,9 +17,9 @@ Future<Tuple2<bool, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod me
       ..method = method
       ..tokensJson = tokensJson);
     await channel.shutdown();
-    return response.success;
+    return Tuple2(response.success, response.sessionKey);
   } catch (e) {
     await channel.shutdown();
-    return false;
+    return Tuple2(false, null);
   }
 }
