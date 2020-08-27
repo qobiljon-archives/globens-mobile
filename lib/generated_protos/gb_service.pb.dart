@@ -57,7 +57,7 @@ class AuthenticateUser_Request extends $pb.GeneratedMessage {
 class AuthenticateUser_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('AuthenticateUser.Response', createEmptyInstance: create)
     ..aOB(1, 'success')
-    ..a<$core.int>(2, 'sessionKey', $pb.PbFieldType.O3, protoName: 'sessionKey')
+    ..aOS(2, 'sessionKey', protoName: 'sessionKey')
     ..hasRequiredFields = false
   ;
 
@@ -86,9 +86,9 @@ class AuthenticateUser_Response extends $pb.GeneratedMessage {
   void clearSuccess() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get sessionKey => $_getIZ(1);
+  $core.String get sessionKey => $_getSZ(1);
   @$pb.TagNumber(2)
-  set sessionKey($core.int v) { $_setSignedInt32(1, v); }
+  set sessionKey($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
   $core.bool hasSessionKey() => $_has(1);
   @$pb.TagNumber(2)

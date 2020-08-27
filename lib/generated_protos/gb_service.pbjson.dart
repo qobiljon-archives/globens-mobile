@@ -23,7 +23,7 @@ const AuthenticateUser_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'sessionKey', '3': 2, '4': 1, '5': 5, '10': 'sessionKey'},
+    const {'1': 'sessionKey', '3': 2, '4': 1, '5': 9, '10': 'sessionKey'},
   ],
 };
 
