@@ -3,6 +3,27 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticationWidget extends StatelessWidget {
+  void _onKakaoPressed(BuildContext context) async {
+    if (await AppUser.signIn(AuthMethod.KAKAO))
+      Navigator.of(context).popUntil(ModalRoute.withName('root'));
+    else
+      Fluttertoast.showToast(msg: "Failed to login with Kakao.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+  }
+
+  void _onGooglePressed(BuildContext context) async {
+    if (await AppUser.signIn(AuthMethod.GOOGLE))
+      Navigator.of(context).popUntil(ModalRoute.withName('root'));
+    else
+      Fluttertoast.showToast(msg: "Failed to login with Google.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+  }
+
+  void _onFacebookPressed(BuildContext context) async {
+    if (await AppUser.signIn(AuthMethod.FACEBOOK))
+      Navigator.of(context).popUntil(ModalRoute.withName('root'));
+    else
+      Fluttertoast.showToast(msg: "Failed to login with Facebook.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,12 +55,7 @@ class AuthenticationWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
                 elevation: 0.0,
-                onPressed: () async {
-                  if (await AppUser.signIn(AuthMethod.KAKAO))
-                    Navigator.of(context).popUntil(ModalRoute.withName('root'));
-                  else
-                    Fluttertoast.showToast(msg: "Failed to login with Kakao.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
-                },
+                onPressed: () => _onKakaoPressed(context),
               ),
             ),
             Container(
@@ -57,12 +73,7 @@ class AuthenticationWidget extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   elevation: 0.0,
-                  onPressed: () async {
-                    if (await AppUser.signIn(AuthMethod.GOOGLE))
-                      Navigator.of(context).popUntil(ModalRoute.withName('root'));
-                    else
-                      Fluttertoast.showToast(msg: "Failed to login with Google.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
-                  }),
+                  onPressed: () => _onGooglePressed(context)),
             ),
             Container(
               width: double.infinity,
@@ -79,15 +90,9 @@ class AuthenticationWidget extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                   elevation: 0.0,
-                  onPressed: () async {
-                    if (await AppUser.signIn(AuthMethod.FACEBOOK))
-                      Navigator.of(context).popUntil(ModalRoute.withName('root'));
-                    else
-                      Fluttertoast.showToast(msg: "Failed to login with Facebook.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
-                  }),
+                  onPressed: () => _onFacebookPressed(context)),
             ),
           ]),
-        )
-    );
+        ));
   }
 }
