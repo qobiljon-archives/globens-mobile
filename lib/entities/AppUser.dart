@@ -45,7 +45,13 @@ class AppUser {
   static String _email;
   static String _displayName;
   static String _profileImageUrl;
-  static String sessionKey;
+  static String _sessionKey;
+
+  AuthMethod get authMethod { return _authMethod; }
+  String get email { return _email; }
+  String get displayName { return _displayName; }
+  String get profileImageUrl { return _profileImageUrl; }
+  String get sessionKey { return _sessionKey; }
 
   // endregion
 
@@ -55,7 +61,7 @@ class AppUser {
     AppUser._email = email;
     AppUser._displayName = displayName;
     AppUser._profileImageUrl = profileImageUrl;
-    AppUser.sessionKey = sessionKey;
+    AppUser._sessionKey = sessionKey;
   }
 
   static void clearProfileInfo() {
@@ -63,18 +69,6 @@ class AppUser {
     AppUser._email = null;
     AppUser._displayName = null;
     AppUser._profileImageUrl = null;
-  }
-
-  static String get email {
-    return AppUser._email;
-  }
-
-  static String get displayName {
-    return AppUser._displayName;
-  }
-
-  static String get profileImageUrl {
-    return AppUser._profileImageUrl;
   }
 
   // endregion
@@ -171,7 +165,7 @@ class AppUser {
     userPrefs.setString("email", AppUser._email);
     userPrefs.setString("displayName", AppUser._displayName);
     userPrefs.setString("profileImageUrl", AppUser._profileImageUrl);
-    userPrefs.setString("sessionKey", AppUser.sessionKey);
+    userPrefs.setString("sessionKey", AppUser._sessionKey);
   }
 
   static bool isAuthenticated() {
