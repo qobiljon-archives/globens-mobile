@@ -64,8 +64,7 @@ class AuthenticationWidget extends StatelessWidget {
                 elevation: 0.0,
                 onPressed: () => _onFacebookPressed(context)),
           ),
-        ])
-    );
+        ]));
   }
 
   void _onKakaoPressed(BuildContext context) async {
