@@ -1,0 +1,39 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:2:1-17:12
+INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:2:1-17:12
+INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:2:1-17:12
+	package
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:3:11-42
+		INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml
+		INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:2:11-69
+application
+ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:5:5-15:19
+activity#com.kakao.sdk.flutter.TalkAuthCodeActivity
+ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:6:9-9:20
+	android:launchMode
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:7:19-50
+	android:theme
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:8:19-59
+	android:name
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:6:19-55
+activity#com.kakao.sdk.flutter.AuthCodeCustomTabsActivity
+ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:10:9-14:59
+	android:launchMode
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:13:17-48
+	android:exported
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:12:17-40
+	android:theme
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:14:17-57
+	android:name
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml:11:17-59
+uses-sdk
+INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml
+INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml
+		ADDED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml
+		INJECTED from /home/ilyosbek/snap/flutter/common/flutter/.pub-cache/hosted/pub.dartlang.org/kakao_flutter_sdk-0.4.2/android/src/main/AndroidManifest.xml
