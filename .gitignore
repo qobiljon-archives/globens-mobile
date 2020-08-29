@@ -1,4 +1,7 @@
 /.idea/
 /.dart_tool/
 /.gradle/
+.packages
+build/
+pubspec.lock
 .DS_Store
