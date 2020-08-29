@@ -1,0 +1,448 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:1:1-76:12
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:1:1-76:12
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:1:1-76:12
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:1:1-76:12
+MERGED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:1:1-76:12
+MERGED from [:google_sign_in] /home/ilyosbek/StudioProjects/globens_flutter_client/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-20:12
+MERGED from [:fluttertoast] /home/ilyosbek/StudioProjects/globens_flutter_client/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:package_info] /home/ilyosbek/StudioProjects/globens_flutter_client/build/package_info/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:flutter_facebook_login] /home/ilyosbek/StudioProjects/globens_flutter_client/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-22:12
+MERGED from [:flutter_plugin_android_lifecycle] /home/ilyosbek/StudioProjects/globens_flutter_client/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:camera] /home/ilyosbek/StudioProjects/globens_flutter_client/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-10:12
+MERGED from [:path_provider] /home/ilyosbek/StudioProjects/globens_flutter_client/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences] /home/ilyosbek/StudioProjects/globens_flutter_client/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-7:12
+MERGED from [com.facebook.android:facebook-login:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/eaeb1cdf087f115c1bd7bc06609600a9/jetified-facebook-login-5.5.1/AndroidManifest.xml:21:1-31:12
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:21:1-37:12
+MERGED from [androidx.appcompat:appcompat:1.0.2] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/bc4e881ce55d212b7f62124a02287749/appcompat-1.0.2/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:17:1-39:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/bd002668545166433d31100656d7b40f/jetified-play-services-auth-api-phone-16.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/6501af76ad955b00b1d8603308a738c2/jetified-play-services-auth-base-16.0.0/AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/5dce11e485e647d66b643d9055d71545/jetified-play-services-tasks-16.0.1/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/9181749b3b3ce2351d453f59dde3c047/jetified-play-services-basement-16.0.1/AndroidManifest.xml:17:1-28:12
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/3313ee25abbd62257155cdf2f66e3a2d/legacy-support-v4-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/68df43d0c418424bfae8d148f2d88cec/fragment-1.1.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.browser:browser:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/4affe1b348f1c2d2e4572980b3b28e07/browser-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/f41b0a26ce82072c292a5a7d4aa64a4f/vectordrawable-animated-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7009736e01e8b1ad5d13926cf71ca632/legacy-support-core-ui-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/31fd43eaa1618e27f15786c7814b5cd4/viewpager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:21:1-61:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/e7aee647f0e3b923d441975c4f98d01d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/94cc203d36d4c816e50831684e241f5b/loader-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/494b84746010adca86bb552df0cde145/activity-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7f2159448b41b93562205b5b6b07781b/vectordrawable-1.0.1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b41d9012914e311c50fbd30ab3a825ba/coordinatorlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7c61f88c1907901725a34d99f9b12521/drawerlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/745de73c58fca54e27ba860548836161/slidingpanelayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/684d4bc135e00ae6bf59e971d750ef21/customview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b7a8646c3e88d9f539d1a3e6d5969c7e/swiperefreshlayout-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/8dd0cf31eece8e79a47e48ee92982b27/asynclayoutinflater-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.media:media:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7740a65ef70047ba369e4760f9e353b9/media-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/ce9277565775987e5d404f774faa9150/core-1.1.0/AndroidManifest.xml:17:1-26:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/c452f5dc1c4cf6a7ca4d9e6cb816c359/lifecycle-runtime-2.2.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/49df15d7f6cad2e65470ee27f37c109d/savedstate-1.0.0/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/e7a8b5172eff53c27272fd71e91ea886/lifecycle-livedata-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/30858788b1b4107a358d3ad564ba43c2/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/da05ecc2cc754c0359c76d2664fbf5a0/core-runtime-2.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/0df44ba6c4807cdcf4ae7f50d3ab2c31/versionedparcelable-1.1.0/AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/dae9fd610c4f3e8af26735bec75a83a6/interpolator-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/24adf4bcf92e0859c71288576c1c4e46/cursoradapter-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/a216085d0de42cb73f2b8d49bf717b4a/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/d9a3fc159366b7210a8622344533df86/documentfile-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/d8e5d372c40f5d66661b503e9cbce255/localbroadcastmanager-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/83730dfaebd4e9fc86bb28e67205b4f9/print-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cardview:cardview:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/35095f9504140a1a3e5fb8e7684462ac/cardview-1.0.0/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/2b492788c7380d83f70e08a2aa71256d/constraintlayout-1.1.3/AndroidManifest.xml:2:1-11:12
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml:1:1-7:12
+	package
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:2:11-46
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml
+	android:versionName
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:1:1-76:12
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:1:1-76:12
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml
+	xmlns:android
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:1:11-69
+application
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:8:5-75:19
+MERGED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-18:19
+MERGED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-18:19
+MERGED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
+MERGED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-20:19
+MERGED from [com.facebook.android:facebook-login:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/eaeb1cdf087f115c1bd7bc06609600a9/jetified-facebook-login-5.5.1/AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-login:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/eaeb1cdf087f115c1bd7bc06609600a9/jetified-facebook-login-5.5.1/AndroidManifest.xml:28:5-29:19
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:28:5-35:19
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:28:5-35:19
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:22:5-37:19
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/5dce11e485e647d66b643d9055d71545/jetified-play-services-tasks-16.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/5dce11e485e647d66b643d9055d71545/jetified-play-services-tasks-16.0.1/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/9181749b3b3ce2351d453f59dde3c047/jetified-play-services-basement-16.0.1/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/9181749b3b3ce2351d453f59dde3c047/jetified-play-services-basement-16.0.1/AndroidManifest.xml:22:5-26:19
+MERGED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:28:5-59:19
+MERGED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:28:5-59:19
+MERGED from [androidx.core:core:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/ce9277565775987e5d404f774faa9150/core-1.1.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.core:core:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/ce9277565775987e5d404f774faa9150/core-1.1.0/AndroidManifest.xml:24:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/0df44ba6c4807cdcf4ae7f50d3ab2c31/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/0df44ba6c4807cdcf4ae7f50d3ab2c31/versionedparcelable-1.1.0/AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/2b492788c7380d83f70e08a2aa71256d/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/2b492788c7380d83f70e08a2aa71256d/constraintlayout-1.1.3/AndroidManifest.xml:9:5-20
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/ce9277565775987e5d404f774faa9150/core-1.1.0/AndroidManifest.xml:24:18-86
+	android:supportsRtl
+		ADDED from [com.facebook.android:facebook-login:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/eaeb1cdf087f115c1bd7bc06609600a9/jetified-facebook-login-5.5.1/AndroidManifest.xml:28:18-44
+	android:label
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:10:13-36
+	android:icon
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:11:13-47
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:9:13-61
+activity#uz.globens_flutter_client.MainActivity
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:12:9-40:20
+	android:launchMode
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:14:17-47
+	android:hardwareAccelerated
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:17:17-51
+	android:windowSoftInputMode
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:18:17-59
+	android:configChanges
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:16:17-167
+	android:theme
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:15:17-51
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:13:17-45
+meta-data#io.flutter.embedding.android.NormalTheme
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:23:13-26:15
+	android:resource
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:25:21-58
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:24:21-76
+meta-data#io.flutter.embedding.android.SplashScreenDrawable
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:32:13-35:15
+	android:resource
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:34:21-67
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:33:21-85
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:36:13-39:29
+action#android.intent.action.MAIN
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:37:17-68
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:37:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:38:17-76
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:38:27-74
+activity#com.kakao.sdk.flutter.AuthCodeCustomTabsActivity
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:41:9-48:20
+MERGED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-17:56
+MERGED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-17:56
+	android:launchMode
+		ADDED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-44
+	android:exported
+		ADDED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-36
+	android:theme
+		ADDED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-53
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:41:19-82
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:oauth+data:scheme:kakao25bf75f9c559f5f1f78da11571eb818a
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:42:13-47:29
+	android:label
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:42:28-60
+action#android.intent.action.VIEW
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:43:17-68
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:43:25-66
+category#android.intent.category.DEFAULT
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:44:17-75
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:44:27-73
+category#android.intent.category.BROWSABLE
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:45:17-77
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:45:27-75
+data
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:46:17-100
+	android:host
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:46:78-98
+	android:scheme
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:46:23-77
+meta-data#flutterEmbedding
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:51:9-53:36
+	android:value
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:53:17-34
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:52:17-48
+meta-data#com.facebook.sdk.ApplicationId
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:55:9-56:61
+	android:value
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:56:20-59
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:55:20-65
+activity#com.facebook.FacebookActivity
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:58:9-61:53
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:29:9-32:66
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:29:9-32:66
+	android:label
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:61:19-51
+	android:configChanges
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:59:19-129
+	android:theme
+		ADDED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:32:13-63
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:58:19-63
+activity#com.facebook.CustomTabActivity
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:63:9-72:20
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:34:9-67
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:34:9-67
+	android:exported
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:65:17-40
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:64:17-62
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:@string/fb_login_protocol_scheme
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml:66:13-71:29
+uses-sdk
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml
+MERGED from [:google_sign_in] /home/ilyosbek/StudioProjects/globens_flutter_client/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:google_sign_in] /home/ilyosbek/StudioProjects/globens_flutter_client/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /home/ilyosbek/StudioProjects/globens_flutter_client/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:fluttertoast] /home/ilyosbek/StudioProjects/globens_flutter_client/build/fluttertoast/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:package_info] /home/ilyosbek/StudioProjects/globens_flutter_client/build/package_info/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:package_info] /home/ilyosbek/StudioProjects/globens_flutter_client/build/package_info/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_facebook_login] /home/ilyosbek/StudioProjects/globens_flutter_client/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_facebook_login] /home/ilyosbek/StudioProjects/globens_flutter_client/build/flutter_facebook_login/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /home/ilyosbek/StudioProjects/globens_flutter_client/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:flutter_plugin_android_lifecycle] /home/ilyosbek/StudioProjects/globens_flutter_client/build/flutter_plugin_android_lifecycle/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:camera] /home/ilyosbek/StudioProjects/globens_flutter_client/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:camera] /home/ilyosbek/StudioProjects/globens_flutter_client/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] /home/ilyosbek/StudioProjects/globens_flutter_client/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:path_provider] /home/ilyosbek/StudioProjects/globens_flutter_client/build/path_provider/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] /home/ilyosbek/StudioProjects/globens_flutter_client/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] /home/ilyosbek/StudioProjects/globens_flutter_client/build/shared_preferences/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-44
+MERGED from [com.facebook.android:facebook-login:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/eaeb1cdf087f115c1bd7bc06609600a9/jetified-facebook-login-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-login:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/eaeb1cdf087f115c1bd7bc06609600a9/jetified-facebook-login-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [androidx.appcompat:appcompat:1.0.2] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/bc4e881ce55d212b7f62124a02287749/appcompat-1.0.2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.0.2] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/bc4e881ce55d212b7f62124a02287749/appcompat-1.0.2/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/bd002668545166433d31100656d7b40f/jetified-play-services-auth-api-phone-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:16.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/bd002668545166433d31100656d7b40f/jetified-play-services-auth-api-phone-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/6501af76ad955b00b1d8603308a738c2/jetified-play-services-auth-base-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:16.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/6501af76ad955b00b1d8603308a738c2/jetified-play-services-auth-base-16.0.0/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/5dce11e485e647d66b643d9055d71545/jetified-play-services-tasks-16.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/5dce11e485e647d66b643d9055d71545/jetified-play-services-tasks-16.0.1/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/9181749b3b3ce2351d453f59dde3c047/jetified-play-services-basement-16.0.1/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/9181749b3b3ce2351d453f59dde3c047/jetified-play-services-basement-16.0.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/3313ee25abbd62257155cdf2f66e3a2d/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/3313ee25abbd62257155cdf2f66e3a2d/legacy-support-v4-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/68df43d0c418424bfae8d148f2d88cec/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.fragment:fragment:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/68df43d0c418424bfae8d148f2d88cec/fragment-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/4affe1b348f1c2d2e4572980b3b28e07/browser-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/4affe1b348f1c2d2e4572980b3b28e07/browser-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/f41b0a26ce82072c292a5a7d4aa64a4f/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/f41b0a26ce82072c292a5a7d4aa64a4f/vectordrawable-animated-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7009736e01e8b1ad5d13926cf71ca632/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7009736e01e8b1ad5d13926cf71ca632/legacy-support-core-ui-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/31fd43eaa1618e27f15786c7814b5cd4/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/31fd43eaa1618e27f15786c7814b5cd4/viewpager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:24:5-26:41
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/e7aee647f0e3b923d441975c4f98d01d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/e7aee647f0e3b923d441975c4f98d01d/legacy-support-core-utils-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/94cc203d36d4c816e50831684e241f5b/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/94cc203d36d4c816e50831684e241f5b/loader-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/494b84746010adca86bb552df0cde145/activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.activity:activity:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/494b84746010adca86bb552df0cde145/activity-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7f2159448b41b93562205b5b6b07781b/vectordrawable-1.0.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7f2159448b41b93562205b5b6b07781b/vectordrawable-1.0.1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b41d9012914e311c50fbd30ab3a825ba/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b41d9012914e311c50fbd30ab3a825ba/coordinatorlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7c61f88c1907901725a34d99f9b12521/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7c61f88c1907901725a34d99f9b12521/drawerlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/745de73c58fca54e27ba860548836161/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/745de73c58fca54e27ba860548836161/slidingpanelayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/684d4bc135e00ae6bf59e971d750ef21/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/684d4bc135e00ae6bf59e971d750ef21/customview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b7a8646c3e88d9f539d1a3e6d5969c7e/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b7a8646c3e88d9f539d1a3e6d5969c7e/swiperefreshlayout-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/8dd0cf31eece8e79a47e48ee92982b27/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/8dd0cf31eece8e79a47e48ee92982b27/asynclayoutinflater-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7740a65ef70047ba369e4760f9e353b9/media-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.media:media:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/7740a65ef70047ba369e4760f9e353b9/media-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/ce9277565775987e5d404f774faa9150/core-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.core:core:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/ce9277565775987e5d404f774faa9150/core-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/c452f5dc1c4cf6a7ca4d9e6cb816c359/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/c452f5dc1c4cf6a7ca4d9e6cb816c359/lifecycle-runtime-2.2.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/49df15d7f6cad2e65470ee27f37c109d/savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.savedstate:savedstate:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/49df15d7f6cad2e65470ee27f37c109d/savedstate-1.0.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/e7a8b5172eff53c27272fd71e91ea886/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/e7a8b5172eff53c27272fd71e91ea886/lifecycle-livedata-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/30858788b1b4107a358d3ad564ba43c2/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/30858788b1b4107a358d3ad564ba43c2/lifecycle-livedata-core-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/da05ecc2cc754c0359c76d2664fbf5a0/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/da05ecc2cc754c0359c76d2664fbf5a0/core-runtime-2.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/0df44ba6c4807cdcf4ae7f50d3ab2c31/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/0df44ba6c4807cdcf4ae7f50d3ab2c31/versionedparcelable-1.1.0/AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/dae9fd610c4f3e8af26735bec75a83a6/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/dae9fd610c4f3e8af26735bec75a83a6/interpolator-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/24adf4bcf92e0859c71288576c1c4e46/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/24adf4bcf92e0859c71288576c1c4e46/cursoradapter-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/a216085d0de42cb73f2b8d49bf717b4a/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.1.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/a216085d0de42cb73f2b8d49bf717b4a/lifecycle-viewmodel-2.1.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/d9a3fc159366b7210a8622344533df86/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/d9a3fc159366b7210a8622344533df86/documentfile-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/d8e5d372c40f5d66661b503e9cbce255/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/d8e5d372c40f5d66661b503e9cbce255/localbroadcastmanager-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/83730dfaebd4e9fc86bb28e67205b4f9/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/83730dfaebd4e9fc86bb28e67205b4f9/print-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/35095f9504140a1a3e5fb8e7684462ac/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/35095f9504140a1a3e5fb8e7684462ac/cardview-1.0.0/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/2b492788c7380d83f70e08a2aa71256d/constraintlayout-1.1.3/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:1.1.3] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/2b492788c7380d83f70e08a2aa71256d/constraintlayout-1.1.3/AndroidManifest.xml:5:5-7:41
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml
+INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/main/AndroidManifest.xml
+		INJECTED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml
+uses-permission#android.permission.INTERNET
+ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml:6:5-66
+MERGED from [:google_sign_in] /home/ilyosbek/StudioProjects/globens_flutter_client/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-67
+MERGED from [:google_sign_in] /home/ilyosbek/StudioProjects/globens_flutter_client/build/google_sign_in/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-67
+	android:name
+		ADDED from /home/ilyosbek/StudioProjects/globens_flutter_client/android/app/src/debug/AndroidManifest.xml:6:22-64
+activity#com.kakao.sdk.flutter.TalkAuthCodeActivity
+ADDED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:8:9-12:20
+	android:launchMode
+		ADDED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:10:13-44
+	android:theme
+		ADDED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-53
+	android:name
+		ADDED from [:kakao_flutter_sdk] /home/ilyosbek/StudioProjects/globens_flutter_client/build/kakao_flutter_sdk/intermediates/library_manifest/debug/AndroidManifest.xml:9:13-70
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-80
+	android:name
+		ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-78
+provider#io.flutter.plugins.imagepicker.ImagePickerFileProvider
+ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:11:9-19:20
+	android:grantUriPermissions
+		ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-47
+	android:authorities
+		ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-74
+	android:exported
+		ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+	android:name
+		ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-82
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:75
+	android:resource
+		ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-72
+	android:name
+		ADDED from [:image_picker] /home/ilyosbek/StudioProjects/globens_flutter_client/build/image_picker/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-67
+uses-permission#android.permission.CAMERA
+ADDED from [:camera] /home/ilyosbek/StudioProjects/globens_flutter_client/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-65
+	android:name
+		ADDED from [:camera] /home/ilyosbek/StudioProjects/globens_flutter_client/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:7:22-62
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from [:camera] /home/ilyosbek/StudioProjects/globens_flutter_client/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-71
+	android:name
+		ADDED from [:camera] /home/ilyosbek/StudioProjects/globens_flutter_client/build/camera/intermediates/library_manifest/debug/AndroidManifest.xml:8:22-68
+activity#com.facebook.CustomTabMainActivity
+ADDED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:33:9-71
+	android:name
+		ADDED from [com.facebook.android:facebook-common:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/80d91bf33ff98687a5c7f31ab34295c6/jetified-facebook-common-5.5.1/AndroidManifest.xml:33:19-68
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:23:9-27:75
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:25:13-46
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:26:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:27:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:24:13-93
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:33:9-36:110
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:35:13-36
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:36:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/b76074fadcc6b89978a4cb459e02b65d/jetified-play-services-auth-16.0.1/AndroidManifest.xml:34:13-89
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/489ebb832b2cd15d4efd2806f87f68ab/jetified-play-services-base-16.0.1/AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/9181749b3b3ce2351d453f59dde3c047/jetified-play-services-basement-16.0.1/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/9181749b3b3ce2351d453f59dde3c047/jetified-play-services-basement-16.0.1/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:16.0.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/9181749b3b3ce2351d453f59dde3c047/jetified-play-services-basement-16.0.1/AndroidManifest.xml:24:13-58
+provider#com.facebook.internal.FacebookInitProvider
+ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:39:9-42:40
+	android:authorities
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:41:13-72
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:42:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:40:13-70
+receiver#com.facebook.CurrentAccessTokenExpirationBroadcastReceiver
+ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:44:9-50:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:46:13-37
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:45:13-86
+intent-filter#action:name:com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:47:13-49:29
+action#com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED
+ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:48:17-95
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:48:25-92
+receiver#com.facebook.CampaignTrackingReceiver
+ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:51:9-58:20
+	android:exported
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:53:13-36
+	android:permission
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:54:13-69
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:52:13-65
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:55:13-57:29
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:56:17-79
+	android:name
+		ADDED from [com.facebook.android:facebook-core:5.5.1] /home/ilyosbek/.gradle/caches/transforms-2/files-2.1/28ce1a8a4cea0cdcf79b71b3c55a1706/jetified-facebook-core-5.5.1/AndroidManifest.xml:56:25-76
