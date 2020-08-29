@@ -69,6 +69,14 @@ dependencies:
   #region flappy_search_bar
   flappy_search_bar: ^1.7.2
   #endregion
+  #region camera
+  path: ^1.7.0
+  path_provider: ^1.6.14
+  camera: ^0.5.8+5
+  #endregion
+  #region
+  image_picker: ^0.6.7+7
+  #endregion
 
 
 
@@ -106,6 +114,7 @@ flutter:
     - assets/facebook.png
     - assets/google.png
     - assets/kakaotalk.png
+    - assets/profile_image.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
