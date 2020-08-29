@@ -1478,6 +1478,11 @@ class FetchBusinessPages_Request extends $pb.GeneratedMessage {
 class FetchBusinessPages_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchBusinessPages.Response', createEmptyInstance: create)
     ..aOB(1, 'success')
+    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
+    ..pPS(3, 'title')
+    ..pPS(4, 'type')
+    ..p<$core.List<$core.int>>(5, 'pictureBlob', $pb.PbFieldType.PY, protoName: 'pictureBlob')
+    ..pPS(6, 'role')
     ..hasRequiredFields = false
   ;
 
@@ -1504,6 +1509,21 @@ class FetchBusinessPages_Response extends $pb.GeneratedMessage {
   $core.bool hasSuccess() => $_has(0);
   @$pb.TagNumber(1)
   void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get title => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.String> get type => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.List<$core.int>> get pictureBlob => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $core.List<$core.String> get role => $_getList(5);
 }
 
 class FetchBusinessPages extends $pb.GeneratedMessage {

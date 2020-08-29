@@ -47,11 +47,25 @@ class AppUser {
   static String _profileImageUrl;
   static String _sessionKey;
 
-  AuthMethod get authMethod { return _authMethod; }
-  String get email { return _email; }
-  String get displayName { return _displayName; }
-  String get profileImageUrl { return _profileImageUrl; }
-  String get sessionKey { return _sessionKey; }
+  static AuthMethod get authMethod {
+    return _authMethod;
+  }
+
+  static String get email {
+    return _email;
+  }
+
+  static String get displayName {
+    return _displayName;
+  }
+
+  static String get profileImageUrl {
+    return _profileImageUrl;
+  }
+
+  static String get sessionKey {
+    return _sessionKey;
+  }
 
   // endregion
 

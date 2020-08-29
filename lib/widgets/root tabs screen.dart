@@ -1,6 +1,6 @@
-import 'package:globens_flutter_client/widgets/home screen.dart';
-import 'package:globens_flutter_client/widgets/business page screen.dart';
-import 'package:globens_flutter_client/widgets/settings screen.dart';
+import 'package:globens_flutter_client/widgets/globens screen.dart';
+import 'package:globens_flutter_client/widgets/my pages screen.dart';
+import 'package:globens_flutter_client/widgets/menu screen.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,17 +14,21 @@ class RootTabsScreen extends StatefulWidget {
 }
 
 class _RootTabsScreenState extends State<RootTabsScreen> {
+
+
   int _selectedIndex = 0;
-  static List<Widget> _tabWidgets = <Widget>[HomeScreen(), BusinessPageScreen(), SettingsScreen()];
+  static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), PagesScreen(), MenuScreen()];
 
   void _onTabSelected(int selectedIndex) {
-    setState(() {
-      if (selectedIndex == 1 && !AppUser.isAuthenticated()) {
+    if (selectedIndex == 1 && !AppUser.isAuthenticated()) {
+      setState(() {
         _selectedIndex = 2;
-        Fluttertoast.showToast(msg: "Please Sign In first!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
-      } else
+      });
+      Fluttertoast.showToast(msg: "Please Sign In first!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+    } else
+      setState(() {
         _selectedIndex = selectedIndex;
-    });
+      });
   }
 
   @override
@@ -40,18 +44,24 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
         showUnselectedLabels: false,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            title: Text('Home'),
-            icon: Icon(
-              Icons.home,
+            title: Text('Globens'),
+            icon: Image.asset(
+              'assets/icon.png',
+              width: 25,
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            title: Text('Page'),
+            title: Text('My pages'),
+            icon: AppUser.isAuthenticated()
+                ? CircleAvatar(
+                    radius: 15.0,
+                    backgroundImage: NetworkImage(AppUser.profileImageUrl),
+                  )
+                : Icon(Icons.outlined_flag),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            icon: Icon(Icons.menu),
+            title: Text('Menu'),
           ),
         ],
       ),

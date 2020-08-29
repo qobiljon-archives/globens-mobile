@@ -160,6 +160,11 @@ message FetchBusinessPages{
   }
   message Response{
     bool success = 1;
+    repeated int32 id = 2;
+    repeated string title = 3;
+    repeated string type = 4;
+    repeated bytes pictureBlob = 5;
+    repeated string role = 6;
   }
 }
 message FetchBusinessPageDetails{
