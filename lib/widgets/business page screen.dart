@@ -139,7 +139,7 @@ class _PersonalBusinessPageState extends State<PersonalBusinessPage> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: "Name",
-                      hintText: "Enter your businesspage name",
+                      hintText: "Enter the name",
                     ),
                   )),
                 ],
