@@ -2,6 +2,7 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 
+
 class AuthenticationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,7 @@ class AuthenticationWidget extends StatelessWidget {
                 elevation: 0.0,
                 onPressed: () => _onFacebookPressed(context)),
           ),
+
         ]));
   }
 
