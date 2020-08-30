@@ -14,7 +14,7 @@ class _MenuScreenState extends State<MenuScreen> {
     return Container(
       child: ListView(
         children: [
-          generateScreenTitle("Menu", textColor: Colors.black),
+          getTitleWidget("Menu", textColor: Colors.black),
           AppUser.isAuthenticated()
               ? RaisedButton(
                   onPressed: _signOutPressed,

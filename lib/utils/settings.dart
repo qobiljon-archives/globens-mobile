@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-final String grpc_host = '165.246.42.172';
+final String grpc_host = '192.168.200.174';
 final int grpc_port = 50052;
 
-Widget generateScreenTitle(String text, {Color textColor = Colors.blue}) {
+Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
   return Container(
     margin: EdgeInsets.only(left : 10.0, top: 5.0, right: 10.0, bottom: 20.0),
     child: Text(

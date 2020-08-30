@@ -19,7 +19,7 @@ class GlobensScreenState extends State<GlobensScreen> {
     AppUser.init();
 
     _header = [
-      generateScreenTitle("Globens")
+      getTitleWidget("Globens")
     ];
     _footer = [];
   }

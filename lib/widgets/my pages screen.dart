@@ -18,7 +18,7 @@ class _PagesScreenState extends State<PagesScreen> {
   void initState() {
     super.initState();
 
-    _header = [generateScreenTitle("My pages", textColor: Colors.black)];
+    _header = [getTitleWidget("My pages", textColor: Colors.black)];
     _footer = [
       RaisedButton(
         onPressed: _onCreateProductPressed,
