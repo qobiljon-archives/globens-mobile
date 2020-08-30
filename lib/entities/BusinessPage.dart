@@ -1,10 +1,18 @@
 class BusinessPage {
-  BusinessPage(int id, String title, String type, List<int> pictureBlob, String role) {
-    _id = id;
-    _title = title;
-    _type = type;
-    _pictureBlob = pictureBlob;
-    _role = role;
+  BusinessPage._(int id, String title, String type, List<int> pictureBlob, String role) {
+    this._id = id;
+    this._title = title;
+    this._type = type;
+    this._pictureBlob = pictureBlob;
+    this._role = role;
+  }
+
+  BusinessPage.create(String title, List<int> pictureBlob, {int id, String type, String role}) {
+    this._id = id;
+    this._title = title;
+    this._type = type;
+    this._pictureBlob = pictureBlob;
+    this._role = role;
   }
 
   int _id;
@@ -31,5 +39,9 @@ class BusinessPage {
 
   String get role {
     return _role;
+  }
+
+  bool get isNewBusinessPage {
+    return id == null;
   }
 }

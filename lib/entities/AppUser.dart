@@ -17,18 +17,16 @@ class AppUser {
 
   AppUser._internalConstructor();
 
-  static void init() async {
+  static Future<void> init() async {
     AppUser._singleton = AppUser._internalConstructor();
     AppUser.userPrefs = await SharedPreferences.getInstance();
     if (AppUser.userPrefs.containsKey("authMethod"))
       AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
 
-    // setup Kakao auth
-    KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a";
-    // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported
-
-    // setup google auth, etc.
+    // setup kakao, google, and facebook auth
+    KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported
     googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
+    facebookLogin = FacebookLogin();
 
     // todo setup phone, apple
   }
@@ -241,8 +239,7 @@ class AppUser {
   static Future<Tuple2<Map, Map>> _facebookAuth() async {
     Map<String, dynamic> tokens = {};
 
-    facebookLogin = FacebookLogin();
-    FacebookLoginResult facebookLoginResult = await facebookLogin.logIn(['email']);
+    FacebookLoginResult facebookLoginResult = await AppUser.facebookLogin.logIn(['email']);
 
     if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
       final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture,email&access_token=${facebookLoginResult.accessToken.token}');

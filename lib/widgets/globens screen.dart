@@ -1,4 +1,3 @@
-import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:flutter/material.dart';
 
@@ -16,11 +15,7 @@ class GlobensScreenState extends State<GlobensScreen> {
   void initState() {
     super.initState();
 
-    AppUser.init();
-
-    _header = [
-      getTitleWidget("Globens")
-    ];
+    _header = [getTitleWidget("Globens")];
     _footer = [];
   }
 

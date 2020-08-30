@@ -31,7 +31,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   void _signOutPressed() async {
     await AppUser.signOut();
-    Navigator.of(context).pushReplacementNamed('rooot');
+    Navigator.of(context).pushReplacementNamed('root');
   }
 
   void _signInPressed() async {

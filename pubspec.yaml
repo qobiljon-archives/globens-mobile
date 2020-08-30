@@ -42,7 +42,7 @@ dependencies:
   platform: ^2.2.1
   package_info: ^0.4.1
   # endregion
-  # region google auth
+  # region google, facebook auth
   google_sign_in: ^4.5.1
   # endregion
   # region bottom_sheet
@@ -54,7 +54,7 @@ dependencies:
   # region shared_preferences
   shared_preferences: ^0.5.8
   # endregion
-  #region flutter_facebok
+  #region facebook
   flutter_facebook_login: ^3.0.0
   #endregion
   #region http
@@ -114,7 +114,7 @@ flutter:
     - assets/facebook.png
     - assets/google.png
     - assets/kakaotalk.png
-    - assets/profile_image.png
+    - assets/business_page_placeholder.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

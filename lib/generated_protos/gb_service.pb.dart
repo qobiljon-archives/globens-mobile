@@ -1198,6 +1198,8 @@ class FetchVacancyApplicationDetails extends $pb.GeneratedMessage {
 class CreateBusinessPage_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateBusinessPage.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..aOS(2, 'title')
+    ..a<$core.List<$core.int>>(3, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
     ..hasRequiredFields = false
   ;
 
@@ -1224,6 +1226,24 @@ class CreateBusinessPage_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get title => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set title($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTitle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTitle() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.int> get pictureBlob => $_getN(2);
+  @$pb.TagNumber(3)
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPictureBlob() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPictureBlob() => clearField(3);
 }
 
 class CreateBusinessPage_Response extends $pb.GeneratedMessage {

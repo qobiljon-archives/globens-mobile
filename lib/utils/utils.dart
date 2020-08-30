@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
@@ -32,8 +34,29 @@ Future<List<BusinessPage>> grpcFetchBusinessPages(String sessionKey) async {
     final response = await stub.fetchBusinessPages(FetchBusinessPages_Request()..sessionKey = sessionKey);
     if (response.success)
       response.id.asMap().forEach((i, id) {
-        res.add(BusinessPage(response.id[i], response.title[i], response.type[i], response.pictureBlob[i], response.role[i]));
+        res.add(BusinessPage.create(response.title[i], response.pictureBlob[i], id: response.id[i], type: response.type[i], role: response.role[i]));
       });
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+
+  return res;
+}
+
+Future<bool> grpcCreateBusinessPage(String sessionKey, BusinessPage businessPage) async {
+  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool res = false;
+  try {
+    final response = await stub.createBusinessPage(CreateBusinessPage_Request()
+      ..sessionKey=sessionKey
+      ..title=businessPage.title
+      ..pictureBlob=businessPage.pictureBlob
+    );
+    res = response.success;
   } catch (e) {
     print(e);
   } finally {

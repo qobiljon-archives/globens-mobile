@@ -102,5 +102,20 @@
 
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>NSCameraUsageDescription</key>
+    <string>Globens is requesting a camera permission</string>
+
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Globens is requesting a microphone permission</string>
+
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Globens is requesting photo library permission</string>
+
+    <key>UIUserInterfaceStyle</key>
+    <string>Light</string>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <true/>
+
 </dict>
 </plist>

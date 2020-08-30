@@ -133,6 +133,8 @@ message FetchVacancyApplicationDetails{
 message CreateBusinessPage{
   message Request{
     string sessionKey = 1;
+    string title = 2;
+    bytes pictureBlob = 3;
   }
   message Response{
     bool success = 1;

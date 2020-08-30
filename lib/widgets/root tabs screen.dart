@@ -15,19 +15,13 @@ class RootTabsScreen extends StatefulWidget {
 
 class _RootTabsScreenState extends State<RootTabsScreen> {
   int _selectedIndex = 0;
-  static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), PagesScreen(), MenuScreen()];
+  static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), MyPagesScreen(), MenuScreen()];
 
-  void _onTabSelected(int selectedIndex) {
-    if (selectedIndex == 1 && !AppUser.isAuthenticated()) {
-      setState(() {
-        _selectedIndex = 2;
-      });
+  @override
+  void initState() {
+    super.initState();
 
-      Fluttertoast.showToast(msg: "Please Sign In first!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
-    } else
-      setState(() {
-        _selectedIndex = selectedIndex;
-      });
+    AppUser.init().then((value) => setState(() {}));
   }
 
   @override
@@ -65,5 +59,18 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
         ],
       ),
     );
+  }
+
+  void _onTabSelected(int selectedIndex) {
+    if (selectedIndex == 1 && !AppUser.isAuthenticated()) {
+      setState(() {
+        _selectedIndex = 2;
+      });
+
+      Fluttertoast.showToast(msg: "Please Sign In first!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+    } else
+      setState(() {
+        _selectedIndex = selectedIndex;
+      });
   }
 }

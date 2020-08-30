@@ -294,6 +294,8 @@ const CreateBusinessPage_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
+    const {'1': 'pictureBlob', '3': 3, '4': 1, '5': 12, '10': 'pictureBlob'},
   ],
 };
 
