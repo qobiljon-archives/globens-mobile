@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-final String grpc_host = '192.168.200.182';
-final int grpc_port = 50052;
+final String grpc_host = '165.246.42.173';
+final int grpc_port = 50053;
 
 Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
   return Container(
@@ -13,4 +13,3 @@ Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
     ),
   );
 }
-
