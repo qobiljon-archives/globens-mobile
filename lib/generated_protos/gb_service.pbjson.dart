@@ -396,6 +396,9 @@ const CreateProduct_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'pictureBlob', '3': 4, '4': 1, '5': 12, '10': 'pictureBlob'},
   ],
 };
 
@@ -453,6 +456,7 @@ const FetchProducts_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
   ],
 };
 
@@ -460,6 +464,10 @@ const FetchProducts_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+    const {'1': 'name', '3': 3, '4': 3, '5': 9, '10': 'name'},
+    const {'1': 'published', '3': 4, '4': 3, '5': 8, '10': 'published'},
+    const {'1': 'pictureBlob', '3': 5, '4': 3, '5': 12, '10': 'pictureBlob'},
   ],
 };
 

@@ -182,6 +182,9 @@ message FetchBusinessPageDetails{
 message CreateProduct{
   message Request{
     string sessionKey = 1;
+    int32 businessPageId = 2;
+    string name = 3;
+    bytes pictureBlob = 4;
   }
   message Response{
     bool success = 1;
@@ -206,9 +209,14 @@ message UncreateProduct{
 message FetchProducts{
   message Request{
     string sessionKey = 1;
+    int32 businessPageId = 2;
   }
   message Response{
     bool success = 1;
+    repeated int32 id = 2;
+    repeated string name = 3;
+    repeated bool published = 4;
+    repeated bytes pictureBlob = 5;
   }
 }
 message FetchProductDetails{

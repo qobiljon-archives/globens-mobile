@@ -1653,6 +1653,9 @@ class FetchBusinessPageDetails extends $pb.GeneratedMessage {
 class CreateProduct_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateProduct.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..aOS(3, 'name')
+    ..a<$core.List<$core.int>>(4, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
     ..hasRequiredFields = false
   ;
 
@@ -1679,6 +1682,33 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get businessPageId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBusinessPageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBusinessPageId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get name => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set name($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearName() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get pictureBlob => $_getN(3);
+  @$pb.TagNumber(4)
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPictureBlob() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPictureBlob() => clearField(4);
 }
 
 class CreateProduct_Response extends $pb.GeneratedMessage {
@@ -1902,6 +1932,7 @@ class UncreateProduct extends $pb.GeneratedMessage {
 class FetchProducts_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProducts.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
     ..hasRequiredFields = false
   ;
 
@@ -1928,11 +1959,24 @@ class FetchProducts_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get businessPageId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBusinessPageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBusinessPageId() => clearField(2);
 }
 
 class FetchProducts_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProducts.Response', createEmptyInstance: create)
     ..aOB(1, 'success')
+    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
+    ..pPS(3, 'name')
+    ..p<$core.bool>(4, 'published', $pb.PbFieldType.PB)
+    ..p<$core.List<$core.int>>(5, 'pictureBlob', $pb.PbFieldType.PY, protoName: 'pictureBlob')
     ..hasRequiredFields = false
   ;
 
@@ -1959,6 +2003,18 @@ class FetchProducts_Response extends $pb.GeneratedMessage {
   $core.bool hasSuccess() => $_has(0);
   @$pb.TagNumber(1)
   void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get name => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.bool> get published => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.List<$core.int>> get pictureBlob => $_getList(4);
 }
 
 class FetchProducts extends $pb.GeneratedMessage {
