@@ -1,11 +1,11 @@
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'business page details modal view.dart';
 import 'package:flutter/material.dart';
 
-import 'business page details modal view.dart';
+import 'individual businesspage detail screen.dart';
 
 class MyPagesScreen extends StatefulWidget {
   @override
@@ -17,6 +17,10 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   List<BusinessPage> _body = [];
   List<Widget> _footer = [];
   BuildContext _context;
+
+  void openIndividualBusinessPage() {
+    Navigator.push(_context, MaterialPageRoute(builder: (_context) => BusinessPageDetail()));
+  }
 
   @override
   void initState() {
@@ -59,26 +63,62 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   }
 
   Widget buildBusinessPageItem(int index) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            margin: EdgeInsets.only(left: 10.0),
-            child: CircleAvatar(
-              radius: 20.0,
-              backgroundImage: MemoryImage(_body[index].pictureBlob),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: openIndividualBusinessPage,
+          child: Container(
+            margin: EdgeInsets.only(top: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10.0),
+                  child: CircleAvatar(
+                    radius: 20.0,
+                    backgroundImage: MemoryImage(_body[index].pictureBlob),
+                  ),
+                ),
+                if (index == 0)
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "${_body[index].title}",
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                else
+                  Container(
+                      margin: EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        "${_body[index].title}",
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(fontSize: 20.0),
+                      )),
+              ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 10.0),
-            child: Text(
-              "${_body[index].title}",
-              style: TextStyle(fontSize: 20.0),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {},
             ),
-          )
-        ],
-      ),
+            IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {},
+            ),
+          ],
+        )
+      ],
     );
   }
 

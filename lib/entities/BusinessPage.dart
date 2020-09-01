@@ -15,6 +15,7 @@ class BusinessPage {
     this._role = role;
   }
 
+
   int _id;
   String _title;
   String _type;

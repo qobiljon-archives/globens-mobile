@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:typed_data';
 
+import 'package:path/path.dart';
+
 class PhotoSelectorWidget extends StatefulWidget {
   static Uint8List resultImageBytes;
 
@@ -74,9 +76,11 @@ class BusinessPageEditorWidget extends StatefulWidget {
 class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
+  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
+    _context = this.context;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -127,8 +131,9 @@ class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
 
   void createBusinessPagePressed() async {
     bool success = await grpcCreateBusinessPage(AppUser.sessionKey, BusinessPage.create(_titleTextController.text, _businessPageImageBytes));
+
     if (success)
-      Navigator.of(context).pop();
+      Navigator.of(_context).pop();
     else
       Fluttertoast.showToast(msg: "Check your Internet connectivity!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
   }

@@ -20,7 +20,6 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
   @override
   void initState() {
     super.initState();
-
     AppUser.init().then((value) => setState(() {}));
   }
 

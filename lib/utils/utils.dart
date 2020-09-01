@@ -1,10 +1,9 @@
-import 'dart:typed_data';
 
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
-import 'package:grpc/grpc.dart';
 import 'package:tuple/tuple.dart';
+import 'package:grpc/grpc.dart';
 
 Future<Tuple2<bool, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
   final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
