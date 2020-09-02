@@ -7,10 +7,17 @@ import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:globens_flutter_client/widgets/my%20pages%20screen.dart';
 import 'package:globens_flutter_client/widgets/product%20editor%20modal%20view.dart';
 
+//region businesspage detail screen
 class BusinessPageDetail extends StatefulWidget {
+
+  //region vars
   final title;
   final id;
-
+  List<Widget> _header = [];
+  List<Product> _body = [];
+  List<Widget> _footer = [];
+  BuildContext _context;
+  //endregion
 
   BusinessPageDetail(this.title, this.id);
 
@@ -19,32 +26,32 @@ class BusinessPageDetail extends StatefulWidget {
 }
 
 class _BusinessPageDetailState extends State<BusinessPageDetail> {
-  List<Widget> _header = [];
-  List<Product> _body = [];
-  List<Widget> _footer = [];
-  BuildContext _context;
 
+
+
+  //region onPressed methods
   void _onCreateProductPressed() {
-    showModalBottomSheet(context: _context, builder: (_context) => ProductPageEditorWidget());
+    showModalBottomSheet(context: widget._context, builder: (_context) => ProductPageEditorWidget(widget.id));
   }
 
   void _onCreateVacancyPressed() {}
 
   void onBackButtonPressed() {
-    Navigator.pop(_context);
+    Navigator.pop(widget._context);
   }
-
+  //endregion
+  //region overrides
   @override
   void initState() {
 
-    _header = [
+    widget._header = [
       getTitleWidgetForProducts(
         widget.title,
         "Products",
         onBackButtonPressed,
       )
     ];
-    _footer = [
+    widget._footer = [
       Column(
         children: [
           Container(
@@ -70,30 +77,28 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
     ];
     grpcFetchProducts(AppUser.sessionKey, widget.id).then((array) {
       setState(() {
-        _body = array;
+        widget._body = array;
       });
     });
   }
-
   @override
   Widget build(BuildContext context) {
-    _context = this.context;
-
-
+    widget._context = this.context;
     return Scaffold(
       body: Container(
         child: ListView.builder(
-          itemCount: _header.length + _body.length + _footer.length,
+          itemCount: widget._header.length + widget._body.length + widget._footer.length,
           itemBuilder: (BuildContext context, int index) => getListViewItem(context, index),
         ),
       ),
     );
   }
-
+  //endregion
+  // region utility methods
   Widget getListViewItem(BuildContext context, int index) {
-    if (index < _header.length)
-      return _header[index];
-    else if (index >= _header.length + _body.length) return _footer[index - _footer.length - _body.length];
+    if (index < widget._header.length)
+      return widget._header[index];
+    else if (index >= widget._header.length + widget._body.length) return widget._footer[index - widget._footer.length - widget._body.length];
 
     //TODO: return products
   }
@@ -113,13 +118,13 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
                   margin: EdgeInsets.only(left: 10.0),
                   child: CircleAvatar(
                     radius: 20.0,
-                    backgroundImage: MemoryImage(_body[index].imgUri),
+                    backgroundImage: MemoryImage(widget._body[index].imgUri),
                   ),
                 ),
                 Container(
                     margin: EdgeInsets.only(left: 10.0),
                     child: Text(
-                      "${_body[index].name}",
+                      "${widget._body[index].name}",
                       overflow: TextOverflow.clip,
                       style: TextStyle(fontSize: 20.0),
                     )),
@@ -130,4 +135,7 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
       ],
     );
   }
+  //endregion
 }
+
+//endregion

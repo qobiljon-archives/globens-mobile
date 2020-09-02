@@ -16,9 +16,10 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   List<BusinessPage> _body = [];
   List<Widget> _footer = [];
   BuildContext _context;
+  String dropDownValue;
 
   void openIndividualBusinessPage(String title, int businessPageId) {
-    Navigator.push(_context,  MaterialPageRoute(builder: (_context)=>BusinessPageDetail(title,  businessPageId)));
+    Navigator.push(_context, MaterialPageRoute(builder: (_context) => BusinessPageDetail(title, businessPageId)));
   }
 
   @override
@@ -69,6 +70,7 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
           onTap: () {
             openIndividualBusinessPage(_body[index].title, index);
           },
+          onLongPress: () {},
           child: Container(
             margin: EdgeInsets.only(top: 10.0),
             child: Row(
@@ -119,13 +121,13 @@ class ScreenArguments {
   final String title;
   final int businessPageId;
 
-
-  String get page_title{
+  String get page_title {
     return title;
   }
 
-  int get page_id{
+  int get page_id {
     return businessPageId;
   }
+
   ScreenArguments(this.title, this.businessPageId);
 }

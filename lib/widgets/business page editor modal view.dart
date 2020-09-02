@@ -11,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'dart:typed_data';
 
 import 'package:path/path.dart';
-
+//region photo selector widget
 class PhotoSelectorWidget extends StatefulWidget {
   static Uint8List resultImageBytes;
 
@@ -22,6 +22,7 @@ class PhotoSelectorWidget extends StatefulWidget {
 class _PhotoSelectorWidgetState extends State<PhotoSelectorWidget> {
   BuildContext _context;
 
+  //region select_photo functions
   void getImage() async {
     PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery, maxWidth: 96, maxHeight: 96);
     PhotoSelectorWidget.resultImageBytes = await pickedFile.readAsBytes();
@@ -34,6 +35,8 @@ class _PhotoSelectorWidgetState extends State<PhotoSelectorWidget> {
     if (Navigator.canPop(_context)) Navigator.pop(_context);
   }
 
+  //endregion
+  //regionoverrides
   @override
   Widget build(BuildContext context) {
     this._context = context;
@@ -66,18 +69,25 @@ class _PhotoSelectorWidgetState extends State<PhotoSelectorWidget> {
       ),
     );
   }
+  //endregion
 }
 
+//endregion
+//region businesspage editor widget
 class BusinessPageEditorWidget extends StatefulWidget {
+
   @override
   _BusinessPageEditorWidgetState createState() => _BusinessPageEditorWidgetState();
 }
 
 class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
+  //region vars
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
   BuildContext _context;
+  //endregion
 
+  //region overrides
   @override
   Widget build(BuildContext context) {
     _context = this.context;
@@ -120,7 +130,8 @@ class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
       ],
     );
   }
-
+  //endregion
+ //region onPressed methods
   void selectImagePressed(BuildContext context) async {
     await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorWidget());
     Uint8List resultImageBytes = PhotoSelectorWidget.resultImageBytes != null ? PhotoSelectorWidget.resultImageBytes : (await rootBundle.load('assets/business_page_placeholder.png')) as Uint8List;
@@ -137,4 +148,7 @@ class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
     else
       Fluttertoast.showToast(msg: "Check your Internet connectivity!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
   }
+  //endregion
 }
+
+//endregion
