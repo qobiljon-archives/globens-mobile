@@ -1,24 +1,22 @@
-
-
 class Product {
   String _name;
-  String _imgUri;
+  List<int> _pictureBlob;
 
-  Product._(String name, String imgUri) {
+  Product._(String name, List<int> imgUri) {
     this._name = name;
-    this._imgUri = imgUri;
+    this._pictureBlob = _pictureBlob;
   }
 
-  Product.create(String name, String imgUri) {
+  Product.create(String name, List<int> imgUri) {
     this._name = name;
-    this._imgUri = imgUri;
+    this._pictureBlob = _pictureBlob;
   }
 
   String get name {
     return _name;
   }
 
-  String get imgUri {
-    return _imgUri;
+  List<int> get imgUri {
+    return _pictureBlob;
   }
 }

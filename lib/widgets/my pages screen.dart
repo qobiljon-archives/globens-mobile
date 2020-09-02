@@ -2,10 +2,9 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'business page details modal view.dart';
-import 'package:flutter/material.dart';
-
 import 'individual businesspage detail screen.dart';
+import 'business page editor modal view.dart';
+import 'package:flutter/material.dart';
 
 class MyPagesScreen extends StatefulWidget {
   @override
@@ -18,8 +17,8 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   List<Widget> _footer = [];
   BuildContext _context;
 
-  void openIndividualBusinessPage() {
-    Navigator.push(_context, MaterialPageRoute(builder: (_context) => BusinessPageDetail()));
+  void openIndividualBusinessPage(String title, int businessPageId) {
+    Navigator.push(_context,  MaterialPageRoute(builder: (_context)=>BusinessPageDetail(title,  businessPageId)));
   }
 
   @override
@@ -67,7 +66,9 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: openIndividualBusinessPage,
+          onTap: () {
+            openIndividualBusinessPage(_body[index].title, index);
+          },
           child: Container(
             margin: EdgeInsets.only(top: 10.0),
             child: Row(
@@ -105,19 +106,6 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
             ),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-              icon: Icon(Icons.edit),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {},
-            ),
-          ],
-        )
       ],
     );
   }
@@ -125,4 +113,19 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   void _onCreateProductPressed() {
     showModalBottomSheet(context: this._context, builder: (context) => BusinessPageEditorWidget());
   }
+}
+
+class ScreenArguments {
+  final String title;
+  final int businessPageId;
+
+
+  String get page_title{
+    return title;
+  }
+
+  int get page_id{
+    return businessPageId;
+  }
+  ScreenArguments(this.title, this.businessPageId);
 }

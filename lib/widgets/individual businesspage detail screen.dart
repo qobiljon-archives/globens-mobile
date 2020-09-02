@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
+import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/widgets/my%20pages%20screen.dart';
+import 'package:globens_flutter_client/widgets/product%20editor%20modal%20view.dart';
 
 class BusinessPageDetail extends StatefulWidget {
+  final title;
+  final id;
+
+
+  BusinessPageDetail(this.title, this.id);
+
   @override
   _BusinessPageDetailState createState() => _BusinessPageDetailState();
 }
@@ -20,9 +30,20 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
 
   void _onCreateVacancyPressed() {}
 
+  void onBackButtonPressed() {
+    Navigator.pop(_context);
+  }
+
   @override
   void initState() {
-    _header = [getTitleWidget("Products")];
+
+    _header = [
+      getTitleWidgetForProducts(
+        widget.title,
+        "Products",
+        onBackButtonPressed,
+      )
+    ];
     _footer = [
       Column(
         children: [
@@ -47,12 +68,18 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
         ],
       ),
     ];
-    //TODO: fetch products
+    grpcFetchProducts(AppUser.sessionKey, widget.id).then((array) {
+      setState(() {
+        _body = array;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     _context = this.context;
+
+
     return Scaffold(
       body: Container(
         child: ListView.builder(
@@ -70,55 +97,37 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
 
     //TODO: return products
   }
-}
 
-class ProductPageEditorWidget extends StatefulWidget {
-  @override
-  _BusinessPageEditorWidgetState createState() => _BusinessPageEditorWidgetState();
-}
-
-class _BusinessPageEditorWidgetState extends State<ProductPageEditorWidget> {
-  TextEditingController _titleTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-
-  BuildContext _context;
-
-  @override
-  Widget build(BuildContext context) {
-    _context = this.context;
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          getTitleWidget("Create a new Product", textColor: Colors.black),
-          Container(
-              margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: TextField(
-                controller: _titleTextController,
-                decoration: InputDecoration(
-                  labelText: "Title",
-                  hintText: "Enter your title",
+  Widget buildBusinessPageItem(int index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        GestureDetector(
+          onTap: () {},
+          child: Container(
+            margin: EdgeInsets.only(top: 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 10.0),
+                  child: CircleAvatar(
+                    radius: 20.0,
+                    backgroundImage: MemoryImage(_body[index].imgUri),
+                  ),
                 ),
-              )),
-          Container(
-              margin: EdgeInsets.only(left: 10.0, right: 10.0),
-              child: TextField(
-                controller: _emailTextController,
-                decoration: InputDecoration(
-                  labelText: "Business email",
-                  hintText: "Enter a business email",
-                ),
-              )),
-          RaisedButton(
-            onPressed: () {},
-            child: Text("Create"),
+                Container(
+                    margin: EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      "${_body[index].name}",
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(fontSize: 20.0),
+                    )),
+              ],
+            ),
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Spacer(),
-          )
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -14,5 +14,32 @@ Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
   );
 }
 
+Widget getTitleWidgetForProducts(String page_category, String businesspage_name, Function pressButton) {
+  return Container(
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 20.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: pressButton,
+              ),
+              Text(
+                page_category,
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
+              ),
+            ],
+          ),
+          Container(
 
+           // alignment: Alignment.topLeft,
+            child: Text(
+              "$businesspage_name",
 
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
+            ),
+          ),
+        ],
+      ));
+}
