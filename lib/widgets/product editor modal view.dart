@@ -31,50 +31,55 @@ class _ProductPageEditorWidgetState extends State<ProductPageEditorWidget> {
   Widget build(BuildContext context) {
     _context = this.context;
     return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          getTitleWidget("Create a new Product", textColor: Colors.black),
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.all(10.0),
-                child: GestureDetector(
-                  onTap: showPhotoUploadOptions,
-                  child: CircleAvatar(radius: 30.0, backgroundImage: _businessPageImageBytes != null ? MemoryImage(_businessPageImageBytes) : AssetImage('assets/business_page_placeholder.png')),
+        child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        getTitleWidget("Create a new Product", textColor: Colors.black),
+        Row(
+          children: [
+            Container(
+              margin: EdgeInsets.all(10.0),
+              child: GestureDetector(
+                onTap: () {
+                  showPhotoUploadOptions(context);
+                },
+                child: CircleAvatar(
+                  radius: 30.0,
+                  backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/business_page_placeholder.png') : MemoryImage(_businessPageImageBytes),
                 ),
               ),
-              Flexible(
-                  child: TextField(
-                controller: _titleTextController,
-                decoration: InputDecoration(
-                  labelText: "Title",
-                  hintText: "Enter your title",
-                ),
-              )),
-            ],
-          ),
-          RaisedButton(
-            onPressed: createProductPressed,
-            child: Text("Create"),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Spacer(),
-          )
-        ],
-      ),
-    );
+            ),
+            Flexible(
+                child: TextField(
+              controller: _titleTextController,
+              decoration: InputDecoration(
+                labelText: "Title",
+                hintText: "Enter your title",
+              ),
+            )),
+          ],
+        ),
+        RaisedButton(
+          onPressed: createProductPressed,
+          child: Text("Create"),
+        ),
+        Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Container(),
+        )
+      ],
+    ));
   }
 
   //endregion
 
   //region utility method(s)
-  void showPhotoUploadOptions() async {
-    showModalBottomSheet(context: _context, builder: (_context) => PhotoSelectorWidget());
-    Uint8List resultImageBytes = PhotoSelectorWidget.resultImageBytes == null ? (await rootBundle.load('assets/business_page_placeholder.png')) as Uint8List : PhotoSelectorWidget.resultImageBytes;
+  void showPhotoUploadOptions(BuildContext context) async {
+    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorWidget());
+    Uint8List resultImageBytes = PhotoSelectorWidget.resultImageBytes != null ? PhotoSelectorWidget.resultImageBytes : (await rootBundle.load('assets/business_page_placeholder.png')) as Uint8List;
     setState(() {
       _businessPageImageBytes = resultImageBytes;
+      resultImageBytes = null;
     });
   }
 
