@@ -2,7 +2,7 @@ import 'package:globens_flutter_client/widgets/globens screen.dart';
 import 'package:globens_flutter_client/widgets/my pages screen.dart';
 import 'package:globens_flutter_client/widgets/menu screen.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +66,7 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
         _selectedIndex = 2;
       });
 
-      Fluttertoast.showToast(msg: "Please Sign In first!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      toast("Please Sign In first!");
     } else
       setState(() {
         _selectedIndex = selectedIndex;

@@ -1,5 +1,5 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticationWidget extends StatelessWidget {
@@ -69,20 +69,20 @@ class AuthenticationWidget extends StatelessWidget {
     if (await AppUser.signIn(AuthMethod.KAKAO))
       Navigator.of(context).popUntil(ModalRoute.withName('root'));
     else
-      Fluttertoast.showToast(msg: "Failed to login with Kakao.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      toast("Failed to login with Kakao.\nPlease try again later!");
   }
 
   void _onGooglePressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.GOOGLE))
       Navigator.of(context).popUntil(ModalRoute.withName('root'));
     else
-      Fluttertoast.showToast(msg: "Failed to login with Google.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      toast("Failed to login with Google.\nPlease try again later!");
   }
 
   void _onFacebookPressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.FACEBOOK))
       Navigator.of(context).popUntil(ModalRoute.withName('root'));
     else
-      Fluttertoast.showToast(msg: "Failed to login with Facebook.\nPlease try again later!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      toast("Failed to login with Facebook.\nPlease try again later!");
   }
 }

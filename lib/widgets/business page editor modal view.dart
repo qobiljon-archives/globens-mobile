@@ -2,34 +2,25 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:typed_data';
 
-
-//endregion
-//region businesspage editor widget
 class BusinessPageEditorWidget extends StatefulWidget {
-
   @override
   _BusinessPageEditorWidgetState createState() => _BusinessPageEditorWidgetState();
 }
 
 class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
-  //region vars
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
   BuildContext _context;
-  //endregion
 
-  //region overrides
   @override
   Widget build(BuildContext context) {
     _context = this.context;
-    return SingleChildScrollView(child: Column(
+    return SingleChildScrollView(
+        child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         getTitleWidget("New business page", textColor: Colors.black),
@@ -68,28 +59,31 @@ class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
       ],
     ));
   }
-  //endregion
- //region onPressed methods
-  void selectImagePressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorWidget());
-    Uint8List resultImageBytes = PhotoSelectorWidget.resultImageBytes != null ? PhotoSelectorWidget.resultImageBytes : (await rootBundle.load('assets/business_page_placeholder.png')) as Uint8List;
-    setState(() {
-      _businessPageImageBytes = resultImageBytes;
-      resultImageBytes = null;
 
-    });
+  void selectImagePressed(BuildContext context) async {
+    PhotoSelectorWidget.resultImageBytes = null;
+    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorWidget());
+    if (PhotoSelectorWidget.resultImageBytes != null)
+      setState(() {
+        _businessPageImageBytes = PhotoSelectorWidget.resultImageBytes;
+      });
   }
 
   void createBusinessPagePressed() async {
+    if (_titleTextController.text.length < 2) {
+      toast("Title must be at least two characters");
+      return;
+    }
+    if (_businessPageImageBytes == null) {
+      toast("A business page must have an icon");
+      return;
+    }
+
     bool success = await grpcCreateBusinessPage(AppUser.sessionKey, BusinessPage.create(_titleTextController.text, _businessPageImageBytes));
 
     if (success)
       Navigator.of(_context).pop();
     else
-      Fluttertoast.showToast(msg: "Check your Internet connectivity!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      toast("Check your Internet connectivity!");
   }
-  //endregion
 }
-
-//endregion
-

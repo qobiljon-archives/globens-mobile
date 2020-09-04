@@ -2,8 +2,8 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'individual businesspage detail screen.dart';
 import 'business page editor modal view.dart';
+import 'business page products screen.dart';
 import 'package:flutter/material.dart';
 
 class MyPagesScreen extends StatefulWidget {
@@ -15,12 +15,6 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   List<Widget> _header = [];
   List<BusinessPage> _body = [];
   List<Widget> _footer = [];
-  BuildContext _context;
-  String dropDownValue;
-
-  void openIndividualBusinessPage(String title, int businessPageId) {
-    Navigator.push(_context, MaterialPageRoute(builder: (_context) => BusinessPageDetail(title, businessPageId)));
-  }
 
   @override
   void initState() {
@@ -29,9 +23,7 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
     _header = [getTitleWidget("My pages", textColor: Colors.black)];
     _footer = [
       RaisedButton(
-        onPressed: () {
-          _onCreateProductPressed();
-        },
+        onPressed: () => _onCreateProductPressed(context),
         child: Text("Create"),
       )
     ];
@@ -44,7 +36,6 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
 
   @override
   Widget build(context) {
-    this._context = context;
     return Container(
       child: ListView.builder(
         itemCount: _header.length + _body.length + _footer.length,
@@ -59,16 +50,16 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
     else if (index >= _header.length + _body.length)
       return _footer[index - _footer.length - _body.length];
     else
-      return buildBusinessPageItem(index - _header.length);
+      return buildBusinessPageItem(context, index - _header.length);
   }
 
-  Widget buildBusinessPageItem(int index) {
+  Widget buildBusinessPageItem(BuildContext context, int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
           onTap: () {
-            openIndividualBusinessPage(_body[index].title, index);
+            _openIndividualBusinessPage(context, _body[index]);
           },
           onLongPress: () {},
           child: Container(
@@ -112,22 +103,16 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
     );
   }
 
-  void _onCreateProductPressed() {
-    showModalBottomSheet(context: this._context, builder: (context) => BusinessPageEditorWidget());
-  }
-}
-
-class ScreenArguments {
-  final String title;
-  final int businessPageId;
-
-  String get page_title {
-    return title;
+  void _onCreateProductPressed(BuildContext context) async {
+    await showModalBottomSheet(context: context, builder: (context) => BusinessPageEditorWidget());
+    grpcFetchBusinessPages(AppUser.sessionKey).then((array) {
+      setState(() {
+        _body = array;
+      });
+    });
   }
 
-  int get page_id {
-    return businessPageId;
+  void _openIndividualBusinessPage(BuildContext context, BusinessPage businessPage) {
+    Navigator.push(context, MaterialPageRoute(builder: (_context) => BusinessPageDetail(businessPage)));
   }
-
-  ScreenArguments(this.title, this.businessPageId);
 }

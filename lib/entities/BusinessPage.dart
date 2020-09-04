@@ -15,7 +15,6 @@ class BusinessPage {
     this._role = role;
   }
 
-
   int _id;
   String _title;
   String _type;
@@ -43,6 +42,6 @@ class BusinessPage {
   }
 
   bool get isNewBusinessPage {
-    return id == null;
+    return _id == null;
   }
 }

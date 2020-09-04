@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -40,7 +42,6 @@ Future<List<BusinessPage>> grpcFetchBusinessPages(String sessionKey) async {
   } finally {
     await channel.shutdown();
   }
-
   return res;
 }
 
@@ -74,7 +75,7 @@ Future<bool> grpcCreateProduct(String sessionKey, int businessPageId, Product pr
       ..sessionKey = sessionKey
       ..businessPageId = businessPageId
       ..name = product.name
-      ..pictureBlob = product.imgUri);
+      ..pictureBlob = product.pictureBlob);
     res = response.success;
   } catch (e) {
     print(e);
@@ -104,4 +105,8 @@ Future<List<Product>> grpcFetchProducts(String sessionKey, int businessPageId) a
     await channel.shutdown();
   }
   return res;
+}
+
+void toast(String message) {
+  Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
 }

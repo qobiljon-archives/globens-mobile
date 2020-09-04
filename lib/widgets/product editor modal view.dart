@@ -1,32 +1,26 @@
-import 'package:flutter/material.dart';
-import 'dart:typed_data';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter/services.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
-import 'package:globens_flutter_client/utils/settings.dart';
-import 'package:globens_flutter_client/widgets/individual%20businesspage%20detail%20screen.dart';
-import 'business page editor modal view.dart';
+import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/utils/settings.dart';
+import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'dart:typed_data';
 
-//region productpageeditor widget
 class ProductPageEditorWidget extends StatefulWidget {
-  final businessPageId;
+  final BusinessPage _businessPage;
 
-  const ProductPageEditorWidget(this.businessPageId);
+  const ProductPageEditorWidget(this._businessPage);
 
   @override
   _ProductPageEditorWidgetState createState() => _ProductPageEditorWidgetState();
 }
 
 class _ProductPageEditorWidgetState extends State<ProductPageEditorWidget> {
-  //region vars
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
   BuildContext _context;
 
-  //endregion
-  //region overrides
   @override
   Widget build(BuildContext context) {
     _context = this.context;
@@ -71,30 +65,21 @@ class _ProductPageEditorWidgetState extends State<ProductPageEditorWidget> {
     ));
   }
 
-  //endregion
-
-  //region utility method(s)
   void showPhotoUploadOptions(BuildContext context) async {
+    PhotoSelectorWidget.resultImageBytes = null;
     await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorWidget());
     Uint8List resultImageBytes = PhotoSelectorWidget.resultImageBytes != null ? PhotoSelectorWidget.resultImageBytes : (await rootBundle.load('assets/business_page_placeholder.png')) as Uint8List;
     setState(() {
       _businessPageImageBytes = resultImageBytes;
-      resultImageBytes = null;
     });
   }
 
-  //endregion
-
-  //region onPressed method(s)
   void createProductPressed() async {
-    bool success = await grpcCreateProduct(AppUser.sessionKey, widget.businessPageId, Product.create(_titleTextController.text, _businessPageImageBytes));
+    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage.id, Product.create(_titleTextController.text, _businessPageImageBytes));
 
     if (success)
       Navigator.of(_context).pop();
     else
-      Fluttertoast.showToast(msg: "Check your Internet connectivity!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+      toast("Check your Internet connectivity!");
   }
-
-//endregion
 }
-//endregion
