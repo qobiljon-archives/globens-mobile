@@ -368,6 +368,8 @@ class FetchUserDetails extends $pb.GeneratedMessage {
 class CreateVacancy_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacancy.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..aOS(3, 'title')
     ..hasRequiredFields = false
   ;
 
@@ -394,6 +396,24 @@ class CreateVacancy_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get businessPageId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBusinessPageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBusinessPageId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get title => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set title($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTitle() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTitle() => clearField(3);
 }
 
 class CreateVacancy_Response extends $pb.GeneratedMessage {
@@ -617,6 +637,7 @@ class UncreateVacancy extends $pb.GeneratedMessage {
 class FetchVacancies_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchVacancies.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
     ..hasRequiredFields = false
   ;
 
@@ -643,11 +664,23 @@ class FetchVacancies_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get businessPageId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBusinessPageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBusinessPageId() => clearField(2);
 }
 
 class FetchVacancies_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchVacancies.Response', createEmptyInstance: create)
     ..aOB(1, 'success')
+    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
+    ..pPS(3, 'role')
+    ..pPS(4, 'title')
     ..hasRequiredFields = false
   ;
 
@@ -674,6 +707,15 @@ class FetchVacancies_Response extends $pb.GeneratedMessage {
   $core.bool hasSuccess() => $_has(0);
   @$pb.TagNumber(1)
   void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $core.List<$core.String> get role => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.String> get title => $_getList(3);
 }
 
 class FetchVacancies extends $pb.GeneratedMessage {

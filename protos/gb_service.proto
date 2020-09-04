@@ -49,6 +49,8 @@ message FetchUserDetails{
 message CreateVacancy{
   message Request{
     string sessionKey = 1;
+    int32 businessPageId = 2;
+    string title = 3;
   }
   message Response{
     bool success = 1;
@@ -73,9 +75,13 @@ message UncreateVacancy{
 message FetchVacancies{
   message Request{
     string sessionKey = 1;
+    int32 businessPageId = 2;
   }
   message Response{
     bool success = 1;
+    repeated int32 id = 2;
+    repeated string role = 3;
+    repeated string title = 4;
   }
 }
 message FetchVacancyDetails{
@@ -343,4 +349,3 @@ Compile into dart / flutter:
     protoc -I=protos --dart_out=grpc:lib/generated_protos gb_service.proto
 etc.
 */
-

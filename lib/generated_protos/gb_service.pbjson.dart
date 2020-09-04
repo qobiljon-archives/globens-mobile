@@ -104,6 +104,8 @@ const CreateVacancy_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'title', '3': 3, '4': 1, '5': 9, '10': 'title'},
   ],
 };
 
@@ -161,6 +163,7 @@ const FetchVacancies_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
   ],
 };
 
@@ -168,6 +171,9 @@ const FetchVacancies_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+    const {'1': 'role', '3': 3, '4': 3, '5': 9, '10': 'role'},
+    const {'1': 'title', '3': 4, '4': 3, '5': 9, '10': 'title'},
   ],
 };
 
