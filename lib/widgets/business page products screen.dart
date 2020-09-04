@@ -5,6 +5,7 @@ import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:globens_flutter_client/widgets/vacancy%20editor%20modal%20view.dart';
 
 class BusinessPageDetail extends StatefulWidget {
   final BusinessPage _businessPage;
@@ -143,8 +144,13 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
     Navigator.pop(context);
   }
 
-  void _onCreateVacancyPressed(BuildContext context) {
-    // todo vacancy creation
+  void _onCreateVacancyPressed(BuildContext context) async {
+    await showModalBottomSheet(context: context, builder: (_context) => VacancyPageEditorWidget(widget._businessPage));
+    grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((array) {
+      setState(() {
+        _body = array;
+      });
+    });
   }
 
   void _onProductPressed(BuildContext context) {}
