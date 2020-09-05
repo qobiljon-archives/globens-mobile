@@ -8,8 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:grpc/grpc.dart';
 
+Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
+  return Container(
+    margin: EdgeInsets.only(left: 10.0, top: 5.0, right: 10.0, bottom: 20.0),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: textColor),
+    ),
+  );
+}
+
+void toast(String message) {
+  Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+}
+
 Future<Tuple2<bool, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
-  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   Tuple2<bool, String> res;
@@ -28,7 +42,7 @@ Future<Tuple2<bool, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod me
 }
 
 Future<List<BusinessPage>> grpcFetchBusinessPages(String sessionKey) async {
-  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   List<BusinessPage> res = List<BusinessPage>();
@@ -47,7 +61,7 @@ Future<List<BusinessPage>> grpcFetchBusinessPages(String sessionKey) async {
 }
 
 Future<bool> grpcCreateBusinessPage(String sessionKey, BusinessPage businessPage) async {
-  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   bool res = false;
@@ -67,7 +81,7 @@ Future<bool> grpcCreateBusinessPage(String sessionKey, BusinessPage businessPage
 }
 
 Future<bool> grpcCreateProduct(String sessionKey, int businessPageId, Product product) async {
-  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   bool res = false;
@@ -87,7 +101,7 @@ Future<bool> grpcCreateProduct(String sessionKey, int businessPageId, Product pr
 }
 
 Future<List<Product>> grpcFetchProducts(String sessionKey, int businessPageId) async {
-  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   List<Product> res = List<Product>();
@@ -109,7 +123,7 @@ Future<List<Product>> grpcFetchProducts(String sessionKey, int businessPageId) a
 }
 
 Future<List<Vacancy>> grpcFetchVacancies(String sessionKey, int businessPageId) async {
-  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   List<Vacancy> res = List<Vacancy>();
@@ -130,7 +144,7 @@ Future<List<Vacancy>> grpcFetchVacancies(String sessionKey, int businessPageId) 
 }
 
 Future<bool> grpcCreateVacancy(String sessionKey, int businessPageId, Vacancy vacancy) async {
-  final channel = ClientChannel(grpc_host, port: grpc_port, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   bool res = false;
@@ -146,8 +160,4 @@ Future<bool> grpcCreateVacancy(String sessionKey, int businessPageId, Vacancy va
     await channel.shutdown();
   }
   return res;
-}
-
-void toast(String message) {
-  Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
 }
