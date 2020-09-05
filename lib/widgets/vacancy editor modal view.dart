@@ -1,31 +1,22 @@
 import 'package:flutter/material.dart';
-import 'dart:typed_data';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter/services.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/Vacancy.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/entities/Product.dart';
 
-//region productpageeditor widget
-class VacancyPageEditorWidget extends StatefulWidget {
+class VacancyPageEditorModalView extends StatefulWidget {
   final BusinessPage _businessPage;
 
-  const VacancyPageEditorWidget(this._businessPage);
+  const VacancyPageEditorModalView(this._businessPage);
 
   @override
-  _VacancyPageEditorWidgetState createState() => _VacancyPageEditorWidgetState();
+  _VacancyPageEditorModalViewState createState() => _VacancyPageEditorModalViewState();
 }
 
-class _VacancyPageEditorWidgetState extends State<VacancyPageEditorWidget> {
-  //region vars
+class _VacancyPageEditorModalViewState extends State<VacancyPageEditorModalView> {
   TextEditingController _titleTextController = TextEditingController();
 
-
-  //endregion
-  //region overrides
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -55,12 +46,12 @@ class _VacancyPageEditorWidgetState extends State<VacancyPageEditorWidget> {
     ));
   }
 
-  //endregion
-
-
-
-  //region onPressed method(s)
   void createVacancyPressed(BuildContext context) async {
+    if (_titleTextController.text.length < 2) {
+      toast("Vacancy title cannot be less than two characters");
+      return;
+    }
+
     bool success = await grpcCreateVacancy(AppUser.sessionKey, widget._businessPage.id, Vacancy.create(_titleTextController.text));
 
     if (success)
@@ -68,7 +59,4 @@ class _VacancyPageEditorWidgetState extends State<VacancyPageEditorWidget> {
     else
       Fluttertoast.showToast(msg: "Check your Internet connectivity!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
   }
-
-//endregion
 }
-//endregion

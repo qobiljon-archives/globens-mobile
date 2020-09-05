@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
-class PhotoSelectorWidget extends StatefulWidget {
+class PhotoSelectorModalView extends StatefulWidget {
   static Uint8List resultImageBytes;
 
   @override
-  _PhotoSelectorWidgetState createState() => _PhotoSelectorWidgetState();
+  _PhotoSelectorModalViewState createState() => _PhotoSelectorModalViewState();
 }
 
-class _PhotoSelectorWidgetState extends State<PhotoSelectorWidget> {
+class _PhotoSelectorModalViewState extends State<PhotoSelectorModalView> {
   BuildContext _context;
 
   @override
@@ -49,13 +49,13 @@ class _PhotoSelectorWidgetState extends State<PhotoSelectorWidget> {
 
   void galleryImagePressed() async {
     PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery, maxWidth: 96, maxHeight: 96);
-    PhotoSelectorWidget.resultImageBytes = await pickedFile.readAsBytes();
+    PhotoSelectorModalView.resultImageBytes = await pickedFile.readAsBytes();
     if (Navigator.canPop(_context)) Navigator.pop(_context);
   }
 
   void captureCameraPressed() async {
     PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.camera, maxWidth: 96, maxHeight: 96);
-    PhotoSelectorWidget.resultImageBytes = await pickedFile.readAsBytes();
+    PhotoSelectorModalView.resultImageBytes = await pickedFile.readAsBytes();
     if (Navigator.canPop(_context)) Navigator.pop(_context);
   }
 }

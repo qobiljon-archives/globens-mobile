@@ -1,5 +1,5 @@
 import 'package:globens_flutter_client/widgets/globens screen.dart';
-import 'package:globens_flutter_client/widgets/my pages screen.dart';
+import 'package:globens_flutter_client/widgets/my business pages screen.dart';
 import 'package:globens_flutter_client/widgets/menu screen.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
@@ -15,7 +15,7 @@ class RootTabsScreen extends StatefulWidget {
 
 class _RootTabsScreenState extends State<RootTabsScreen> {
   int _selectedIndex = 0;
-  static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), MyPagesScreen(), MenuScreen()];
+  static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), MyBusinessPagesScreen(), MenuScreen()];
 
   @override
   void initState() {

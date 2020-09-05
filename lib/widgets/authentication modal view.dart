@@ -2,7 +2,7 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-class AuthenticationWidget extends StatelessWidget {
+class AuthenticationModalView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, mainAxisSize: MainAxisSize.min, children: [

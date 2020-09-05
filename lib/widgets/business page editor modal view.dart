@@ -1,18 +1,17 @@
 import 'package:globens_flutter_client/widgets/photo%20selector%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 
-class BusinessPageEditorWidget extends StatefulWidget {
+class BusinessPageEditorModalView extends StatefulWidget {
   @override
-  _BusinessPageEditorWidgetState createState() => _BusinessPageEditorWidgetState();
+  _BusinessPageEditorModalViewState createState() => _BusinessPageEditorModalViewState();
 }
 
-class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
+class _BusinessPageEditorModalViewState extends State<BusinessPageEditorModalView> {
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
   BuildContext _context;
@@ -62,11 +61,11 @@ class _BusinessPageEditorWidgetState extends State<BusinessPageEditorWidget> {
   }
 
   void selectImagePressed(BuildContext context) async {
-    PhotoSelectorWidget.resultImageBytes = null;
-    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorWidget());
-    if (PhotoSelectorWidget.resultImageBytes != null)
+    PhotoSelectorModalView.resultImageBytes = null;
+    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView());
+    if (PhotoSelectorModalView.resultImageBytes != null)
       setState(() {
-        _businessPageImageBytes = PhotoSelectorWidget.resultImageBytes;
+        _businessPageImageBytes = PhotoSelectorModalView.resultImageBytes;
       });
   }
 

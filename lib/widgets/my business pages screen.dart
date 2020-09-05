@@ -1,17 +1,16 @@
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'business page editor modal view.dart';
-import 'business page products screen.dart';
+import 'business page details screen.dart';
 import 'package:flutter/material.dart';
 
-class MyPagesScreen extends StatefulWidget {
+class MyBusinessPagesScreen extends StatefulWidget {
   @override
-  _MyPagesScreenState createState() => _MyPagesScreenState();
+  _MyBusinessPagesScreenState createState() => _MyBusinessPagesScreenState();
 }
 
-class _MyPagesScreenState extends State<MyPagesScreen> {
+class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   List<Widget> _header = [];
   List<BusinessPage> _body = [];
   List<Widget> _footer = [];
@@ -20,6 +19,7 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   void initState() {
     super.initState();
 
+    // 1. static part : set up common part of header and footer
     _header = [getTitleWidget("My pages", textColor: Colors.black)];
     _footer = [
       RaisedButton(
@@ -27,6 +27,8 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
         child: Text("Create"),
       )
     ];
+
+    // 2. dynamic part : change body (i.e., business pages) from server
     grpcFetchBusinessPages(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
@@ -52,12 +54,18 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   }
 
   Widget getListViewItem(BuildContext context, int index) {
-    if (index < _header.length)
+    if (index >= _header.length + _body.length) {
+      // footer section
+      index -= _header.length + _body.length;
+      return _footer[index];
+    } else if (index >= _header.length) {
+      // business pages section
+      index -= _header.length;
+      return buildBusinessPageItem(context, index);
+    } else {
+      // header section
       return _header[index];
-    else if (index >= _header.length + _body.length)
-      return _footer[index - _footer.length - _body.length];
-    else
-      return buildBusinessPageItem(context, index - _header.length);
+    }
   }
 
   Widget buildBusinessPageItem(BuildContext context, int index) {
@@ -111,7 +119,7 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   }
 
   void _onCreateProductPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (context) => BusinessPageEditorWidget());
+    await showModalBottomSheet(context: context, builder: (context) => BusinessPageEditorModalView());
     grpcFetchBusinessPages(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
@@ -127,6 +135,6 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
   }
 
   void _openIndividualBusinessPage(BuildContext context, BusinessPage businessPage) {
-    Navigator.push(context, MaterialPageRoute(builder: (_context) => BusinessPageDetail(businessPage)));
+    Navigator.push(context, MaterialPageRoute(builder: (_context) => BusinessPageDetailsScreen(businessPage)));
   }
 }

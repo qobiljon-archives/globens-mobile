@@ -35,7 +35,7 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _signInPressed() async {
-    await showModalBottomSheet(context: context, builder: (context) => AuthenticationWidget());
+    await showModalBottomSheet(context: context, builder: (context) => AuthenticationModalView());
     Navigator.of(context).pushReplacementNamed('root');
   }
 }
