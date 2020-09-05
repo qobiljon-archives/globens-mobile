@@ -146,11 +146,7 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
 
   void _onCreateVacancyPressed(BuildContext context) async {
     await showModalBottomSheet(context: context, builder: (_context) => VacancyPageEditorWidget(widget._businessPage));
-    grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((array) {
-      setState(() {
-        _body = array;
-      });
-    });
+
   }
 
   void _onProductPressed(BuildContext context) {}

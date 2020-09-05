@@ -1,13 +1,11 @@
-import 'dart:typed_data';
-
 class Vacancy {
-  Vacancy._(int id, String title, Uint8List pictureBlob) {
+  Vacancy._(int id, String title) {
     this._id = id;
     this._title = title;
   }
 
-  Vacancy.create(String name) {
-    this._title = name;
+  Vacancy.create(String title) {
+    this._title = title;
   }
 
   int _id;
@@ -21,7 +19,7 @@ class Vacancy {
     return _title;
   }
 
-  bool get isNewProduct {
+  bool get isNewVacancy {
     return _id == null;
   }
 }

@@ -115,7 +115,9 @@ Future<List<Vacancy>> grpcFetchVacancies(String sessionKey, int businessPageId) 
   List<Vacancy> res = List<Vacancy>();
 
   try {
-    final response = await stub.fetchVacancies(FetchVacancies_Request()..sessionKey = sessionKey);
+    final response = await stub.fetchVacancies(FetchVacancies_Request()
+      ..sessionKey = sessionKey
+      ..businessPageId = businessPageId);
     if (response.success) {
       //todo smth
     }
@@ -133,7 +135,10 @@ Future<bool> grpcCreateVacancy(String sessionKey, int businessPageId, Vacancy va
 
   bool res = false;
   try {
-    final response = await stub.createVacancy(CreateVacancy_Request()..sessionKey = sessionKey);
+    final response = await stub.createVacancy(CreateVacancy_Request()
+      ..sessionKey = sessionKey
+      ..businessPageId= businessPageId
+      ..title = vacancy.title);
     res = response.success;
   } catch (e) {
     print(e);
