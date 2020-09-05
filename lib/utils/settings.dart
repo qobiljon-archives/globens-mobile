@@ -2,7 +2,7 @@ const String GRPC_HOST = '165.246.42.173';
 const int GRPC_PORT = 50053;
 
 class VacancyRole {
-  static const String BUSINESS_OWNER = 'individual entrepreneur';
+  static const String BUSINESS_OWNER = 'business owner';
   static const String EMPLOYEE = 'employee';
   static const String INDIVIDUAL_ENTREPRENEUR = 'individual entrepreneur';
 }
