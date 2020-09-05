@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/utils/settings.dart';
+import 'package:globens_flutter_client/utils/utils.dart';
 import 'authentication modal view.dart';
+import 'package:flutter/material.dart';
 
 class MenuScreen extends StatefulWidget {
   @override

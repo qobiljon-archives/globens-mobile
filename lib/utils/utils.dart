@@ -26,112 +26,121 @@ Future<Tuple2<bool, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod me
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
-  Tuple2<bool, String> res;
+  bool success = false;
+  String sessionKey;
   try {
     final response = await stub.authenticateUser(AuthenticateUser_Request()
       ..method = method
       ..tokensJson = tokensJson);
-    res = Tuple2(response.success, response.sessionKey);
+    success = response.success;
+    sessionKey = response.sessionKey;
   } catch (e) {
-    res = Tuple2(false, null);
     print(e);
   } finally {
     await channel.shutdown();
   }
-  return res;
+  return Tuple2(success, sessionKey);
 }
 
-Future<List<BusinessPage>> grpcFetchBusinessPages(String sessionKey) async {
+Future<Tuple2<bool, List<BusinessPage>>> grpcFetchBusinessPages(String sessionKey) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
-  List<BusinessPage> res = List<BusinessPage>();
+  bool success = false;
+  List<BusinessPage> businessPages = List<BusinessPage>();
   try {
     final response = await stub.fetchBusinessPages(FetchBusinessPages_Request()..sessionKey = sessionKey);
-    if (response.success)
+    if (response.success) {
+      success = true;
       response.id.asMap().forEach((i, id) {
-        res.add(BusinessPage.create(response.title[i], response.pictureBlob[i], id: response.id[i], type: response.type[i], role: response.role[i]));
+        businessPages.add(BusinessPage.create(response.title[i], response.pictureBlob[i], id: response.id[i], type: response.type[i], role: response.role[i]));
       });
+    }
   } catch (e) {
     print(e);
   } finally {
     await channel.shutdown();
   }
-  return res;
+  return Tuple2(success, businessPages);
 }
 
 Future<bool> grpcCreateBusinessPage(String sessionKey, BusinessPage businessPage) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
-  bool res = false;
+  bool success = false;
   try {
     final response = await stub.createBusinessPage(CreateBusinessPage_Request()
       ..sessionKey = sessionKey
       ..title = businessPage.title
       ..pictureBlob = businessPage.pictureBlob);
-    res = response.success;
+    success = response.success;
   } catch (e) {
     print(e);
   } finally {
     await channel.shutdown();
   }
 
-  return res;
+  return success;
 }
 
 Future<bool> grpcCreateProduct(String sessionKey, int businessPageId, Product product) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
-  bool res = false;
+  bool success = false;
   try {
     final response = await stub.createProduct(CreateProduct_Request()
       ..sessionKey = sessionKey
       ..businessPageId = businessPageId
       ..name = product.name
       ..pictureBlob = product.pictureBlob);
-    res = response.success;
+    success = response.success;
   } catch (e) {
     print(e);
   } finally {
     await channel.shutdown();
   }
-  return res;
+  return success;
 }
 
-Future<List<Product>> grpcFetchProducts(String sessionKey, int businessPageId) async {
+Future<Tuple2<bool, List<Product>>> grpcFetchProducts(String sessionKey, int businessPageId) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
-  List<Product> res = List<Product>();
+  bool success = false;
+  List<Product> products = List<Product>();
 
   try {
     final response = await stub.fetchProducts(FetchProducts_Request()
       ..sessionKey = sessionKey
       ..businessPageId = businessPageId);
-    if (response.success)
+    success = response.success;
+    if (response.success) {
       response.id.asMap().forEach((i, id) {
-        res.add(Product.create(response.name[i], response.pictureBlob[i]));
+        products.add(Product.create(response.name[i], response.pictureBlob[i]));
       });
+    }
   } catch (e) {
     print(e);
   } finally {
     await channel.shutdown();
   }
-  return res;
+  return Tuple2(success, products);
 }
 
-Future<List<Vacancy>> grpcFetchVacancies(String sessionKey, int businessPageId) async {
+Future<Tuple2<bool, List<Vacancy>>> grpcFetchVacancies(String sessionKey, int businessPageId) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
-  List<Vacancy> res = List<Vacancy>();
+  bool success = false;
+  List<Vacancy> vacancies = List<Vacancy>();
 
   try {
     final response = await stub.fetchVacancies(FetchVacancies_Request()
       ..sessionKey = sessionKey
       ..businessPageId = businessPageId);
+    success = response.success;
     if (response.success) {
       //todo smth
     }
@@ -140,7 +149,7 @@ Future<List<Vacancy>> grpcFetchVacancies(String sessionKey, int businessPageId) 
   } finally {
     await channel.shutdown();
   }
-  return res;
+  return Tuple2(success, vacancies);
 }
 
 Future<bool> grpcCreateVacancy(String sessionKey, int businessPageId, Vacancy vacancy) async {

@@ -1,4 +1,4 @@
-import 'package:globens_flutter_client/utils/settings.dart';
+import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class GlobensScreen extends StatefulWidget {

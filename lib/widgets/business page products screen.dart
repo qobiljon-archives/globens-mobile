@@ -70,10 +70,17 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
         ],
       ),
     ];
-    grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((array) {
-      setState(() {
-        _body = array;
-      });
+    grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
+      bool success = tuple.item1;
+      List<Product> businessPages = tuple.item2;
+      if (success)
+        setState(() {
+          _body = businessPages;
+        });
+      else {
+        AppUser.signOut();
+        Navigator.pushNamed(context, 'root');
+      }
     });
 
     grpcFetchVacancies(AppUser.sessionKey, widget._businessPage.id).then((array) {
@@ -139,10 +146,17 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
 
   void _onCreateProductPressed(BuildContext context) async {
     await showModalBottomSheet(context: context, builder: (_context) => ProductPageEditorWidget(widget._businessPage));
-    grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((array) {
-      setState(() {
-        _body = array;
-      });
+    grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
+      bool success = tuple.item1;
+      List<Product> products = tuple.item2;
+      if (success)
+        setState(() {
+          _body = products;
+        });
+      else {
+        AppUser.signOut();
+        Navigator.pushNamed(context, 'root');
+      }
     });
   }
 

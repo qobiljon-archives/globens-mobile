@@ -27,10 +27,17 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
         child: Text("Create"),
       )
     ];
-    grpcFetchBusinessPages(AppUser.sessionKey).then((array) {
-      setState(() {
-        _body = array;
-      });
+    grpcFetchBusinessPages(AppUser.sessionKey).then((tuple) {
+      bool success = tuple.item1;
+      List<BusinessPage> businessPages = tuple.item2;
+      if (success)
+        setState(() {
+          _body = businessPages;
+        });
+      else {
+        AppUser.signOut();
+        Navigator.pushNamed(context, "root");
+      }
     });
   }
 
@@ -105,10 +112,17 @@ class _MyPagesScreenState extends State<MyPagesScreen> {
 
   void _onCreateProductPressed(BuildContext context) async {
     await showModalBottomSheet(context: context, builder: (context) => BusinessPageEditorWidget());
-    grpcFetchBusinessPages(AppUser.sessionKey).then((array) {
-      setState(() {
-        _body = array;
-      });
+    grpcFetchBusinessPages(AppUser.sessionKey).then((tuple) {
+      bool success = tuple.item1;
+      List<BusinessPage> businessPages = tuple.item2;
+      if (success)
+        setState(() {
+          _body = businessPages;
+        });
+      else {
+        AppUser.signOut();
+        Navigator.pushNamed(context, "root");
+      }
     });
   }
 
