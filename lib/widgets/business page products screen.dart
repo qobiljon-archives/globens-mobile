@@ -1,11 +1,11 @@
 import 'package:globens_flutter_client/widgets/product%20editor%20modal%20view.dart';
+import 'package:globens_flutter_client/widgets/vacancy%20editor%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:globens_flutter_client/widgets/vacancy%20editor%20modal%20view.dart';
 
 class BusinessPageDetail extends StatefulWidget {
   final BusinessPage _businessPage;
@@ -73,6 +73,12 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
     grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((array) {
       setState(() {
         _body = array;
+      });
+    });
+
+    grpcFetchVacancies(AppUser.sessionKey, widget._businessPage.id).then((array) {
+      setState(() {
+        // todo fill body with vacancy widgets
       });
     });
   }
@@ -146,7 +152,6 @@ class _BusinessPageDetailState extends State<BusinessPageDetail> {
 
   void _onCreateVacancyPressed(BuildContext context) async {
     await showModalBottomSheet(context: context, builder: (_context) => VacancyPageEditorWidget(widget._businessPage));
-
   }
 
   void _onProductPressed(BuildContext context) {}

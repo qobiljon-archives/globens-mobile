@@ -137,7 +137,7 @@ Future<bool> grpcCreateVacancy(String sessionKey, int businessPageId, Vacancy va
   try {
     final response = await stub.createVacancy(CreateVacancy_Request()
       ..sessionKey = sessionKey
-      ..businessPageId= businessPageId
+      ..businessPageId = businessPageId
       ..title = vacancy.title);
     res = response.success;
   } catch (e) {
