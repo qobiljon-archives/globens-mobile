@@ -5,16 +5,16 @@ import 'package:globens_flutter_client/entities/Vacancy.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 
-class VacancyPageEditorModalView extends StatefulWidget {
+class JobPageEditorModalView extends StatefulWidget {
   final BusinessPage _businessPage;
 
-  const VacancyPageEditorModalView(this._businessPage);
+  const JobPageEditorModalView(this._businessPage);
 
   @override
-  _VacancyPageEditorModalViewState createState() => _VacancyPageEditorModalViewState();
+  _JobPageEditorModalViewState createState() => _JobPageEditorModalViewState();
 }
 
-class _VacancyPageEditorModalViewState extends State<VacancyPageEditorModalView> {
+class _JobPageEditorModalViewState extends State<JobPageEditorModalView> {
   TextEditingController _titleTextController = TextEditingController();
 
   @override

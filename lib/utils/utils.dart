@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/entities/VacancyApplication.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -170,4 +171,28 @@ Future<bool> grpcCreateVacancy(String sessionKey, int businessPageId, Vacancy va
     await channel.shutdown();
   }
   return res;
+}
+
+Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessionKey, int businessPageId) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  List<JobApplication> vacancyApplications = List<JobApplication>();
+
+  try {
+    final response = await stub.fetchVacancies(FetchVacancies_Request()
+      ..sessionKey = sessionKey
+      ..businessPageId = businessPageId);
+    success = response.success;
+    if (response.success)
+  {
+    // TODO get list of vacancies
+  }
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+  return Tuple2(success, vacancyApplications);
 }

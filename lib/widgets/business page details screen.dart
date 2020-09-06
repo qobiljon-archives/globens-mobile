@@ -1,13 +1,14 @@
 import 'package:globens_flutter_client/entities/Vacancy.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/widgets/product%20editor%20modal%20view.dart';
-import 'package:globens_flutter_client/widgets/vacancy%20editor%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'job details screen.dart';
+import 'job editor modal view.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
   final BusinessPage _businessPage;
@@ -167,7 +168,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => _onVacancyPressed(context),
+          onTap: () => _onVacancyPressed(context, _vacancies[index], widget._businessPage),
           child: Text(
             "${_vacancies[index].title}",
             overflow: TextOverflow.clip,
@@ -207,7 +208,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateVacancyPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (_context) => VacancyPageEditorModalView(widget._businessPage));
+    await showModalBottomSheet(context: context, builder: (_context) => JobPageEditorModalView(widget._businessPage));
     grpcFetchVacancies(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
       bool success = tuple.item1;
       List<Vacancy> vacancies = tuple.item2;
@@ -226,7 +227,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     // todo open product details modal view
   }
 
-  void _onVacancyPressed(BuildContext context) {
-    // todo open vacancy details modal view
+  void _onVacancyPressed(BuildContext context, Vacancy vacancy, BusinessPage businessPage) {
+    Navigator.push(context, MaterialPageRoute(builder: (_context) => JobApplicationScreen(vacancy, businessPage)));
   }
 }
