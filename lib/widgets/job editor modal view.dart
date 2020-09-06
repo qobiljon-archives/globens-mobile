@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
-import 'package:globens_flutter_client/entities/Vacancy.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 
@@ -52,7 +52,7 @@ class _JobPageEditorModalViewState extends State<JobPageEditorModalView> {
       return;
     }
 
-    bool success = await grpcCreateVacancy(AppUser.sessionKey, widget._businessPage.id, Vacancy.create(_titleTextController.text));
+    bool success = await grpcCreateVacantJob(AppUser.sessionKey, widget._businessPage.id, Job.create(_titleTextController.text));
 
     if (success)
       Navigator.of(context).pop();

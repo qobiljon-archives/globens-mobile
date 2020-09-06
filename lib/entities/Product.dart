@@ -1,13 +1,7 @@
 import 'dart:typed_data';
 
 class Product {
-  Product._(int id, String name, Uint8List pictureBlob) {
-    this._id = id;
-    this._name = name;
-    this._pictureBlob = pictureBlob;
-  }
-
-  Product.create(String name, Uint8List pictureBlob) {
+  Product.create(String name, Uint8List pictureBlob, {int id}) {
     this._name = name;
     this._pictureBlob = pictureBlob;
   }

@@ -1,12 +1,4 @@
 class BusinessPage {
-  BusinessPage._(int id, String title, String type, List<int> pictureBlob, String role) {
-    this._id = id;
-    this._title = title;
-    this._type = type;
-    this._pictureBlob = pictureBlob;
-    this._role = role;
-  }
-
   BusinessPage.create(String title, List<int> pictureBlob, {int id, String type, String role}) {
     this._id = id;
     this._title = title;

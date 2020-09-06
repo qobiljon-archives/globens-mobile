@@ -17,8 +17,6 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
   int _selectedIndex = 0;
   static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), MyBusinessPagesScreen(), MenuScreen()];
 
-
-
   @override
   void initState() {
     super.initState();

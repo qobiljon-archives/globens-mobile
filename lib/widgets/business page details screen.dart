@@ -1,4 +1,4 @@
-import 'package:globens_flutter_client/entities/Vacancy.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/widgets/product%20editor%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
@@ -22,7 +22,7 @@ class BusinessPageDetailsScreen extends StatefulWidget {
 class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   List<Widget> _header = [];
   List<Product> _products = [];
-  List<Vacancy> _vacancies = [];
+  List<Job> _vacancies = [];
   List<Widget> _footer = [];
 
   @override
@@ -65,7 +65,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       ));
 
     // 3. dynamic part : change body (i.e., products, vacancies, employees) according to user's role in business page
-    grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
+    grpcFetchBusinessPageProducts(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
       bool success = tuple.item1;
       List<Product> products = tuple.item2;
       if (success)
@@ -77,9 +77,9 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
         Navigator.pushReplacementNamed(context, 'root');
       }
     });
-    grpcFetchVacancies(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
+    grpcFetchBusinessPageJobs(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
       bool success = tuple.item1;
-      List<Vacancy> vacancies = tuple.item2;
+      List<Job> vacancies = tuple.item2;
       if (success)
         setState(() {
           _vacancies = vacancies;
@@ -189,7 +189,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   void _onCreateProductPressed(BuildContext context) async {
     await showModalBottomSheet(context: context, builder: (_context) => ProductPageEditorScreen(widget._businessPage));
-    grpcFetchProducts(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
+    grpcFetchBusinessPageProducts(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
       bool success = tuple.item1;
       List<Product> products = tuple.item2;
       if (success)
@@ -209,9 +209,9 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   void _onCreateVacancyPressed(BuildContext context) async {
     await showModalBottomSheet(context: context, builder: (_context) => JobPageEditorModalView(widget._businessPage));
-    grpcFetchVacancies(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
+    grpcFetchBusinessPageJobs(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
       bool success = tuple.item1;
-      List<Vacancy> vacancies = tuple.item2;
+      List<Job> vacancies = tuple.item2;
       if (success)
         setState(() {
           _vacancies = vacancies;
@@ -227,7 +227,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     // todo open product details modal view
   }
 
-  void _onVacancyPressed(BuildContext context, Vacancy vacancy, BusinessPage businessPage) {
+  void _onVacancyPressed(BuildContext context, Job vacancy, BusinessPage businessPage) {
     Navigator.push(context, MaterialPageRoute(builder: (_context) => JobApplicationScreen(vacancy, businessPage)));
   }
 }

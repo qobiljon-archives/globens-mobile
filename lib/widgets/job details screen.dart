@@ -1,13 +1,13 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/VacancyApplication.dart';
-import 'package:globens_flutter_client/entities/Vacancy.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class JobApplicationScreen extends StatefulWidget {
-  final Vacancy vacancy;
+  final Job vacancy;
   final BusinessPage businessPage;
 
   const JobApplicationScreen(this.vacancy, this.businessPage);

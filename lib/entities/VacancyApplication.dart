@@ -1,10 +1,5 @@
 class JobApplication {
-  JobApplication._(int id, String title) {
-    this._id = id;
-    this._title = title;
-  }
-
-  JobApplication.create(String title) {
+  JobApplication.create(String title, {int id}) {
     this._title = title;
   }
 

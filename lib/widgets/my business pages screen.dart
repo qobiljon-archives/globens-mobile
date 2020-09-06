@@ -29,7 +29,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     ];
 
     // 2. dynamic part : change body (i.e., business pages) from server
-    grpcFetchBusinessPages(AppUser.sessionKey).then((tuple) {
+    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
       if (success)
@@ -120,7 +120,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
 
   void _onCreateProductPressed(BuildContext context) async {
     await showModalBottomSheet(context: context, builder: (context) => BusinessPageEditorModalView());
-    grpcFetchBusinessPages(AppUser.sessionKey).then((tuple) {
+    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
       if (success)
