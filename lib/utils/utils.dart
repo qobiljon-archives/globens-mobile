@@ -103,13 +103,14 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
       ..businessPageId = businessPageId);
     success = productIdsRes.success;
     if (success)
-      for (int productId in productIdsRes.id) {
+      for (int productId in productIdsRes.id){
         final productDetailsRes = await stub.fetchProductDetails(FetchProductDetails_Request()
           ..sessionKey = sessionKey
           ..productId = productId);
         success &= productDetailsRes.success;
-        if (success) products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, id: productDetailsRes.id));
-      }
+        if (success)
+          products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, id: productDetailsRes.id));
+      };
   } catch (e) {
     print(e);
   } finally {
@@ -151,13 +152,14 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, int
       ..businessPageId = businessPageId);
     success = businessPageJobIdsRes.success;
     if (success)
-      for (int jobId in businessPageJobIdsRes.id) {
+      for(int jobId in businessPageJobIdsRes.id) {
         final jobDetailsRes = await stub.fetchJobDetails(FetchJobDetails_Request()
           ..sessionKey = sessionKey
           ..jobId = jobId);
         success &= jobDetailsRes.success;
-        if (success) vacancies.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, hiredUserId: jobDetailsRes.hiredUserId));
-      }
+        if (success)
+          vacancies.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, hiredUserId: jobDetailsRes.hiredUserId));
+      };
   } catch (e) {
     print(e);
   } finally {
