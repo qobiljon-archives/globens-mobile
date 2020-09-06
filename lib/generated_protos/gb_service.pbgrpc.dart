@@ -38,81 +38,6 @@ class GlobensServiceClient extends $grpc.Client {
       ($0.FetchUserDetails_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.FetchUserDetails_Response.fromBuffer(value));
-  static final _$createVacantJob = $grpc.ClientMethod<
-          $0.CreateVacantJob_Request, $0.CreateVacantJob_Response>(
-      '/GlobensService/createVacantJob',
-      ($0.CreateVacantJob_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.CreateVacantJob_Response.fromBuffer(value));
-  static final _$updateJobDetails = $grpc.ClientMethod<
-          $0.UpdateJobDetails_Request, $0.UpdateJobDetails_Response>(
-      '/GlobensService/updateJobDetails',
-      ($0.UpdateJobDetails_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.UpdateJobDetails_Response.fromBuffer(value));
-  static final _$uncreateJob =
-      $grpc.ClientMethod<$0.UncreateJob_Request, $0.UncreateJob_Response>(
-          '/GlobensService/uncreateJob',
-          ($0.UncreateJob_Request value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.UncreateJob_Response.fromBuffer(value));
-  static final _$fetchBusinessPageJobIds = $grpc.ClientMethod<
-          $0.FetchBusinessPageJobIds_Request,
-          $0.FetchBusinessPageJobIds_Response>(
-      '/GlobensService/fetchBusinessPageJobIds',
-      ($0.FetchBusinessPageJobIds_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.FetchBusinessPageJobIds_Response.fromBuffer(value));
-  static final _$fetchNextKVacantJobIds = $grpc.ClientMethod<
-          $0.FetchNextKVacantJobIds_Request,
-          $0.FetchNextKVacantJobIds_Response>(
-      '/GlobensService/fetchNextKVacantJobIds',
-      ($0.FetchNextKVacantJobIds_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.FetchNextKVacantJobIds_Response.fromBuffer(value));
-  static final _$fetchJobDetails = $grpc.ClientMethod<
-          $0.FetchJobDetails_Request, $0.FetchJobDetails_Response>(
-      '/GlobensService/fetchJobDetails',
-      ($0.FetchJobDetails_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.FetchJobDetails_Response.fromBuffer(value));
-  static final _$createVacancyApplication = $grpc.ClientMethod<
-          $0.CreateVacancyApplication_Request,
-          $0.CreateVacancyApplication_Response>(
-      '/GlobensService/createVacancyApplication',
-      ($0.CreateVacancyApplication_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.CreateVacancyApplication_Response.fromBuffer(value));
-  static final _$updateVacancyApplicationDetails = $grpc.ClientMethod<
-          $0.UpdateVacancyApplicationDetails_Request,
-          $0.UpdateVacancyApplicationDetails_Response>(
-      '/GlobensService/updateVacancyApplicationDetails',
-      ($0.UpdateVacancyApplicationDetails_Request value) =>
-          value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.UpdateVacancyApplicationDetails_Response.fromBuffer(value));
-  static final _$uncreateVacancyApplication = $grpc.ClientMethod<
-          $0.UncreateVacancyApplication_Request,
-          $0.UncreateVacancyApplication_Response>(
-      '/GlobensService/uncreateVacancyApplication',
-      ($0.UncreateVacancyApplication_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.UncreateVacancyApplication_Response.fromBuffer(value));
-  static final _$fetchMyVacancyApplicationIds = $grpc.ClientMethod<
-          $0.FetchMyVacancyApplicationIds_Request,
-          $0.FetchMyVacancyApplicationIds_Response>(
-      '/GlobensService/fetchMyVacancyApplicationIds',
-      ($0.FetchMyVacancyApplicationIds_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.FetchMyVacancyApplicationIds_Response.fromBuffer(value));
-  static final _$fetchVacancyApplicationDetails = $grpc.ClientMethod<
-          $0.FetchVacancyApplicationDetails_Request,
-          $0.FetchVacancyApplicationDetails_Response>(
-      '/GlobensService/fetchVacancyApplicationDetails',
-      ($0.FetchVacancyApplicationDetails_Request value) =>
-          value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.FetchVacancyApplicationDetails_Response.fromBuffer(value));
   static final _$createBusinessPage = $grpc.ClientMethod<
           $0.CreateBusinessPage_Request, $0.CreateBusinessPage_Response>(
       '/GlobensService/createBusinessPage',
@@ -189,6 +114,90 @@ class GlobensServiceClient extends $grpc.Client {
       ($0.FetchProductDetails_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.FetchProductDetails_Response.fromBuffer(value));
+  static final _$createVacantJob = $grpc.ClientMethod<
+          $0.CreateVacantJob_Request, $0.CreateVacantJob_Response>(
+      '/GlobensService/createVacantJob',
+      ($0.CreateVacantJob_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.CreateVacantJob_Response.fromBuffer(value));
+  static final _$updateJobDetails = $grpc.ClientMethod<
+          $0.UpdateJobDetails_Request, $0.UpdateJobDetails_Response>(
+      '/GlobensService/updateJobDetails',
+      ($0.UpdateJobDetails_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.UpdateJobDetails_Response.fromBuffer(value));
+  static final _$uncreateJob =
+      $grpc.ClientMethod<$0.UncreateJob_Request, $0.UncreateJob_Response>(
+          '/GlobensService/uncreateJob',
+          ($0.UncreateJob_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.UncreateJob_Response.fromBuffer(value));
+  static final _$fetchBusinessPageJobIds = $grpc.ClientMethod<
+          $0.FetchBusinessPageJobIds_Request,
+          $0.FetchBusinessPageJobIds_Response>(
+      '/GlobensService/fetchBusinessPageJobIds',
+      ($0.FetchBusinessPageJobIds_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchBusinessPageJobIds_Response.fromBuffer(value));
+  static final _$fetchNextKVacantJobIds = $grpc.ClientMethod<
+          $0.FetchNextKVacantJobIds_Request,
+          $0.FetchNextKVacantJobIds_Response>(
+      '/GlobensService/fetchNextKVacantJobIds',
+      ($0.FetchNextKVacantJobIds_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchNextKVacantJobIds_Response.fromBuffer(value));
+  static final _$fetchJobDetails = $grpc.ClientMethod<
+          $0.FetchJobDetails_Request, $0.FetchJobDetails_Response>(
+      '/GlobensService/fetchJobDetails',
+      ($0.FetchJobDetails_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchJobDetails_Response.fromBuffer(value));
+  static final _$createJobApplication = $grpc.ClientMethod<
+          $0.CreateJobApplication_Request, $0.CreateJobApplication_Response>(
+      '/GlobensService/createJobApplication',
+      ($0.CreateJobApplication_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.CreateJobApplication_Response.fromBuffer(value));
+  static final _$updateJobApplicationDetails = $grpc.ClientMethod<
+          $0.UpdateJobApplicationDetails_Request,
+          $0.UpdateJobApplicationDetails_Response>(
+      '/GlobensService/updateJobApplicationDetails',
+      ($0.UpdateJobApplicationDetails_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.UpdateJobApplicationDetails_Response.fromBuffer(value));
+  static final _$uncreateJobApplication = $grpc.ClientMethod<
+          $0.UncreateJobApplication_Request,
+          $0.UncreateJobApplication_Response>(
+      '/GlobensService/uncreateJobApplication',
+      ($0.UncreateJobApplication_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.UncreateJobApplication_Response.fromBuffer(value));
+  static final _$fetchJobApplicationIds = $grpc.ClientMethod<
+          $0.FetchJobApplicationIds_Request,
+          $0.FetchJobApplicationIds_Response>(
+      '/GlobensService/fetchJobApplicationIds',
+      ($0.FetchJobApplicationIds_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchJobApplicationIds_Response.fromBuffer(value));
+  static final _$fetchJobApplicationDetails = $grpc.ClientMethod<
+          $0.FetchJobApplicationDetails_Request,
+          $0.FetchJobApplicationDetails_Response>(
+      '/GlobensService/fetchJobApplicationDetails',
+      ($0.FetchJobApplicationDetails_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchJobApplicationDetails_Response.fromBuffer(value));
+  static final _$approveJobApplication = $grpc.ClientMethod<
+          $0.ApproveJobApplication_Request, $0.ApproveJobApplication_Response>(
+      '/GlobensService/approveJobApplication',
+      ($0.ApproveJobApplication_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.ApproveJobApplication_Response.fromBuffer(value));
+  static final _$declineJobApplication = $grpc.ClientMethod<
+          $0.DeclineJobApplication_Request, $0.DeclineJobApplication_Response>(
+      '/GlobensService/declineJobApplication',
+      ($0.DeclineJobApplication_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.DeclineJobApplication_Response.fromBuffer(value));
   static final _$logPurchase =
       $grpc.ClientMethod<$0.LogPurchase_Request, $0.LogPurchase_Response>(
           '/GlobensService/logPurchase',
@@ -243,108 +252,6 @@ class GlobensServiceClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$fetchUserDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.CreateVacantJob_Response> createVacantJob(
-      $0.CreateVacantJob_Request request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$createVacantJob, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.UpdateJobDetails_Response> updateJobDetails(
-      $0.UpdateJobDetails_Request request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateJobDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.UncreateJob_Response> uncreateJob(
-      $0.UncreateJob_Request request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$uncreateJob, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.FetchBusinessPageJobIds_Response>
-      fetchBusinessPageJobIds($0.FetchBusinessPageJobIds_Request request,
-          {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchBusinessPageJobIds, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.FetchNextKVacantJobIds_Response>
-      fetchNextKVacantJobIds($0.FetchNextKVacantJobIds_Request request,
-          {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchNextKVacantJobIds, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.FetchJobDetails_Response> fetchJobDetails(
-      $0.FetchJobDetails_Request request,
-      {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchJobDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.CreateVacancyApplication_Response>
-      createVacancyApplication($0.CreateVacancyApplication_Request request,
-          {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$createVacancyApplication, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.UpdateVacancyApplicationDetails_Response>
-      updateVacancyApplicationDetails(
-          $0.UpdateVacancyApplicationDetails_Request request,
-          {$grpc.CallOptions options}) {
-    final call = $createCall(_$updateVacancyApplicationDetails,
-        $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.UncreateVacancyApplication_Response>
-      uncreateVacancyApplication($0.UncreateVacancyApplication_Request request,
-          {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$uncreateVacancyApplication, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.FetchMyVacancyApplicationIds_Response>
-      fetchMyVacancyApplicationIds(
-          $0.FetchMyVacancyApplicationIds_Request request,
-          {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchMyVacancyApplicationIds, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.FetchVacancyApplicationDetails_Response>
-      fetchVacancyApplicationDetails(
-          $0.FetchVacancyApplicationDetails_Request request,
-          {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchVacancyApplicationDetails, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -458,6 +365,124 @@ class GlobensServiceClient extends $grpc.Client {
     return $grpc.ResponseFuture(call);
   }
 
+  $grpc.ResponseFuture<$0.CreateVacantJob_Response> createVacantJob(
+      $0.CreateVacantJob_Request request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$createVacantJob, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.UpdateJobDetails_Response> updateJobDetails(
+      $0.UpdateJobDetails_Request request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$updateJobDetails, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.UncreateJob_Response> uncreateJob(
+      $0.UncreateJob_Request request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$uncreateJob, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.FetchBusinessPageJobIds_Response>
+      fetchBusinessPageJobIds($0.FetchBusinessPageJobIds_Request request,
+          {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$fetchBusinessPageJobIds, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.FetchNextKVacantJobIds_Response>
+      fetchNextKVacantJobIds($0.FetchNextKVacantJobIds_Request request,
+          {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$fetchNextKVacantJobIds, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.FetchJobDetails_Response> fetchJobDetails(
+      $0.FetchJobDetails_Request request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$fetchJobDetails, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.CreateJobApplication_Response> createJobApplication(
+      $0.CreateJobApplication_Request request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$createJobApplication, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.UpdateJobApplicationDetails_Response>
+      updateJobApplicationDetails(
+          $0.UpdateJobApplicationDetails_Request request,
+          {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$updateJobApplicationDetails, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.UncreateJobApplication_Response>
+      uncreateJobApplication($0.UncreateJobApplication_Request request,
+          {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$uncreateJobApplication, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.FetchJobApplicationIds_Response>
+      fetchJobApplicationIds($0.FetchJobApplicationIds_Request request,
+          {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$fetchJobApplicationIds, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.FetchJobApplicationDetails_Response>
+      fetchJobApplicationDetails($0.FetchJobApplicationDetails_Request request,
+          {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$fetchJobApplicationDetails, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.ApproveJobApplication_Response> approveJobApplication(
+      $0.ApproveJobApplication_Request request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$approveJobApplication, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.DeclineJobApplication_Response> declineJobApplication(
+      $0.DeclineJobApplication_Request request,
+      {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$declineJobApplication, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
   $grpc.ResponseFuture<$0.LogPurchase_Response> logPurchase(
       $0.LogPurchase_Request request,
       {$grpc.CallOptions options}) {
@@ -526,109 +551,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.FetchUserDetails_Request.fromBuffer(value),
         ($0.FetchUserDetails_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.CreateVacantJob_Request,
-            $0.CreateVacantJob_Response>(
-        'createVacantJob',
-        createVacantJob_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.CreateVacantJob_Request.fromBuffer(value),
-        ($0.CreateVacantJob_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UpdateJobDetails_Request,
-            $0.UpdateJobDetails_Response>(
-        'updateJobDetails',
-        updateJobDetails_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.UpdateJobDetails_Request.fromBuffer(value),
-        ($0.UpdateJobDetails_Response value) => value.writeToBuffer()));
-    $addMethod(
-        $grpc.ServiceMethod<$0.UncreateJob_Request, $0.UncreateJob_Response>(
-            'uncreateJob',
-            uncreateJob_Pre,
-            false,
-            false,
-            ($core.List<$core.int> value) =>
-                $0.UncreateJob_Request.fromBuffer(value),
-            ($0.UncreateJob_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.FetchBusinessPageJobIds_Request,
-            $0.FetchBusinessPageJobIds_Response>(
-        'fetchBusinessPageJobIds',
-        fetchBusinessPageJobIds_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.FetchBusinessPageJobIds_Request.fromBuffer(value),
-        ($0.FetchBusinessPageJobIds_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.FetchNextKVacantJobIds_Request,
-            $0.FetchNextKVacantJobIds_Response>(
-        'fetchNextKVacantJobIds',
-        fetchNextKVacantJobIds_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.FetchNextKVacantJobIds_Request.fromBuffer(value),
-        ($0.FetchNextKVacantJobIds_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.FetchJobDetails_Request,
-            $0.FetchJobDetails_Response>(
-        'fetchJobDetails',
-        fetchJobDetails_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.FetchJobDetails_Request.fromBuffer(value),
-        ($0.FetchJobDetails_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.CreateVacancyApplication_Request,
-            $0.CreateVacancyApplication_Response>(
-        'createVacancyApplication',
-        createVacancyApplication_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.CreateVacancyApplication_Request.fromBuffer(value),
-        ($0.CreateVacancyApplication_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UpdateVacancyApplicationDetails_Request,
-            $0.UpdateVacancyApplicationDetails_Response>(
-        'updateVacancyApplicationDetails',
-        updateVacancyApplicationDetails_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.UpdateVacancyApplicationDetails_Request.fromBuffer(value),
-        ($0.UpdateVacancyApplicationDetails_Response value) =>
-            value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UncreateVacancyApplication_Request,
-            $0.UncreateVacancyApplication_Response>(
-        'uncreateVacancyApplication',
-        uncreateVacancyApplication_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.UncreateVacancyApplication_Request.fromBuffer(value),
-        ($0.UncreateVacancyApplication_Response value) =>
-            value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.FetchMyVacancyApplicationIds_Request,
-            $0.FetchMyVacancyApplicationIds_Response>(
-        'fetchMyVacancyApplicationIds',
-        fetchMyVacancyApplicationIds_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.FetchMyVacancyApplicationIds_Request.fromBuffer(value),
-        ($0.FetchMyVacancyApplicationIds_Response value) =>
-            value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.FetchVacancyApplicationDetails_Request,
-            $0.FetchVacancyApplicationDetails_Response>(
-        'fetchVacancyApplicationDetails',
-        fetchVacancyApplicationDetails_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.FetchVacancyApplicationDetails_Request.fromBuffer(value),
-        ($0.FetchVacancyApplicationDetails_Response value) =>
-            value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreateBusinessPage_Request,
             $0.CreateBusinessPage_Response>(
         'createBusinessPage',
@@ -739,6 +661,125 @@ abstract class GlobensServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.FetchProductDetails_Request.fromBuffer(value),
         ($0.FetchProductDetails_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.CreateVacantJob_Request,
+            $0.CreateVacantJob_Response>(
+        'createVacantJob',
+        createVacantJob_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.CreateVacantJob_Request.fromBuffer(value),
+        ($0.CreateVacantJob_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UpdateJobDetails_Request,
+            $0.UpdateJobDetails_Response>(
+        'updateJobDetails',
+        updateJobDetails_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.UpdateJobDetails_Request.fromBuffer(value),
+        ($0.UpdateJobDetails_Response value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.UncreateJob_Request, $0.UncreateJob_Response>(
+            'uncreateJob',
+            uncreateJob_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.UncreateJob_Request.fromBuffer(value),
+            ($0.UncreateJob_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchBusinessPageJobIds_Request,
+            $0.FetchBusinessPageJobIds_Response>(
+        'fetchBusinessPageJobIds',
+        fetchBusinessPageJobIds_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchBusinessPageJobIds_Request.fromBuffer(value),
+        ($0.FetchBusinessPageJobIds_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchNextKVacantJobIds_Request,
+            $0.FetchNextKVacantJobIds_Response>(
+        'fetchNextKVacantJobIds',
+        fetchNextKVacantJobIds_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchNextKVacantJobIds_Request.fromBuffer(value),
+        ($0.FetchNextKVacantJobIds_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchJobDetails_Request,
+            $0.FetchJobDetails_Response>(
+        'fetchJobDetails',
+        fetchJobDetails_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchJobDetails_Request.fromBuffer(value),
+        ($0.FetchJobDetails_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.CreateJobApplication_Request,
+            $0.CreateJobApplication_Response>(
+        'createJobApplication',
+        createJobApplication_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.CreateJobApplication_Request.fromBuffer(value),
+        ($0.CreateJobApplication_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UpdateJobApplicationDetails_Request,
+            $0.UpdateJobApplicationDetails_Response>(
+        'updateJobApplicationDetails',
+        updateJobApplicationDetails_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.UpdateJobApplicationDetails_Request.fromBuffer(value),
+        ($0.UpdateJobApplicationDetails_Response value) =>
+            value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UncreateJobApplication_Request,
+            $0.UncreateJobApplication_Response>(
+        'uncreateJobApplication',
+        uncreateJobApplication_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.UncreateJobApplication_Request.fromBuffer(value),
+        ($0.UncreateJobApplication_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchJobApplicationIds_Request,
+            $0.FetchJobApplicationIds_Response>(
+        'fetchJobApplicationIds',
+        fetchJobApplicationIds_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchJobApplicationIds_Request.fromBuffer(value),
+        ($0.FetchJobApplicationIds_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchJobApplicationDetails_Request,
+            $0.FetchJobApplicationDetails_Response>(
+        'fetchJobApplicationDetails',
+        fetchJobApplicationDetails_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchJobApplicationDetails_Request.fromBuffer(value),
+        ($0.FetchJobApplicationDetails_Response value) =>
+            value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ApproveJobApplication_Request,
+            $0.ApproveJobApplication_Response>(
+        'approveJobApplication',
+        approveJobApplication_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.ApproveJobApplication_Request.fromBuffer(value),
+        ($0.ApproveJobApplication_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeclineJobApplication_Request,
+            $0.DeclineJobApplication_Response>(
+        'declineJobApplication',
+        declineJobApplication_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.DeclineJobApplication_Request.fromBuffer(value),
+        ($0.DeclineJobApplication_Response value) => value.writeToBuffer()));
     $addMethod(
         $grpc.ServiceMethod<$0.LogPurchase_Request, $0.LogPurchase_Response>(
             'logPurchase',
@@ -790,77 +831,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
       $grpc.ServiceCall call,
       $async.Future<$0.FetchUserDetails_Request> request) async {
     return fetchUserDetails(call, await request);
-  }
-
-  $async.Future<$0.CreateVacantJob_Response> createVacantJob_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.CreateVacantJob_Request> request) async {
-    return createVacantJob(call, await request);
-  }
-
-  $async.Future<$0.UpdateJobDetails_Response> updateJobDetails_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.UpdateJobDetails_Request> request) async {
-    return updateJobDetails(call, await request);
-  }
-
-  $async.Future<$0.UncreateJob_Response> uncreateJob_Pre($grpc.ServiceCall call,
-      $async.Future<$0.UncreateJob_Request> request) async {
-    return uncreateJob(call, await request);
-  }
-
-  $async.Future<$0.FetchBusinessPageJobIds_Response>
-      fetchBusinessPageJobIds_Pre($grpc.ServiceCall call,
-          $async.Future<$0.FetchBusinessPageJobIds_Request> request) async {
-    return fetchBusinessPageJobIds(call, await request);
-  }
-
-  $async.Future<$0.FetchNextKVacantJobIds_Response> fetchNextKVacantJobIds_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.FetchNextKVacantJobIds_Request> request) async {
-    return fetchNextKVacantJobIds(call, await request);
-  }
-
-  $async.Future<$0.FetchJobDetails_Response> fetchJobDetails_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.FetchJobDetails_Request> request) async {
-    return fetchJobDetails(call, await request);
-  }
-
-  $async.Future<$0.CreateVacancyApplication_Response>
-      createVacancyApplication_Pre($grpc.ServiceCall call,
-          $async.Future<$0.CreateVacancyApplication_Request> request) async {
-    return createVacancyApplication(call, await request);
-  }
-
-  $async.Future<$0.UpdateVacancyApplicationDetails_Response>
-      updateVacancyApplicationDetails_Pre(
-          $grpc.ServiceCall call,
-          $async.Future<$0.UpdateVacancyApplicationDetails_Request>
-              request) async {
-    return updateVacancyApplicationDetails(call, await request);
-  }
-
-  $async.Future<$0.UncreateVacancyApplication_Response>
-      uncreateVacancyApplication_Pre($grpc.ServiceCall call,
-          $async.Future<$0.UncreateVacancyApplication_Request> request) async {
-    return uncreateVacancyApplication(call, await request);
-  }
-
-  $async.Future<$0.FetchMyVacancyApplicationIds_Response>
-      fetchMyVacancyApplicationIds_Pre(
-          $grpc.ServiceCall call,
-          $async.Future<$0.FetchMyVacancyApplicationIds_Request>
-              request) async {
-    return fetchMyVacancyApplicationIds(call, await request);
-  }
-
-  $async.Future<$0.FetchVacancyApplicationDetails_Response>
-      fetchVacancyApplicationDetails_Pre(
-          $grpc.ServiceCall call,
-          $async.Future<$0.FetchVacancyApplicationDetails_Request>
-              request) async {
-    return fetchVacancyApplicationDetails(call, await request);
   }
 
   $async.Future<$0.CreateBusinessPage_Response> createBusinessPage_Pre(
@@ -935,6 +905,83 @@ abstract class GlobensServiceBase extends $grpc.Service {
     return fetchProductDetails(call, await request);
   }
 
+  $async.Future<$0.CreateVacantJob_Response> createVacantJob_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.CreateVacantJob_Request> request) async {
+    return createVacantJob(call, await request);
+  }
+
+  $async.Future<$0.UpdateJobDetails_Response> updateJobDetails_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.UpdateJobDetails_Request> request) async {
+    return updateJobDetails(call, await request);
+  }
+
+  $async.Future<$0.UncreateJob_Response> uncreateJob_Pre($grpc.ServiceCall call,
+      $async.Future<$0.UncreateJob_Request> request) async {
+    return uncreateJob(call, await request);
+  }
+
+  $async.Future<$0.FetchBusinessPageJobIds_Response>
+      fetchBusinessPageJobIds_Pre($grpc.ServiceCall call,
+          $async.Future<$0.FetchBusinessPageJobIds_Request> request) async {
+    return fetchBusinessPageJobIds(call, await request);
+  }
+
+  $async.Future<$0.FetchNextKVacantJobIds_Response> fetchNextKVacantJobIds_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.FetchNextKVacantJobIds_Request> request) async {
+    return fetchNextKVacantJobIds(call, await request);
+  }
+
+  $async.Future<$0.FetchJobDetails_Response> fetchJobDetails_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.FetchJobDetails_Request> request) async {
+    return fetchJobDetails(call, await request);
+  }
+
+  $async.Future<$0.CreateJobApplication_Response> createJobApplication_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.CreateJobApplication_Request> request) async {
+    return createJobApplication(call, await request);
+  }
+
+  $async.Future<$0.UpdateJobApplicationDetails_Response>
+      updateJobApplicationDetails_Pre($grpc.ServiceCall call,
+          $async.Future<$0.UpdateJobApplicationDetails_Request> request) async {
+    return updateJobApplicationDetails(call, await request);
+  }
+
+  $async.Future<$0.UncreateJobApplication_Response> uncreateJobApplication_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.UncreateJobApplication_Request> request) async {
+    return uncreateJobApplication(call, await request);
+  }
+
+  $async.Future<$0.FetchJobApplicationIds_Response> fetchJobApplicationIds_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.FetchJobApplicationIds_Request> request) async {
+    return fetchJobApplicationIds(call, await request);
+  }
+
+  $async.Future<$0.FetchJobApplicationDetails_Response>
+      fetchJobApplicationDetails_Pre($grpc.ServiceCall call,
+          $async.Future<$0.FetchJobApplicationDetails_Request> request) async {
+    return fetchJobApplicationDetails(call, await request);
+  }
+
+  $async.Future<$0.ApproveJobApplication_Response> approveJobApplication_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.ApproveJobApplication_Request> request) async {
+    return approveJobApplication(call, await request);
+  }
+
+  $async.Future<$0.DeclineJobApplication_Response> declineJobApplication_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.DeclineJobApplication_Request> request) async {
+    return declineJobApplication(call, await request);
+  }
+
   $async.Future<$0.LogPurchase_Response> logPurchase_Pre($grpc.ServiceCall call,
       $async.Future<$0.LogPurchase_Request> request) async {
     return logPurchase(call, await request);
@@ -960,32 +1007,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UpdateUserDetails_Request request);
   $async.Future<$0.FetchUserDetails_Response> fetchUserDetails(
       $grpc.ServiceCall call, $0.FetchUserDetails_Request request);
-  $async.Future<$0.CreateVacantJob_Response> createVacantJob(
-      $grpc.ServiceCall call, $0.CreateVacantJob_Request request);
-  $async.Future<$0.UpdateJobDetails_Response> updateJobDetails(
-      $grpc.ServiceCall call, $0.UpdateJobDetails_Request request);
-  $async.Future<$0.UncreateJob_Response> uncreateJob(
-      $grpc.ServiceCall call, $0.UncreateJob_Request request);
-  $async.Future<$0.FetchBusinessPageJobIds_Response> fetchBusinessPageJobIds(
-      $grpc.ServiceCall call, $0.FetchBusinessPageJobIds_Request request);
-  $async.Future<$0.FetchNextKVacantJobIds_Response> fetchNextKVacantJobIds(
-      $grpc.ServiceCall call, $0.FetchNextKVacantJobIds_Request request);
-  $async.Future<$0.FetchJobDetails_Response> fetchJobDetails(
-      $grpc.ServiceCall call, $0.FetchJobDetails_Request request);
-  $async.Future<$0.CreateVacancyApplication_Response> createVacancyApplication(
-      $grpc.ServiceCall call, $0.CreateVacancyApplication_Request request);
-  $async.Future<$0.UpdateVacancyApplicationDetails_Response>
-      updateVacancyApplicationDetails($grpc.ServiceCall call,
-          $0.UpdateVacancyApplicationDetails_Request request);
-  $async.Future<$0.UncreateVacancyApplication_Response>
-      uncreateVacancyApplication($grpc.ServiceCall call,
-          $0.UncreateVacancyApplication_Request request);
-  $async.Future<$0.FetchMyVacancyApplicationIds_Response>
-      fetchMyVacancyApplicationIds($grpc.ServiceCall call,
-          $0.FetchMyVacancyApplicationIds_Request request);
-  $async.Future<$0.FetchVacancyApplicationDetails_Response>
-      fetchVacancyApplicationDetails($grpc.ServiceCall call,
-          $0.FetchVacancyApplicationDetails_Request request);
   $async.Future<$0.CreateBusinessPage_Response> createBusinessPage(
       $grpc.ServiceCall call, $0.CreateBusinessPage_Request request);
   $async.Future<$0.UpdateBusinessPageDetails_Response>
@@ -1012,6 +1033,34 @@ abstract class GlobensServiceBase extends $grpc.Service {
           $0.FetchBusinessPageProductIds_Request request);
   $async.Future<$0.FetchProductDetails_Response> fetchProductDetails(
       $grpc.ServiceCall call, $0.FetchProductDetails_Request request);
+  $async.Future<$0.CreateVacantJob_Response> createVacantJob(
+      $grpc.ServiceCall call, $0.CreateVacantJob_Request request);
+  $async.Future<$0.UpdateJobDetails_Response> updateJobDetails(
+      $grpc.ServiceCall call, $0.UpdateJobDetails_Request request);
+  $async.Future<$0.UncreateJob_Response> uncreateJob(
+      $grpc.ServiceCall call, $0.UncreateJob_Request request);
+  $async.Future<$0.FetchBusinessPageJobIds_Response> fetchBusinessPageJobIds(
+      $grpc.ServiceCall call, $0.FetchBusinessPageJobIds_Request request);
+  $async.Future<$0.FetchNextKVacantJobIds_Response> fetchNextKVacantJobIds(
+      $grpc.ServiceCall call, $0.FetchNextKVacantJobIds_Request request);
+  $async.Future<$0.FetchJobDetails_Response> fetchJobDetails(
+      $grpc.ServiceCall call, $0.FetchJobDetails_Request request);
+  $async.Future<$0.CreateJobApplication_Response> createJobApplication(
+      $grpc.ServiceCall call, $0.CreateJobApplication_Request request);
+  $async.Future<$0.UpdateJobApplicationDetails_Response>
+      updateJobApplicationDetails($grpc.ServiceCall call,
+          $0.UpdateJobApplicationDetails_Request request);
+  $async.Future<$0.UncreateJobApplication_Response> uncreateJobApplication(
+      $grpc.ServiceCall call, $0.UncreateJobApplication_Request request);
+  $async.Future<$0.FetchJobApplicationIds_Response> fetchJobApplicationIds(
+      $grpc.ServiceCall call, $0.FetchJobApplicationIds_Request request);
+  $async.Future<$0.FetchJobApplicationDetails_Response>
+      fetchJobApplicationDetails($grpc.ServiceCall call,
+          $0.FetchJobApplicationDetails_Request request);
+  $async.Future<$0.ApproveJobApplication_Response> approveJobApplication(
+      $grpc.ServiceCall call, $0.ApproveJobApplication_Request request);
+  $async.Future<$0.DeclineJobApplication_Response> declineJobApplication(
+      $grpc.ServiceCall call, $0.DeclineJobApplication_Request request);
   $async.Future<$0.LogPurchase_Response> logPurchase(
       $grpc.ServiceCall call, $0.LogPurchase_Request request);
   $async.Future<$0.FetchPurchases_Response> fetchPurchases(

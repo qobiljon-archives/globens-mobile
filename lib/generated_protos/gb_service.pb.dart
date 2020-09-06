@@ -406,1039 +406,6 @@ class FetchUserDetails extends $pb.GeneratedMessage {
   static FetchUserDetails _defaultInstance;
 }
 
-class CreateVacantJob_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacantJob.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
-    ..aOS(3, 'title')
-    ..hasRequiredFields = false
-  ;
-
-  CreateVacantJob_Request._() : super();
-  factory CreateVacantJob_Request() => create();
-  factory CreateVacantJob_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CreateVacantJob_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  CreateVacantJob_Request clone() => CreateVacantJob_Request()..mergeFromMessage(this);
-  CreateVacantJob_Request copyWith(void Function(CreateVacantJob_Request) updates) => super.copyWith((message) => updates(message as CreateVacantJob_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static CreateVacantJob_Request create() => CreateVacantJob_Request._();
-  CreateVacantJob_Request createEmptyInstance() => create();
-  static $pb.PbList<CreateVacantJob_Request> createRepeated() => $pb.PbList<CreateVacantJob_Request>();
-  @$core.pragma('dart2js:noInline')
-  static CreateVacantJob_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob_Request>(create);
-  static CreateVacantJob_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get businessPageId => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasBusinessPageId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearBusinessPageId() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get title => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set title($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasTitle() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearTitle() => clearField(3);
-}
-
-class CreateVacantJob_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacantJob.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..hasRequiredFields = false
-  ;
-
-  CreateVacantJob_Response._() : super();
-  factory CreateVacantJob_Response() => create();
-  factory CreateVacantJob_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CreateVacantJob_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  CreateVacantJob_Response clone() => CreateVacantJob_Response()..mergeFromMessage(this);
-  CreateVacantJob_Response copyWith(void Function(CreateVacantJob_Response) updates) => super.copyWith((message) => updates(message as CreateVacantJob_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static CreateVacantJob_Response create() => CreateVacantJob_Response._();
-  CreateVacantJob_Response createEmptyInstance() => create();
-  static $pb.PbList<CreateVacantJob_Response> createRepeated() => $pb.PbList<CreateVacantJob_Response>();
-  @$core.pragma('dart2js:noInline')
-  static CreateVacantJob_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob_Response>(create);
-  static CreateVacantJob_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class CreateVacantJob extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacantJob', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  CreateVacantJob._() : super();
-  factory CreateVacantJob() => create();
-  factory CreateVacantJob.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CreateVacantJob.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  CreateVacantJob clone() => CreateVacantJob()..mergeFromMessage(this);
-  CreateVacantJob copyWith(void Function(CreateVacantJob) updates) => super.copyWith((message) => updates(message as CreateVacantJob));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static CreateVacantJob create() => CreateVacantJob._();
-  CreateVacantJob createEmptyInstance() => create();
-  static $pb.PbList<CreateVacantJob> createRepeated() => $pb.PbList<CreateVacantJob>();
-  @$core.pragma('dart2js:noInline')
-  static CreateVacantJob getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob>(create);
-  static CreateVacantJob _defaultInstance;
-}
-
-class UpdateJobDetails_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobDetails.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..hasRequiredFields = false
-  ;
-
-  UpdateJobDetails_Request._() : super();
-  factory UpdateJobDetails_Request() => create();
-  factory UpdateJobDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateJobDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UpdateJobDetails_Request clone() => UpdateJobDetails_Request()..mergeFromMessage(this);
-  UpdateJobDetails_Request copyWith(void Function(UpdateJobDetails_Request) updates) => super.copyWith((message) => updates(message as UpdateJobDetails_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UpdateJobDetails_Request create() => UpdateJobDetails_Request._();
-  UpdateJobDetails_Request createEmptyInstance() => create();
-  static $pb.PbList<UpdateJobDetails_Request> createRepeated() => $pb.PbList<UpdateJobDetails_Request>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateJobDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails_Request>(create);
-  static UpdateJobDetails_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-}
-
-class UpdateJobDetails_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobDetails.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..hasRequiredFields = false
-  ;
-
-  UpdateJobDetails_Response._() : super();
-  factory UpdateJobDetails_Response() => create();
-  factory UpdateJobDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateJobDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UpdateJobDetails_Response clone() => UpdateJobDetails_Response()..mergeFromMessage(this);
-  UpdateJobDetails_Response copyWith(void Function(UpdateJobDetails_Response) updates) => super.copyWith((message) => updates(message as UpdateJobDetails_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UpdateJobDetails_Response create() => UpdateJobDetails_Response._();
-  UpdateJobDetails_Response createEmptyInstance() => create();
-  static $pb.PbList<UpdateJobDetails_Response> createRepeated() => $pb.PbList<UpdateJobDetails_Response>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateJobDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails_Response>(create);
-  static UpdateJobDetails_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class UpdateJobDetails extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobDetails', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  UpdateJobDetails._() : super();
-  factory UpdateJobDetails() => create();
-  factory UpdateJobDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateJobDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UpdateJobDetails clone() => UpdateJobDetails()..mergeFromMessage(this);
-  UpdateJobDetails copyWith(void Function(UpdateJobDetails) updates) => super.copyWith((message) => updates(message as UpdateJobDetails));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UpdateJobDetails create() => UpdateJobDetails._();
-  UpdateJobDetails createEmptyInstance() => create();
-  static $pb.PbList<UpdateJobDetails> createRepeated() => $pb.PbList<UpdateJobDetails>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateJobDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails>(create);
-  static UpdateJobDetails _defaultInstance;
-}
-
-class UncreateJob_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJob.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..hasRequiredFields = false
-  ;
-
-  UncreateJob_Request._() : super();
-  factory UncreateJob_Request() => create();
-  factory UncreateJob_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UncreateJob_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UncreateJob_Request clone() => UncreateJob_Request()..mergeFromMessage(this);
-  UncreateJob_Request copyWith(void Function(UncreateJob_Request) updates) => super.copyWith((message) => updates(message as UncreateJob_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UncreateJob_Request create() => UncreateJob_Request._();
-  UncreateJob_Request createEmptyInstance() => create();
-  static $pb.PbList<UncreateJob_Request> createRepeated() => $pb.PbList<UncreateJob_Request>();
-  @$core.pragma('dart2js:noInline')
-  static UncreateJob_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob_Request>(create);
-  static UncreateJob_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-}
-
-class UncreateJob_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJob.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..hasRequiredFields = false
-  ;
-
-  UncreateJob_Response._() : super();
-  factory UncreateJob_Response() => create();
-  factory UncreateJob_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UncreateJob_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UncreateJob_Response clone() => UncreateJob_Response()..mergeFromMessage(this);
-  UncreateJob_Response copyWith(void Function(UncreateJob_Response) updates) => super.copyWith((message) => updates(message as UncreateJob_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UncreateJob_Response create() => UncreateJob_Response._();
-  UncreateJob_Response createEmptyInstance() => create();
-  static $pb.PbList<UncreateJob_Response> createRepeated() => $pb.PbList<UncreateJob_Response>();
-  @$core.pragma('dart2js:noInline')
-  static UncreateJob_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob_Response>(create);
-  static UncreateJob_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class UncreateJob extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJob', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  UncreateJob._() : super();
-  factory UncreateJob() => create();
-  factory UncreateJob.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UncreateJob.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UncreateJob clone() => UncreateJob()..mergeFromMessage(this);
-  UncreateJob copyWith(void Function(UncreateJob) updates) => super.copyWith((message) => updates(message as UncreateJob));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UncreateJob create() => UncreateJob._();
-  UncreateJob createEmptyInstance() => create();
-  static $pb.PbList<UncreateJob> createRepeated() => $pb.PbList<UncreateJob>();
-  @$core.pragma('dart2js:noInline')
-  static UncreateJob getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob>(create);
-  static UncreateJob _defaultInstance;
-}
-
-class FetchBusinessPageJobIds_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchBusinessPageJobIds.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
-    ..hasRequiredFields = false
-  ;
-
-  FetchBusinessPageJobIds_Request._() : super();
-  factory FetchBusinessPageJobIds_Request() => create();
-  factory FetchBusinessPageJobIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchBusinessPageJobIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchBusinessPageJobIds_Request clone() => FetchBusinessPageJobIds_Request()..mergeFromMessage(this);
-  FetchBusinessPageJobIds_Request copyWith(void Function(FetchBusinessPageJobIds_Request) updates) => super.copyWith((message) => updates(message as FetchBusinessPageJobIds_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchBusinessPageJobIds_Request create() => FetchBusinessPageJobIds_Request._();
-  FetchBusinessPageJobIds_Request createEmptyInstance() => create();
-  static $pb.PbList<FetchBusinessPageJobIds_Request> createRepeated() => $pb.PbList<FetchBusinessPageJobIds_Request>();
-  @$core.pragma('dart2js:noInline')
-  static FetchBusinessPageJobIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds_Request>(create);
-  static FetchBusinessPageJobIds_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get businessPageId => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasBusinessPageId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearBusinessPageId() => clearField(2);
-}
-
-class FetchBusinessPageJobIds_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchBusinessPageJobIds.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
-    ..hasRequiredFields = false
-  ;
-
-  FetchBusinessPageJobIds_Response._() : super();
-  factory FetchBusinessPageJobIds_Response() => create();
-  factory FetchBusinessPageJobIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchBusinessPageJobIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchBusinessPageJobIds_Response clone() => FetchBusinessPageJobIds_Response()..mergeFromMessage(this);
-  FetchBusinessPageJobIds_Response copyWith(void Function(FetchBusinessPageJobIds_Response) updates) => super.copyWith((message) => updates(message as FetchBusinessPageJobIds_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchBusinessPageJobIds_Response create() => FetchBusinessPageJobIds_Response._();
-  FetchBusinessPageJobIds_Response createEmptyInstance() => create();
-  static $pb.PbList<FetchBusinessPageJobIds_Response> createRepeated() => $pb.PbList<FetchBusinessPageJobIds_Response>();
-  @$core.pragma('dart2js:noInline')
-  static FetchBusinessPageJobIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds_Response>(create);
-  static FetchBusinessPageJobIds_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.List<$core.int> get id => $_getList(1);
-}
-
-class FetchBusinessPageJobIds extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchBusinessPageJobIds', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchBusinessPageJobIds._() : super();
-  factory FetchBusinessPageJobIds() => create();
-  factory FetchBusinessPageJobIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchBusinessPageJobIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchBusinessPageJobIds clone() => FetchBusinessPageJobIds()..mergeFromMessage(this);
-  FetchBusinessPageJobIds copyWith(void Function(FetchBusinessPageJobIds) updates) => super.copyWith((message) => updates(message as FetchBusinessPageJobIds));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchBusinessPageJobIds create() => FetchBusinessPageJobIds._();
-  FetchBusinessPageJobIds createEmptyInstance() => create();
-  static $pb.PbList<FetchBusinessPageJobIds> createRepeated() => $pb.PbList<FetchBusinessPageJobIds>();
-  @$core.pragma('dart2js:noInline')
-  static FetchBusinessPageJobIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds>(create);
-  static FetchBusinessPageJobIds _defaultInstance;
-}
-
-class FetchNextKVacantJobIds_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKVacantJobIds.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, 'k', $pb.PbFieldType.O3)
-    ..a<$core.int>(3, 'previousVacantJobId', $pb.PbFieldType.O3, protoName: 'previousVacantJobId')
-    ..aOM<FilterDetails>(4, 'filterDetails', protoName: 'filterDetails', subBuilder: FilterDetails.create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchNextKVacantJobIds_Request._() : super();
-  factory FetchNextKVacantJobIds_Request() => create();
-  factory FetchNextKVacantJobIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchNextKVacantJobIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchNextKVacantJobIds_Request clone() => FetchNextKVacantJobIds_Request()..mergeFromMessage(this);
-  FetchNextKVacantJobIds_Request copyWith(void Function(FetchNextKVacantJobIds_Request) updates) => super.copyWith((message) => updates(message as FetchNextKVacantJobIds_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchNextKVacantJobIds_Request create() => FetchNextKVacantJobIds_Request._();
-  FetchNextKVacantJobIds_Request createEmptyInstance() => create();
-  static $pb.PbList<FetchNextKVacantJobIds_Request> createRepeated() => $pb.PbList<FetchNextKVacantJobIds_Request>();
-  @$core.pragma('dart2js:noInline')
-  static FetchNextKVacantJobIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds_Request>(create);
-  static FetchNextKVacantJobIds_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get k => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set k($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasK() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearK() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.int get previousVacantJobId => $_getIZ(2);
-  @$pb.TagNumber(3)
-  set previousVacantJobId($core.int v) { $_setSignedInt32(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasPreviousVacantJobId() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearPreviousVacantJobId() => clearField(3);
-
-  @$pb.TagNumber(4)
-  FilterDetails get filterDetails => $_getN(3);
-  @$pb.TagNumber(4)
-  set filterDetails(FilterDetails v) { setField(4, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasFilterDetails() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearFilterDetails() => clearField(4);
-  @$pb.TagNumber(4)
-  FilterDetails ensureFilterDetails() => $_ensure(3);
-}
-
-class FetchNextKVacantJobIds_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKVacantJobIds.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
-    ..hasRequiredFields = false
-  ;
-
-  FetchNextKVacantJobIds_Response._() : super();
-  factory FetchNextKVacantJobIds_Response() => create();
-  factory FetchNextKVacantJobIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchNextKVacantJobIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchNextKVacantJobIds_Response clone() => FetchNextKVacantJobIds_Response()..mergeFromMessage(this);
-  FetchNextKVacantJobIds_Response copyWith(void Function(FetchNextKVacantJobIds_Response) updates) => super.copyWith((message) => updates(message as FetchNextKVacantJobIds_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchNextKVacantJobIds_Response create() => FetchNextKVacantJobIds_Response._();
-  FetchNextKVacantJobIds_Response createEmptyInstance() => create();
-  static $pb.PbList<FetchNextKVacantJobIds_Response> createRepeated() => $pb.PbList<FetchNextKVacantJobIds_Response>();
-  @$core.pragma('dart2js:noInline')
-  static FetchNextKVacantJobIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds_Response>(create);
-  static FetchNextKVacantJobIds_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.List<$core.int> get id => $_getList(1);
-}
-
-class FetchNextKVacantJobIds extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKVacantJobIds', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchNextKVacantJobIds._() : super();
-  factory FetchNextKVacantJobIds() => create();
-  factory FetchNextKVacantJobIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchNextKVacantJobIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchNextKVacantJobIds clone() => FetchNextKVacantJobIds()..mergeFromMessage(this);
-  FetchNextKVacantJobIds copyWith(void Function(FetchNextKVacantJobIds) updates) => super.copyWith((message) => updates(message as FetchNextKVacantJobIds));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchNextKVacantJobIds create() => FetchNextKVacantJobIds._();
-  FetchNextKVacantJobIds createEmptyInstance() => create();
-  static $pb.PbList<FetchNextKVacantJobIds> createRepeated() => $pb.PbList<FetchNextKVacantJobIds>();
-  @$core.pragma('dart2js:noInline')
-  static FetchNextKVacantJobIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds>(create);
-  static FetchNextKVacantJobIds _defaultInstance;
-}
-
-class FetchJobDetails_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobDetails.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, 'jobId', $pb.PbFieldType.O3, protoName: 'jobId')
-    ..hasRequiredFields = false
-  ;
-
-  FetchJobDetails_Request._() : super();
-  factory FetchJobDetails_Request() => create();
-  factory FetchJobDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchJobDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchJobDetails_Request clone() => FetchJobDetails_Request()..mergeFromMessage(this);
-  FetchJobDetails_Request copyWith(void Function(FetchJobDetails_Request) updates) => super.copyWith((message) => updates(message as FetchJobDetails_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchJobDetails_Request create() => FetchJobDetails_Request._();
-  FetchJobDetails_Request createEmptyInstance() => create();
-  static $pb.PbList<FetchJobDetails_Request> createRepeated() => $pb.PbList<FetchJobDetails_Request>();
-  @$core.pragma('dart2js:noInline')
-  static FetchJobDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails_Request>(create);
-  static FetchJobDetails_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get jobId => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set jobId($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasJobId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearJobId() => clearField(2);
-}
-
-class FetchJobDetails_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobDetails.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..a<$core.int>(2, 'id', $pb.PbFieldType.O3)
-    ..aOS(3, 'role')
-    ..aOS(4, 'title')
-    ..a<$core.int>(5, 'hiredUserId', $pb.PbFieldType.O3, protoName: 'hiredUserId')
-    ..hasRequiredFields = false
-  ;
-
-  FetchJobDetails_Response._() : super();
-  factory FetchJobDetails_Response() => create();
-  factory FetchJobDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchJobDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchJobDetails_Response clone() => FetchJobDetails_Response()..mergeFromMessage(this);
-  FetchJobDetails_Response copyWith(void Function(FetchJobDetails_Response) updates) => super.copyWith((message) => updates(message as FetchJobDetails_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchJobDetails_Response create() => FetchJobDetails_Response._();
-  FetchJobDetails_Response createEmptyInstance() => create();
-  static $pb.PbList<FetchJobDetails_Response> createRepeated() => $pb.PbList<FetchJobDetails_Response>();
-  @$core.pragma('dart2js:noInline')
-  static FetchJobDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails_Response>(create);
-  static FetchJobDetails_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get id => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set id($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearId() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get role => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set role($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasRole() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearRole() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.String get title => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set title($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasTitle() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearTitle() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.int get hiredUserId => $_getIZ(4);
-  @$pb.TagNumber(5)
-  set hiredUserId($core.int v) { $_setSignedInt32(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasHiredUserId() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearHiredUserId() => clearField(5);
-}
-
-class FetchJobDetails extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobDetails', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchJobDetails._() : super();
-  factory FetchJobDetails() => create();
-  factory FetchJobDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchJobDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchJobDetails clone() => FetchJobDetails()..mergeFromMessage(this);
-  FetchJobDetails copyWith(void Function(FetchJobDetails) updates) => super.copyWith((message) => updates(message as FetchJobDetails));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchJobDetails create() => FetchJobDetails._();
-  FetchJobDetails createEmptyInstance() => create();
-  static $pb.PbList<FetchJobDetails> createRepeated() => $pb.PbList<FetchJobDetails>();
-  @$core.pragma('dart2js:noInline')
-  static FetchJobDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails>(create);
-  static FetchJobDetails _defaultInstance;
-}
-
-class CreateVacancyApplication_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacancyApplication.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..hasRequiredFields = false
-  ;
-
-  CreateVacancyApplication_Request._() : super();
-  factory CreateVacancyApplication_Request() => create();
-  factory CreateVacancyApplication_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CreateVacancyApplication_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  CreateVacancyApplication_Request clone() => CreateVacancyApplication_Request()..mergeFromMessage(this);
-  CreateVacancyApplication_Request copyWith(void Function(CreateVacancyApplication_Request) updates) => super.copyWith((message) => updates(message as CreateVacancyApplication_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static CreateVacancyApplication_Request create() => CreateVacancyApplication_Request._();
-  CreateVacancyApplication_Request createEmptyInstance() => create();
-  static $pb.PbList<CreateVacancyApplication_Request> createRepeated() => $pb.PbList<CreateVacancyApplication_Request>();
-  @$core.pragma('dart2js:noInline')
-  static CreateVacancyApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacancyApplication_Request>(create);
-  static CreateVacancyApplication_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-}
-
-class CreateVacancyApplication_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacancyApplication.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..hasRequiredFields = false
-  ;
-
-  CreateVacancyApplication_Response._() : super();
-  factory CreateVacancyApplication_Response() => create();
-  factory CreateVacancyApplication_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CreateVacancyApplication_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  CreateVacancyApplication_Response clone() => CreateVacancyApplication_Response()..mergeFromMessage(this);
-  CreateVacancyApplication_Response copyWith(void Function(CreateVacancyApplication_Response) updates) => super.copyWith((message) => updates(message as CreateVacancyApplication_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static CreateVacancyApplication_Response create() => CreateVacancyApplication_Response._();
-  CreateVacancyApplication_Response createEmptyInstance() => create();
-  static $pb.PbList<CreateVacancyApplication_Response> createRepeated() => $pb.PbList<CreateVacancyApplication_Response>();
-  @$core.pragma('dart2js:noInline')
-  static CreateVacancyApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacancyApplication_Response>(create);
-  static CreateVacancyApplication_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class CreateVacancyApplication extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacancyApplication', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  CreateVacancyApplication._() : super();
-  factory CreateVacancyApplication() => create();
-  factory CreateVacancyApplication.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory CreateVacancyApplication.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  CreateVacancyApplication clone() => CreateVacancyApplication()..mergeFromMessage(this);
-  CreateVacancyApplication copyWith(void Function(CreateVacancyApplication) updates) => super.copyWith((message) => updates(message as CreateVacancyApplication));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static CreateVacancyApplication create() => CreateVacancyApplication._();
-  CreateVacancyApplication createEmptyInstance() => create();
-  static $pb.PbList<CreateVacancyApplication> createRepeated() => $pb.PbList<CreateVacancyApplication>();
-  @$core.pragma('dart2js:noInline')
-  static CreateVacancyApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacancyApplication>(create);
-  static CreateVacancyApplication _defaultInstance;
-}
-
-class UpdateVacancyApplicationDetails_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateVacancyApplicationDetails.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..hasRequiredFields = false
-  ;
-
-  UpdateVacancyApplicationDetails_Request._() : super();
-  factory UpdateVacancyApplicationDetails_Request() => create();
-  factory UpdateVacancyApplicationDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateVacancyApplicationDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UpdateVacancyApplicationDetails_Request clone() => UpdateVacancyApplicationDetails_Request()..mergeFromMessage(this);
-  UpdateVacancyApplicationDetails_Request copyWith(void Function(UpdateVacancyApplicationDetails_Request) updates) => super.copyWith((message) => updates(message as UpdateVacancyApplicationDetails_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UpdateVacancyApplicationDetails_Request create() => UpdateVacancyApplicationDetails_Request._();
-  UpdateVacancyApplicationDetails_Request createEmptyInstance() => create();
-  static $pb.PbList<UpdateVacancyApplicationDetails_Request> createRepeated() => $pb.PbList<UpdateVacancyApplicationDetails_Request>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateVacancyApplicationDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateVacancyApplicationDetails_Request>(create);
-  static UpdateVacancyApplicationDetails_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-}
-
-class UpdateVacancyApplicationDetails_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateVacancyApplicationDetails.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..hasRequiredFields = false
-  ;
-
-  UpdateVacancyApplicationDetails_Response._() : super();
-  factory UpdateVacancyApplicationDetails_Response() => create();
-  factory UpdateVacancyApplicationDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateVacancyApplicationDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UpdateVacancyApplicationDetails_Response clone() => UpdateVacancyApplicationDetails_Response()..mergeFromMessage(this);
-  UpdateVacancyApplicationDetails_Response copyWith(void Function(UpdateVacancyApplicationDetails_Response) updates) => super.copyWith((message) => updates(message as UpdateVacancyApplicationDetails_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UpdateVacancyApplicationDetails_Response create() => UpdateVacancyApplicationDetails_Response._();
-  UpdateVacancyApplicationDetails_Response createEmptyInstance() => create();
-  static $pb.PbList<UpdateVacancyApplicationDetails_Response> createRepeated() => $pb.PbList<UpdateVacancyApplicationDetails_Response>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateVacancyApplicationDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateVacancyApplicationDetails_Response>(create);
-  static UpdateVacancyApplicationDetails_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class UpdateVacancyApplicationDetails extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateVacancyApplicationDetails', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  UpdateVacancyApplicationDetails._() : super();
-  factory UpdateVacancyApplicationDetails() => create();
-  factory UpdateVacancyApplicationDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UpdateVacancyApplicationDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UpdateVacancyApplicationDetails clone() => UpdateVacancyApplicationDetails()..mergeFromMessage(this);
-  UpdateVacancyApplicationDetails copyWith(void Function(UpdateVacancyApplicationDetails) updates) => super.copyWith((message) => updates(message as UpdateVacancyApplicationDetails));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UpdateVacancyApplicationDetails create() => UpdateVacancyApplicationDetails._();
-  UpdateVacancyApplicationDetails createEmptyInstance() => create();
-  static $pb.PbList<UpdateVacancyApplicationDetails> createRepeated() => $pb.PbList<UpdateVacancyApplicationDetails>();
-  @$core.pragma('dart2js:noInline')
-  static UpdateVacancyApplicationDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateVacancyApplicationDetails>(create);
-  static UpdateVacancyApplicationDetails _defaultInstance;
-}
-
-class UncreateVacancyApplication_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateVacancyApplication.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..hasRequiredFields = false
-  ;
-
-  UncreateVacancyApplication_Request._() : super();
-  factory UncreateVacancyApplication_Request() => create();
-  factory UncreateVacancyApplication_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UncreateVacancyApplication_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UncreateVacancyApplication_Request clone() => UncreateVacancyApplication_Request()..mergeFromMessage(this);
-  UncreateVacancyApplication_Request copyWith(void Function(UncreateVacancyApplication_Request) updates) => super.copyWith((message) => updates(message as UncreateVacancyApplication_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UncreateVacancyApplication_Request create() => UncreateVacancyApplication_Request._();
-  UncreateVacancyApplication_Request createEmptyInstance() => create();
-  static $pb.PbList<UncreateVacancyApplication_Request> createRepeated() => $pb.PbList<UncreateVacancyApplication_Request>();
-  @$core.pragma('dart2js:noInline')
-  static UncreateVacancyApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateVacancyApplication_Request>(create);
-  static UncreateVacancyApplication_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-}
-
-class UncreateVacancyApplication_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateVacancyApplication.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..hasRequiredFields = false
-  ;
-
-  UncreateVacancyApplication_Response._() : super();
-  factory UncreateVacancyApplication_Response() => create();
-  factory UncreateVacancyApplication_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UncreateVacancyApplication_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UncreateVacancyApplication_Response clone() => UncreateVacancyApplication_Response()..mergeFromMessage(this);
-  UncreateVacancyApplication_Response copyWith(void Function(UncreateVacancyApplication_Response) updates) => super.copyWith((message) => updates(message as UncreateVacancyApplication_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UncreateVacancyApplication_Response create() => UncreateVacancyApplication_Response._();
-  UncreateVacancyApplication_Response createEmptyInstance() => create();
-  static $pb.PbList<UncreateVacancyApplication_Response> createRepeated() => $pb.PbList<UncreateVacancyApplication_Response>();
-  @$core.pragma('dart2js:noInline')
-  static UncreateVacancyApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateVacancyApplication_Response>(create);
-  static UncreateVacancyApplication_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class UncreateVacancyApplication extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateVacancyApplication', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  UncreateVacancyApplication._() : super();
-  factory UncreateVacancyApplication() => create();
-  factory UncreateVacancyApplication.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory UncreateVacancyApplication.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  UncreateVacancyApplication clone() => UncreateVacancyApplication()..mergeFromMessage(this);
-  UncreateVacancyApplication copyWith(void Function(UncreateVacancyApplication) updates) => super.copyWith((message) => updates(message as UncreateVacancyApplication));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static UncreateVacancyApplication create() => UncreateVacancyApplication._();
-  UncreateVacancyApplication createEmptyInstance() => create();
-  static $pb.PbList<UncreateVacancyApplication> createRepeated() => $pb.PbList<UncreateVacancyApplication>();
-  @$core.pragma('dart2js:noInline')
-  static UncreateVacancyApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateVacancyApplication>(create);
-  static UncreateVacancyApplication _defaultInstance;
-}
-
-class FetchMyVacancyApplicationIds_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchMyVacancyApplicationIds.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..hasRequiredFields = false
-  ;
-
-  FetchMyVacancyApplicationIds_Request._() : super();
-  factory FetchMyVacancyApplicationIds_Request() => create();
-  factory FetchMyVacancyApplicationIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchMyVacancyApplicationIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchMyVacancyApplicationIds_Request clone() => FetchMyVacancyApplicationIds_Request()..mergeFromMessage(this);
-  FetchMyVacancyApplicationIds_Request copyWith(void Function(FetchMyVacancyApplicationIds_Request) updates) => super.copyWith((message) => updates(message as FetchMyVacancyApplicationIds_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchMyVacancyApplicationIds_Request create() => FetchMyVacancyApplicationIds_Request._();
-  FetchMyVacancyApplicationIds_Request createEmptyInstance() => create();
-  static $pb.PbList<FetchMyVacancyApplicationIds_Request> createRepeated() => $pb.PbList<FetchMyVacancyApplicationIds_Request>();
-  @$core.pragma('dart2js:noInline')
-  static FetchMyVacancyApplicationIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchMyVacancyApplicationIds_Request>(create);
-  static FetchMyVacancyApplicationIds_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-}
-
-class FetchMyVacancyApplicationIds_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchMyVacancyApplicationIds.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..hasRequiredFields = false
-  ;
-
-  FetchMyVacancyApplicationIds_Response._() : super();
-  factory FetchMyVacancyApplicationIds_Response() => create();
-  factory FetchMyVacancyApplicationIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchMyVacancyApplicationIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchMyVacancyApplicationIds_Response clone() => FetchMyVacancyApplicationIds_Response()..mergeFromMessage(this);
-  FetchMyVacancyApplicationIds_Response copyWith(void Function(FetchMyVacancyApplicationIds_Response) updates) => super.copyWith((message) => updates(message as FetchMyVacancyApplicationIds_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchMyVacancyApplicationIds_Response create() => FetchMyVacancyApplicationIds_Response._();
-  FetchMyVacancyApplicationIds_Response createEmptyInstance() => create();
-  static $pb.PbList<FetchMyVacancyApplicationIds_Response> createRepeated() => $pb.PbList<FetchMyVacancyApplicationIds_Response>();
-  @$core.pragma('dart2js:noInline')
-  static FetchMyVacancyApplicationIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchMyVacancyApplicationIds_Response>(create);
-  static FetchMyVacancyApplicationIds_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class FetchMyVacancyApplicationIds extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchMyVacancyApplicationIds', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchMyVacancyApplicationIds._() : super();
-  factory FetchMyVacancyApplicationIds() => create();
-  factory FetchMyVacancyApplicationIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchMyVacancyApplicationIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchMyVacancyApplicationIds clone() => FetchMyVacancyApplicationIds()..mergeFromMessage(this);
-  FetchMyVacancyApplicationIds copyWith(void Function(FetchMyVacancyApplicationIds) updates) => super.copyWith((message) => updates(message as FetchMyVacancyApplicationIds));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchMyVacancyApplicationIds create() => FetchMyVacancyApplicationIds._();
-  FetchMyVacancyApplicationIds createEmptyInstance() => create();
-  static $pb.PbList<FetchMyVacancyApplicationIds> createRepeated() => $pb.PbList<FetchMyVacancyApplicationIds>();
-  @$core.pragma('dart2js:noInline')
-  static FetchMyVacancyApplicationIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchMyVacancyApplicationIds>(create);
-  static FetchMyVacancyApplicationIds _defaultInstance;
-}
-
-class FetchVacancyApplicationDetails_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchVacancyApplicationDetails.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..hasRequiredFields = false
-  ;
-
-  FetchVacancyApplicationDetails_Request._() : super();
-  factory FetchVacancyApplicationDetails_Request() => create();
-  factory FetchVacancyApplicationDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchVacancyApplicationDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchVacancyApplicationDetails_Request clone() => FetchVacancyApplicationDetails_Request()..mergeFromMessage(this);
-  FetchVacancyApplicationDetails_Request copyWith(void Function(FetchVacancyApplicationDetails_Request) updates) => super.copyWith((message) => updates(message as FetchVacancyApplicationDetails_Request));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchVacancyApplicationDetails_Request create() => FetchVacancyApplicationDetails_Request._();
-  FetchVacancyApplicationDetails_Request createEmptyInstance() => create();
-  static $pb.PbList<FetchVacancyApplicationDetails_Request> createRepeated() => $pb.PbList<FetchVacancyApplicationDetails_Request>();
-  @$core.pragma('dart2js:noInline')
-  static FetchVacancyApplicationDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchVacancyApplicationDetails_Request>(create);
-  static FetchVacancyApplicationDetails_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-}
-
-class FetchVacancyApplicationDetails_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchVacancyApplicationDetails.Response', createEmptyInstance: create)
-    ..aOB(1, 'success')
-    ..hasRequiredFields = false
-  ;
-
-  FetchVacancyApplicationDetails_Response._() : super();
-  factory FetchVacancyApplicationDetails_Response() => create();
-  factory FetchVacancyApplicationDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchVacancyApplicationDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchVacancyApplicationDetails_Response clone() => FetchVacancyApplicationDetails_Response()..mergeFromMessage(this);
-  FetchVacancyApplicationDetails_Response copyWith(void Function(FetchVacancyApplicationDetails_Response) updates) => super.copyWith((message) => updates(message as FetchVacancyApplicationDetails_Response));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchVacancyApplicationDetails_Response create() => FetchVacancyApplicationDetails_Response._();
-  FetchVacancyApplicationDetails_Response createEmptyInstance() => create();
-  static $pb.PbList<FetchVacancyApplicationDetails_Response> createRepeated() => $pb.PbList<FetchVacancyApplicationDetails_Response>();
-  @$core.pragma('dart2js:noInline')
-  static FetchVacancyApplicationDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchVacancyApplicationDetails_Response>(create);
-  static FetchVacancyApplicationDetails_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class FetchVacancyApplicationDetails extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchVacancyApplicationDetails', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchVacancyApplicationDetails._() : super();
-  factory FetchVacancyApplicationDetails() => create();
-  factory FetchVacancyApplicationDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchVacancyApplicationDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  FetchVacancyApplicationDetails clone() => FetchVacancyApplicationDetails()..mergeFromMessage(this);
-  FetchVacancyApplicationDetails copyWith(void Function(FetchVacancyApplicationDetails) updates) => super.copyWith((message) => updates(message as FetchVacancyApplicationDetails));
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchVacancyApplicationDetails create() => FetchVacancyApplicationDetails._();
-  FetchVacancyApplicationDetails createEmptyInstance() => create();
-  static $pb.PbList<FetchVacancyApplicationDetails> createRepeated() => $pb.PbList<FetchVacancyApplicationDetails>();
-  @$core.pragma('dart2js:noInline')
-  static FetchVacancyApplicationDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchVacancyApplicationDetails>(create);
-  static FetchVacancyApplicationDetails _defaultInstance;
-}
-
 class CreateBusinessPage_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateBusinessPage.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
@@ -2611,6 +1578,1299 @@ class UnpublishProduct extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UnpublishProduct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnpublishProduct>(create);
   static UnpublishProduct _defaultInstance;
+}
+
+class CreateVacantJob_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacantJob.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..aOS(3, 'title')
+    ..hasRequiredFields = false
+  ;
+
+  CreateVacantJob_Request._() : super();
+  factory CreateVacantJob_Request() => create();
+  factory CreateVacantJob_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateVacantJob_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  CreateVacantJob_Request clone() => CreateVacantJob_Request()..mergeFromMessage(this);
+  CreateVacantJob_Request copyWith(void Function(CreateVacantJob_Request) updates) => super.copyWith((message) => updates(message as CreateVacantJob_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateVacantJob_Request create() => CreateVacantJob_Request._();
+  CreateVacantJob_Request createEmptyInstance() => create();
+  static $pb.PbList<CreateVacantJob_Request> createRepeated() => $pb.PbList<CreateVacantJob_Request>();
+  @$core.pragma('dart2js:noInline')
+  static CreateVacantJob_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob_Request>(create);
+  static CreateVacantJob_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get businessPageId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBusinessPageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBusinessPageId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get title => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set title($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTitle() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTitle() => clearField(3);
+}
+
+class CreateVacantJob_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacantJob.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..hasRequiredFields = false
+  ;
+
+  CreateVacantJob_Response._() : super();
+  factory CreateVacantJob_Response() => create();
+  factory CreateVacantJob_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateVacantJob_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  CreateVacantJob_Response clone() => CreateVacantJob_Response()..mergeFromMessage(this);
+  CreateVacantJob_Response copyWith(void Function(CreateVacantJob_Response) updates) => super.copyWith((message) => updates(message as CreateVacantJob_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateVacantJob_Response create() => CreateVacantJob_Response._();
+  CreateVacantJob_Response createEmptyInstance() => create();
+  static $pb.PbList<CreateVacantJob_Response> createRepeated() => $pb.PbList<CreateVacantJob_Response>();
+  @$core.pragma('dart2js:noInline')
+  static CreateVacantJob_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob_Response>(create);
+  static CreateVacantJob_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class CreateVacantJob extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateVacantJob', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  CreateVacantJob._() : super();
+  factory CreateVacantJob() => create();
+  factory CreateVacantJob.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateVacantJob.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  CreateVacantJob clone() => CreateVacantJob()..mergeFromMessage(this);
+  CreateVacantJob copyWith(void Function(CreateVacantJob) updates) => super.copyWith((message) => updates(message as CreateVacantJob));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateVacantJob create() => CreateVacantJob._();
+  CreateVacantJob createEmptyInstance() => create();
+  static $pb.PbList<CreateVacantJob> createRepeated() => $pb.PbList<CreateVacantJob>();
+  @$core.pragma('dart2js:noInline')
+  static CreateVacantJob getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob>(create);
+  static CreateVacantJob _defaultInstance;
+}
+
+class UpdateJobDetails_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobDetails.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..hasRequiredFields = false
+  ;
+
+  UpdateJobDetails_Request._() : super();
+  factory UpdateJobDetails_Request() => create();
+  factory UpdateJobDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateJobDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UpdateJobDetails_Request clone() => UpdateJobDetails_Request()..mergeFromMessage(this);
+  UpdateJobDetails_Request copyWith(void Function(UpdateJobDetails_Request) updates) => super.copyWith((message) => updates(message as UpdateJobDetails_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobDetails_Request create() => UpdateJobDetails_Request._();
+  UpdateJobDetails_Request createEmptyInstance() => create();
+  static $pb.PbList<UpdateJobDetails_Request> createRepeated() => $pb.PbList<UpdateJobDetails_Request>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails_Request>(create);
+  static UpdateJobDetails_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+}
+
+class UpdateJobDetails_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobDetails.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..hasRequiredFields = false
+  ;
+
+  UpdateJobDetails_Response._() : super();
+  factory UpdateJobDetails_Response() => create();
+  factory UpdateJobDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateJobDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UpdateJobDetails_Response clone() => UpdateJobDetails_Response()..mergeFromMessage(this);
+  UpdateJobDetails_Response copyWith(void Function(UpdateJobDetails_Response) updates) => super.copyWith((message) => updates(message as UpdateJobDetails_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobDetails_Response create() => UpdateJobDetails_Response._();
+  UpdateJobDetails_Response createEmptyInstance() => create();
+  static $pb.PbList<UpdateJobDetails_Response> createRepeated() => $pb.PbList<UpdateJobDetails_Response>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails_Response>(create);
+  static UpdateJobDetails_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class UpdateJobDetails extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobDetails', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  UpdateJobDetails._() : super();
+  factory UpdateJobDetails() => create();
+  factory UpdateJobDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateJobDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UpdateJobDetails clone() => UpdateJobDetails()..mergeFromMessage(this);
+  UpdateJobDetails copyWith(void Function(UpdateJobDetails) updates) => super.copyWith((message) => updates(message as UpdateJobDetails));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobDetails create() => UpdateJobDetails._();
+  UpdateJobDetails createEmptyInstance() => create();
+  static $pb.PbList<UpdateJobDetails> createRepeated() => $pb.PbList<UpdateJobDetails>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails>(create);
+  static UpdateJobDetails _defaultInstance;
+}
+
+class UncreateJob_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJob.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..hasRequiredFields = false
+  ;
+
+  UncreateJob_Request._() : super();
+  factory UncreateJob_Request() => create();
+  factory UncreateJob_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UncreateJob_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UncreateJob_Request clone() => UncreateJob_Request()..mergeFromMessage(this);
+  UncreateJob_Request copyWith(void Function(UncreateJob_Request) updates) => super.copyWith((message) => updates(message as UncreateJob_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UncreateJob_Request create() => UncreateJob_Request._();
+  UncreateJob_Request createEmptyInstance() => create();
+  static $pb.PbList<UncreateJob_Request> createRepeated() => $pb.PbList<UncreateJob_Request>();
+  @$core.pragma('dart2js:noInline')
+  static UncreateJob_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob_Request>(create);
+  static UncreateJob_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+}
+
+class UncreateJob_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJob.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..hasRequiredFields = false
+  ;
+
+  UncreateJob_Response._() : super();
+  factory UncreateJob_Response() => create();
+  factory UncreateJob_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UncreateJob_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UncreateJob_Response clone() => UncreateJob_Response()..mergeFromMessage(this);
+  UncreateJob_Response copyWith(void Function(UncreateJob_Response) updates) => super.copyWith((message) => updates(message as UncreateJob_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UncreateJob_Response create() => UncreateJob_Response._();
+  UncreateJob_Response createEmptyInstance() => create();
+  static $pb.PbList<UncreateJob_Response> createRepeated() => $pb.PbList<UncreateJob_Response>();
+  @$core.pragma('dart2js:noInline')
+  static UncreateJob_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob_Response>(create);
+  static UncreateJob_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class UncreateJob extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJob', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  UncreateJob._() : super();
+  factory UncreateJob() => create();
+  factory UncreateJob.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UncreateJob.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UncreateJob clone() => UncreateJob()..mergeFromMessage(this);
+  UncreateJob copyWith(void Function(UncreateJob) updates) => super.copyWith((message) => updates(message as UncreateJob));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UncreateJob create() => UncreateJob._();
+  UncreateJob createEmptyInstance() => create();
+  static $pb.PbList<UncreateJob> createRepeated() => $pb.PbList<UncreateJob>();
+  @$core.pragma('dart2js:noInline')
+  static UncreateJob getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob>(create);
+  static UncreateJob _defaultInstance;
+}
+
+class FetchBusinessPageJobIds_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchBusinessPageJobIds.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchBusinessPageJobIds_Request._() : super();
+  factory FetchBusinessPageJobIds_Request() => create();
+  factory FetchBusinessPageJobIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchBusinessPageJobIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchBusinessPageJobIds_Request clone() => FetchBusinessPageJobIds_Request()..mergeFromMessage(this);
+  FetchBusinessPageJobIds_Request copyWith(void Function(FetchBusinessPageJobIds_Request) updates) => super.copyWith((message) => updates(message as FetchBusinessPageJobIds_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchBusinessPageJobIds_Request create() => FetchBusinessPageJobIds_Request._();
+  FetchBusinessPageJobIds_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchBusinessPageJobIds_Request> createRepeated() => $pb.PbList<FetchBusinessPageJobIds_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchBusinessPageJobIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds_Request>(create);
+  static FetchBusinessPageJobIds_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get businessPageId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBusinessPageId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBusinessPageId() => clearField(2);
+}
+
+class FetchBusinessPageJobIds_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchBusinessPageJobIds.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
+    ..hasRequiredFields = false
+  ;
+
+  FetchBusinessPageJobIds_Response._() : super();
+  factory FetchBusinessPageJobIds_Response() => create();
+  factory FetchBusinessPageJobIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchBusinessPageJobIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchBusinessPageJobIds_Response clone() => FetchBusinessPageJobIds_Response()..mergeFromMessage(this);
+  FetchBusinessPageJobIds_Response copyWith(void Function(FetchBusinessPageJobIds_Response) updates) => super.copyWith((message) => updates(message as FetchBusinessPageJobIds_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchBusinessPageJobIds_Response create() => FetchBusinessPageJobIds_Response._();
+  FetchBusinessPageJobIds_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchBusinessPageJobIds_Response> createRepeated() => $pb.PbList<FetchBusinessPageJobIds_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchBusinessPageJobIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds_Response>(create);
+  static FetchBusinessPageJobIds_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+}
+
+class FetchBusinessPageJobIds extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchBusinessPageJobIds', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchBusinessPageJobIds._() : super();
+  factory FetchBusinessPageJobIds() => create();
+  factory FetchBusinessPageJobIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchBusinessPageJobIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchBusinessPageJobIds clone() => FetchBusinessPageJobIds()..mergeFromMessage(this);
+  FetchBusinessPageJobIds copyWith(void Function(FetchBusinessPageJobIds) updates) => super.copyWith((message) => updates(message as FetchBusinessPageJobIds));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchBusinessPageJobIds create() => FetchBusinessPageJobIds._();
+  FetchBusinessPageJobIds createEmptyInstance() => create();
+  static $pb.PbList<FetchBusinessPageJobIds> createRepeated() => $pb.PbList<FetchBusinessPageJobIds>();
+  @$core.pragma('dart2js:noInline')
+  static FetchBusinessPageJobIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds>(create);
+  static FetchBusinessPageJobIds _defaultInstance;
+}
+
+class FetchNextKVacantJobIds_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKVacantJobIds.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'k', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, 'previousVacantJobId', $pb.PbFieldType.O3, protoName: 'previousVacantJobId')
+    ..aOM<FilterDetails>(4, 'filterDetails', protoName: 'filterDetails', subBuilder: FilterDetails.create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchNextKVacantJobIds_Request._() : super();
+  factory FetchNextKVacantJobIds_Request() => create();
+  factory FetchNextKVacantJobIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchNextKVacantJobIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchNextKVacantJobIds_Request clone() => FetchNextKVacantJobIds_Request()..mergeFromMessage(this);
+  FetchNextKVacantJobIds_Request copyWith(void Function(FetchNextKVacantJobIds_Request) updates) => super.copyWith((message) => updates(message as FetchNextKVacantJobIds_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKVacantJobIds_Request create() => FetchNextKVacantJobIds_Request._();
+  FetchNextKVacantJobIds_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchNextKVacantJobIds_Request> createRepeated() => $pb.PbList<FetchNextKVacantJobIds_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKVacantJobIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds_Request>(create);
+  static FetchNextKVacantJobIds_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get k => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set k($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasK() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearK() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get previousVacantJobId => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set previousVacantJobId($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPreviousVacantJobId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPreviousVacantJobId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  FilterDetails get filterDetails => $_getN(3);
+  @$pb.TagNumber(4)
+  set filterDetails(FilterDetails v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFilterDetails() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFilterDetails() => clearField(4);
+  @$pb.TagNumber(4)
+  FilterDetails ensureFilterDetails() => $_ensure(3);
+}
+
+class FetchNextKVacantJobIds_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKVacantJobIds.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
+    ..hasRequiredFields = false
+  ;
+
+  FetchNextKVacantJobIds_Response._() : super();
+  factory FetchNextKVacantJobIds_Response() => create();
+  factory FetchNextKVacantJobIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchNextKVacantJobIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchNextKVacantJobIds_Response clone() => FetchNextKVacantJobIds_Response()..mergeFromMessage(this);
+  FetchNextKVacantJobIds_Response copyWith(void Function(FetchNextKVacantJobIds_Response) updates) => super.copyWith((message) => updates(message as FetchNextKVacantJobIds_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKVacantJobIds_Response create() => FetchNextKVacantJobIds_Response._();
+  FetchNextKVacantJobIds_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchNextKVacantJobIds_Response> createRepeated() => $pb.PbList<FetchNextKVacantJobIds_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKVacantJobIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds_Response>(create);
+  static FetchNextKVacantJobIds_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+}
+
+class FetchNextKVacantJobIds extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKVacantJobIds', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchNextKVacantJobIds._() : super();
+  factory FetchNextKVacantJobIds() => create();
+  factory FetchNextKVacantJobIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchNextKVacantJobIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchNextKVacantJobIds clone() => FetchNextKVacantJobIds()..mergeFromMessage(this);
+  FetchNextKVacantJobIds copyWith(void Function(FetchNextKVacantJobIds) updates) => super.copyWith((message) => updates(message as FetchNextKVacantJobIds));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKVacantJobIds create() => FetchNextKVacantJobIds._();
+  FetchNextKVacantJobIds createEmptyInstance() => create();
+  static $pb.PbList<FetchNextKVacantJobIds> createRepeated() => $pb.PbList<FetchNextKVacantJobIds>();
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKVacantJobIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds>(create);
+  static FetchNextKVacantJobIds _defaultInstance;
+}
+
+class FetchJobDetails_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobDetails.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'jobId', $pb.PbFieldType.O3, protoName: 'jobId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobDetails_Request._() : super();
+  factory FetchJobDetails_Request() => create();
+  factory FetchJobDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobDetails_Request clone() => FetchJobDetails_Request()..mergeFromMessage(this);
+  FetchJobDetails_Request copyWith(void Function(FetchJobDetails_Request) updates) => super.copyWith((message) => updates(message as FetchJobDetails_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobDetails_Request create() => FetchJobDetails_Request._();
+  FetchJobDetails_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchJobDetails_Request> createRepeated() => $pb.PbList<FetchJobDetails_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails_Request>(create);
+  static FetchJobDetails_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get jobId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set jobId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasJobId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearJobId() => clearField(2);
+}
+
+class FetchJobDetails_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobDetails.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..a<$core.int>(2, 'id', $pb.PbFieldType.O3)
+    ..aOS(3, 'role')
+    ..aOS(4, 'title')
+    ..a<$core.int>(5, 'hiredUserId', $pb.PbFieldType.O3, protoName: 'hiredUserId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobDetails_Response._() : super();
+  factory FetchJobDetails_Response() => create();
+  factory FetchJobDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobDetails_Response clone() => FetchJobDetails_Response()..mergeFromMessage(this);
+  FetchJobDetails_Response copyWith(void Function(FetchJobDetails_Response) updates) => super.copyWith((message) => updates(message as FetchJobDetails_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobDetails_Response create() => FetchJobDetails_Response._();
+  FetchJobDetails_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchJobDetails_Response> createRepeated() => $pb.PbList<FetchJobDetails_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails_Response>(create);
+  static FetchJobDetails_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get id => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set id($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get role => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set role($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasRole() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearRole() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get title => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set title($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasTitle() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearTitle() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get hiredUserId => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set hiredUserId($core.int v) { $_setSignedInt32(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasHiredUserId() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearHiredUserId() => clearField(5);
+}
+
+class FetchJobDetails extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobDetails', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobDetails._() : super();
+  factory FetchJobDetails() => create();
+  factory FetchJobDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobDetails clone() => FetchJobDetails()..mergeFromMessage(this);
+  FetchJobDetails copyWith(void Function(FetchJobDetails) updates) => super.copyWith((message) => updates(message as FetchJobDetails));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobDetails create() => FetchJobDetails._();
+  FetchJobDetails createEmptyInstance() => create();
+  static $pb.PbList<FetchJobDetails> createRepeated() => $pb.PbList<FetchJobDetails>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails>(create);
+  static FetchJobDetails _defaultInstance;
+}
+
+class CreateJobApplication_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateJobApplication.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'jobId', $pb.PbFieldType.O3, protoName: 'jobId')
+    ..aOS(3, 'message')
+    ..hasRequiredFields = false
+  ;
+
+  CreateJobApplication_Request._() : super();
+  factory CreateJobApplication_Request() => create();
+  factory CreateJobApplication_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateJobApplication_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  CreateJobApplication_Request clone() => CreateJobApplication_Request()..mergeFromMessage(this);
+  CreateJobApplication_Request copyWith(void Function(CreateJobApplication_Request) updates) => super.copyWith((message) => updates(message as CreateJobApplication_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateJobApplication_Request create() => CreateJobApplication_Request._();
+  CreateJobApplication_Request createEmptyInstance() => create();
+  static $pb.PbList<CreateJobApplication_Request> createRepeated() => $pb.PbList<CreateJobApplication_Request>();
+  @$core.pragma('dart2js:noInline')
+  static CreateJobApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateJobApplication_Request>(create);
+  static CreateJobApplication_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get jobId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set jobId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasJobId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearJobId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get message => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set message($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasMessage() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearMessage() => clearField(3);
+}
+
+class CreateJobApplication_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateJobApplication.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..hasRequiredFields = false
+  ;
+
+  CreateJobApplication_Response._() : super();
+  factory CreateJobApplication_Response() => create();
+  factory CreateJobApplication_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateJobApplication_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  CreateJobApplication_Response clone() => CreateJobApplication_Response()..mergeFromMessage(this);
+  CreateJobApplication_Response copyWith(void Function(CreateJobApplication_Response) updates) => super.copyWith((message) => updates(message as CreateJobApplication_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateJobApplication_Response create() => CreateJobApplication_Response._();
+  CreateJobApplication_Response createEmptyInstance() => create();
+  static $pb.PbList<CreateJobApplication_Response> createRepeated() => $pb.PbList<CreateJobApplication_Response>();
+  @$core.pragma('dart2js:noInline')
+  static CreateJobApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateJobApplication_Response>(create);
+  static CreateJobApplication_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class CreateJobApplication extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('CreateJobApplication', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  CreateJobApplication._() : super();
+  factory CreateJobApplication() => create();
+  factory CreateJobApplication.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateJobApplication.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  CreateJobApplication clone() => CreateJobApplication()..mergeFromMessage(this);
+  CreateJobApplication copyWith(void Function(CreateJobApplication) updates) => super.copyWith((message) => updates(message as CreateJobApplication));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateJobApplication create() => CreateJobApplication._();
+  CreateJobApplication createEmptyInstance() => create();
+  static $pb.PbList<CreateJobApplication> createRepeated() => $pb.PbList<CreateJobApplication>();
+  @$core.pragma('dart2js:noInline')
+  static CreateJobApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateJobApplication>(create);
+  static CreateJobApplication _defaultInstance;
+}
+
+class UpdateJobApplicationDetails_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobApplicationDetails.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..hasRequiredFields = false
+  ;
+
+  UpdateJobApplicationDetails_Request._() : super();
+  factory UpdateJobApplicationDetails_Request() => create();
+  factory UpdateJobApplicationDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateJobApplicationDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UpdateJobApplicationDetails_Request clone() => UpdateJobApplicationDetails_Request()..mergeFromMessage(this);
+  UpdateJobApplicationDetails_Request copyWith(void Function(UpdateJobApplicationDetails_Request) updates) => super.copyWith((message) => updates(message as UpdateJobApplicationDetails_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobApplicationDetails_Request create() => UpdateJobApplicationDetails_Request._();
+  UpdateJobApplicationDetails_Request createEmptyInstance() => create();
+  static $pb.PbList<UpdateJobApplicationDetails_Request> createRepeated() => $pb.PbList<UpdateJobApplicationDetails_Request>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobApplicationDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobApplicationDetails_Request>(create);
+  static UpdateJobApplicationDetails_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+}
+
+class UpdateJobApplicationDetails_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobApplicationDetails.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..hasRequiredFields = false
+  ;
+
+  UpdateJobApplicationDetails_Response._() : super();
+  factory UpdateJobApplicationDetails_Response() => create();
+  factory UpdateJobApplicationDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateJobApplicationDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UpdateJobApplicationDetails_Response clone() => UpdateJobApplicationDetails_Response()..mergeFromMessage(this);
+  UpdateJobApplicationDetails_Response copyWith(void Function(UpdateJobApplicationDetails_Response) updates) => super.copyWith((message) => updates(message as UpdateJobApplicationDetails_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobApplicationDetails_Response create() => UpdateJobApplicationDetails_Response._();
+  UpdateJobApplicationDetails_Response createEmptyInstance() => create();
+  static $pb.PbList<UpdateJobApplicationDetails_Response> createRepeated() => $pb.PbList<UpdateJobApplicationDetails_Response>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobApplicationDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobApplicationDetails_Response>(create);
+  static UpdateJobApplicationDetails_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class UpdateJobApplicationDetails extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateJobApplicationDetails', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  UpdateJobApplicationDetails._() : super();
+  factory UpdateJobApplicationDetails() => create();
+  factory UpdateJobApplicationDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateJobApplicationDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UpdateJobApplicationDetails clone() => UpdateJobApplicationDetails()..mergeFromMessage(this);
+  UpdateJobApplicationDetails copyWith(void Function(UpdateJobApplicationDetails) updates) => super.copyWith((message) => updates(message as UpdateJobApplicationDetails));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobApplicationDetails create() => UpdateJobApplicationDetails._();
+  UpdateJobApplicationDetails createEmptyInstance() => create();
+  static $pb.PbList<UpdateJobApplicationDetails> createRepeated() => $pb.PbList<UpdateJobApplicationDetails>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateJobApplicationDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobApplicationDetails>(create);
+  static UpdateJobApplicationDetails _defaultInstance;
+}
+
+class UncreateJobApplication_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJobApplication.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..hasRequiredFields = false
+  ;
+
+  UncreateJobApplication_Request._() : super();
+  factory UncreateJobApplication_Request() => create();
+  factory UncreateJobApplication_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UncreateJobApplication_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UncreateJobApplication_Request clone() => UncreateJobApplication_Request()..mergeFromMessage(this);
+  UncreateJobApplication_Request copyWith(void Function(UncreateJobApplication_Request) updates) => super.copyWith((message) => updates(message as UncreateJobApplication_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UncreateJobApplication_Request create() => UncreateJobApplication_Request._();
+  UncreateJobApplication_Request createEmptyInstance() => create();
+  static $pb.PbList<UncreateJobApplication_Request> createRepeated() => $pb.PbList<UncreateJobApplication_Request>();
+  @$core.pragma('dart2js:noInline')
+  static UncreateJobApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJobApplication_Request>(create);
+  static UncreateJobApplication_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+}
+
+class UncreateJobApplication_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJobApplication.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..hasRequiredFields = false
+  ;
+
+  UncreateJobApplication_Response._() : super();
+  factory UncreateJobApplication_Response() => create();
+  factory UncreateJobApplication_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UncreateJobApplication_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UncreateJobApplication_Response clone() => UncreateJobApplication_Response()..mergeFromMessage(this);
+  UncreateJobApplication_Response copyWith(void Function(UncreateJobApplication_Response) updates) => super.copyWith((message) => updates(message as UncreateJobApplication_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UncreateJobApplication_Response create() => UncreateJobApplication_Response._();
+  UncreateJobApplication_Response createEmptyInstance() => create();
+  static $pb.PbList<UncreateJobApplication_Response> createRepeated() => $pb.PbList<UncreateJobApplication_Response>();
+  @$core.pragma('dart2js:noInline')
+  static UncreateJobApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJobApplication_Response>(create);
+  static UncreateJobApplication_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class UncreateJobApplication extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('UncreateJobApplication', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  UncreateJobApplication._() : super();
+  factory UncreateJobApplication() => create();
+  factory UncreateJobApplication.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UncreateJobApplication.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  UncreateJobApplication clone() => UncreateJobApplication()..mergeFromMessage(this);
+  UncreateJobApplication copyWith(void Function(UncreateJobApplication) updates) => super.copyWith((message) => updates(message as UncreateJobApplication));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UncreateJobApplication create() => UncreateJobApplication._();
+  UncreateJobApplication createEmptyInstance() => create();
+  static $pb.PbList<UncreateJobApplication> createRepeated() => $pb.PbList<UncreateJobApplication>();
+  @$core.pragma('dart2js:noInline')
+  static UncreateJobApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJobApplication>(create);
+  static UncreateJobApplication _defaultInstance;
+}
+
+class FetchJobApplicationIds_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobApplicationIds.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'jobId', $pb.PbFieldType.O3, protoName: 'jobId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobApplicationIds_Request._() : super();
+  factory FetchJobApplicationIds_Request() => create();
+  factory FetchJobApplicationIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobApplicationIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobApplicationIds_Request clone() => FetchJobApplicationIds_Request()..mergeFromMessage(this);
+  FetchJobApplicationIds_Request copyWith(void Function(FetchJobApplicationIds_Request) updates) => super.copyWith((message) => updates(message as FetchJobApplicationIds_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationIds_Request create() => FetchJobApplicationIds_Request._();
+  FetchJobApplicationIds_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchJobApplicationIds_Request> createRepeated() => $pb.PbList<FetchJobApplicationIds_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationIds_Request>(create);
+  static FetchJobApplicationIds_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get jobId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set jobId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasJobId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearJobId() => clearField(2);
+}
+
+class FetchJobApplicationIds_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobApplicationIds.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobApplicationIds_Response._() : super();
+  factory FetchJobApplicationIds_Response() => create();
+  factory FetchJobApplicationIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobApplicationIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobApplicationIds_Response clone() => FetchJobApplicationIds_Response()..mergeFromMessage(this);
+  FetchJobApplicationIds_Response copyWith(void Function(FetchJobApplicationIds_Response) updates) => super.copyWith((message) => updates(message as FetchJobApplicationIds_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationIds_Response create() => FetchJobApplicationIds_Response._();
+  FetchJobApplicationIds_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchJobApplicationIds_Response> createRepeated() => $pb.PbList<FetchJobApplicationIds_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationIds_Response>(create);
+  static FetchJobApplicationIds_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+}
+
+class FetchJobApplicationIds extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobApplicationIds', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobApplicationIds._() : super();
+  factory FetchJobApplicationIds() => create();
+  factory FetchJobApplicationIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobApplicationIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobApplicationIds clone() => FetchJobApplicationIds()..mergeFromMessage(this);
+  FetchJobApplicationIds copyWith(void Function(FetchJobApplicationIds) updates) => super.copyWith((message) => updates(message as FetchJobApplicationIds));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationIds create() => FetchJobApplicationIds._();
+  FetchJobApplicationIds createEmptyInstance() => create();
+  static $pb.PbList<FetchJobApplicationIds> createRepeated() => $pb.PbList<FetchJobApplicationIds>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationIds>(create);
+  static FetchJobApplicationIds _defaultInstance;
+}
+
+class FetchJobApplicationDetails_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobApplicationDetails.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'jobApplicationId', $pb.PbFieldType.O3, protoName: 'jobApplicationId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobApplicationDetails_Request._() : super();
+  factory FetchJobApplicationDetails_Request() => create();
+  factory FetchJobApplicationDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobApplicationDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobApplicationDetails_Request clone() => FetchJobApplicationDetails_Request()..mergeFromMessage(this);
+  FetchJobApplicationDetails_Request copyWith(void Function(FetchJobApplicationDetails_Request) updates) => super.copyWith((message) => updates(message as FetchJobApplicationDetails_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationDetails_Request create() => FetchJobApplicationDetails_Request._();
+  FetchJobApplicationDetails_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchJobApplicationDetails_Request> createRepeated() => $pb.PbList<FetchJobApplicationDetails_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationDetails_Request>(create);
+  static FetchJobApplicationDetails_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get jobApplicationId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set jobApplicationId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasJobApplicationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearJobApplicationId() => clearField(2);
+}
+
+class FetchJobApplicationDetails_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobApplicationDetails.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..a<$core.int>(2, 'id', $pb.PbFieldType.O3)
+    ..aOS(3, 'message')
+    ..a<$core.int>(4, 'applicantId', $pb.PbFieldType.O3, protoName: 'applicantId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobApplicationDetails_Response._() : super();
+  factory FetchJobApplicationDetails_Response() => create();
+  factory FetchJobApplicationDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobApplicationDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobApplicationDetails_Response clone() => FetchJobApplicationDetails_Response()..mergeFromMessage(this);
+  FetchJobApplicationDetails_Response copyWith(void Function(FetchJobApplicationDetails_Response) updates) => super.copyWith((message) => updates(message as FetchJobApplicationDetails_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationDetails_Response create() => FetchJobApplicationDetails_Response._();
+  FetchJobApplicationDetails_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchJobApplicationDetails_Response> createRepeated() => $pb.PbList<FetchJobApplicationDetails_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationDetails_Response>(create);
+  static FetchJobApplicationDetails_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get id => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set id($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get message => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set message($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasMessage() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearMessage() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get applicantId => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set applicantId($core.int v) { $_setSignedInt32(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasApplicantId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearApplicantId() => clearField(4);
+}
+
+class FetchJobApplicationDetails extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchJobApplicationDetails', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchJobApplicationDetails._() : super();
+  factory FetchJobApplicationDetails() => create();
+  factory FetchJobApplicationDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchJobApplicationDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchJobApplicationDetails clone() => FetchJobApplicationDetails()..mergeFromMessage(this);
+  FetchJobApplicationDetails copyWith(void Function(FetchJobApplicationDetails) updates) => super.copyWith((message) => updates(message as FetchJobApplicationDetails));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationDetails create() => FetchJobApplicationDetails._();
+  FetchJobApplicationDetails createEmptyInstance() => create();
+  static $pb.PbList<FetchJobApplicationDetails> createRepeated() => $pb.PbList<FetchJobApplicationDetails>();
+  @$core.pragma('dart2js:noInline')
+  static FetchJobApplicationDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationDetails>(create);
+  static FetchJobApplicationDetails _defaultInstance;
+}
+
+class ApproveJobApplication_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ApproveJobApplication.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'jobApplicationId', $pb.PbFieldType.O3, protoName: 'jobApplicationId')
+    ..hasRequiredFields = false
+  ;
+
+  ApproveJobApplication_Request._() : super();
+  factory ApproveJobApplication_Request() => create();
+  factory ApproveJobApplication_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ApproveJobApplication_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ApproveJobApplication_Request clone() => ApproveJobApplication_Request()..mergeFromMessage(this);
+  ApproveJobApplication_Request copyWith(void Function(ApproveJobApplication_Request) updates) => super.copyWith((message) => updates(message as ApproveJobApplication_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ApproveJobApplication_Request create() => ApproveJobApplication_Request._();
+  ApproveJobApplication_Request createEmptyInstance() => create();
+  static $pb.PbList<ApproveJobApplication_Request> createRepeated() => $pb.PbList<ApproveJobApplication_Request>();
+  @$core.pragma('dart2js:noInline')
+  static ApproveJobApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ApproveJobApplication_Request>(create);
+  static ApproveJobApplication_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get jobApplicationId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set jobApplicationId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasJobApplicationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearJobApplicationId() => clearField(2);
+}
+
+class ApproveJobApplication_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ApproveJobApplication.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..hasRequiredFields = false
+  ;
+
+  ApproveJobApplication_Response._() : super();
+  factory ApproveJobApplication_Response() => create();
+  factory ApproveJobApplication_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ApproveJobApplication_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ApproveJobApplication_Response clone() => ApproveJobApplication_Response()..mergeFromMessage(this);
+  ApproveJobApplication_Response copyWith(void Function(ApproveJobApplication_Response) updates) => super.copyWith((message) => updates(message as ApproveJobApplication_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ApproveJobApplication_Response create() => ApproveJobApplication_Response._();
+  ApproveJobApplication_Response createEmptyInstance() => create();
+  static $pb.PbList<ApproveJobApplication_Response> createRepeated() => $pb.PbList<ApproveJobApplication_Response>();
+  @$core.pragma('dart2js:noInline')
+  static ApproveJobApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ApproveJobApplication_Response>(create);
+  static ApproveJobApplication_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class ApproveJobApplication extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ApproveJobApplication', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  ApproveJobApplication._() : super();
+  factory ApproveJobApplication() => create();
+  factory ApproveJobApplication.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ApproveJobApplication.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ApproveJobApplication clone() => ApproveJobApplication()..mergeFromMessage(this);
+  ApproveJobApplication copyWith(void Function(ApproveJobApplication) updates) => super.copyWith((message) => updates(message as ApproveJobApplication));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ApproveJobApplication create() => ApproveJobApplication._();
+  ApproveJobApplication createEmptyInstance() => create();
+  static $pb.PbList<ApproveJobApplication> createRepeated() => $pb.PbList<ApproveJobApplication>();
+  @$core.pragma('dart2js:noInline')
+  static ApproveJobApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ApproveJobApplication>(create);
+  static ApproveJobApplication _defaultInstance;
+}
+
+class DeclineJobApplication_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('DeclineJobApplication.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'jobApplicationId', $pb.PbFieldType.O3, protoName: 'jobApplicationId')
+    ..hasRequiredFields = false
+  ;
+
+  DeclineJobApplication_Request._() : super();
+  factory DeclineJobApplication_Request() => create();
+  factory DeclineJobApplication_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeclineJobApplication_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  DeclineJobApplication_Request clone() => DeclineJobApplication_Request()..mergeFromMessage(this);
+  DeclineJobApplication_Request copyWith(void Function(DeclineJobApplication_Request) updates) => super.copyWith((message) => updates(message as DeclineJobApplication_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DeclineJobApplication_Request create() => DeclineJobApplication_Request._();
+  DeclineJobApplication_Request createEmptyInstance() => create();
+  static $pb.PbList<DeclineJobApplication_Request> createRepeated() => $pb.PbList<DeclineJobApplication_Request>();
+  @$core.pragma('dart2js:noInline')
+  static DeclineJobApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeclineJobApplication_Request>(create);
+  static DeclineJobApplication_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get jobApplicationId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set jobApplicationId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasJobApplicationId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearJobApplicationId() => clearField(2);
+}
+
+class DeclineJobApplication_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('DeclineJobApplication.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..hasRequiredFields = false
+  ;
+
+  DeclineJobApplication_Response._() : super();
+  factory DeclineJobApplication_Response() => create();
+  factory DeclineJobApplication_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeclineJobApplication_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  DeclineJobApplication_Response clone() => DeclineJobApplication_Response()..mergeFromMessage(this);
+  DeclineJobApplication_Response copyWith(void Function(DeclineJobApplication_Response) updates) => super.copyWith((message) => updates(message as DeclineJobApplication_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DeclineJobApplication_Response create() => DeclineJobApplication_Response._();
+  DeclineJobApplication_Response createEmptyInstance() => create();
+  static $pb.PbList<DeclineJobApplication_Response> createRepeated() => $pb.PbList<DeclineJobApplication_Response>();
+  @$core.pragma('dart2js:noInline')
+  static DeclineJobApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeclineJobApplication_Response>(create);
+  static DeclineJobApplication_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class DeclineJobApplication extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('DeclineJobApplication', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  DeclineJobApplication._() : super();
+  factory DeclineJobApplication() => create();
+  factory DeclineJobApplication.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeclineJobApplication.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  DeclineJobApplication clone() => DeclineJobApplication()..mergeFromMessage(this);
+  DeclineJobApplication copyWith(void Function(DeclineJobApplication) updates) => super.copyWith((message) => updates(message as DeclineJobApplication));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DeclineJobApplication create() => DeclineJobApplication._();
+  DeclineJobApplication createEmptyInstance() => create();
+  static $pb.PbList<DeclineJobApplication> createRepeated() => $pb.PbList<DeclineJobApplication>();
+  @$core.pragma('dart2js:noInline')
+  static DeclineJobApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeclineJobApplication>(create);
+  static DeclineJobApplication _defaultInstance;
 }
 
 class LogPurchase_Request extends $pb.GeneratedMessage {

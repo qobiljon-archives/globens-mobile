@@ -51,111 +51,6 @@ message FetchUserDetails{
   }
 }
 
-// job or vacancy management requests/responses
-message CreateVacantJob{
-  message Request{
-    string sessionKey = 1;
-    int32 businessPageId = 2;
-    string title = 3;
-  }
-  message Response{
-    bool success = 1;
-  }
-}
-message UpdateJobDetails{
-  message Request{
-    string sessionKey = 1;
-  }
-  message Response{
-    bool success = 1;
-  }
-}
-message UncreateJob{
-  message Request{
-    string sessionKey = 1;
-  }
-  message Response{
-    bool success = 1;
-  }
-}
-message FetchBusinessPageJobIds{
-  message Request{
-    string sessionKey = 1;
-    int32 businessPageId = 2;
-  }
-  message Response{
-    bool success = 1;
-    repeated int32 id = 2;
-  }
-}
-message FetchNextKVacantJobIds{
-  message Request{
-    string sessionKey = 1;
-    int32 k = 2;
-    int32 previousVacantJobId = 3;
-    FilterDetails filterDetails = 4;
-  }
-  message Response{
-    bool success = 1;
-    repeated int32 id = 2;
-  }
-}
-message FetchJobDetails{
-  message Request{
-    string sessionKey = 1;
-    int32 jobId = 2;
-  }
-  message Response{
-    bool success = 1;
-    int32 id = 2;
-    string role = 3;
-    string title = 4;
-    int32 hiredUserId = 5;
-  }
-}
-
-// vacancy (vacant job) application management requests/responses
-message CreateVacancyApplication{
-  message Request{
-    string sessionKey = 1;
-  }
-  message Response{
-    bool success = 1;
-  }
-}
-message UpdateVacancyApplicationDetails{
-  message Request{
-    string sessionKey = 1;
-  }
-  message Response{
-    bool success = 1;
-  }
-}
-message UncreateVacancyApplication{
-  message Request{
-    string sessionKey = 1;
-  }
-  message Response{
-    bool success = 1;
-  }
-}
-message FetchMyVacancyApplicationIds{
-  message Request{
-    string sessionKey = 1;
-  }
-  message Response{
-    bool success = 1;
-  }
-}
-message FetchVacancyApplicationDetails{
-  message Request{
-    string sessionKey = 1;
-  }
-  message Response{
-    bool success = 1;
-  }
-}
-
 // business page management requests/responses
 message CreateBusinessPage{
   message Request{
@@ -275,6 +170,137 @@ message UnpublishProduct{
   }
 }
 
+// job or vacancy management requests/responses
+message CreateVacantJob{
+  message Request{
+    string sessionKey = 1;
+    int32 businessPageId = 2;
+    string title = 3;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateJobDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateJob{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchBusinessPageJobIds{
+  message Request{
+    string sessionKey = 1;
+    int32 businessPageId = 2;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchNextKVacantJobIds{
+  message Request{
+    string sessionKey = 1;
+    int32 k = 2;
+    int32 previousVacantJobId = 3;
+    FilterDetails filterDetails = 4;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchJobDetails{
+  message Request{
+    string sessionKey = 1;
+    int32 jobId = 2;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string role = 3;
+    string title = 4;
+    int32 hiredUserId = 5;
+  }
+}
+
+// vacancy (vacant job) application management requests/responses
+message CreateJobApplication{
+  message Request{
+    string sessionKey = 1;
+    int32 jobId = 2;
+    string message = 3;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UpdateJobApplicationDetails{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message UncreateJobApplication{
+  message Request{
+    string sessionKey = 1;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message FetchJobApplicationIds{
+  message Request{
+    string sessionKey = 1;
+    int32 jobId = 2;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchJobApplicationDetails{
+  message Request{
+    string sessionKey = 1;
+    int32 jobApplicationId = 2;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string message = 3;
+    int32 applicantId = 4;
+  }
+}
+message ApproveJobApplication{
+  message Request{
+    string sessionKey = 1;
+    int32 jobApplicationId = 2;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+message DeclineJobApplication{
+  message Request{
+    string sessionKey = 1;
+    int32 jobApplicationId = 2;
+  }
+  message Response{
+    bool success = 1;
+  }
+}
+
 // purchase management requests/responses
 message LogPurchase{
   message Request{
@@ -309,20 +335,6 @@ service GlobensService {
   rpc updateUserDetails(UpdateUserDetails.Request) returns (UpdateUserDetails.Response) {}
   rpc fetchUserDetails(FetchUserDetails.Request) returns (FetchUserDetails.Response) {}
 
-  // vacancy management RPCs
-  rpc createVacantJob(CreateVacantJob.Request) returns (CreateVacantJob.Response) {}
-  rpc updateJobDetails(UpdateJobDetails.Request) returns (UpdateJobDetails.Response) {}
-  rpc uncreateJob(UncreateJob.Request) returns (UncreateJob.Response) {}
-  rpc fetchBusinessPageJobIds(FetchBusinessPageJobIds.Request) returns (FetchBusinessPageJobIds.Response) {}
-  rpc fetchNextKVacantJobIds(FetchNextKVacantJobIds.Request) returns (FetchNextKVacantJobIds.Response) {}
-  rpc fetchJobDetails(FetchJobDetails.Request) returns (FetchJobDetails.Response) {}
-
-  // vacancy application management RPCs
-  rpc createVacancyApplication(CreateVacancyApplication.Request) returns (CreateVacancyApplication.Response) {}
-  rpc updateVacancyApplicationDetails(UpdateVacancyApplicationDetails.Request) returns (UpdateVacancyApplicationDetails.Response) {}
-  rpc uncreateVacancyApplication(UncreateVacancyApplication.Request) returns (UncreateVacancyApplication.Response) {}
-  rpc fetchMyVacancyApplicationIds(FetchMyVacancyApplicationIds.Request) returns (FetchMyVacancyApplicationIds.Response) {}
-  rpc fetchVacancyApplicationDetails(FetchVacancyApplicationDetails.Request) returns (FetchVacancyApplicationDetails.Response) {}
 
   // business page management RPCs
   rpc createBusinessPage(CreateBusinessPage.Request) returns (CreateBusinessPage.Response) {}
@@ -330,6 +342,7 @@ service GlobensService {
   rpc uncreateBusinessPage(UncreateBusinessPage.Request) returns (UncreateBusinessPage.Response) {}
   rpc fetchMyBusinessPageIds(FetchMyBusinessPageIds.Request) returns (FetchMyBusinessPageIds.Response) {}
   rpc fetchBusinessPageDetails(FetchBusinessPageDetails.Request) returns (FetchBusinessPageDetails.Response) {}
+
 
   // product management RPCs
   rpc createProduct(CreateProduct.Request) returns (CreateProduct.Response) {}
@@ -339,6 +352,26 @@ service GlobensService {
   rpc uncreateProduct(UncreateProduct.Request) returns (UncreateProduct.Response) {}
   rpc fetchBusinessPageProductIds(FetchBusinessPageProductIds.Request) returns (FetchBusinessPageProductIds.Response) {}
   rpc fetchProductDetails(FetchProductDetails.Request) returns (FetchProductDetails.Response) {}
+
+
+  // vacancy management RPCs
+  rpc createVacantJob(CreateVacantJob.Request) returns (CreateVacantJob.Response) {}
+  rpc updateJobDetails(UpdateJobDetails.Request) returns (UpdateJobDetails.Response) {}
+  rpc uncreateJob(UncreateJob.Request) returns (UncreateJob.Response) {}
+  rpc fetchBusinessPageJobIds(FetchBusinessPageJobIds.Request) returns (FetchBusinessPageJobIds.Response) {}
+  rpc fetchNextKVacantJobIds(FetchNextKVacantJobIds.Request) returns (FetchNextKVacantJobIds.Response) {}
+  rpc fetchJobDetails(FetchJobDetails.Request) returns (FetchJobDetails.Response) {}
+
+
+  // vacancy application management RPCs
+  rpc createJobApplication(CreateJobApplication.Request) returns (CreateJobApplication.Response) {}
+  rpc updateJobApplicationDetails(UpdateJobApplicationDetails.Request) returns (UpdateJobApplicationDetails.Response) {}
+  rpc uncreateJobApplication(UncreateJobApplication.Request) returns (UncreateJobApplication.Response) {}
+  rpc fetchJobApplicationIds(FetchJobApplicationIds.Request) returns (FetchJobApplicationIds.Response) {}
+  rpc fetchJobApplicationDetails(FetchJobApplicationDetails.Request) returns (FetchJobApplicationDetails.Response) {}
+  rpc approveJobApplication(ApproveJobApplication.Request) returns (ApproveJobApplication.Response) {}
+  rpc declineJobApplication(DeclineJobApplication.Request) returns (DeclineJobApplication.Response) {}
+
 
   // purchase management RPCs
   rpc logPurchase(LogPurchase.Request) returns (LogPurchase.Response){}

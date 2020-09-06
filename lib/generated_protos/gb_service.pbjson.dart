@@ -103,228 +103,6 @@ const FetchUserDetails_Response$json = const {
   ],
 };
 
-const CreateVacantJob$json = const {
-  '1': 'CreateVacantJob',
-  '3': const [CreateVacantJob_Request$json, CreateVacantJob_Response$json],
-};
-
-const CreateVacantJob_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
-    const {'1': 'title', '3': 3, '4': 1, '5': 9, '10': 'title'},
-  ],
-};
-
-const CreateVacantJob_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const UpdateJobDetails$json = const {
-  '1': 'UpdateJobDetails',
-  '3': const [UpdateJobDetails_Request$json, UpdateJobDetails_Response$json],
-};
-
-const UpdateJobDetails_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-  ],
-};
-
-const UpdateJobDetails_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const UncreateJob$json = const {
-  '1': 'UncreateJob',
-  '3': const [UncreateJob_Request$json, UncreateJob_Response$json],
-};
-
-const UncreateJob_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-  ],
-};
-
-const UncreateJob_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const FetchBusinessPageJobIds$json = const {
-  '1': 'FetchBusinessPageJobIds',
-  '3': const [FetchBusinessPageJobIds_Request$json, FetchBusinessPageJobIds_Response$json],
-};
-
-const FetchBusinessPageJobIds_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
-  ],
-};
-
-const FetchBusinessPageJobIds_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
-  ],
-};
-
-const FetchNextKVacantJobIds$json = const {
-  '1': 'FetchNextKVacantJobIds',
-  '3': const [FetchNextKVacantJobIds_Request$json, FetchNextKVacantJobIds_Response$json],
-};
-
-const FetchNextKVacantJobIds_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'k', '3': 2, '4': 1, '5': 5, '10': 'k'},
-    const {'1': 'previousVacantJobId', '3': 3, '4': 1, '5': 5, '10': 'previousVacantJobId'},
-    const {'1': 'filterDetails', '3': 4, '4': 1, '5': 11, '6': '.FilterDetails', '10': 'filterDetails'},
-  ],
-};
-
-const FetchNextKVacantJobIds_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
-  ],
-};
-
-const FetchJobDetails$json = const {
-  '1': 'FetchJobDetails',
-  '3': const [FetchJobDetails_Request$json, FetchJobDetails_Response$json],
-};
-
-const FetchJobDetails_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'jobId', '3': 2, '4': 1, '5': 5, '10': 'jobId'},
-  ],
-};
-
-const FetchJobDetails_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
-    const {'1': 'role', '3': 3, '4': 1, '5': 9, '10': 'role'},
-    const {'1': 'title', '3': 4, '4': 1, '5': 9, '10': 'title'},
-    const {'1': 'hiredUserId', '3': 5, '4': 1, '5': 5, '10': 'hiredUserId'},
-  ],
-};
-
-const CreateVacancyApplication$json = const {
-  '1': 'CreateVacancyApplication',
-  '3': const [CreateVacancyApplication_Request$json, CreateVacancyApplication_Response$json],
-};
-
-const CreateVacancyApplication_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-  ],
-};
-
-const CreateVacancyApplication_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const UpdateVacancyApplicationDetails$json = const {
-  '1': 'UpdateVacancyApplicationDetails',
-  '3': const [UpdateVacancyApplicationDetails_Request$json, UpdateVacancyApplicationDetails_Response$json],
-};
-
-const UpdateVacancyApplicationDetails_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-  ],
-};
-
-const UpdateVacancyApplicationDetails_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const UncreateVacancyApplication$json = const {
-  '1': 'UncreateVacancyApplication',
-  '3': const [UncreateVacancyApplication_Request$json, UncreateVacancyApplication_Response$json],
-};
-
-const UncreateVacancyApplication_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-  ],
-};
-
-const UncreateVacancyApplication_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const FetchMyVacancyApplicationIds$json = const {
-  '1': 'FetchMyVacancyApplicationIds',
-  '3': const [FetchMyVacancyApplicationIds_Request$json, FetchMyVacancyApplicationIds_Response$json],
-};
-
-const FetchMyVacancyApplicationIds_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-  ],
-};
-
-const FetchMyVacancyApplicationIds_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const FetchVacancyApplicationDetails$json = const {
-  '1': 'FetchVacancyApplicationDetails',
-  '3': const [FetchVacancyApplicationDetails_Request$json, FetchVacancyApplicationDetails_Response$json],
-};
-
-const FetchVacancyApplicationDetails_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-  ],
-};
-
-const FetchVacancyApplicationDetails_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
 const CreateBusinessPage$json = const {
   '1': 'CreateBusinessPage',
   '3': const [CreateBusinessPage_Request$json, CreateBusinessPage_Response$json],
@@ -566,6 +344,276 @@ const UnpublishProduct_Request$json = const {
 };
 
 const UnpublishProduct_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const CreateVacantJob$json = const {
+  '1': 'CreateVacantJob',
+  '3': const [CreateVacantJob_Request$json, CreateVacantJob_Response$json],
+};
+
+const CreateVacantJob_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'title', '3': 3, '4': 1, '5': 9, '10': 'title'},
+  ],
+};
+
+const CreateVacantJob_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const UpdateJobDetails$json = const {
+  '1': 'UpdateJobDetails',
+  '3': const [UpdateJobDetails_Request$json, UpdateJobDetails_Response$json],
+};
+
+const UpdateJobDetails_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+  ],
+};
+
+const UpdateJobDetails_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const UncreateJob$json = const {
+  '1': 'UncreateJob',
+  '3': const [UncreateJob_Request$json, UncreateJob_Response$json],
+};
+
+const UncreateJob_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+  ],
+};
+
+const UncreateJob_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const FetchBusinessPageJobIds$json = const {
+  '1': 'FetchBusinessPageJobIds',
+  '3': const [FetchBusinessPageJobIds_Request$json, FetchBusinessPageJobIds_Response$json],
+};
+
+const FetchBusinessPageJobIds_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
+  ],
+};
+
+const FetchBusinessPageJobIds_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+  ],
+};
+
+const FetchNextKVacantJobIds$json = const {
+  '1': 'FetchNextKVacantJobIds',
+  '3': const [FetchNextKVacantJobIds_Request$json, FetchNextKVacantJobIds_Response$json],
+};
+
+const FetchNextKVacantJobIds_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'k', '3': 2, '4': 1, '5': 5, '10': 'k'},
+    const {'1': 'previousVacantJobId', '3': 3, '4': 1, '5': 5, '10': 'previousVacantJobId'},
+    const {'1': 'filterDetails', '3': 4, '4': 1, '5': 11, '6': '.FilterDetails', '10': 'filterDetails'},
+  ],
+};
+
+const FetchNextKVacantJobIds_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+  ],
+};
+
+const FetchJobDetails$json = const {
+  '1': 'FetchJobDetails',
+  '3': const [FetchJobDetails_Request$json, FetchJobDetails_Response$json],
+};
+
+const FetchJobDetails_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'jobId', '3': 2, '4': 1, '5': 5, '10': 'jobId'},
+  ],
+};
+
+const FetchJobDetails_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'role', '3': 3, '4': 1, '5': 9, '10': 'role'},
+    const {'1': 'title', '3': 4, '4': 1, '5': 9, '10': 'title'},
+    const {'1': 'hiredUserId', '3': 5, '4': 1, '5': 5, '10': 'hiredUserId'},
+  ],
+};
+
+const CreateJobApplication$json = const {
+  '1': 'CreateJobApplication',
+  '3': const [CreateJobApplication_Request$json, CreateJobApplication_Response$json],
+};
+
+const CreateJobApplication_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'jobId', '3': 2, '4': 1, '5': 5, '10': 'jobId'},
+    const {'1': 'message', '3': 3, '4': 1, '5': 9, '10': 'message'},
+  ],
+};
+
+const CreateJobApplication_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const UpdateJobApplicationDetails$json = const {
+  '1': 'UpdateJobApplicationDetails',
+  '3': const [UpdateJobApplicationDetails_Request$json, UpdateJobApplicationDetails_Response$json],
+};
+
+const UpdateJobApplicationDetails_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+  ],
+};
+
+const UpdateJobApplicationDetails_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const UncreateJobApplication$json = const {
+  '1': 'UncreateJobApplication',
+  '3': const [UncreateJobApplication_Request$json, UncreateJobApplication_Response$json],
+};
+
+const UncreateJobApplication_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+  ],
+};
+
+const UncreateJobApplication_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const FetchJobApplicationIds$json = const {
+  '1': 'FetchJobApplicationIds',
+  '3': const [FetchJobApplicationIds_Request$json, FetchJobApplicationIds_Response$json],
+};
+
+const FetchJobApplicationIds_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'jobId', '3': 2, '4': 1, '5': 5, '10': 'jobId'},
+  ],
+};
+
+const FetchJobApplicationIds_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+  ],
+};
+
+const FetchJobApplicationDetails$json = const {
+  '1': 'FetchJobApplicationDetails',
+  '3': const [FetchJobApplicationDetails_Request$json, FetchJobApplicationDetails_Response$json],
+};
+
+const FetchJobApplicationDetails_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'jobApplicationId', '3': 2, '4': 1, '5': 5, '10': 'jobApplicationId'},
+  ],
+};
+
+const FetchJobApplicationDetails_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'message', '3': 3, '4': 1, '5': 9, '10': 'message'},
+    const {'1': 'applicantId', '3': 4, '4': 1, '5': 5, '10': 'applicantId'},
+  ],
+};
+
+const ApproveJobApplication$json = const {
+  '1': 'ApproveJobApplication',
+  '3': const [ApproveJobApplication_Request$json, ApproveJobApplication_Response$json],
+};
+
+const ApproveJobApplication_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'jobApplicationId', '3': 2, '4': 1, '5': 5, '10': 'jobApplicationId'},
+  ],
+};
+
+const ApproveJobApplication_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const DeclineJobApplication$json = const {
+  '1': 'DeclineJobApplication',
+  '3': const [DeclineJobApplication_Request$json, DeclineJobApplication_Response$json],
+};
+
+const DeclineJobApplication_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'jobApplicationId', '3': 2, '4': 1, '5': 5, '10': 'jobApplicationId'},
+  ],
+};
+
+const DeclineJobApplication_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
