@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'available jobs screen.dart';
@@ -54,6 +55,10 @@ class GlobensScreenState extends State<GlobensScreen> {
   }
 
   void onLookingForAJobButtonPressed() {
-    Navigator.push(_context, MaterialPageRoute(builder: (context) => AvailableJobs()));
+    if (AppUser.isAuthenticated())
+      Navigator.push(_context, MaterialPageRoute(builder: (context) => AvailableJobs()));
+    else {
+      toast("Please SignIn First");
+    }
   }
 }
