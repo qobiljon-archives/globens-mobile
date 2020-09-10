@@ -22,7 +22,7 @@ class BusinessPageDetailsScreen extends StatefulWidget {
 class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   List<Widget> _header = [];
   List<Product> _products = [];
-  List<Job> _vacancies = [];
+  List<Job> _jobs = [];
   List<Widget> _footer = [];
 
   @override
@@ -79,10 +79,10 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     });
     grpcFetchBusinessPageJobs(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
       bool success = tuple.item1;
-      List<Job> vacancies = tuple.item2;
+      List<Job> jobs = tuple.item2;
       if (success)
         setState(() {
-          _vacancies = vacancies;
+          _jobs = jobs;
         });
       else {
         AppUser.signOut();
@@ -96,7 +96,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     return Scaffold(
       body: Container(
         child: ListView.builder(
-          itemCount: _header.length + _products.length + _vacancies.length + _footer.length,
+          itemCount: _header.length + _products.length + _jobs.length + _footer.length,
           itemBuilder: (BuildContext context, int index) => getListViewItem(context, index),
         ),
       ),
@@ -104,14 +104,14 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   Widget getListViewItem(BuildContext context, int index) {
-    if (index >= _header.length + _products.length + _vacancies.length) {
+    if (index >= _header.length + _products.length + _jobs.length) {
       // footer section
-      index -= _header.length + _products.length + _vacancies.length;
+      index -= _header.length + _products.length + _jobs.length;
       return _footer[index];
     } else if (index >= _header.length + _products.length) {
       // vacancies section
       index -= _header.length + _products.length;
-      return buildVacancyItem(context, index);
+      return buildJobItem(context, index);
     } else if (index >= _header.length) {
       // products section
       index -= _header.length;
@@ -163,16 +163,26 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       return productRow;
   }
 
-  Widget buildVacancyItem(BuildContext context, int index) {
-    Row vacancyRow = Row(
+  Widget buildJobItem(BuildContext context, int index) {
+    String position = "(full position)";
+    if (_jobs[index].isVacant) position = "(empty position)";
+
+    Row jobRow = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => _onVacancyPressed(context, _vacancies[index], widget._businessPage),
-          child: Text(
-            "${_vacancies[index].title}",
-            overflow: TextOverflow.clip,
-            style: TextStyle(fontSize: 20.0),
+          onTap: () => _onVacancyPressed(context, _jobs[index], widget._businessPage),
+          child: Row(
+            children: [
+              Text(
+                "${_jobs[index].title}",
+                style: TextStyle(fontSize: 20.0),
+              ),
+              Text(
+                " $position",
+                style: TextStyle(fontSize: 20),
+              )
+            ],
           ),
         ),
       ],
@@ -181,10 +191,10 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     if (index == 0)
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [getTitleWidget("Vacancies", textColor: Colors.black), vacancyRow],
+        children: [getTitleWidget("Jobs", textColor: Colors.black), jobRow],
       );
     else
-      return vacancyRow;
+      return jobRow;
   }
 
   void _onCreateProductPressed(BuildContext context) async {
@@ -212,11 +222,11 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     grpcFetchBusinessPageJobs(AppUser.sessionKey, widget._businessPage.id).then((tuple) {
       bool success = tuple.item1;
       List<Job> vacancies = tuple.item2;
-      if (success)
+      if (success) {
         setState(() {
-          _vacancies = vacancies;
+          _jobs = vacancies;
         });
-      else {
+      } else {
         AppUser.signOut();
         Navigator.pushReplacementNamed(context, 'root');
       }

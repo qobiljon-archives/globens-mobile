@@ -1,6 +1,8 @@
 class Job {
   Job.create(String title, {int id, int hiredUserId}) {
     this._title = title;
+    this._id = id;
+    this._hiredUserId = hiredUserId;
   }
 
   int _id;
@@ -24,6 +26,6 @@ class Job {
   }
 
   bool get isVacant {
-    return _hiredUserId == null;
+    return _hiredUserId == -1;
   }
 }

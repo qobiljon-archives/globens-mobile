@@ -1,7 +1,7 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'available jobs screen.dart';
+import 'available vacancies screen.dart';
 
 class GlobensScreen extends StatefulWidget {
   @override

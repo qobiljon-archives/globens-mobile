@@ -7,10 +7,10 @@ import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class JobApplicationScreen extends StatefulWidget {
-  final Job vacancy;
+  final Job job;
   final BusinessPage businessPage;
 
-  const JobApplicationScreen(this.vacancy, this.businessPage);
+  const JobApplicationScreen(this.job, this.businessPage);
 
   @override
   _JobApplicationScreenState createState() => _JobApplicationScreenState();
@@ -33,7 +33,7 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
             onPressed: () => _onBackButtonPressed(context),
           ),
           Text(
-            "${widget.vacancy.title}",
+            "${widget.job.title}",
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
           ),
         ],
@@ -41,12 +41,12 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
     ];
 
     if (widget.businessPage.role == VacancyRole.BUSINESS_OWNER) {
-      grpcFetchJobApplications(AppUser.sessionKey, widget.businessPage.id).then((tuple) {
+      grpcFetchJobApplications(AppUser.sessionKey, widget.job).then((tuple) {
         bool success = tuple.item1;
-        List<JobApplication> products = tuple.item2;
+        List<JobApplication> jobApplications = tuple.item2;
         if (success)
           setState(() {
-            _jobApplications = products;
+            _jobApplications  = jobApplications;
           });
         else {
           AppUser.signOut();
@@ -54,23 +54,7 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
         }
       });
 
-      _footer = [
-        Container(
-          child: RaisedButton(
-            onPressed: () {},
-            child: Text("Approve"),
-          ),
-        )
-      ];
-    } else {
-      _footer = [
-        Container(
-          child: RaisedButton(
-            onPressed: _onApplyNowButtonPressed,
-            child: Text("Apply Now"),
-          ),
-        )
-      ];
+
     }
   }
 
@@ -85,8 +69,12 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
 
   void _onVacancyApplicationPressed(BuildContext context, JobApplication vacancyApplication) {}
 
-  void _onApplyNowButtonPressed() {
-    //TODO open apply job screen
+  void _onApproveButtonPressed() {
+    //TODO create approve functionality
+  }
+
+  void _onDeclineButtonPressed() {
+    //TODO create decline functionality
   }
 
   Widget buildVacancyApplicationItem(BuildContext context, int index) {
@@ -96,7 +84,7 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
         GestureDetector(
           onTap: () => _onVacancyApplicationPressed(context, _jobApplications[index]),
           child: Text(
-            "${_jobApplications[index].title}",
+            "${_jobApplications[index].message}",
             overflow: TextOverflow.clip,
             style: TextStyle(fontSize: 20.0),
           ),

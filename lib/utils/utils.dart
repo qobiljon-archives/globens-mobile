@@ -103,14 +103,14 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
       ..businessPageId = businessPageId);
     success = productIdsRes.success;
     if (success)
-      for (int productId in productIdsRes.id){
+      for (int productId in productIdsRes.id) {
         final productDetailsRes = await stub.fetchProductDetails(FetchProductDetails_Request()
           ..sessionKey = sessionKey
           ..productId = productId);
         success &= productDetailsRes.success;
-        if (success)
-          products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, id: productDetailsRes.id));
-      };
+        if (success) products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, id: productDetailsRes.id));
+      }
+    ;
   } catch (e) {
     print(e);
   } finally {
@@ -144,7 +144,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, int
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
-  List<Job> vacancies = List<Job>();
+  List<Job> jobs = List<Job>();
 
   try {
     final businessPageJobIdsRes = await stub.fetchBusinessPageJobIds(FetchBusinessPageJobIds_Request()
@@ -152,20 +152,20 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, int
       ..businessPageId = businessPageId);
     success = businessPageJobIdsRes.success;
     if (success)
-      for(int jobId in businessPageJobIdsRes.id) {
+      for (int jobId in businessPageJobIdsRes.id) {
         final jobDetailsRes = await stub.fetchJobDetails(FetchJobDetails_Request()
           ..sessionKey = sessionKey
           ..jobId = jobId);
         success &= jobDetailsRes.success;
-        if (success)
-          vacancies.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, hiredUserId: jobDetailsRes.hiredUserId));
-      };
+
+        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, hiredUserId: jobDetailsRes.hiredUserId));
+      }
   } catch (e) {
     print(e);
   } finally {
     await channel.shutdown();
   }
-  return Tuple2(success, vacancies);
+  return Tuple2(success, jobs);
 }
 
 Future<bool> grpcCreateVacantJob(String sessionKey, int businessPageId, Job vacancy) async {
@@ -187,7 +187,7 @@ Future<bool> grpcCreateVacantJob(String sessionKey, int businessPageId, Job vaca
   return success;
 }
 
-Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessionKey, int businessPageId) async {
+Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessionKey, Job job) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
@@ -195,12 +195,19 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
   List<JobApplication> vacancyApplications = List<JobApplication>();
 
   try {
-    final response = await stub.fetchBusinessPageJobIds(FetchBusinessPageJobIds_Request()
+    final response = await stub.fetchJobApplicationIds(FetchJobApplicationIds_Request()
       ..sessionKey = sessionKey
-      ..businessPageId = businessPageId);
+      ..jobId = job.id);
     success = response.success;
     if (success) {
-      // TODO get list of vacancies
+      for (int applicationId in response.id) {
+        final jobDApplicationDetails = await stub.fetchJobApplicationDetails(FetchJobApplicationDetails_Request()
+          ..sessionKey = sessionKey
+          ..jobApplicationId = applicationId);
+        success &= jobDApplicationDetails.success;
+
+        if (success) vacancyApplications.add(JobApplication.create(jobDApplicationDetails.message, id: jobDApplicationDetails.id));
+      }
     }
   } catch (e) {
     print(e);
@@ -208,4 +215,56 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
     await channel.shutdown();
   }
   return Tuple2(success, vacancyApplications);
+}
+
+Future<bool> grpcCreateJobApplication(String sessionKey, int jobId, JobApplication jobApplication) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+
+  try {
+    final response = await stub.createJobApplication(CreateJobApplication_Request()
+      ..sessionKey = sessionKey
+      ..jobId = jobId
+      ..message = jobApplication.message);
+    success = response.success;
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+  return success;
+}
+
+Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageVacancies(String sessionKey) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  List<Job> jobs = List<Job>();
+
+  try {
+    final businessPageJobIdsRes = await stub.fetchNextKVacantJobIds(FetchNextKVacantJobIds_Request()
+      ..sessionKey = sessionKey
+      ..k = 100
+      ..filterDetails = FilterDetails()
+      ..previousVacantJobId = 0);
+    success = businessPageJobIdsRes.success;
+    if (success) {
+      for (int jobId in businessPageJobIdsRes.id) {
+        final jobDetailsRes = await stub.fetchJobDetails(FetchJobDetails_Request()
+          ..sessionKey = sessionKey
+          ..jobId = jobId);
+        success &= jobDetailsRes.success;
+
+        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, hiredUserId: jobDetailsRes.hiredUserId));
+      }
+    }
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+  return Tuple2(success, jobs);
 }

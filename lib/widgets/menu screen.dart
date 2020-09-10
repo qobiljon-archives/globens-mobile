@@ -31,11 +31,11 @@ class _MenuScreenState extends State<MenuScreen> {
 
   void _signOutPressed() async {
     await AppUser.signOut();
-    Navigator.of(context).pushReplacementNamed('root');
+    await Navigator.of(context).pushReplacementNamed('root');
   }
 
   void _signInPressed() async {
     await showModalBottomSheet(context: context, builder: (context) => AuthenticationModalView());
-    Navigator.of(context).pushReplacementNamed('root');
+   await Navigator.of(context).pushReplacementNamed('root');
   }
 }

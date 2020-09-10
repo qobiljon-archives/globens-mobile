@@ -1,17 +1,18 @@
 class JobApplication {
-  JobApplication.create(String title, {int id}) {
-    this._title = title;
+  JobApplication.create(String message, {int id}) {
+    this._message = message;
+    this._id = id;
   }
 
   int _id;
-  String _title;
+  String _message;
 
   int get id {
     return _id;
   }
 
-  String get title {
-    return _title;
+  String get message {
+    return _message;
   }
 
   bool get isNewVacancyApplication {

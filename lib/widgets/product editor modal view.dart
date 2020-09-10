@@ -87,7 +87,9 @@ class _ProductPageEditorScreenState extends State<ProductPageEditorScreen> {
 
     if (success)
       Navigator.of(_context).pop();
-    else
-      toast("Check your Internet connectivity!");
+    else {
+      await AppUser.signOut();
+      await Navigator.pushReplacementNamed(context, "root");
+    }
   }
 }

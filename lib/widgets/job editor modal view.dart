@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
@@ -56,7 +56,9 @@ class _JobPageEditorModalViewState extends State<JobPageEditorModalView> {
 
     if (success)
       Navigator.of(context).pop();
-    else
-      Fluttertoast.showToast(msg: "Check your Internet connectivity!", toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+    else {
+      await AppUser.signOut();
+      await Navigator.pushReplacementNamed(context, 'root');
+    }
   }
 }
