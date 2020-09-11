@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
