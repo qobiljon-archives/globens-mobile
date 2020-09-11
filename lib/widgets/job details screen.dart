@@ -46,15 +46,13 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
         List<JobApplication> jobApplications = tuple.item2;
         if (success)
           setState(() {
-            _jobApplications  = jobApplications;
+            _jobApplications = jobApplications;
           });
         else {
           AppUser.signOut();
           Navigator.pushReplacementNamed(context, 'root');
         }
       });
-
-
     }
   }
 
@@ -67,10 +65,41 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
     Navigator.pop(context);
   }
 
-  void _onVacancyApplicationPressed(BuildContext context, JobApplication vacancyApplication) {}
+  void _onVacancyApplicationPressed(BuildContext context, JobApplication vacancyApplication, int index) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+              child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
+                  RaisedButton(
+                    child: Text("Decline"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              )
+            ],
+          ));
+        });
+  }
 
-  void _onApproveButtonPressed() {
-    //TODO create approve functionality
+  void _onApproveButtonPressed(BuildContext context, int index) {
+    bool succcess;
+    grpcApproveJobApplication(AppUser.sessionKey, _jobApplications[index]).then((value) {
+      setState(() {
+        succcess = value;
+      });
+    });
+    if (succcess) {
+      toast("Job application Approved!");
+    }
   }
 
   void _onDeclineButtonPressed() {
@@ -82,7 +111,7 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => _onVacancyApplicationPressed(context, _jobApplications[index]),
+          onTap: () => _onVacancyApplicationPressed(context, _jobApplications[index], index),
           child: Text(
             "${_jobApplications[index].message}",
             overflow: TextOverflow.clip,

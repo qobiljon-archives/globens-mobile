@@ -56,7 +56,7 @@ class _AvailableJobsState extends State<AvailableJobs> {
     return jobRow;
   }
 
-  void openVacancyDetails(BuildContext context, index) {
+  Widget openVacancyDetails(BuildContext context, index) {
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -77,7 +77,11 @@ class _AvailableJobsState extends State<AvailableJobs> {
                   RaisedButton(
                     child: Text("Apply"),
                     onPressed: () {
-                      showCupertinoModalBottomSheet(context: context, builder: (context, scrollcontroller) => AvailableVacancyDetails(job: _jobs[index]));
+                      showCupertinoModalBottomSheet(
+                          context: context,
+                          builder: (context, scrollcontroller) => AvailableVacancyDetails(
+                                job: _jobs[index],
+                              ));
                     },
                   ),
                   RaisedButton(

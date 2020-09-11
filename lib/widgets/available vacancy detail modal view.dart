@@ -7,7 +7,9 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 class AvailableVacancyDetails extends StatefulWidget {
   Job job;
 
+
   AvailableVacancyDetails({this.job});
+
 
   @override
   _AvavilableVacaniesDetailsState createState() => _AvavilableVacaniesDetailsState();
@@ -70,6 +72,7 @@ class _AvavilableVacaniesDetailsState extends State<AvailableVacancyDetails> {
       grpcCreateJobApplication(AppUser.sessionKey, widget.job.id, JobApplication.create(applicantMessage.text)).then((success) {
         if (success) {
           toast("submitted!");
+          Navigator.pop(context);
         } else {
           toast("not submitted!");
         }
