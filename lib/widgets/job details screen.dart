@@ -71,22 +71,22 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
         builder: (context) {
           return Container(
               child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
-                  RaisedButton(
-                    child: Text("Decline"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
+                      RaisedButton(
+                        child: Text("Decline"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  )
                 ],
-              )
-            ],
-          ));
+              ));
         });
   }
 
