@@ -268,6 +268,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageVacancies(String sessionKey
   }
   return Tuple2(success, jobs);
 }
+
 Future<bool> grpcApproveJobApplication(String sessionKey, JobApplication application) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);

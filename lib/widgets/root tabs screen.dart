@@ -1,6 +1,6 @@
-import 'package:globens_flutter_client/widgets/globens screen.dart';
-import 'package:globens_flutter_client/widgets/my business pages screen.dart';
-import 'package:globens_flutter_client/widgets/menu screen.dart';
+import 'package:globens_flutter_client/widgets/globens/globens%20screen.dart';
+import 'package:globens_flutter_client/widgets/my_pages/my%20business%20pages%20screen.dart';
+import 'package:globens_flutter_client/widgets/menu/menu%20screen.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/cupertino.dart';

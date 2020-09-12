@@ -4,25 +4,15 @@ import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 
-class JobPageEditorModalView extends StatefulWidget {
-  final BusinessPage _businessPage;
+class JobPageEditorModalView {
+  static final _titleTextController = TextEditingController();
 
-  const JobPageEditorModalView(this._businessPage);
-
-  @override
-  _JobPageEditorModalViewState createState() => _JobPageEditorModalViewState();
-}
-
-class _JobPageEditorModalViewState extends State<JobPageEditorModalView> {
-  TextEditingController _titleTextController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  static Widget getModalView(BuildContext context, BusinessPage businessPage) {
     return SingleChildScrollView(
         child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        getTitleWidget("Create a new Vacancy", textColor: Colors.black),
+        getTitleWidget("Create a new vacancy", textColor: Colors.black),
         Container(
           margin: EdgeInsets.only(left: 10.0, right: 10.0),
           child: TextField(
@@ -34,7 +24,7 @@ class _JobPageEditorModalViewState extends State<JobPageEditorModalView> {
           ),
         ),
         RaisedButton(
-          onPressed: () => createVacancyPressed(context),
+          onPressed: () => createVacancyPressed(context, businessPage),
           child: Text("Create"),
         ),
         Padding(
@@ -45,19 +35,19 @@ class _JobPageEditorModalViewState extends State<JobPageEditorModalView> {
     ));
   }
 
-  void createVacancyPressed(BuildContext context) async {
+  static void createVacancyPressed(BuildContext context, BusinessPage businessPage) async {
     if (_titleTextController.text.length < 2) {
       toast("Vacancy title cannot be less than two characters");
       return;
     }
 
-    bool success = await grpcCreateVacantJob(AppUser.sessionKey, widget._businessPage.id, Job.create(_titleTextController.text));
+    bool success = await grpcCreateVacantJob(AppUser.sessionKey, businessPage.id, Job.create(_titleTextController.text));
 
     if (success)
       Navigator.of(context).pop();
     else {
       await AppUser.signOut();
-      await Navigator.pushReplacementNamed(context, 'root');
+      await Navigator.pushReplacementNamed(context, '/');
     }
   }
 }

@@ -1,4 +1,4 @@
-import 'package:globens_flutter_client/widgets/photo%20selector%20modal%20view.dart';
+import 'package:globens_flutter_client/widgets/commons/photo%20selector%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
@@ -62,7 +62,7 @@ class _BusinessPageEditorModalViewState extends State<BusinessPageEditorModalVie
 
   void selectImagePressed(BuildContext context) async {
     PhotoSelectorModalView.resultImageBytes = null;
-    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView());
+    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
     if (PhotoSelectorModalView.resultImageBytes != null)
       setState(() {
         _businessPageImageBytes = PhotoSelectorModalView.resultImageBytes;

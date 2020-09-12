@@ -4,22 +4,10 @@ import 'package:globens_flutter_client/entities/VacancyApplication.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 
-class AvailableVacancyDetails extends StatefulWidget {
-  Job job;
+class JobApplicationEditorModalView {
+  static TextEditingController _applicantMessage = TextEditingController();
 
-
-  AvailableVacancyDetails({this.job});
-
-
-  @override
-  _AvavilableVacaniesDetailsState createState() => _AvavilableVacaniesDetailsState();
-}
-
-class _AvavilableVacaniesDetailsState extends State<AvailableVacancyDetails> {
-  final applicantMessage = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
+  static Widget getModalView(Job job, BuildContext context) {
     return Scaffold(
       body: Container(
         child: Column(
@@ -35,7 +23,7 @@ class _AvavilableVacaniesDetailsState extends State<AvailableVacancyDetails> {
             Container(
               margin: EdgeInsets.only(bottom: 10),
               child: Text(
-                "(Position: ${widget.job.title})",
+                "(Position: ${job.title})",
                 style: TextStyle(fontSize: 20.0),
               ),
             ),
@@ -43,7 +31,7 @@ class _AvavilableVacaniesDetailsState extends State<AvailableVacancyDetails> {
               margin: EdgeInsets.only(left: 10.0, right: 10.0),
               child: TextField(
                 maxLines: 1,
-                controller: applicantMessage,
+                controller: _applicantMessage,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelText: "message",
@@ -55,7 +43,7 @@ class _AvavilableVacaniesDetailsState extends State<AvailableVacancyDetails> {
               width: double.maxFinite,
               margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
               child: RaisedButton(
-                onPressed: onSubmitButtonPressed,
+                onPressed: () => _onSubmitButtonPressed(job, context),
                 child: Text("Submit"),
               ),
             )
@@ -65,11 +53,11 @@ class _AvavilableVacaniesDetailsState extends State<AvailableVacancyDetails> {
     );
   }
 
-  void onSubmitButtonPressed() {
-    if (applicantMessage.text.length < 5)
+  static void _onSubmitButtonPressed(Job job, BuildContext context) {
+    if (_applicantMessage.text.length < 5)
       toast("messsage can't be less than 5 characters:)");
     else
-      grpcCreateJobApplication(AppUser.sessionKey, widget.job.id, JobApplication.create(applicantMessage.text)).then((success) {
+      grpcCreateJobApplication(AppUser.sessionKey, job.id, JobApplication.create(_applicantMessage.text)).then((success) {
         if (success) {
           toast("submitted!");
           Navigator.pop(context);

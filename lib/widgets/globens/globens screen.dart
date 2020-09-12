@@ -1,7 +1,7 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'available vacancies screen.dart';
+import 'vacant jobs list screen.dart';
 
 class GlobensScreen extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class GlobensScreenState extends State<GlobensScreen> {
     _footer = [
       Container(
         child: RaisedButton(
-          onPressed: onLookingForAJobButtonPressed,
+          onPressed: _onLookingForAJobButtonPressed,
           child: Text("looking for a job?"),
         ),
       )
@@ -54,9 +54,9 @@ class GlobensScreenState extends State<GlobensScreen> {
       return buildBodySectionItem(index - _header.length);
   }
 
-  void onLookingForAJobButtonPressed() {
+  void _onLookingForAJobButtonPressed() async {
     if (AppUser.isAuthenticated())
-      Navigator.push(_context, MaterialPageRoute(builder: (context) => AvailableJobs()));
+      await Navigator.pushNamed(_context, '/vacant_jobs');
     else {
       toast("Please SignIn First");
     }

@@ -4,20 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 
-class PhotoSelectorModalView extends StatefulWidget {
+class PhotoSelectorModalView {
   static Uint8List resultImageBytes;
 
-  @override
-  _PhotoSelectorModalViewState createState() => _PhotoSelectorModalViewState();
-}
-
-class _PhotoSelectorModalViewState extends State<PhotoSelectorModalView> {
-  BuildContext _context;
-
-  @override
-  Widget build(BuildContext context) {
-    this._context = context;
-
+  static Widget getContainer(BuildContext context) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -30,7 +20,7 @@ class _PhotoSelectorModalViewState extends State<PhotoSelectorModalView> {
                   color: Colors.blue,
                   size: 40,
                 ),
-                onPressed: captureCameraPressed),
+                onPressed: () => _captureCameraPressed(context)),
           ),
           Container(
             margin: EdgeInsets.all(5.0),
@@ -40,22 +30,22 @@ class _PhotoSelectorModalViewState extends State<PhotoSelectorModalView> {
                   color: Colors.blue,
                   size: 40,
                 ),
-                onPressed: galleryImagePressed),
+                onPressed: () => _galleryImagePressed(context)),
           ),
         ],
       ),
     );
   }
 
-  void galleryImagePressed() async {
+  static void _galleryImagePressed(BuildContext context) async {
     PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery, maxWidth: 96, maxHeight: 96);
     PhotoSelectorModalView.resultImageBytes = await pickedFile.readAsBytes();
-    if (Navigator.canPop(_context)) Navigator.pop(_context);
+    if (Navigator.canPop(context)) Navigator.pop(context);
   }
 
-  void captureCameraPressed() async {
+  static void _captureCameraPressed(BuildContext context) async {
     PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.camera, maxWidth: 96, maxHeight: 96);
     PhotoSelectorModalView.resultImageBytes = await pickedFile.readAsBytes();
-    if (Navigator.canPop(_context)) Navigator.pop(_context);
+    if (Navigator.canPop(context)) Navigator.pop(context);
   }
 }

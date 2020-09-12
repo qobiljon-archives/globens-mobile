@@ -1,3 +1,6 @@
+import 'package:globens_flutter_client/widgets/my_pages/business%20page%20details%20screen.dart';
+import 'package:globens_flutter_client/widgets/my_pages/job%20applications%20list%20screen.dart';
+import 'package:globens_flutter_client/widgets/globens/vacant%20jobs%20list%20screen.dart';
 import 'package:globens_flutter_client/widgets/root%20tabs%20screen.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +29,13 @@ void main() {
 
     debugShowCheckedModeBanner: false,
     title: "Globens",
-    home: RootTabsScreen(),
-    initialRoute: 'root',
+    initialRoute: '/',
 
     routes: {
-      'root': (context) => RootTabsScreen(),
+      '/': (context) => RootTabsScreen(),
+      '/vacant_jobs': (context) => VacantJobsListScreen(),
+      '/business_page_details': (context) => BusinessPageDetailsScreen(),
+      '/business_page_details/job_applications_list': (context) => JobApplicationsListScreen(),
     },
   ));
 }

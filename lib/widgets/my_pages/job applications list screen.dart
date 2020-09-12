@@ -6,25 +6,29 @@ import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-class JobApplicationScreen extends StatefulWidget {
-  final Job job;
-  final BusinessPage businessPage;
+class JobApplicationsListScreen extends StatefulWidget {
 
-  const JobApplicationScreen(this.job, this.businessPage);
+  const JobApplicationsListScreen();
 
   @override
-  _JobApplicationScreenState createState() => _JobApplicationScreenState();
+  _JobApplicationsListScreenState createState() => _JobApplicationsListScreenState();
 }
 
-class _JobApplicationScreenState extends State<JobApplicationScreen> {
+class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   List<Widget> _header = [];
   List<JobApplication> _jobApplications = [];
   List<Widget> _footer = [];
-  String status;
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // 0. parsing arguments passed to this route (business page)
+    Map args = ModalRoute.of(context).settings.arguments as Map;
+    Job job = args['job'];
+    BusinessPage businessPage = args['businessPage'];
+
+    // 1. static part : set up common part of header and footer
     _header = [
       Row(
         children: [
@@ -33,15 +37,16 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
             onPressed: () => _onBackButtonPressed(context),
           ),
           Text(
-            "${widget.job.title}",
+            "${job.title}",
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
           ),
         ],
       ),
     ];
 
-    if (widget.businessPage.role == VacancyRole.BUSINESS_OWNER) {
-      grpcFetchJobApplications(AppUser.sessionKey, widget.job).then((tuple) {
+    // 2. dynamic part : change footer according to user's role in business page
+    if (businessPage.role == VacancyRole.BUSINESS_OWNER) {
+      grpcFetchJobApplications(AppUser.sessionKey, job).then((tuple) async {
         bool success = tuple.item1;
         List<JobApplication> jobApplications = tuple.item2;
         if (success)
@@ -49,8 +54,8 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
             _jobApplications = jobApplications;
           });
         else {
-          AppUser.signOut();
-          Navigator.pushReplacementNamed(context, 'root');
+          await AppUser.signOut();
+          await Navigator.pushReplacementNamed(context, '/');
         }
       });
     }
@@ -71,22 +76,22 @@ class _JobApplicationScreenState extends State<JobApplicationScreen> {
         builder: (context) {
           return Container(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
-                      RaisedButton(
-                        child: Text("Decline"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  )
+                  RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
+                  RaisedButton(
+                    child: Text("Decline"),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
                 ],
-              ));
+              )
+            ],
+          ));
         });
   }
 

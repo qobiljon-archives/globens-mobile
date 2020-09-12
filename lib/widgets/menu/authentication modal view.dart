@@ -2,9 +2,8 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-class AuthenticationModalView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+class AuthenticationModalView {
+  static Widget getModalView(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, mainAxisSize: MainAxisSize.min, children: [
       Text(
         "Sign in with",
@@ -65,23 +64,23 @@ class AuthenticationModalView extends StatelessWidget {
     ]);
   }
 
-  void _onKakaoPressed(BuildContext context) async {
+  static void _onKakaoPressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.KAKAO))
-      Navigator.of(context).popUntil(ModalRoute.withName('root'));
+      Navigator.of(context).popUntil(ModalRoute.withName('/'));
     else
       toast("Failed to login with Kakao.\nPlease try again later!");
   }
 
-  void _onGooglePressed(BuildContext context) async {
+  static void _onGooglePressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.GOOGLE))
-      Navigator.of(context).popUntil(ModalRoute.withName('root'));
+      Navigator.of(context).popUntil(ModalRoute.withName('/'));
     else
       toast("Failed to login with Google.\nPlease try again later!");
   }
 
-  void _onFacebookPressed(BuildContext context) async {
+  static void _onFacebookPressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.FACEBOOK))
-      Navigator.of(context).popUntil(ModalRoute.withName('root'));
+      Navigator.of(context).popUntil(ModalRoute.withName('/'));
     else
       toast("Failed to login with Facebook.\nPlease try again later!");
   }

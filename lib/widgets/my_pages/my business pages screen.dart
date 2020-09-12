@@ -1,8 +1,7 @@
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'business page editor modal view.dart';
-import 'business page details screen.dart';
+import '../commons/business page viewer modal view.dart';
 import 'package:flutter/material.dart';
 
 class MyBusinessPagesScreen extends StatefulWidget {
@@ -134,7 +133,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     });
   }
 
-  void _openIndividualBusinessPage(BuildContext context, BusinessPage businessPage) {
-    Navigator.push(context, MaterialPageRoute(builder: (_context) => BusinessPageDetailsScreen(businessPage)));
+  void _openIndividualBusinessPage(BuildContext context, BusinessPage businessPage) async {
+    await Navigator.pushNamed(context, '/business_page_details', arguments: businessPage);
   }
 }

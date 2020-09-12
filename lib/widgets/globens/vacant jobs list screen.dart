@@ -2,23 +2,23 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
-import 'available vacancy detail modal view.dart';
+import 'job application modal view.dart';
 
-class AvailableJobs extends StatefulWidget {
+class VacantJobsListScreen extends StatefulWidget {
   @override
-  _AvailableJobsState createState() => _AvailableJobsState();
+  _VacantJobsListScreenState createState() => _VacantJobsListScreenState();
 }
 
-class _AvailableJobsState extends State<AvailableJobs> {
+class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   List<Job> _jobs = [];
   List<Widget> _header = [];
 
   @override
   void initState() {
     super.initState();
-    _header = [getTitleWidget("Available Vacancies")];
+
+    _header = [getTitleWidget("Vacancies")];
     grpcFetchBusinessPageVacancies(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
       List<Job> jobs = tuple.item2;
@@ -56,8 +56,8 @@ class _AvailableJobsState extends State<AvailableJobs> {
     return jobRow;
   }
 
-  Widget openVacancyDetails(BuildContext context, index) {
-    showModalBottomSheet(
+  void openVacancyDetails(BuildContext context, index) async {
+    await showModalBottomSheet(
         context: context,
         builder: (context) {
           return Container(
@@ -77,11 +77,7 @@ class _AvailableJobsState extends State<AvailableJobs> {
                   RaisedButton(
                     child: Text("Apply"),
                     onPressed: () {
-                      showCupertinoModalBottomSheet(
-                          context: context,
-                          builder: (context, scrollcontroller) => AvailableVacancyDetails(
-                                job: _jobs[index],
-                              ));
+                      showModalBottomSheet(context: context, builder: (context) => JobApplicationEditorModalView.getModalView(_jobs[index], context));
                     },
                   ),
                   RaisedButton(

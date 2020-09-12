@@ -1,4 +1,4 @@
-import 'package:globens_flutter_client/widgets/photo%20selector%20modal%20view.dart';
+import 'package:globens_flutter_client/widgets/commons/photo%20selector%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -7,16 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:typed_data';
 
-class ProductPageEditorScreen extends StatefulWidget {
+class ProductEditorModalView extends StatefulWidget {
   final BusinessPage _businessPage;
 
-  const ProductPageEditorScreen(this._businessPage);
+  const ProductEditorModalView(this._businessPage);
 
   @override
-  _ProductPageEditorScreenState createState() => _ProductPageEditorScreenState();
+  _ProductEditorModalViewState createState() => _ProductEditorModalViewState();
 }
 
-class _ProductPageEditorScreenState extends State<ProductPageEditorScreen> {
+class _ProductEditorModalViewState extends State<ProductEditorModalView> {
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
   BuildContext _context;
@@ -35,7 +35,7 @@ class _ProductPageEditorScreenState extends State<ProductPageEditorScreen> {
               margin: EdgeInsets.all(10.0),
               child: GestureDetector(
                 onTap: () {
-                  showPhotoUploadOptions(context);
+                  _showPhotoUploadOptions(context);
                 },
                 child: CircleAvatar(
                   radius: 30.0,
@@ -54,7 +54,7 @@ class _ProductPageEditorScreenState extends State<ProductPageEditorScreen> {
           ],
         ),
         RaisedButton(
-          onPressed: createProductPressed,
+          onPressed: _createProductPressed,
           child: Text("Create"),
         ),
         Padding(
@@ -65,16 +65,16 @@ class _ProductPageEditorScreenState extends State<ProductPageEditorScreen> {
     ));
   }
 
-  void showPhotoUploadOptions(BuildContext context) async {
+  void _showPhotoUploadOptions(BuildContext context) async {
     PhotoSelectorModalView.resultImageBytes = null;
-    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView());
+    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
     Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null ? PhotoSelectorModalView.resultImageBytes : (await rootBundle.load('assets/business_page_placeholder.png')) as Uint8List;
     setState(() {
       _businessPageImageBytes = resultImageBytes;
     });
   }
 
-  void createProductPressed() async {
+  void _createProductPressed() async {
     if (_titleTextController.text.length < 2) {
       toast("Product title cannot be less than two characters");
       return;
