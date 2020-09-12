@@ -98,7 +98,8 @@ class AuthenticateUser_Request extends $pb.GeneratedMessage {
 class AuthenticateUser_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('AuthenticateUser.Response', createEmptyInstance: create)
     ..aOB(1, 'success')
-    ..aOS(2, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'userId', $pb.PbFieldType.O3, protoName: 'userId')
+    ..aOS(3, 'sessionKey', protoName: 'sessionKey')
     ..hasRequiredFields = false
   ;
 
@@ -127,13 +128,22 @@ class AuthenticateUser_Response extends $pb.GeneratedMessage {
   void clearSuccess() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get sessionKey => $_getSZ(1);
+  $core.int get userId => $_getIZ(1);
   @$pb.TagNumber(2)
-  set sessionKey($core.String v) { $_setString(1, v); }
+  set userId($core.int v) { $_setSignedInt32(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasSessionKey() => $_has(1);
+  $core.bool hasUserId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSessionKey() => clearField(2);
+  void clearUserId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get sessionKey => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set sessionKey($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasSessionKey() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearSessionKey() => clearField(3);
 }
 
 class AuthenticateUser extends $pb.GeneratedMessage {
@@ -326,6 +336,7 @@ class UpdateUserDetails extends $pb.GeneratedMessage {
 class FetchUserDetails_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchUserDetails.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'userId', $pb.PbFieldType.O3, protoName: 'userId')
     ..hasRequiredFields = false
   ;
 
@@ -352,11 +363,25 @@ class FetchUserDetails_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get userId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set userId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasUserId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearUserId() => clearField(2);
 }
 
 class FetchUserDetails_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchUserDetails.Response', createEmptyInstance: create)
     ..aOB(1, 'success')
+    ..a<$core.int>(2, 'id', $pb.PbFieldType.O3)
+    ..aOS(3, 'email')
+    ..aOS(4, 'name')
+    ..aOS(5, 'picture')
+    ..a<$core.List<$core.int>>(6, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
     ..hasRequiredFields = false
   ;
 
@@ -383,6 +408,51 @@ class FetchUserDetails_Response extends $pb.GeneratedMessage {
   $core.bool hasSuccess() => $_has(0);
   @$pb.TagNumber(1)
   void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get id => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set id($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get email => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set email($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasEmail() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearEmail() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get name => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set name($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearName() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get picture => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set picture($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasPicture() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearPicture() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.List<$core.int> get pictureBlob => $_getN(5);
+  @$pb.TagNumber(6)
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasPictureBlob() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearPictureBlob() => clearField(6);
 }
 
 class FetchUserDetails extends $pb.GeneratedMessage {

@@ -1,9 +1,8 @@
+import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-
-import 'job application modal view.dart';
 
 class VacantJobsListScreen extends StatefulWidget {
   @override
@@ -11,7 +10,7 @@ class VacantJobsListScreen extends StatefulWidget {
 }
 
 class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
-  List<Job> _jobs = [];
+  List<Job> _vacantJobs = [];
   List<Widget> _header = [];
 
   @override
@@ -21,12 +20,13 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
     _header = [getTitleWidget("Vacancies")];
     grpcFetchBusinessPageVacancies(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
-      List<Job> jobs = tuple.item2;
+      List<Job> vacantJobs = tuple.item2;
       if (success) {
         setState(() {
-          _jobs = jobs;
+          _vacantJobs = vacantJobs;
         });
-      }
+      } else
+        AppUser.signOut().then((value) => Navigator.of(context).pushReplacementNamed('/'));
     });
   }
 
@@ -35,7 +35,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
     return Scaffold(
       body: Container(
         child: ListView.builder(
-          itemCount: _header.length + _jobs.length,
+          itemCount: _header.length + _vacantJobs.length,
           itemBuilder: (BuildContext context, int index) => getListViewItem(context, index),
         ),
       ),
@@ -47,7 +47,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
       children: [
         GestureDetector(
             child: Text(
-              "${_jobs[index].title}",
+              "${_vacantJobs[index].title}",
               style: TextStyle(fontSize: 20.0),
             ),
             onTap: () => openVacancyDetails(context, index))
@@ -57,40 +57,17 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   }
 
   void openVacancyDetails(BuildContext context, index) async {
-    await showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-              child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "${_jobs[index].title}",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  RaisedButton(
-                    child: Text("Apply"),
-                    onPressed: () {
-                      showModalBottomSheet(context: context, builder: (context) => JobApplicationEditorModalView.getModalView(_jobs[index], context));
-                    },
-                  ),
-                  RaisedButton(
-                    child: Text("Dismiss"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              )
-            ],
-          ));
+    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: _vacantJobs[index]));
+    grpcFetchBusinessPageVacancies(AppUser.sessionKey).then((tuple) {
+      bool success = tuple.item1;
+      List<Job> jobs = tuple.item2;
+      if (success) {
+        setState(() {
+          _vacantJobs = jobs;
         });
+      } else
+        AppUser.signOut().then((value) => Navigator.of(context).pushReplacementNamed('/'));
+    });
   }
 
   Widget getListViewItem(BuildContext context, int index) {

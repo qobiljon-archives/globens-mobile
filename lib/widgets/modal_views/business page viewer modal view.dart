@@ -1,41 +1,34 @@
-import 'package:globens_flutter_client/widgets/commons/photo%20selector%20modal%20view.dart';
+import 'package:globens_flutter_client/widgets/modal_views/photo%20selector%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:typed_data';
 
-class ProductEditorModalView extends StatefulWidget {
-  final BusinessPage _businessPage;
-
-  const ProductEditorModalView(this._businessPage);
-
+class BusinessPageViewerModalView extends StatefulWidget {
   @override
-  _ProductEditorModalViewState createState() => _ProductEditorModalViewState();
+  _BusinessPageViewerModalViewState createState() => _BusinessPageViewerModalViewState();
 }
 
-class _ProductEditorModalViewState extends State<ProductEditorModalView> {
+class _BusinessPageViewerModalViewState extends State<BusinessPageViewerModalView> {
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
-  BuildContext _context;
 
   @override
   Widget build(BuildContext context) {
-    _context = this.context;
     return SingleChildScrollView(
         child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        getTitleWidget("Create a new Product", textColor: Colors.black),
+        getTitleWidget("New business page", textColor: Colors.black),
         Row(
           children: [
             Container(
               margin: EdgeInsets.all(10.0),
               child: GestureDetector(
                 onTap: () {
-                  _showPhotoUploadOptions(context);
+                  selectImagePressed(context);
                 },
                 child: CircleAvatar(
                   radius: 30.0,
@@ -54,7 +47,7 @@ class _ProductEditorModalViewState extends State<ProductEditorModalView> {
           ],
         ),
         RaisedButton(
-          onPressed: _createProductPressed,
+          onPressed: () => createBusinessPagePressed(context),
           child: Text("Create"),
         ),
         Padding(
@@ -65,31 +58,32 @@ class _ProductEditorModalViewState extends State<ProductEditorModalView> {
     ));
   }
 
-  void _showPhotoUploadOptions(BuildContext context) async {
+  void selectImagePressed(BuildContext context) async {
     PhotoSelectorModalView.resultImageBytes = null;
     await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
-    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null ? PhotoSelectorModalView.resultImageBytes : (await rootBundle.load('assets/business_page_placeholder.png')) as Uint8List;
-    setState(() {
-      _businessPageImageBytes = resultImageBytes;
-    });
+    if (PhotoSelectorModalView.resultImageBytes != null)
+      setState(() {
+        _businessPageImageBytes = PhotoSelectorModalView.resultImageBytes;
+      });
   }
 
-  void _createProductPressed() async {
+  void createBusinessPagePressed(BuildContext context) async {
     if (_titleTextController.text.length < 2) {
-      toast("Product title cannot be less than two characters");
+      await toast("Title must be at least two characters");
       return;
-    } else if (_businessPageImageBytes == null) {
-      toast("Product must have an icon");
+    }
+    if (_businessPageImageBytes == null) {
+      await toast("A business page must have an icon");
       return;
     }
 
-    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage.id, Product.create(_titleTextController.text, _businessPageImageBytes));
+    bool success = await grpcCreateBusinessPage(AppUser.sessionKey, BusinessPage.create(_titleTextController.text, _businessPageImageBytes));
 
     if (success)
-      Navigator.of(_context).pop();
-    else {
+      Navigator.of(context).pop();
+    else{
       await AppUser.signOut();
-      await Navigator.pushReplacementNamed(context, "root");
+      await Navigator.of(context).pushReplacementNamed('/');
     }
   }
 }

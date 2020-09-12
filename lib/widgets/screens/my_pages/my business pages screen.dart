@@ -1,7 +1,7 @@
+import 'package:globens_flutter_client/widgets/modal_views/business%20page%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import '../commons/business page viewer modal view.dart';
 import 'package:flutter/material.dart';
 
 class MyBusinessPagesScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     ];
 
     // 2. dynamic part : change body (i.e., business pages) from server
-    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) {
+    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
       if (success)
@@ -36,8 +36,8 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
           _body = businessPages;
         });
       else {
-        AppUser.signOut();
-        Navigator.pushNamed(context, "root");
+        await AppUser.signOut();
+        await Navigator.of(context).pushReplacementNamed('/');
       }
     });
   }
@@ -118,8 +118,8 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   }
 
   void _onCreateProductPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (context) => BusinessPageEditorModalView());
-    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) {
+    await showModalBottomSheet(context: context, builder: (context) => BusinessPageViewerModalView());
+    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
       if (success)
@@ -127,13 +127,13 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
           _body = businessPages;
         });
       else {
-        AppUser.signOut();
-        Navigator.pushNamed(context, "root");
+        await AppUser.signOut();
+        await Navigator.of(context).pushReplacementNamed('/');
       }
     });
   }
 
   void _openIndividualBusinessPage(BuildContext context, BusinessPage businessPage) async {
-    await Navigator.pushNamed(context, '/business_page_details', arguments: businessPage);
+    await Navigator.of(context).pushNamed('/business_page_details', arguments: businessPage);
   }
 }

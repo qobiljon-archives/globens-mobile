@@ -1,6 +1,6 @@
-import 'package:globens_flutter_client/widgets/globens/globens%20screen.dart';
-import 'package:globens_flutter_client/widgets/my_pages/my%20business%20pages%20screen.dart';
-import 'package:globens_flutter_client/widgets/menu/menu%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/globens/globens%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/my_pages/my%20business%20pages%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/menu/menu%20screen.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,13 +60,13 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
     );
   }
 
-  void _onTabSelected(int selectedIndex) {
+  void _onTabSelected(int selectedIndex) async {
     if (selectedIndex == 1 && !AppUser.isAuthenticated()) {
       setState(() {
         _selectedIndex = 2;
       });
 
-      toast("Please Sign In first!");
+      await toast("Please Sign In first!");
     } else
       setState(() {
         _selectedIndex = selectedIndex;

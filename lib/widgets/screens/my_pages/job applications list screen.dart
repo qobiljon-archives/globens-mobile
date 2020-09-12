@@ -1,15 +1,12 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
-import 'package:globens_flutter_client/entities/VacancyApplication.dart';
+import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class JobApplicationsListScreen extends StatefulWidget {
-
-  const JobApplicationsListScreen();
-
   @override
   _JobApplicationsListScreenState createState() => _JobApplicationsListScreenState();
 }
@@ -18,6 +15,8 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   List<Widget> _header = [];
   List<JobApplication> _jobApplications = [];
   List<Widget> _footer = [];
+  Job _job;
+  BusinessPage _businessPage;
 
   @override
   void didChangeDependencies() {
@@ -25,8 +24,9 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
 
     // 0. parsing arguments passed to this route (business page)
     Map args = ModalRoute.of(context).settings.arguments as Map;
-    Job job = args['job'];
-    BusinessPage businessPage = args['businessPage'];
+    _job = args['job'] as Job;
+    _businessPage = args['businessPage'] as BusinessPage;
+    assert(_businessPage.role == VacancyRole.BUSINESS_OWNER);
 
     // 1. static part : set up common part of header and footer
     _header = [
@@ -37,7 +37,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
             onPressed: () => _onBackButtonPressed(context),
           ),
           Text(
-            "${job.title}",
+            "${_job.title}",
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
           ),
         ],
@@ -45,20 +45,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     ];
 
     // 2. dynamic part : change footer according to user's role in business page
-    if (businessPage.role == VacancyRole.BUSINESS_OWNER) {
-      grpcFetchJobApplications(AppUser.sessionKey, job).then((tuple) async {
-        bool success = tuple.item1;
-        List<JobApplication> jobApplications = tuple.item2;
-        if (success)
-          setState(() {
-            _jobApplications = jobApplications;
-          });
-        else {
-          await AppUser.signOut();
-          await Navigator.pushReplacementNamed(context, '/');
-        }
-      });
-    }
+    updateDynamicPart();
   }
 
   @override
@@ -84,9 +71,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
                   RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
                   RaisedButton(
                     child: Text("Decline"),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                    onPressed: () => _onDeclineButtonPressed(context, index),
                   ),
                 ],
               )
@@ -95,20 +80,26 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
         });
   }
 
-  void _onApproveButtonPressed(BuildContext context, int index) {
-    bool succcess;
-    grpcApproveJobApplication(AppUser.sessionKey, _jobApplications[index]).then((value) {
-      setState(() {
-        succcess = value;
-      });
-    });
-    if (succcess) {
-      toast("Job application Approved!");
+  Future<void> _onApproveButtonPressed(BuildContext context, int index) async {
+    bool success = await grpcApproveJobApplication(AppUser.sessionKey, _jobApplications[index]);
+    if (success) {
+      await toast("Success");
+      Navigator.of(context).pop();
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
     }
   }
 
-  void _onDeclineButtonPressed() {
-    //TODO create decline functionality
+  Future<void> _onDeclineButtonPressed(BuildContext context, int index) async {
+    bool success = await grpcDeclineJobApplication(AppUser.sessionKey, _jobApplications[index]);
+    if (success) {
+      await toast("Success");
+      Navigator.of(context).pop();
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
   }
 
   Widget buildVacancyApplicationItem(BuildContext context, int index) {
@@ -142,5 +133,20 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
       return _footer[index - _footer.length - _jobApplications.length];
     else
       return buildVacancyApplicationItem(context, index - _header.length);
+  }
+
+  void updateDynamicPart() async {
+    grpcFetchJobApplications(AppUser.sessionKey, _job).then((tuple) async {
+      bool success = tuple.item1;
+      List<JobApplication> jobApplications = tuple.item2;
+      if (success)
+        setState(() {
+          _jobApplications = jobApplications;
+        });
+      else {
+        await AppUser.signOut();
+        await Navigator.of(context).pushReplacementNamed('/');
+      }
+    });
   }
 }

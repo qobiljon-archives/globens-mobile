@@ -1,13 +1,15 @@
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/auth.dart';
 import 'package:kakao_flutter_sdk/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:tuple/tuple.dart';
 import 'dart:convert' as JSON;
+import 'dart:io';
 
 class AppUser {
   // region Constructor & init function
@@ -21,7 +23,7 @@ class AppUser {
     AppUser._singleton = AppUser._internalConstructor();
     AppUser.userPrefs = await SharedPreferences.getInstance();
     if (AppUser.userPrefs.containsKey("authMethod"))
-      AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
+      AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
 
     // setup kakao, google, and facebook auth
     KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported
@@ -40,6 +42,7 @@ class AppUser {
   static SharedPreferences userPrefs;
 
   static AuthMethod _authMethod = AuthMethod.NONE;
+  static int _id;
   static String _email;
   static String _displayName;
   static String _profileImageUrl;
@@ -47,6 +50,10 @@ class AppUser {
 
   static AuthMethod get authMethod {
     return _authMethod;
+  }
+
+  static int get id {
+    return _id;
   }
 
   static String get email {
@@ -68,8 +75,9 @@ class AppUser {
   // endregion
 
   // region Setters & getters
-  static void setProfileInfo(AuthMethod authMethod, String email, String displayName, String profileImageUrl, String sessionKey) {
+  static void setProfileInfo(AuthMethod authMethod, int id, String email, String displayName, String profileImageUrl, String sessionKey) {
     AppUser._authMethod = authMethod;
+    AppUser._id = id;
     AppUser._email = email;
     AppUser._displayName = displayName;
     AppUser._profileImageUrl = profileImageUrl;
@@ -78,6 +86,7 @@ class AppUser {
 
   static void clearProfileInfo() {
     AppUser._authMethod = AuthMethod.NONE;
+    AppUser._id = null;
     AppUser._email = null;
     AppUser._displayName = null;
     AppUser._profileImageUrl = null;
@@ -94,12 +103,13 @@ class AppUser {
         if (tp != null) {
           User user = tp.item1;
           Map tokens = tp.item2;
-          Tuple2<bool, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, JSON.jsonEncode(tokens));
+          Tuple3<bool, int, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, JSON.jsonEncode(tokens));
 
           bool success = res.item1;
-          String sessionKey = res.item2;
+          int userId = res.item2;
+          String sessionKey = res.item3;
           if (success) {
-            AppUser.setProfileInfo(AuthMethod.KAKAO, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString(), sessionKey);
+            AppUser.setProfileInfo(AuthMethod.KAKAO, userId, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString(), sessionKey);
             AppUser.updateUserPrefsData();
           }
         }
@@ -112,12 +122,13 @@ class AppUser {
         if (tp != null) {
           GoogleSignInAccount user = tp.item1;
           Map tokens = tp.item2;
-          Tuple2<bool, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
+          Tuple3<bool, int, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
 
           bool success = res.item1;
-          String sessionKey = res.item2;
+          int userId = res.item2;
+          String sessionKey = res.item3;
           if (success) {
-            AppUser.setProfileInfo(AuthMethod.GOOGLE, user.email, user.displayName, user.photoUrl, sessionKey);
+            AppUser.setProfileInfo(AuthMethod.GOOGLE, userId, user.email, user.displayName, user.photoUrl, sessionKey);
             AppUser.updateUserPrefsData();
             return true;
           }
@@ -129,12 +140,13 @@ class AppUser {
         if (tp != null) {
           Map user = tp.item1;
           Map tokens = tp.item2;
-          Tuple2<bool, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.FACEBOOK, JSON.jsonEncode(tokens));
+          Tuple3<bool, int, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.FACEBOOK, JSON.jsonEncode(tokens));
 
           bool success = res.item1;
-          String sessionKey = res.item2;
+          int userId = res.item2;
+          String sessionKey = res.item3;
           if (success) {
-            AppUser.setProfileInfo(AuthMethod.FACEBOOK, user["email"], user["name"], user["picture"]["data"]["url"], sessionKey);
+            AppUser.setProfileInfo(AuthMethod.FACEBOOK, userId, user["email"], user["name"], user["picture"]["data"]["url"], sessionKey);
             AppUser.updateUserPrefsData();
             return true;
           }
@@ -174,6 +186,7 @@ class AppUser {
 
   static void updateUserPrefsData() {
     userPrefs.setInt("authMethod", AppUser._authMethod.index);
+    userPrefs.setInt("id", AppUser._id);
     userPrefs.setString("email", AppUser._email);
     userPrefs.setString("displayName", AppUser._displayName);
     userPrefs.setString("profileImageUrl", AppUser._profileImageUrl);
@@ -182,6 +195,12 @@ class AppUser {
 
   static bool isAuthenticated() {
     return _authMethod != AuthMethod.NONE;
+  }
+
+  static Future<GlobensUser> getMyGlobensUser() async {
+    http.Response response = await http.get(_profileImageUrl);
+    if (response.statusCode == HttpStatus.ok) return GlobensUser.create(_id, _email, _displayName, _profileImageUrl, response.bodyBytes);
+    return null;
   }
 
   // endregion

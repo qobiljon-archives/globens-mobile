@@ -31,7 +31,8 @@ const AuthenticateUser_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'sessionKey', '3': 2, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'userId', '3': 2, '4': 1, '5': 5, '10': 'userId'},
+    const {'1': 'sessionKey', '3': 3, '4': 1, '5': 9, '10': 'sessionKey'},
   ],
 };
 
@@ -93,6 +94,7 @@ const FetchUserDetails_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'userId', '3': 2, '4': 1, '5': 5, '10': 'userId'},
   ],
 };
 
@@ -100,6 +102,11 @@ const FetchUserDetails_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'picture', '3': 5, '4': 1, '5': 9, '10': 'picture'},
+    const {'1': 'pictureBlob', '3': 6, '4': 1, '5': 12, '10': 'pictureBlob'},
   ],
 };
 

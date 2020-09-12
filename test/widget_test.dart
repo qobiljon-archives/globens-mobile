@@ -7,7 +7,7 @@
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/widgets/root%20tabs%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/root%20tabs%20screen.dart';
 
 
 

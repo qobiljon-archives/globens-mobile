@@ -1,7 +1,7 @@
-import 'package:globens_flutter_client/widgets/my_pages/business%20page%20details%20screen.dart';
-import 'package:globens_flutter_client/widgets/my_pages/job%20applications%20list%20screen.dart';
-import 'package:globens_flutter_client/widgets/globens/vacant%20jobs%20list%20screen.dart';
-import 'package:globens_flutter_client/widgets/root%20tabs%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/my_pages/business%20page%20details%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/my_pages/job%20applications%20list%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/globens/vacant%20jobs%20list%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/root%20tabs%20screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {

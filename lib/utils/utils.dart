@@ -1,4 +1,5 @@
-import 'package:globens_flutter_client/entities/VacancyApplication.dart';
+import 'package:globens_flutter_client/entities/GlobensUser.dart';
+import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -19,28 +20,30 @@ Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
   );
 }
 
-void toast(String message) {
-  Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
+Future<void> toast(String message) async {
+  await Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
 }
 
-Future<Tuple2<bool, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
+Future<Tuple3<bool, int, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
   String sessionKey;
+  int userId;
   try {
     final response = await stub.authenticateUser(AuthenticateUser_Request()
       ..method = method
       ..tokensJson = tokensJson);
     success = response.success;
+    userId = response.userId;
     sessionKey = response.sessionKey;
   } catch (e) {
     print(e);
   } finally {
     await channel.shutdown();
   }
-  return Tuple2(success, sessionKey);
+  return Tuple3(success, userId, sessionKey);
 }
 
 Future<Tuple2<bool, List<BusinessPage>>> grpcFetchMyBusinessPages(String sessionKey) async {
@@ -110,7 +113,6 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
         success &= productDetailsRes.success;
         if (success) products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, id: productDetailsRes.id));
       }
-    ;
   } catch (e) {
     print(e);
   } finally {
@@ -165,6 +167,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, int
   } finally {
     await channel.shutdown();
   }
+  jobs.sort((a, b) => a.isVacant & !b.isVacant ? 1 : 0);
   return Tuple2(success, jobs);
 }
 
@@ -281,7 +284,7 @@ Future<bool> grpcApproveJobApplication(String sessionKey, JobApplication applica
       ..jobApplicationId = application.id);
     success = result.success;
   } catch (e) {
-    toast(e);
+    print(e);
   }
   return success;
 }
@@ -298,7 +301,29 @@ Future<bool> grpcDeclineJobApplication(String sessionKey, JobApplication applica
       ..jobApplicationId = application.id);
     success = result.success;
   } catch (e) {
-    toast(e);
+    print(e);
   }
   return success;
+}
+
+Future<Tuple2<bool, GlobensUser>> grpcFetchUserDetails(String sessionKey, int userId) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  GlobensUser user;
+
+  try {
+    final fetchUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
+      ..sessionKey = sessionKey
+      ..userId = userId);
+    success = fetchUserDetailsRes.success;
+    if (success) user = GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob);
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+
+  return Tuple2(success, user);
 }

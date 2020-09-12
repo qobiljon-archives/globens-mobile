@@ -68,20 +68,20 @@ class AuthenticationModalView {
     if (await AppUser.signIn(AuthMethod.KAKAO))
       Navigator.of(context).popUntil(ModalRoute.withName('/'));
     else
-      toast("Failed to login with Kakao.\nPlease try again later!");
+      await toast("Failed to login with Kakao.\nPlease try again later!");
   }
 
   static void _onGooglePressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.GOOGLE))
       Navigator.of(context).popUntil(ModalRoute.withName('/'));
     else
-      toast("Failed to login with Google.\nPlease try again later!");
+      await toast("Failed to login with Google.\nPlease try again later!");
   }
 
   static void _onFacebookPressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.FACEBOOK))
       Navigator.of(context).popUntil(ModalRoute.withName('/'));
     else
-      toast("Failed to login with Facebook.\nPlease try again later!");
+      await toast("Failed to login with Facebook.\nPlease try again later!");
   }
 }

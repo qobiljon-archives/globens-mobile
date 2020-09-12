@@ -1,7 +1,6 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'vacant jobs list screen.dart';
 
 class GlobensScreen extends StatefulWidget {
   @override
@@ -13,8 +12,6 @@ class GlobensScreenState extends State<GlobensScreen> {
   List<dynamic> _body = [];
   List<Widget> _footer = [];
 
-  BuildContext _context;
-
   @override
   void initState() {
     super.initState();
@@ -23,7 +20,7 @@ class GlobensScreenState extends State<GlobensScreen> {
     _footer = [
       Container(
         child: RaisedButton(
-          onPressed: _onLookingForAJobButtonPressed,
+          onPressed: () => _onLookingForAJobButtonPressed(context),
           child: Text("looking for a job?"),
         ),
       )
@@ -32,7 +29,6 @@ class GlobensScreenState extends State<GlobensScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _context = context;
     return Container(
       child: ListView.builder(
         itemCount: _header.length + _body.length + _footer.length,
@@ -54,11 +50,11 @@ class GlobensScreenState extends State<GlobensScreen> {
       return buildBodySectionItem(index - _header.length);
   }
 
-  void _onLookingForAJobButtonPressed() async {
+  void _onLookingForAJobButtonPressed(BuildContext context) async {
     if (AppUser.isAuthenticated())
-      await Navigator.pushNamed(_context, '/vacant_jobs');
+      await Navigator.of(context).pushNamed('/vacant_jobs');
     else {
-      toast("Please SignIn First");
+      await toast("Please SignIn First");
     }
   }
 }

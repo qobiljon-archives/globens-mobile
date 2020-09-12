@@ -15,7 +15,7 @@ class JobApplication {
     return _message;
   }
 
-  bool get isNewVacancyApplication {
+  bool get isNewJobApplication {
     return _id == null;
   }
 }

@@ -1,19 +1,16 @@
-import 'package:globens_flutter_client/widgets/commons/product%20viewer%20modal%20view.dart';
-import 'package:globens_flutter_client/widgets/commons/job%20viewer%20modal%20view.dart';
+import 'package:globens_flutter_client/widgets/modal_views/product%20viewer%20modal%20view.dart';
+import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'package:kakao_flutter_sdk/all.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
-  BusinessPageDetailsScreen();
-
   @override
   _BusinessPageDetailsScreenState createState() => _BusinessPageDetailsScreenState();
 }
@@ -21,8 +18,7 @@ class BusinessPageDetailsScreen extends StatefulWidget {
 class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   List<Widget> _header = [];
   List<Product> _products = [];
-  List<User> _employees = []; // todo come back
-  List<Job> _vacantJobs = [];
+  List<Job> _jobs = [];
   List<Widget> _footer = [];
   BusinessPage _businessPage;
 
@@ -69,30 +65,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       ));
 
     // 3. dynamic part : change body (i.e., products, vacancies, employees) according to user's role in business page
-    grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage.id).then((tuple) async {
-      bool success = tuple.item1;
-      List<Product> products = tuple.item2;
-      if (success)
-        setState(() {
-          _products = products;
-        });
-      else {
-        await AppUser.signOut();
-        await Navigator.pushReplacementNamed(context, '/');
-      }
-    });
-    grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage.id).then((tuple) async {
-      bool success = tuple.item1;
-      List<Job> jobs = tuple.item2;
-      if (success)
-        setState(() {
-          _vacantJobs = jobs;
-        });
-      else {
-        await AppUser.signOut();
-        await Navigator.pushReplacementNamed(context, '/');
-      }
-    });
+    updateDynamicPart();
   }
 
   @override
@@ -100,7 +73,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     return Scaffold(
       body: Container(
         child: ListView.builder(
-          itemCount: _header.length + _products.length + _vacantJobs.length + _footer.length,
+          itemCount: _header.length + _products.length + _jobs.length + _footer.length,
           itemBuilder: (BuildContext context, int index) => getListViewItem(context, index),
         ),
       ),
@@ -108,9 +81,9 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   Widget getListViewItem(BuildContext context, int index) {
-    if (index >= _header.length + _products.length + _vacantJobs.length) {
+    if (index >= _header.length + _products.length + _jobs.length) {
       // footer section
-      index -= _header.length + _products.length + _vacantJobs.length;
+      index -= _header.length + _products.length + _jobs.length;
       return _footer[index];
     } else if (index >= _header.length + _products.length) {
       // vacancies section
@@ -168,25 +141,18 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   Widget buildJobItem(BuildContext context, int index) {
-    String position = "(full position)";
-    if (_vacantJobs[index].isVacant) position = "(empty position)";
-
     Row jobRow = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => _onVacancyPressed(context, _vacantJobs[index], _businessPage),
-          child: Row(
-            children: [
-              Text(
-                "${_vacantJobs[index].title}",
-                style: TextStyle(fontSize: 20.0),
-              ),
-              Text(
-                " $position",
-                style: TextStyle(fontSize: 20),
-              )
-            ],
+          onTap: () => _onJobPressed(context, _jobs[index], _businessPage),
+          child: Text(
+            "${_jobs[index].title}",
+            style: TextStyle(
+              fontSize: 20.0,
+              color: _jobs[index].isVacant ? Colors.grey : Colors.black,
+              fontStyle: _jobs[index].isVacant ? FontStyle.italic : FontStyle.normal
+            ),
           ),
         ),
       ],
@@ -195,25 +161,55 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     if (index == 0)
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [getTitleWidget("Jobs", textColor: Colors.black), jobRow],
+        children: [getTitleWidget("Jobs / positions", textColor: Colors.black), jobRow],
       );
     else
       return jobRow;
   }
 
+  void updateDynamicPart() {
+    grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage.id).then((tuple) async {
+      bool success = tuple.item1;
+      List<Product> products = tuple.item2;
+      if (success) {
+        if (this.mounted)
+          setState(() {
+            _products = products;
+          });
+      } else {
+        await AppUser.signOut();
+        await Navigator.of(context).pushReplacementNamed('/');
+      }
+    });
+    grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage.id).then((tuple) async {
+      bool success = tuple.item1;
+      List<Job> jobs = tuple.item2;
+      if (success) {
+        if (this.mounted)
+          setState(() {
+            _jobs = jobs;
+          });
+      } else {
+        await AppUser.signOut();
+        await Navigator.of(context).pushReplacementNamed('/');
+      }
+    });
+  }
+
   void _onCreateProductPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (_context) => ProductEditorModalView(_businessPage));
+    await showModalBottomSheet(context: context, builder: (context) => ProductEditorModalView(_businessPage));
 
     Tuple2<bool, List<Product>> res = await grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage.id);
     bool success = res.item1;
     List<Product> products = res.item2;
-    if (success)
-      setState(() {
-        _products = products;
-      });
-    else {
+    if (success) {
+      if (this.mounted)
+        setState(() {
+          _products = products;
+        });
+    } else {
       await AppUser.signOut();
-      await Navigator.pushReplacementNamed(context, '/');
+      await Navigator.of(context).pushReplacementNamed('/');
     }
   }
 
@@ -222,18 +218,19 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateVacancyPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (_context) => JobPageEditorModalView.getModalView(context, _businessPage));
+    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(businessPage: _businessPage));
     Tuple2<bool, List<Job>> res = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage.id);
 
     bool success = res.item1;
     List<Job> vacancies = res.item2;
     if (success) {
-      setState(() {
-        _vacantJobs = vacancies;
-      });
+      if (this.mounted)
+        setState(() {
+          _jobs = vacancies;
+        });
     } else {
       await AppUser.signOut();
-      await Navigator.pushReplacementNamed(context, '/');
+      await Navigator.of(context).pushReplacementNamed('/');
     }
   }
 
@@ -241,7 +238,8 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     // todo open product details modal view
   }
 
-  void _onVacancyPressed(BuildContext context, Job vacantJob, BusinessPage businessPage) async {
-    await Navigator.pushNamed(context, '/business_page_details/job_applications_list', arguments: {'job': vacantJob, 'businessPage': businessPage});
+  void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
+    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: job, businessPage: _businessPage));
+    updateDynamicPart();
   }
 }
