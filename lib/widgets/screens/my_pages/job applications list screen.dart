@@ -54,8 +54,17 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     return Scaffold(body: ListView.builder(itemCount: _header.length + _jobApplications.length + _footer.length, itemBuilder: (BuildContext context, index) => _getListViewItems(context, index)));
   }
 
+  Widget _getListViewItems(BuildContext context, int index) {
+    if (index < _header.length)
+      return _header[index];
+    else if (index >= _header.length + _jobApplications.length)
+      return _footer[index - _footer.length - _jobApplications.length];
+    else
+      return _buildVacancyApplicationItem(context, index - _header.length);
+  }
+
   Widget _buildVacancyApplicationItem(BuildContext context, int index) {
-    Row vacancyApplicationsRow = Row(
+    Row row = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
@@ -66,30 +75,26 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
             style: TextStyle(fontSize: 20.0),
           ),
         ),
-        RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
-        RaisedButton(
-          child: Text("Decline"),
-          onPressed: () => _onDeclineButtonPressed(context, index),
-        ),
+        Row(children: [
+          RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
+          RaisedButton(
+            child: Text("Decline"),
+            onPressed: () => _onDeclineButtonPressed(context, index),
+          ),
+        ],)
       ],
     );
 
     if (index == 0) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [getTitleWidget("VacancyApplications", textColor: Colors.black), vacancyApplicationsRow],
+        children: [
+          getTitleWidget("Job applications", textColor: Colors.black),
+          row,
+        ],
       );
     } else
-      return vacancyApplicationsRow;
-  }
-
-  Widget _getListViewItems(BuildContext context, int index) {
-    if (index < _header.length)
-      return _header[index];
-    else if (index >= _header.length + _jobApplications.length)
-      return _footer[index - _footer.length - _jobApplications.length];
-    else
-      return _buildVacancyApplicationItem(context, index - _header.length);
+      return row;
   }
 
   void _updateDynamicPart() async {

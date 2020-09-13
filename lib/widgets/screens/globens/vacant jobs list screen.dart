@@ -49,12 +49,13 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
       return _header[index];
     else {
       index -= _header.length;
-      return _buildVacancy(context, index);
+      return _buildVacancyItem(context, index);
     }
   }
 
-  Widget _buildVacancy(BuildContext context, int index) {
+  Widget _buildVacancyItem(BuildContext context, int index) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
             child: Text(

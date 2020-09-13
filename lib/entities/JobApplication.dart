@@ -2,6 +2,7 @@ class JobApplication {
   JobApplication.create(String message, {int id, int applicantId}) {
     this._message = message;
     this._id = id;
+    this._applicantId = applicantId;
   }
 
   int _id;
