@@ -1,9 +1,11 @@
+import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class VacantJobsListScreen extends StatefulWidget {
   @override
@@ -89,8 +91,28 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   }
 
   void _onSubmitButtonPressed(BuildContext context, int index) async {
-    await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView(job: _vacantJobs[index]));
-    _updateDynamicPart();
+    Tuple2<bool, List<JobApplication>> res = await grpcFetchJobApplications(AppUser.sessionKey, _vacantJobs[index]);
+    bool success = res.item1;
+    List<JobApplication> jobApplications = res.item2;
+
+    if (success) {
+      bool alreadyApplied = false;
+      for (JobApplication jobApplication in jobApplications)
+        if (jobApplication.applicantId == AppUser.id) {
+          alreadyApplied = true;
+          break;
+        }
+
+      if (alreadyApplied)
+        toast("You have already applied for this position!");
+      else {
+        await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView(job: _vacantJobs[index]));
+        _updateDynamicPart();
+      }
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
   }
 
   void _openVacancyDetails(BuildContext context, index) async {
