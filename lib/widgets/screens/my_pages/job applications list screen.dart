@@ -5,6 +5,7 @@ import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
 
 class JobApplicationsListScreen extends StatefulWidget {
   @override
@@ -15,8 +16,8 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   List<Widget> _header = [];
   List<JobApplication> _jobApplications = [];
   List<Widget> _footer = [];
-  Job _job;
   BusinessPage _businessPage;
+  Job _job;
 
   @override
   void didChangeDependencies() {
@@ -45,74 +46,30 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     ];
 
     // 2. dynamic part : change footer according to user's role in business page
-    updateDynamicPart();
+    _updateDynamicPart();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ListView.builder(itemCount: _header.length + _jobApplications.length + _footer.length, itemBuilder: (BuildContext context, index) => getListViewItems(context, index)));
+    return Scaffold(body: ListView.builder(itemCount: _header.length + _jobApplications.length + _footer.length, itemBuilder: (BuildContext context, index) => _getListViewItems(context, index)));
   }
 
-  void _onBackButtonPressed(BuildContext context) {
-    Navigator.pop(context);
-  }
-
-  void _onVacancyApplicationPressed(BuildContext context, JobApplication vacancyApplication, int index) {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-              child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
-                  RaisedButton(
-                    child: Text("Decline"),
-                    onPressed: () => _onDeclineButtonPressed(context, index),
-                  ),
-                ],
-              )
-            ],
-          ));
-        });
-  }
-
-  Future<void> _onApproveButtonPressed(BuildContext context, int index) async {
-    bool success = await grpcApproveJobApplication(AppUser.sessionKey, _jobApplications[index]);
-    if (success) {
-      await toast("Success");
-      Navigator.of(context).pop();
-    } else {
-      await AppUser.signOut();
-      await Navigator.of(context).pushReplacementNamed('/');
-    }
-  }
-
-  Future<void> _onDeclineButtonPressed(BuildContext context, int index) async {
-    bool success = await grpcDeclineJobApplication(AppUser.sessionKey, _jobApplications[index]);
-    if (success) {
-      await toast("Success");
-      Navigator.of(context).pop();
-    } else {
-      await AppUser.signOut();
-      await Navigator.of(context).pushReplacementNamed('/');
-    }
-  }
-
-  Widget buildVacancyApplicationItem(BuildContext context, int index) {
+  Widget _buildVacancyApplicationItem(BuildContext context, int index) {
     Row vacancyApplicationsRow = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => _onVacancyApplicationPressed(context, _jobApplications[index], index),
+          onTap: () => _onJobApplicationPressed(context, _jobApplications[index], index),
           child: Text(
             "${_jobApplications[index].message}",
             overflow: TextOverflow.clip,
             style: TextStyle(fontSize: 20.0),
           ),
+        ),
+        RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
+        RaisedButton(
+          child: Text("Decline"),
+          onPressed: () => _onDeclineButtonPressed(context, index),
         ),
       ],
     );
@@ -126,16 +83,16 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
       return vacancyApplicationsRow;
   }
 
-  Widget getListViewItems(BuildContext context, int index) {
+  Widget _getListViewItems(BuildContext context, int index) {
     if (index < _header.length)
       return _header[index];
     else if (index >= _header.length + _jobApplications.length)
       return _footer[index - _footer.length - _jobApplications.length];
     else
-      return buildVacancyApplicationItem(context, index - _header.length);
+      return _buildVacancyApplicationItem(context, index - _header.length);
   }
 
-  void updateDynamicPart() async {
+  void _updateDynamicPart() async {
     grpcFetchJobApplications(AppUser.sessionKey, _job).then((tuple) async {
       bool success = tuple.item1;
       List<JobApplication> jobApplications = tuple.item2;
@@ -148,5 +105,36 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
         await Navigator.of(context).pushReplacementNamed('/');
       }
     });
+  }
+
+  void _onBackButtonPressed(BuildContext context) {
+    Navigator.pop(context);
+  }
+
+  void _onJobApplicationPressed(BuildContext context, JobApplication vacancyApplication, int index) async {
+    await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView(job: _job, jobApplication: _jobApplications[index]));
+    _updateDynamicPart();
+  }
+
+  void _onApproveButtonPressed(BuildContext context, int index) async {
+    bool success = await grpcApproveJobApplication(AppUser.sessionKey, _jobApplications[index]);
+    if (success) {
+      await toast("Success");
+      _updateDynamicPart();
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
+  }
+
+  void _onDeclineButtonPressed(BuildContext context, int index) async {
+    bool success = await grpcDeclineJobApplication(AppUser.sessionKey, _jobApplications[index]);
+    if (success) {
+      await toast("Success");
+      _updateDynamicPart();
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
   }
 }

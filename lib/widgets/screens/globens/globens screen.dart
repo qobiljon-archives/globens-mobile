@@ -32,22 +32,22 @@ class GlobensScreenState extends State<GlobensScreen> {
     return Container(
       child: ListView.builder(
         itemCount: _header.length + _body.length + _footer.length,
-        itemBuilder: (BuildContext context, int index) => getListViewItem(context, index),
+        itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
       ),
     );
   }
 
-  Widget buildBodySectionItem(int index) {
+  Widget _buildBodySectionItem(int index) {
     return null;
   }
 
-  Widget getListViewItem(BuildContext context, int index) {
+  Widget _getListViewItem(BuildContext context, int index) {
     if (index < _header.length)
       return _header[index];
     else if (index >= _header.length + _body.length)
       return _footer[index - _footer.length - _body.length];
     else
-      return buildBodySectionItem(index - _header.length);
+      return _buildBodySectionItem(index - _header.length);
   }
 
   void _onLookingForAJobButtonPressed(BuildContext context) async {

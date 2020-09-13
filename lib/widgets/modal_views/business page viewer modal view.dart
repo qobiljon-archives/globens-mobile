@@ -28,7 +28,7 @@ class _BusinessPageViewerModalViewState extends State<BusinessPageViewerModalVie
               margin: EdgeInsets.all(10.0),
               child: GestureDetector(
                 onTap: () {
-                  selectImagePressed(context);
+                  _selectImagePressed(context);
                 },
                 child: CircleAvatar(
                   radius: 30.0,
@@ -47,7 +47,7 @@ class _BusinessPageViewerModalViewState extends State<BusinessPageViewerModalVie
           ],
         ),
         RaisedButton(
-          onPressed: () => createBusinessPagePressed(context),
+          onPressed: () => _createBusinessPagePressed(context),
           child: Text("Create"),
         ),
         Padding(
@@ -58,7 +58,7 @@ class _BusinessPageViewerModalViewState extends State<BusinessPageViewerModalVie
     ));
   }
 
-  void selectImagePressed(BuildContext context) async {
+  void _selectImagePressed(BuildContext context) async {
     PhotoSelectorModalView.resultImageBytes = null;
     await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
     if (PhotoSelectorModalView.resultImageBytes != null)
@@ -67,7 +67,7 @@ class _BusinessPageViewerModalViewState extends State<BusinessPageViewerModalVie
       });
   }
 
-  void createBusinessPagePressed(BuildContext context) async {
+  void _createBusinessPagePressed(BuildContext context) async {
     if (_titleTextController.text.length < 2) {
       await toast("Title must be at least two characters");
       return;

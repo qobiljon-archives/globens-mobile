@@ -112,7 +112,7 @@ class _JobViewerModalViewState extends State<JobViewerModalView> {
   }
 
   void _applyForVacancyPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView.getModalView(widget.job, context));
+    await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView(job: widget.job));
     Navigator.of(context).pop();
   }
 

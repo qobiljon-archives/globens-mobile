@@ -28,18 +28,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     ];
 
     // 2. dynamic part : change body (i.e., business pages) from server
-    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
-      bool success = tuple.item1;
-      List<BusinessPage> businessPages = tuple.item2;
-      if (success)
-        setState(() {
-          _body = businessPages;
-        });
-      else {
-        await AppUser.signOut();
-        await Navigator.of(context).pushReplacementNamed('/');
-      }
-    });
+    _updateDynamicPart();
   }
 
   @override
@@ -47,12 +36,12 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     return Container(
       child: ListView.builder(
         itemCount: _header.length + _body.length + _footer.length,
-        itemBuilder: (BuildContext context, int index) => getListViewItem(context, index),
+        itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
       ),
     );
   }
 
-  Widget getListViewItem(BuildContext context, int index) {
+  Widget _getListViewItem(BuildContext context, int index) {
     if (index >= _header.length + _body.length) {
       // footer section
       index -= _header.length + _body.length;
@@ -60,14 +49,14 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     } else if (index >= _header.length) {
       // business pages section
       index -= _header.length;
-      return buildBusinessPageItem(context, index);
+      return _buildBusinessPageItem(context, index);
     } else {
       // header section
       return _header[index];
     }
   }
 
-  Widget buildBusinessPageItem(BuildContext context, int index) {
+  Widget _buildBusinessPageItem(BuildContext context, int index) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -115,6 +104,21 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
         ),
       ],
     );
+  }
+
+  void _updateDynamicPart() {
+    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
+      bool success = tuple.item1;
+      List<BusinessPage> businessPages = tuple.item2;
+      if (success)
+        setState(() {
+          _body = businessPages;
+        });
+      else {
+        await AppUser.signOut();
+        await Navigator.of(context).pushReplacementNamed('/');
+      }
+    });
   }
 
   void _onCreateProductPressed(BuildContext context) async {

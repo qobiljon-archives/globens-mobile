@@ -198,18 +198,18 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
   List<JobApplication> vacancyApplications = List<JobApplication>();
 
   try {
-    final response = await stub.fetchJobApplicationIds(FetchJobApplicationIds_Request()
+    final fetchJobApplicationIdsRes = await stub.fetchJobApplicationIds(FetchJobApplicationIds_Request()
       ..sessionKey = sessionKey
       ..jobId = job.id);
-    success = response.success;
+    success = fetchJobApplicationIdsRes.success;
     if (success) {
-      for (int applicationId in response.id) {
-        final jobDApplicationDetails = await stub.fetchJobApplicationDetails(FetchJobApplicationDetails_Request()
+      for (int applicationId in fetchJobApplicationIdsRes.id) {
+        final fetchJobApplicationDetailsRes = await stub.fetchJobApplicationDetails(FetchJobApplicationDetails_Request()
           ..sessionKey = sessionKey
           ..jobApplicationId = applicationId);
-        success &= jobDApplicationDetails.success;
+        success &= fetchJobApplicationDetailsRes.success;
 
-        if (success) vacancyApplications.add(JobApplication.create(jobDApplicationDetails.message, id: jobDApplicationDetails.id));
+        if (success) vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, id: fetchJobApplicationDetailsRes.id, applicantId: fetchJobApplicationDetailsRes.applicantId));
       }
     }
   } catch (e) {

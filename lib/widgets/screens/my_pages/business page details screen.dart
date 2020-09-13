@@ -37,10 +37,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () => _onBackButtonPressed(context),
           ),
-          Text(
-            "${_businessPage.title}",
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
-          ),
+          getTitleWidget(_businessPage.title),
         ],
       ),
     ];
@@ -65,7 +62,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       ));
 
     // 3. dynamic part : change body (i.e., products, vacancies, employees) according to user's role in business page
-    updateDynamicPart();
+    _updateDynamicPart();
   }
 
   @override
@@ -74,13 +71,13 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       body: Container(
         child: ListView.builder(
           itemCount: _header.length + _products.length + _jobs.length + _footer.length,
-          itemBuilder: (BuildContext context, int index) => getListViewItem(context, index),
+          itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
         ),
       ),
     );
   }
 
-  Widget getListViewItem(BuildContext context, int index) {
+  Widget _getListViewItem(BuildContext context, int index) {
     if (index >= _header.length + _products.length + _jobs.length) {
       // footer section
       index -= _header.length + _products.length + _jobs.length;
@@ -88,18 +85,18 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     } else if (index >= _header.length + _products.length) {
       // vacancies section
       index -= _header.length + _products.length;
-      return buildJobItem(context, index);
+      return _buildJobItem(context, index);
     } else if (index >= _header.length) {
       // products section
       index -= _header.length;
-      return buildProductItem(context, index);
+      return _buildProductItem(context, index);
     } else {
       // header section
       return _header[index];
     }
   }
 
-  Widget buildProductItem(BuildContext context, int index) {
+  Widget _buildProductItem(BuildContext context, int index) {
     Row productRow = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -140,7 +137,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       return productRow;
   }
 
-  Widget buildJobItem(BuildContext context, int index) {
+  Widget _buildJobItem(BuildContext context, int index) {
     Row jobRow = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -148,11 +145,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
           onTap: () => _onJobPressed(context, _jobs[index], _businessPage),
           child: Text(
             "${_jobs[index].title}",
-            style: TextStyle(
-              fontSize: 20.0,
-              color: _jobs[index].isVacant ? Colors.grey : Colors.black,
-              fontStyle: _jobs[index].isVacant ? FontStyle.italic : FontStyle.normal
-            ),
+            style: TextStyle(fontSize: 20.0, color: _jobs[index].isVacant ? Colors.grey : Colors.black, fontStyle: _jobs[index].isVacant ? FontStyle.italic : FontStyle.normal),
           ),
         ),
       ],
@@ -167,7 +160,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       return jobRow;
   }
 
-  void updateDynamicPart() {
+  void _updateDynamicPart() {
     grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage.id).then((tuple) async {
       bool success = tuple.item1;
       List<Product> products = tuple.item2;
@@ -240,6 +233,6 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
     await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: job, businessPage: _businessPage));
-    updateDynamicPart();
+    _updateDynamicPart();
   }
 }
