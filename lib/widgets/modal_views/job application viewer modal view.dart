@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
@@ -8,8 +9,9 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 class JobApplicationViewerModalView extends StatefulWidget {
   final Job job;
   final JobApplication jobApplication;
+  final BusinessPage businessPage;
 
-  JobApplicationViewerModalView({this.job, this.jobApplication});
+  JobApplicationViewerModalView({this.job, this.jobApplication, this.businessPage});
 
   @override
   State<StatefulWidget> createState() => _JobApplicationViewerModalViewState();
@@ -23,18 +25,7 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
   void initState() {
     super.initState();
 
-    if (widget.jobApplication != null) {
-      grpcFetchUserDetails(AppUser.sessionKey, widget.jobApplication.applicantId).then((res) async {
-        bool success = res.item1;
-        GlobensUser user = res.item2;
-        if (success) {
-          applicantUser = user;
-        } else {
-          await AppUser.signOut();
-          Navigator.of(context).pushReplacementNamed('/');
-        }
-      });
-    }
+    if (widget.jobApplication != null) _updateDynamicPart();
   }
 
   @override
@@ -72,15 +63,40 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
         mainAxisSize: MainAxisSize.min,
         children: [
           getTitleWidget('Application form for "${widget.job.title}"'),
-          Text('Submitted by : ${applicantUser == null ? "[Loading]" : "${applicantUser.name} (${applicantUser.email})"}'),
+          Text('Submitted by : ${applicantUser == null ? "[Loading]" : applicantUser.isMe ? "you" : "${applicantUser.name} (${applicantUser.email})"}'),
           Padding(
             padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Expanded(
               child: Container(),
             ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context)),
+              RaisedButton(
+                child: Text("Decline"),
+                onPressed: () => _onDeclineButtonPressed(context),
+              ),
+            ],
           )
         ],
       );
+  }
+
+  void _updateDynamicPart() async {
+    grpcFetchUserDetails(AppUser.sessionKey, widget.jobApplication.applicantId).then((res) async {
+      bool success = res.item1;
+      GlobensUser user = res.item2;
+      if (success) {
+        setState(() {
+          applicantUser = user;
+        });
+      } else {
+        await AppUser.signOut();
+        Navigator.of(context).pushReplacementNamed('/');
+      }
+    });
   }
 
   void _onSubmitApplicationFormPressed(BuildContext context, Job job) async {
@@ -95,6 +111,28 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');
       }
+    }
+  }
+
+  void _onApproveButtonPressed(BuildContext context) async {
+    bool success = await grpcApproveJobApplication(AppUser.sessionKey, widget.jobApplication);
+    if (success) {
+      await toast("Success");
+      Navigator.of(context).pop();
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
+  }
+
+  void _onDeclineButtonPressed(BuildContext context) async {
+    bool success = await grpcDeclineJobApplication(AppUser.sessionKey, widget.jobApplication);
+    if (success) {
+      await toast("Success");
+      Navigator.of(context).pop();
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
     }
   }
 }

@@ -160,7 +160,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, int
           ..jobId = jobId);
         success &= jobDetailsRes.success;
 
-        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, hiredUserId: jobDetailsRes.hiredUserId));
+        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUserId: jobDetailsRes.hiredUserId));
       }
   } catch (e) {
     print(e);
@@ -261,7 +261,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageVacancies(String sessionKey
           ..jobId = jobId);
         success &= jobDetailsRes.success;
 
-        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, hiredUserId: jobDetailsRes.hiredUserId));
+        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role : jobDetailsRes.role, hiredUserId: jobDetailsRes.hiredUserId));
       }
     }
   } catch (e) {
