@@ -97,14 +97,14 @@ class _JobViewerModalViewState extends State<JobViewerModalView> {
         }
       } else
         childWidgets.add(Text('Job held by : ${_employeeUser == null ? "[loading]" : _employeeUser.isMe ? "you" : "${_employeeUser.name} (${_employeeUser.email})"}'));
-    }
 
-    // edit & delete job
-    if (widget.job.role == VacancyRole.EMPLOYEE)
-      childWidgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        RaisedButton(onPressed: _editPressed, child: Text("Edit job")),
-        RaisedButton(onPressed: () => _deletePressed(context), child: Text("Delete job")),
-      ]));
+      // edit & delete job (i.e., business owner edits/deletes an employee job/position in his business page)
+      if (widget.businessPage != null && widget.businessPage.role == VacancyRole.BUSINESS_OWNER && widget.job.role == VacancyRole.EMPLOYEE)
+        childWidgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          RaisedButton(onPressed: _editPressed, child: Text("Edit job")),
+          RaisedButton(onPressed: () => _deletePressed(context), child: Text("Delete job")),
+        ]));
+    }
 
     // ending part (padding)
     childWidgets.add(Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom), child: Container()));
