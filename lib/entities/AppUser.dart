@@ -116,7 +116,7 @@ class AppUser {
         return false;
 
       case AuthMethod.GOOGLE:
-        if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
+     if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
         Tuple2<GoogleSignInAccount, Map> tp = await AppUser._googleAuth();
 
         if (tp != null) {
@@ -183,7 +183,6 @@ class AppUser {
     }
     return null;
   }
-
   static void updateUserPrefsData() {
     userPrefs.setInt("authMethod", AppUser._authMethod.index);
     userPrefs.setInt("id", AppUser._id);

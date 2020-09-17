@@ -1,5 +1,5 @@
-import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
+import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';

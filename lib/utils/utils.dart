@@ -1,10 +1,10 @@
-import 'package:globens_flutter_client/entities/GlobensUser.dart';
-import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
+import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
+import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';

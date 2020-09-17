@@ -81,7 +81,7 @@ class _BusinessPageViewerModalViewState extends State<BusinessPageViewerModalVie
 
     if (success)
       Navigator.of(context).pop();
-    else{
+    else {
       await AppUser.signOut();
       await Navigator.of(context).pushReplacementNamed('/');
     }

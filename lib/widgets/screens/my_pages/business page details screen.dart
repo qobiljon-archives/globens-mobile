@@ -101,7 +101,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         GestureDetector(
-          onTap: () => _onProductPressed(context),
+          onTap: () => _onProductPressed(context, _products[index]),
           child: Container(
             margin: EdgeInsets.only(top: 10.0),
             child: Row(
@@ -141,11 +141,14 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     Row jobRow = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        GestureDetector(
-          onTap: () => _onJobPressed(context, _jobs[index], _businessPage),
-          child: Text(
-            "${_jobs[index].title}",
-            style: TextStyle(fontSize: 20.0, color: _jobs[index].isVacant ? Colors.grey : Colors.black, fontStyle: _jobs[index].isVacant ? FontStyle.italic : FontStyle.normal),
+        Expanded(
+          child: GestureDetector(
+            onTap: () => _onJobPressed(context, _jobs[index], _businessPage),
+              child: Text(
+                "${_jobs[index].title}",
+                style: TextStyle(fontSize: 20.0, color: _jobs[index].isVacant ? Colors.grey : Colors.black, fontStyle: _jobs[index].isVacant ? FontStyle.italic : FontStyle.normal),
+              ),
+
           ),
         ),
       ],
@@ -190,7 +193,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateProductPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (context) => ProductEditorModalView(_businessPage));
+    await showModalBottomSheet(context: context, builder: (context) => ProductEditorModalView(_businessPage, null));
 
     Tuple2<bool, List<Product>> res = await grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage.id);
     bool success = res.item1;
@@ -227,8 +230,8 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     }
   }
 
-  void _onProductPressed(BuildContext context) {
-    // todo open product details modal view
+  void _onProductPressed(BuildContext context, Product product) async {
+    await showModalBottomSheet(context: context, builder: (context) => ProductEditorModalView(_businessPage, product));
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {

@@ -31,6 +31,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
         ],
       ),
     ];
+
     _updateDynamicPart();
   }
 
@@ -38,7 +39,12 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: ListView.builder(
+        child: ListView.separated(
+          separatorBuilder: (context, index) {
+            return Divider(
+              color: Colors.blueAccent,
+            );
+          },
           itemCount: _header.length + _vacantJobs.length,
           itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
         ),
@@ -59,14 +65,16 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        GestureDetector(
-            child: Text(
-              "${_vacantJobs[index].title}",
-              style: TextStyle(fontSize: 20.0),
-            ),
-            onTap: () => _openVacancyDetails(context, index)),
+        Expanded(
+          child: GestureDetector(
+              child: Text(
+                "${_vacantJobs[index].title}",
+                style: TextStyle(fontSize: 20.0),
+              ),
+              onTap: () => _openVacancyDetails(context, index)),
+        ),
         RaisedButton(
-          onPressed: () => _onSubmitButtonPressed(context, index),
+          onPressed: () => _onApplyButtonPressed(context, index),
           child: Text("Apply"),
         ),
       ],
@@ -90,7 +98,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
     Navigator.pop(context);
   }
 
-  void _onSubmitButtonPressed(BuildContext context, int index) async {
+  void _onApplyButtonPressed(BuildContext context, int index) async {
     Tuple2<bool, List<JobApplication>> res = await grpcFetchJobApplications(AppUser.sessionKey, _vacantJobs[index]);
     bool success = res.item1;
     List<JobApplication> jobApplications = res.item2;

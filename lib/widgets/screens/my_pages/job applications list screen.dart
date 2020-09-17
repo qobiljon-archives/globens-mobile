@@ -1,11 +1,11 @@
-import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/entities/BusinessPage.dart';
+import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
-import 'package:globens_flutter_client/entities/Job.dart';
+import 'package:globens_flutter_client/entities/BusinessPage.dart';
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
 
 class JobApplicationsListScreen extends StatefulWidget {
   @override
@@ -67,21 +67,26 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     Row row = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        GestureDetector(
-          onTap: () => _onJobApplicationPressed(context, _jobApplications[index], index),
-          child: Text(
-            "${_jobApplications[index].message}",
-            overflow: TextOverflow.clip,
-            style: TextStyle(fontSize: 20.0),
+        Container(
+          width: MediaQuery.of(context).size.width * 0.5,
+          child: GestureDetector(
+            onTap: () => _onJobApplicationPressed(context, _jobApplications[index], index),
+            child: Text(
+              "${_jobApplications[index].message}",
+              overflow: TextOverflow.clip,
+              style: TextStyle(fontSize: 20.0),
+            ),
           ),
         ),
-        Row(children: [
-          RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
-          RaisedButton(
-            child: Text("Decline"),
-            onPressed: () => _onDeclineButtonPressed(context, index),
-          ),
-        ],)
+        Row(
+          children: [
+            RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
+            RaisedButton(
+              child: Text("Decline"),
+              onPressed: () => _onDeclineButtonPressed(context, index),
+            ),
+          ],
+        )
       ],
     );
 

@@ -107,6 +107,7 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
       if (success) {
         await toast("Success");
         Navigator.of(context).pop();
+
       } else {
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');

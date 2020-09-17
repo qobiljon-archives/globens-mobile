@@ -19,9 +19,23 @@ class GlobensScreenState extends State<GlobensScreen> {
     _header = [getTitleWidget("Globens")];
     _footer = [
       Container(
-        child: RaisedButton(
-          onPressed: () => _onLookingForAJobButtonPressed(context),
-          child: Text("looking for a job?"),
+        child: Column(
+          children: [
+            Container(
+              width: double.maxFinite,
+              child: RaisedButton(
+                onPressed: () => _onLookingForAJobButtonPressed(context),
+                child: Text("Are you looking for a job?"),
+              ),
+            ),
+            Container(
+              width: double.maxFinite,
+              child: RaisedButton(
+                onPressed: () => _onExploreProductsPressed(context),
+                child: Text("Explore our products"),
+              ),
+            ),
+          ],
         ),
       )
     ];
@@ -53,6 +67,14 @@ class GlobensScreenState extends State<GlobensScreen> {
   void _onLookingForAJobButtonPressed(BuildContext context) async {
     if (AppUser.isAuthenticated())
       await Navigator.of(context).pushNamed('/vacant_jobs');
+    else {
+      await toast("Please SignIn First");
+    }
+  }
+
+  void _onExploreProductsPressed(BuildContext context) async {
+    if (AppUser.isAuthenticated())
+      await Navigator.of(context).pushNamed('/products_list');
     else {
       await toast("Please SignIn First");
     }
