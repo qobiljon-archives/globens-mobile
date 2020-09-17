@@ -37,9 +37,11 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () => _onBackButtonPressed(context),
           ),
-          Text(
-            "${_job.title}",
-            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
+          Expanded(
+            child: Text(
+              "${_job.title}",
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
+            ),
           ),
         ],
       ),
@@ -51,7 +53,13 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: ListView.builder(itemCount: _header.length + _jobApplications.length + _footer.length, itemBuilder: (BuildContext context, index) => _getListViewItems(context, index)));
+    return Scaffold(
+        body: ListView.separated(
+            separatorBuilder: (BuildContext context, int index) => Divider(
+                  color: Colors.blueAccent,
+                ),
+            itemCount: _header.length + _jobApplications.length + _footer.length,
+            itemBuilder: (BuildContext context, index) => _getListViewItems(context, index)));
   }
 
   Widget _getListViewItems(BuildContext context, int index) {

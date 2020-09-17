@@ -32,55 +32,63 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
   Widget build(BuildContext context) {
     if (widget.jobApplication == null)
       // new job application (write mode)
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          getTitleWidget('Application form for "${widget.job.title}"'),
-          TextField(
-            maxLines: 1,
-            controller: _applicantMessage,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              labelText: "message",
-              hintText: "message",
+      return SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            getTitleWidget('Application form for "${widget.job.title}"'),
+            TextField(
+              maxLines: 1,
+              controller: _applicantMessage,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                labelText: "message",
+                hintText: "message",
+              ),
             ),
-          ),
-          RaisedButton(
-            onPressed: () => _onSubmitApplicationFormPressed(context, widget.job),
-            child: Text("Submit application form"),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Expanded(
-              child: Container(),
+            RaisedButton(
+              onPressed: () => _onSubmitApplicationFormPressed(context, widget.job),
+              child: Text("Submit application form"),
             ),
-          )
-        ],
+            Padding(
+              padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Expanded(
+                child: Container(),
+              ),
+            )
+          ],
+        ),
       );
     else
       // existing job application (read mode)
-      return Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          getTitleWidget('Application form for "${widget.job.title}"'),
-          Text('Submitted by : ${applicantUser == null ? "[Loading]" : applicantUser.isMe ? "you" : "${applicantUser.name} (${applicantUser.email})"}'),
-          Padding(
-            padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Expanded(
-              child: Container(),
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                getTitleWidget('Application form for "${widget.job.title}"'),
+                Text('Submitted by : ${applicantUser == null ? "[Loading]" : applicantUser.isMe ? "you" : "${applicantUser.name} (${applicantUser.email})"}'),
+                Padding(
+                  padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: Expanded(
+                    child: Container(),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context)),
+                    RaisedButton(
+                      child: Text("Decline"),
+                      onPressed: () => _onDeclineButtonPressed(context),
+                    ),
+                  ],
+                )
+              ],
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context)),
-              RaisedButton(
-                child: Text("Decline"),
-                onPressed: () => _onDeclineButtonPressed(context),
-              ),
-            ],
-          )
-        ],
+          ],
+        ),
       );
   }
 
@@ -105,9 +113,8 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
     else {
       bool success = await grpcCreateJobApplication(AppUser.sessionKey, job.id, JobApplication.create(_applicantMessage.text));
       if (success) {
-        await toast("Success");
+        await toast("Submitted");
         Navigator.of(context).pop();
-
       } else {
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');

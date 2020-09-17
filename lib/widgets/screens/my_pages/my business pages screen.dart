@@ -34,7 +34,10 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   @override
   Widget build(context) {
     return Container(
-      child: ListView.builder(
+      child: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) => Divider(
+          color: index == 0 ? Colors.deepOrange : Colors.blueAccent,
+        ),
         itemCount: _header.length + _body.length + _footer.length,
         itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
       ),
@@ -57,52 +60,52 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   }
 
   Widget _buildBusinessPageItem(BuildContext context, int index) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () {
-            _openIndividualBusinessPage(context, _body[index]);
-          },
-          onLongPress: () {},
-          child: Container(
-            margin: EdgeInsets.only(top: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: 10.0),
-                  child: CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: MemoryImage(_body[index].pictureBlob),
-                  ),
+    return Container(
+      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: GestureDetector(
+        onTap: () {
+          _openIndividualBusinessPage(context, _body[index]);
+        },
+        onLongPress: () {},
+        child: Container(
+          margin: EdgeInsets.only(top: 10.0),
+          child: Row(
+            //mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 10.0),
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: MemoryImage(_body[index].pictureBlob),
                 ),
-                if (index == 0)
-                  Container(
+              ),
+              if (index == 0)
+                Expanded(
+                  child: Container(
                     margin: EdgeInsets.only(left: 10),
                     child: Text(
                       "${_body[index].title}",
-                      overflow: TextOverflow.clip,
                       style: TextStyle(
                         fontSize: 20.0,
                         color: Colors.blue,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  )
-                else
-                  Container(
-                      margin: EdgeInsets.only(left: 10.0),
-                      child: Text(
-                        "${_body[index].title}",
-                        overflow: TextOverflow.clip,
-                        style: TextStyle(fontSize: 20.0),
-                      )),
-              ],
-            ),
+                  ),
+                )
+              else
+                Expanded(
+                    child: Container(
+                  margin: EdgeInsets.only(left: 10.0),
+                  child: Text(
+                    "${_body[index].title}",
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                )),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 

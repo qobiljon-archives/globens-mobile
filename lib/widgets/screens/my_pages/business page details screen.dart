@@ -37,7 +37,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
             icon: Icon(Icons.arrow_back_ios),
             onPressed: () => _onBackButtonPressed(context),
           ),
-          getTitleWidget(_businessPage.title),
+          Expanded(child: getTitleWidget(_businessPage.title)),
         ],
       ),
     ];
