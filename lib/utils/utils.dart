@@ -167,6 +167,38 @@ Future<bool> grpcCreateProduct(String sessionKey, int businessPageId, Product pr
   }
   return success;
 }
+
+Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  List<Product> products = List<Product>();
+
+  try {
+    final productIds = await stub.fetchNextKProductIds(FetchNextKProductIds_Request()
+      ..sessionKey = sessionKey
+      ..k = 100
+      ..filterDetails = FilterDetails()
+      ..previousProductId = 0);
+    success = productIds.success;
+    if (success) {
+      for (int productId in productIds.id) {
+        final producDetails = await stub.fetchProductDetails(FetchProductDetails_Request()
+          ..sessionKey = sessionKey
+          ..productId = productId);
+        success &= producDetails.success;
+
+        if (success) products.add(Product.create(producDetails.name, producDetails.pictureBlob));
+      }
+    }
+  } catch (e) {
+    print(e);
+  }
+
+  return Tuple2(success, products);
+}
+
 // endregion
 
 // region job management RPCs
@@ -240,7 +272,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageVacancies(String sessionKey
           ..jobId = jobId);
         success &= jobDetailsRes.success;
 
-        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role : jobDetailsRes.role, hiredUserId: jobDetailsRes.hiredUserId));
+        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUserId: jobDetailsRes.hiredUserId));
       }
     }
   } catch (e) {

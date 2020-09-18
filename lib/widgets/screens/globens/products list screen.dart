@@ -1,11 +1,13 @@
 import 'package:globens_flutter_client/entities/JobApplication.dart';
+import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-
+import 'package:globens_flutter_client/widgets/modal_views/product%20viewer%20modal%20view.dart';
+import 'package:tuple/tuple.dart';
 
 class ProductsListScreen extends StatefulWidget {
   @override
@@ -13,7 +15,7 @@ class ProductsListScreen extends StatefulWidget {
 }
 
 class _ProductsListScreenState extends State<ProductsListScreen> {
-  List<Job> _products = [];
+  List<Product> _products = [];
   List<Widget> _header = [];
 
   @override
@@ -38,7 +40,10 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: ListView.builder(
+        child: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) => Divider(
+            color: Colors.blueAccent,
+          ),
           itemCount: _header.length + _products.length,
           itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
         ),
@@ -59,22 +64,50 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        GestureDetector(
-            child: Text(
-              "${_products[index].title}",
-              style: TextStyle(fontSize: 20.0),
+        Row(
+          children: [
+            GestureDetector(
+                onTap: () => _openProductDetails(context, index),
+                child: Container(
+                  margin: EdgeInsets.only(left: 10.0),
+                  child: CircleAvatar(
+                    backgroundImage: MemoryImage(_products[index].pictureBlob),
+                  ),
+                )),
+            GestureDetector(
+              onTap: () => _openProductDetails(context, index),
+              child: Expanded(
+                child: Container(
+                    margin: EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      "${_products[index].name}",
+                      style: TextStyle(),
+                    )),
+              ),
             ),
-            onTap: () => _openProductDetails(context, index)),
-        RaisedButton(
-          onPressed: () => _onPurchase(context, index),
-          child: Text("Purchase"),
+          ],
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 10.0),
+          child: RaisedButton(
+            onPressed: () => _onPurchase(context, index),
+            child: Text("Purchase"),
+          ),
         ),
       ],
     );
   }
 
   void _updateDynamicPart() async {
-    //TODO:  fetch list of products
+    Tuple2<bool, List<Product>> product = await grpcFetchNextKProducts(AppUser.sessionKey);
+    bool success = product.item1;
+    List<Product> products = product.item2;
+
+    if (success) {
+      setState(() {
+        _products = products;
+      });
+    }
   }
 
   void _onBackButtonPressed(BuildContext context) {
@@ -82,20 +115,10 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
   }
 
   void _onPurchase(BuildContext context, int index) async {
-     //TODO: implement purchase functionality
+    //TODO: implement purchase functionality
   }
 
   void _openProductDetails(BuildContext context, index) async {
-    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: _products[index]));
-    grpcFetchBusinessPageVacancies(AppUser.sessionKey).then((tuple) {
-      bool success = tuple.item1;
-      List<Job> jobs = tuple.item2;
-      if (success) {
-        setState(() {
-          _products = jobs;
-        });
-      } else
-        AppUser.signOut().then((value) => Navigator.of(context).pushReplacementNamed('/'));
-    });
+    //TODO  open product details
   }
 }

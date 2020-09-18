@@ -1351,6 +1351,125 @@ class FetchBusinessPageProductIds extends $pb.GeneratedMessage {
   static FetchBusinessPageProductIds _defaultInstance;
 }
 
+class FetchNextKProductIds_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKProductIds.Request', createEmptyInstance: create)
+    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'k', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, 'previousProductId', $pb.PbFieldType.O3, protoName: 'previousProductId')
+    ..aOM<FilterDetails>(4, 'filterDetails', protoName: 'filterDetails', subBuilder: FilterDetails.create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchNextKProductIds_Request._() : super();
+  factory FetchNextKProductIds_Request() => create();
+  factory FetchNextKProductIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchNextKProductIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchNextKProductIds_Request clone() => FetchNextKProductIds_Request()..mergeFromMessage(this);
+  FetchNextKProductIds_Request copyWith(void Function(FetchNextKProductIds_Request) updates) => super.copyWith((message) => updates(message as FetchNextKProductIds_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKProductIds_Request create() => FetchNextKProductIds_Request._();
+  FetchNextKProductIds_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchNextKProductIds_Request> createRepeated() => $pb.PbList<FetchNextKProductIds_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKProductIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKProductIds_Request>(create);
+  static FetchNextKProductIds_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get k => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set k($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasK() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearK() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get previousProductId => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set previousProductId($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasPreviousProductId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearPreviousProductId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  FilterDetails get filterDetails => $_getN(3);
+  @$pb.TagNumber(4)
+  set filterDetails(FilterDetails v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFilterDetails() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFilterDetails() => clearField(4);
+  @$pb.TagNumber(4)
+  FilterDetails ensureFilterDetails() => $_ensure(3);
+}
+
+class FetchNextKProductIds_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKProductIds.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
+    ..hasRequiredFields = false
+  ;
+
+  FetchNextKProductIds_Response._() : super();
+  factory FetchNextKProductIds_Response() => create();
+  factory FetchNextKProductIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchNextKProductIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchNextKProductIds_Response clone() => FetchNextKProductIds_Response()..mergeFromMessage(this);
+  FetchNextKProductIds_Response copyWith(void Function(FetchNextKProductIds_Response) updates) => super.copyWith((message) => updates(message as FetchNextKProductIds_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKProductIds_Response create() => FetchNextKProductIds_Response._();
+  FetchNextKProductIds_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchNextKProductIds_Response> createRepeated() => $pb.PbList<FetchNextKProductIds_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKProductIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKProductIds_Response>(create);
+  static FetchNextKProductIds_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+}
+
+class FetchNextKProductIds extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKProductIds', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchNextKProductIds._() : super();
+  factory FetchNextKProductIds() => create();
+  factory FetchNextKProductIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchNextKProductIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchNextKProductIds clone() => FetchNextKProductIds()..mergeFromMessage(this);
+  FetchNextKProductIds copyWith(void Function(FetchNextKProductIds) updates) => super.copyWith((message) => updates(message as FetchNextKProductIds));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKProductIds create() => FetchNextKProductIds._();
+  FetchNextKProductIds createEmptyInstance() => create();
+  static $pb.PbList<FetchNextKProductIds> createRepeated() => $pb.PbList<FetchNextKProductIds>();
+  @$core.pragma('dart2js:noInline')
+  static FetchNextKProductIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKProductIds>(create);
+  static FetchNextKProductIds _defaultInstance;
+}
+
 class FetchProductDetails_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProductDetails.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')

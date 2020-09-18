@@ -295,6 +295,29 @@ const FetchBusinessPageProductIds_Response$json = const {
   ],
 };
 
+const FetchNextKProductIds$json = const {
+  '1': 'FetchNextKProductIds',
+  '3': const [FetchNextKProductIds_Request$json, FetchNextKProductIds_Response$json],
+};
+
+const FetchNextKProductIds_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'k', '3': 2, '4': 1, '5': 5, '10': 'k'},
+    const {'1': 'previousProductId', '3': 3, '4': 1, '5': 5, '10': 'previousProductId'},
+    const {'1': 'filterDetails', '3': 4, '4': 1, '5': 11, '6': '.FilterDetails', '10': 'filterDetails'},
+  ],
+};
+
+const FetchNextKProductIds_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+  ],
+};
+
 const FetchProductDetails$json = const {
   '1': 'FetchProductDetails',
   '3': const [FetchProductDetails_Request$json, FetchProductDetails_Response$json],

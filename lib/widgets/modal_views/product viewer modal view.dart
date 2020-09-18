@@ -93,7 +93,8 @@ class _ProductEditorModalViewState extends State<ProductEditorModalView> {
           )
         ]);
       }
-    } else {
+    }
+    {
       childWidgets.clear();
       childWidgets.add(_editingView);
     }

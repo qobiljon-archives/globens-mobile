@@ -147,6 +147,18 @@ message FetchBusinessPageProductIds{
     repeated int32 id = 2;
   }
 }
+message FetchNextKProductIds{
+  message Request{
+    string sessionKey = 1;
+    int32 k = 2;
+    int32 previousProductId = 3;
+    FilterDetails filterDetails = 4;
+  }
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
 message FetchProductDetails{
   message Request{
     string sessionKey = 1;
@@ -358,6 +370,7 @@ service GlobensService {
   rpc unpublishProduct(UnpublishProduct.Request) returns (UnpublishProduct.Response) {}
   rpc uncreateProduct(UncreateProduct.Request) returns (UncreateProduct.Response) {}
   rpc fetchBusinessPageProductIds(FetchBusinessPageProductIds.Request) returns (FetchBusinessPageProductIds.Response) {}
+  rpc fetchNextKProductIds(FetchNextKProductIds.Request) returns (FetchNextKProductIds.Response) {}
   rpc fetchProductDetails(FetchProductDetails.Request) returns (FetchProductDetails.Response) {}
 
 
