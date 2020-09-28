@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/widgets/modal_views/product%20viewer%20modal%20view.dart';
 import 'package:tuple/tuple.dart';
 
+import 'in-app-purchases/main purchase screen.dart';
+
 class ProductsListScreen extends StatefulWidget {
   @override
   _ProductsListScreenState createState() => _ProductsListScreenState();
@@ -115,7 +117,10 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
   }
 
   void _onPurchase(BuildContext context, int index) async {
-    //TODO: implement purchase functionality
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => null),
+    );
   }
 
   void _openProductDetails(BuildContext context, index) async {

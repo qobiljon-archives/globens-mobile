@@ -13,7 +13,7 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '1'
+    flutterVersionCode = '3'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
@@ -80,9 +80,9 @@ flutter {
 }
 
 dependencies {
-    def billing_version = "3.0.0"
 
-    implementation "com.android.billingclient:billing:$billing_version"
+    def billing_version = "3.0.0"
+    implementation "com.android.billingclient:billing-ktx:$billing_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.gms:google-services:4.3.3'
 }
