@@ -37,6 +37,7 @@ Future<Tuple3<bool, int, String>> gprcAuthenticateUser(AuthenticateUser_AuthMeth
       ..method = method
       ..tokensJson = tokensJson);
     success = response.success;
+
     userId = response.userId;
     sessionKey = response.sessionKey;
   } catch (e) {

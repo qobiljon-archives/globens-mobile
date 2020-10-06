@@ -1,15 +1,11 @@
-import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
-import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/widgets/modal_views/product%20viewer%20modal%20view.dart';
-import 'package:tuple/tuple.dart';
 
-import 'in-app-purchases/main purchase screen.dart';
+import 'consumable store.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:tuple/tuple.dart';
 
 class ProductsListScreen extends StatefulWidget {
   @override
@@ -47,7 +43,8 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
             color: Colors.blueAccent,
           ),
           itemCount: _header.length + _products.length,
-          itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+          itemBuilder: (BuildContext context, int index) =>
+              _getListViewItem(context, index),
         ),
       ),
     );
@@ -101,7 +98,8 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
   }
 
   void _updateDynamicPart() async {
-    Tuple2<bool, List<Product>> product = await grpcFetchNextKProducts(AppUser.sessionKey);
+    Tuple2<bool, List<Product>> product =
+        await grpcFetchNextKProducts(AppUser.sessionKey);
     bool success = product.item1;
     List<Product> products = product.item2;
 
@@ -117,9 +115,11 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
   }
 
   void _onPurchase(BuildContext context, int index) async {
+    InAppPurchaseConnection.enablePendingPurchases();
+
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => null),
+      MaterialPageRoute(builder: (context) => MyApp()),
     );
   }
 

@@ -4,6 +4,7 @@ import 'package:globens_flutter_client/widgets/screens/my_pages/job%20applicatio
 import 'package:globens_flutter_client/widgets/screens/globens/vacant%20jobs%20list%20screen.dart';
 import 'package:globens_flutter_client/widgets/screens/root%20tabs%20screen.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 
 void main() {
