@@ -2,14 +2,21 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" group="android" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="android/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/478567863/flutter_facebook_login.iml" filepath="$PROJECT_DIR$/.idea/modules/478567863/flutter_facebook_login.iml" group="android/flutter_facebook_login" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1306587285/fluttertoast.iml" filepath="$PROJECT_DIR$/.idea/modules/1306587285/fluttertoast.iml" group="android/fluttertoast" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/117637676/google_sign_in.iml" filepath="$PROJECT_DIR$/.idea/modules/117637676/google_sign_in.iml" group="android/google_sign_in" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/20952174/kakao_flutter_sdk.iml" filepath="$PROJECT_DIR$/.idea/modules/20952174/kakao_flutter_sdk.iml" group="android/kakao_flutter_sdk" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1522559885/package_info.iml" filepath="$PROJECT_DIR$/.idea/modules/1522559885/package_info.iml" group="android/package_info" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1318679724/shared_preferences.iml" filepath="$PROJECT_DIR$/.idea/modules/1318679724/shared_preferences.iml" group="android/shared_preferences" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/android.iml" filepath="$PROJECT_DIR$/.idea/modules/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1432625236/android.camera.iml" filepath="$PROJECT_DIR$/.idea/modules/1432625236/android.camera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/862820075/android.flutter_facebook_login.iml" filepath="$PROJECT_DIR$/.idea/modules/862820075/android.flutter_facebook_login.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/624590057/android.flutter_plugin_android_lifecycle.iml" filepath="$PROJECT_DIR$/.idea/modules/624590057/android.flutter_plugin_android_lifecycle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-474964343/android.fluttertoast.iml" filepath="$PROJECT_DIR$/.idea/modules/-474964343/android.fluttertoast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-892470173/android.google_sign_in.iml" filepath="$PROJECT_DIR$/.idea/modules/-892470173/android.google_sign_in.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-93023785/android.image_picker.iml" filepath="$PROJECT_DIR$/.idea/modules/-93023785/android.image_picker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/188375955/android.in_app_purchase.iml" filepath="$PROJECT_DIR$/.idea/modules/188375955/android.in_app_purchase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1948349766/android.kakao_flutter_sdk.iml" filepath="$PROJECT_DIR$/.idea/modules/-1948349766/android.kakao_flutter_sdk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/410563523/android.package_info.iml" filepath="$PROJECT_DIR$/.idea/modules/410563523/android.package_info.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-694368500/android.path_provider.iml" filepath="$PROJECT_DIR$/.idea/modules/-694368500/android.path_provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1188922573/android.purchases_flutter.iml" filepath="$PROJECT_DIR$/.idea/modules/1188922573/android.purchases_flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/138650937/android.shared_preferences.iml" filepath="$PROJECT_DIR$/.idea/modules/138650937/android.shared_preferences.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-847489741/android.url_launcher.iml" filepath="$PROJECT_DIR$/.idea/modules/-847489741/android.url_launcher.iml" />
     </modules>
   </component>
 </project>

@@ -1,29 +1,46 @@
-// Copyright 2019 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'consumable_store.dart';
+import 'package:in_app_purchase/store_kit_wrappers.dart';
+import 'consumable store.dart';
 
-void main() {
-  // For play billing library 2.0 on Android, it is mandatory to call
-  // [enablePendingPurchases](https://developer.android.com/reference/com/android/billingclient/api/BillingClient.Builder.html#enablependingpurchases)
-  // as part of initializing the app.
-  InAppPurchaseConnection.enablePendingPurchases();
-  runApp(MyApp());
-}
+
+
+
+// Original code link: https://github.com/flutter/plugins/blob/master/packages/in_app_purchase/example/lib/main.dart
 
 const bool kAutoConsume = true;
 
-const String _kConsumableId = 'consumable';
+const String _kConsumableId = '';
+const String _kSubscriptionId = '';
 const List<String> _kProductIds = <String>[
   _kConsumableId,
-  'upgrade',
-  'subscription'
+  'noadforfifteendays',
+  _kSubscriptionId
 ];
+
+// TODO: Please Add your android product ID here
+const List<String> _kAndroidProductIds = <String>[
+  'globens_2020'
+];
+//Example
+//const List<String> _kAndroidProductIds = <String>[
+//  'ADD_YOUR_ANDROID_PRODUCT_ID_1',
+//  'ADD_YOUR_ANDROID_PRODUCT_ID_2',
+//  'ADD_YOUR_ANDROID_PRODUCT_ID_3'
+//];
+
+// TODO: Please Add your iOS product ID here
+const List<String> _kiOSProductIds = <String>[
+  ''
+];
+//Example
+//const List<String> _kiOSProductIds = <String>[
+//  'ADD_YOUR_IOS_PRODUCT_ID_1',
+//  'ADD_YOUR_IOS_PRODUCT_ID_2',
+//  'ADD_YOUR_IOS_PRODUCT_ID_3'
+//];
 
 class MyApp extends StatefulWidget {
   @override
@@ -44,6 +61,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+
+    DateTime currentDate = DateTime.now();
+    DateTime noADDate;
+
+    var fiftyDaysFromNow = currentDate.add(new Duration(days: 50));
+    print('${fiftyDaysFromNow.month} - ${fiftyDaysFromNow.day} - ${fiftyDaysFromNow.year} ${fiftyDaysFromNow.hour}:${fiftyDaysFromNow.minute}');
+
     Stream purchaseUpdated =
         InAppPurchaseConnection.instance.purchaseUpdatedStream;
     _subscription = purchaseUpdated.listen((purchaseDetailsList) {
@@ -59,6 +83,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initStoreInfo() async {
     final bool isAvailable = await _connection.isAvailable();
+
     if (!isAvailable) {
       setState(() {
         _isAvailable = isAvailable;
@@ -73,7 +98,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     ProductDetailsResponse productDetailResponse =
-    await _connection.queryProductDetails(_kProductIds.toSet());
+    await _connection.queryProductDetails(Platform.isIOS ? _kiOSProductIds.toSet() : _kAndroidProductIds.toSet());//_kProductIds.toSet());
     if (productDetailResponse.error != null) {
       setState(() {
         _queryProductError = productDetailResponse.error.message;
@@ -225,7 +250,7 @@ class _MyAppState extends State<MyApp> {
 
     // This loading previous purchases code is just a demo. Please do not use this as it is.
     // In your app you should always verify the purchase data using the `verificationData` inside the [PurchaseDetails] object before trusting it.
-    // We recommend that you use your own server to verify the purchase data.
+    // We recommend that you use your own server to verity the purchase data.
     Map<String, PurchaseDetails> purchases =
     Map.fromEntries(_purchases.map((PurchaseDetails purchase) {
       if (purchase.pendingCompletePurchase) {
@@ -311,6 +336,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> consume(String id) async {
+    print('consume id is $id');
     await ConsumableStore.consume(id);
     final List<String> consumables = await ConsumableStore.load();
     setState(() {
@@ -325,6 +351,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   void deliverProduct(PurchaseDetails purchaseDetails) async {
+    print('deliverProduct'); // Last
     // IMPORTANT!! Always verify a purchase purchase details before delivering the product.
     if (purchaseDetails.productID == _kConsumableId) {
       await ConsumableStore.save(purchaseDetails.purchaseID);
@@ -350,14 +377,17 @@ class _MyAppState extends State<MyApp> {
   Future<bool> _verifyPurchase(PurchaseDetails purchaseDetails) {
     // IMPORTANT!! Always verify a purchase before delivering the product.
     // For the purpose of an example, we directly return true.
+    print('_verifyPurchase');
     return Future<bool>.value(true);
   }
 
   void _handleInvalidPurchase(PurchaseDetails purchaseDetails) {
     // handle invalid purchase here if  _verifyPurchase` failed.
+    print('_handleInvalidPurchase');
   }
 
   void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
+    print('_listenToPurchaseUpdated');
     purchaseDetailsList.forEach((PurchaseDetails purchaseDetails) async {
       if (purchaseDetails.status == PurchaseStatus.pending) {
         showPendingUI();

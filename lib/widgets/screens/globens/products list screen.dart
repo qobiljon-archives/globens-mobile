@@ -2,9 +2,9 @@ import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/widgets/screens/globens/product_purchase_screen.dart';
 
-import 'consumable store.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
+
 import 'package:tuple/tuple.dart';
 
 class ProductsListScreen extends StatefulWidget {
@@ -115,7 +115,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
   }
 
   void _onPurchase(BuildContext context, int index) async {
-    InAppPurchaseConnection.enablePendingPurchases();
+
 
     Navigator.push(
       context,

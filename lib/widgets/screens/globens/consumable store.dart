@@ -1,43 +1,39 @@
-import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+import 'dart:async';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class _MyAppState extends State<MyApp> {
+// This is just a development prototype for locally storing consumables. Do not
+// use this.
+class ConsumableStore {
+  static const String _kPrefKey = 'consumables';
+  static Future<void> _writes = Future.value();
 
-  Future<void> purchaseProduct() async{
-    const Set<String> _kIds = {'globens_subscription'};
-    final ProductDetailsResponse response = await InAppPurchaseConnection.instance.queryProductDetails(_kIds);
-    if (response.notFoundIDs.isNotEmpty) {
-       print("Item not found...");
-       print(response.notFoundIDs);
-       print(response.productDetails);
-
-    } else {
-      List<ProductDetails> products = response.productDetails;
-      for (ProductDetails product in products) {
-        print('${product.title}: ${product.description} (cost is ${product.price})');
-      }
-      // Example: purchasing the first available item.
-      final PurchaseParam purchaseParam = PurchaseParam(productDetails: products[0]);
-      InAppPurchaseConnection.instance.buyNonConsumable(purchaseParam: purchaseParam);
-    }
+  static Future<void> save(String id) {
+    _writes = _writes.then((void _) => _doSave(id));
+    return _writes;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: RaisedButton(
-          onPressed: () {
-            purchaseProduct();
-          },
-          child: Text("Purchase a Product"),
-        ),
-      ),
-    );
+  static Future<void> consume(String id) {
+    _writes = _writes.then((void _) => _doConsume(id));
+    return _writes;
+  }
+
+  static Future<List<String>> load() async {
+    return (await SharedPreferences.getInstance()).getStringList(_kPrefKey) ??
+        [];
+  }
+
+  static Future<void> _doSave(String id) async {
+    List<String> cached = await load();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cached.add(id);
+    await prefs.setStringList(_kPrefKey, cached);
+  }
+
+  static Future<void> _doConsume(String id) async {
+    List<String> cached = await load();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    cached.remove(id);
+    await prefs.setStringList(_kPrefKey, cached);
   }
 }
