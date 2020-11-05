@@ -39,7 +39,8 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
           color: index == 0 ? Colors.deepOrange : Colors.blueAccent,
         ),
         itemCount: _header.length + _body.length + _footer.length,
-        itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+        itemBuilder: (BuildContext context, int index) =>
+            _getListViewItem(context, index),
       ),
     );
   }
@@ -121,11 +122,14 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');
       }
+    }).timeout(Duration(seconds: 3), onTimeout: () {
+      print("Timeout");
     });
   }
 
   void _onCreateProductPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (context) => BusinessPageViewerModalView());
+    await showModalBottomSheet(
+        context: context, builder: (context) => BusinessPageViewerModalView());
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
@@ -137,10 +141,15 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');
       }
+    }).timeout(Duration(seconds: 3), onTimeout: () {
+      print("timeout");
+      //TODO:  cancel  future call
     });
   }
 
-  void _openIndividualBusinessPage(BuildContext context, BusinessPage businessPage) async {
-    await Navigator.of(context).pushNamed('/business_page_details', arguments: businessPage);
+  void _openIndividualBusinessPage(
+      BuildContext context, BusinessPage businessPage) async {
+    await Navigator.of(context)
+        .pushNamed('/business_page_details', arguments: businessPage);
   }
 }

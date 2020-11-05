@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 
 class JobApplicationsListScreen extends StatefulWidget {
   @override
-  _JobApplicationsListScreenState createState() => _JobApplicationsListScreenState();
+  _JobApplicationsListScreenState createState() =>
+      _JobApplicationsListScreenState();
 }
 
 class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
@@ -33,14 +34,14 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     _header = [
       Row(
         children: [
-          IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () => _onBackButtonPressed(context),
-          ),
+          backButton(_onBackButtonPressed, context),
           Expanded(
             child: Text(
               "${_job.title}",
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
+              style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue),
             ),
           ),
         ],
@@ -53,13 +54,17 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("build called");
     return Scaffold(
         body: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => Divider(
-                  color: Colors.blueAccent,
-                ),
-            itemCount: _header.length + _jobApplications.length + _footer.length,
-            itemBuilder: (BuildContext context, index) => _getListViewItems(context, index)));
+                separatorBuilder: (BuildContext context, int index) => Divider(
+                      color: Colors.blueAccent,
+                    ),
+                itemCount:
+                    _header.length + _jobApplications.length + _footer.length,
+                itemBuilder: (BuildContext context, index) =>
+                    _getListViewItems(context, index))
+            );
   }
 
   Widget _getListViewItems(BuildContext context, int index) {
@@ -78,7 +83,8 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
         Container(
           width: MediaQuery.of(context).size.width * 0.5,
           child: GestureDetector(
-            onTap: () => _onJobApplicationPressed(context, _jobApplications[index], index),
+            onTap: () => _onJobApplicationPressed(
+                context, _jobApplications[index], index),
             child: Text(
               "${_jobApplications[index].message}",
               overflow: TextOverflow.clip,
@@ -88,7 +94,9 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
         ),
         Row(
           children: [
-            RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
+            RaisedButton(
+                child: Text("Approve"),
+                onPressed: () => _onApproveButtonPressed(context, index)),
             RaisedButton(
               child: Text("Decline"),
               onPressed: () => _onDeclineButtonPressed(context, index),
@@ -122,6 +130,9 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');
       }
+    }).timeout(const Duration(seconds: 3), onTimeout: () {
+      print("timeout");
+      //TODO: the future should be cancelled automatically after timeout: e.g -> StreamSubscription
     });
   }
 
@@ -129,13 +140,18 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     Navigator.pop(context);
   }
 
-  void _onJobApplicationPressed(BuildContext context, JobApplication vacancyApplication, int index) async {
-    await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView(job: _job, jobApplication: _jobApplications[index]));
+  void _onJobApplicationPressed(BuildContext context,
+      JobApplication vacancyApplication, int index) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (context) => JobApplicationViewerModalView(
+            job: _job, jobApplication: _jobApplications[index]));
     _updateDynamicPart();
   }
 
   void _onApproveButtonPressed(BuildContext context, int index) async {
-    bool success = await grpcApproveJobApplication(AppUser.sessionKey, _jobApplications[index]);
+    bool success = await grpcApproveJobApplication(
+        AppUser.sessionKey, _jobApplications[index]);
     if (success) {
       await toast("Success");
       _updateDynamicPart();
@@ -146,7 +162,8 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   }
 
   void _onDeclineButtonPressed(BuildContext context, int index) async {
-    bool success = await grpcDeclineJobApplication(AppUser.sessionKey, _jobApplications[index]);
+    bool success = await grpcDeclineJobApplication(
+        AppUser.sessionKey, _jobApplications[index]);
     if (success) {
       await toast("Success");
       _updateDynamicPart();

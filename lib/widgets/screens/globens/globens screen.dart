@@ -1,6 +1,7 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
 
 class GlobensScreen extends StatefulWidget {
   @override
@@ -17,15 +18,14 @@ class GlobensScreenState extends State<GlobensScreen> {
     super.initState();
 
     _header = [getTitleWidget("Globens")];
-    _footer = [
-      Container(
-        child: Column(
+    _footer = [Container(
+      child: Column(
           children: [
             Container(
               width: double.maxFinite,
               child: RaisedButton(
                 onPressed: () => _onLookingForAJobButtonPressed(context),
-                child: Text("Are you looking for a job?"),
+                child: Text("Looking for a job?"),
               ),
             ),
             Container(
@@ -37,8 +37,7 @@ class GlobensScreenState extends State<GlobensScreen> {
             ),
           ],
         ),
-      )
-    ];
+      )];
   }
 
   @override
@@ -46,7 +45,8 @@ class GlobensScreenState extends State<GlobensScreen> {
     return Container(
       child: ListView.builder(
         itemCount: _header.length + _body.length + _footer.length,
-        itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+        itemBuilder: (BuildContext context, int index) =>
+            _getListViewItem(context, index),
       ),
     );
   }
@@ -73,9 +73,10 @@ class GlobensScreenState extends State<GlobensScreen> {
   }
 
   void _onExploreProductsPressed(BuildContext context) async {
-    if (AppUser.isAuthenticated())
+    if (AppUser.isAuthenticated()) {
+      InAppPurchaseConnection.enablePendingPurchases();
       await Navigator.of(context).pushNamed('/products_list');
-    else {
+    } else {
       await toast("Please SignIn First");
     }
   }

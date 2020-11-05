@@ -1,4 +1,4 @@
-import 'package:globens_flutter_client/widgets/screens/globens/products%20list%20screen.dart';
+import 'package:globens_flutter_client/widgets/screens/globens/product_list_screen.dart';
 import 'package:globens_flutter_client/widgets/screens/my_pages/business%20page%20details%20screen.dart';
 import 'package:globens_flutter_client/widgets/screens/my_pages/job%20applications%20list%20screen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens/vacant%20jobs%20list%20screen.dart';
@@ -38,7 +38,7 @@ void main() {
 
     routes: {
       '/': (context) => RootTabsScreen(),
-      '/products_list': (context) => ProductsListScreen(),
+      '/products_list': (context) => ProductList(),
       '/vacant_jobs': (context) => VacantJobsListScreen(),
       '/business_page_details': (context) => BusinessPageDetailsScreen(),
       '/business_page_details/job_applications_list': (context) => JobApplicationsListScreen(),
