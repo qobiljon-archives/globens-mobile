@@ -13,6 +13,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   List<Widget> _header = [];
   List<BusinessPage> _body = [];
   List<Widget> _footer = [];
+  bool timeout = false;
 
   @override
   void initState() {
@@ -20,28 +21,17 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
 
     // 1. static part : set up common part of header and footer
     _header = [getTitleWidget("My pages", textColor: Colors.black)];
-    _footer = [
-      RaisedButton(
-        onPressed: () => _onCreateProductPressed(context),
-        child: Text("Create"),
-      )
-    ];
+    _footer = [RaisedButton(onPressed: () => _onCreateProductPressed(context), child: Text("Create"),)];
 
-    // 2. dynamic part : change body (i.e., business pages) from server
+
     _updateDynamicPart();
+    // 2. dynamic part : change body (i.e., business pages) from server
   }
 
   @override
   Widget build(context) {
-    return Container(
-      child: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) => Divider(
-          color: index == 0 ? Colors.deepOrange : Colors.blueAccent,
-        ),
-        itemCount: _header.length + _body.length + _footer.length,
-        itemBuilder: (BuildContext context, int index) =>
-            _getListViewItem(context, index),
-      ),
+    return SafeArea(
+      child: getListOfWidgets(context),
     );
   }
 
@@ -110,21 +100,26 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     );
   }
 
-  void _updateDynamicPart() {
+  Future<List<BusinessPage>> _updateDynamicPart() async {
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
-      if (success)
+      if (success) {
+        if (!mounted) return;
         setState(() {
           _body = businessPages;
         });
-      else {
+      } else {
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');
       }
-    }).timeout(Duration(seconds: 3), onTimeout: () {
-      print("Timeout");
+    }).timeout(Duration(seconds: TIMEOUT), onTimeout: () {
+      if (!mounted) return;
+      setState(() {
+        timeout = true;
+      });
     });
+    return _body;
   }
 
   void _onCreateProductPressed(BuildContext context) async {
@@ -133,17 +128,17 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
-      if (success)
+      if (success) {
+        if (!mounted) return;
         setState(() {
           _body = businessPages;
         });
-      else {
+      } else {
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');
       }
     }).timeout(Duration(seconds: 3), onTimeout: () {
       print("timeout");
-      //TODO:  cancel  future call
     });
   }
 
@@ -151,5 +146,16 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
       BuildContext context, BusinessPage businessPage) async {
     await Navigator.of(context)
         .pushNamed('/business_page_details', arguments: businessPage);
+  }
+
+  Widget getListOfWidgets(BuildContext context) {
+    return ListView.separated(
+      separatorBuilder: (BuildContext context, int index) => Divider(
+        color: index == 0 ? Colors.deepOrange : Colors.blueAccent,
+      ),
+      itemCount: _header.length + _body.length + _footer.length,
+      itemBuilder: (BuildContext context, int index) =>
+          _getListViewItem(context, index),
+    );
   }
 }

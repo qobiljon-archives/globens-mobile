@@ -42,22 +42,12 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     _footer = [
       Container(
         width: double.maxFinite,
-        child: RaisedButton(
-          onPressed: () => _onCreateProductPressed(context),
-          child: Text("Create your product"),
-        ),
-      ),
+        child: RaisedButton(onPressed: () => _onCreateProductPressed(context), child: Text("Create your product"),),),
     ];
 
     // 2. dynamic part : change footer according to user's role in business page
     if (_businessPage.role == VacancyRole.BUSINESS_OWNER)
-      _footer.add(Container(
-        width: double.maxFinite,
-        child: RaisedButton(
-          onPressed: () => _onCreateVacancyPressed(context),
-          child: Text("Create a new vacancy"),
-        ),
-      ));
+      _footer.add(Container(width: double.maxFinite, child: RaisedButton(onPressed: () => _onCreateVacancyPressed(context), child: Text("Create a new vacancy"),),));
 
     // 3. dynamic part : change body (i.e., products, vacancies, employees) according to user's role in business page
     _updateDynamicPart();

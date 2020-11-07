@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:globens_flutter_client/entities/JobApplication.dart';
+import 'dart:async';
 import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
+import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -13,6 +14,7 @@ class VacantJobsListScreen extends StatefulWidget {
   _VacantJobsListScreenState createState() => _VacantJobsListScreenState();
 }
 
+//Mixin
 class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   List<Job> _vacantJobs = [];
   List<Widget> _header = [];
@@ -33,51 +35,16 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
 
     _updateDynamicPart();
   }
- @override
+
+  @override
   void dispose() {
     super.dispose();
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: FutureBuilder<dynamic>(
-          future: _updateDynamicPart(),
-          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-            List<Widget> children = [];
-            if (snapshot.hasData && !timeout) {
-              children.add(ListView.separated(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) {
-                  return Divider(
-                    color: Colors.blueAccent,
-                  );
-                },
-                itemCount: _header.length + _vacantJobs.length,
-                itemBuilder: (BuildContext context, int index) =>
-                    _getListViewItem(context, index),
-              ));
-            } else if (timeout) {
-              children.add(Center(child: Text("Time Out!")));
-            } else if (snapshot.hasError) {
-              children.add(Center(
-                child: Text("Error Occured!"),
-              ));
-            } else {
-              print("Waiting...");
-              children.add(showLoadingAnimation());
-            }
-
-            return SingleChildScrollView(
-              child: Column(
-                children: children,
-              ),
-            );
-          },
-        ),
-      ),
+      body: SafeArea(child: getListOfWidgets(context)),
     );
   }
 
@@ -110,27 +77,20 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
     );
   }
 
-  Future<List<Job>> _updateDynamicPart() async {
+  void _updateDynamicPart() async {
     grpcFetchBusinessPageVacancies(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
       List<Job> vacantJobs = tuple.item2;
       if (success) {
-        if(!mounted)
-          return;
+        if (!mounted) return;
         setState(() {
           _vacantJobs = vacantJobs;
         });
       } else
         AppUser.signOut()
             .then((value) => Navigator.of(context).pushReplacementNamed('/'));
-    }).timeout(Duration(seconds: TIMEOUT), onTimeout: () {
-      if(!mounted)
-        return;
-      setState(() {
-        timeout = true;
-      });
     });
-    return _vacantJobs;
+
   }
 
   void _onBackButtonPressed(BuildContext context) {
@@ -174,8 +134,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
       bool success = tuple.item1;
       List<Job> jobs = tuple.item2;
       if (success) {
-        if(!mounted)
-          return;
+        if (!mounted) return;
         setState(() {
           _vacantJobs = jobs;
         });
@@ -184,4 +143,18 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
             .then((value) => Navigator.of(context).pushReplacementNamed('/'));
     });
   }
+
+  Widget getListOfWidgets(BuildContext context) {
+    return (ListView.separated(
+      separatorBuilder: (context, index) {
+        return Divider(
+          color: Colors.blueAccent,
+        );
+      },
+      itemCount: _header.length + _vacantJobs.length,
+      itemBuilder: (BuildContext context, int index) =>
+          _getListViewItem(context, index),
+    ));
+  }
 }
+

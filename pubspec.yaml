@@ -80,6 +80,9 @@ dependencies:
   # region in app purchases
   in_app_purchase: ^0.3.4+8
   # endregion
+  #region
+  connectivity: ^2.0.1
+  #endregion
 
 
 dev_dependencies:

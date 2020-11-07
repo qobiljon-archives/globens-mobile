@@ -12,7 +12,7 @@ import 'package:tuple/tuple.dart';
 import 'package:grpc/grpc.dart';
 import 'dart:io' show Platform;
 
-int TIMEOUT = 3;
+int TIMEOUT = 6;
 
 Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
   return Container(
@@ -26,8 +26,22 @@ Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
 
 Widget showLoadingAnimation() {
   if (Platform.isIOS)
-    return Center(child: CupertinoActivityIndicator());
-  else if (Platform.isAndroid) return Center(child: CircularProgressIndicator());
+    return const Center(child: CupertinoActivityIndicator());
+  else if (Platform.isAndroid)
+    return const Center(child: CircularProgressIndicator());
+  else
+    return null;
+}
+
+Widget getErrorMessage(String message) {
+  if (message == "Time Out!")
+    return const Center(
+      child: const Text("Time Out!"),
+    );
+  else
+    return const Center(
+      child: const Text("Error occured!"),
+    );
 }
 
 Widget backButton(Function _onBackButtonPressed, BuildContext context) {

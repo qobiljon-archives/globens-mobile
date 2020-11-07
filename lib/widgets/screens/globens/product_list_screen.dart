@@ -8,7 +8,7 @@ import 'consumable store.dart';
 const bool _kAutoConsume = true;
 
 const String _kConsumableId = 'consumable';
-const List<String> _kProductIds = <String>['globens_2020'];
+const List<String> _kProductIds = <String>['globens_2020', 'globens_subscription'];
 
 class ProductList extends StatefulWidget {
   @override
@@ -374,6 +374,4 @@ class _ProductListState extends State<ProductList> {
   void _onBackButtonPressed(BuildContext context) {
     Navigator.of(context).pop();
   }
-
-
 }

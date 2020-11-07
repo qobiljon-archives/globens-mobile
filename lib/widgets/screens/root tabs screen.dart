@@ -13,14 +13,32 @@ class RootTabsScreen extends StatefulWidget {
   _RootTabsScreenState createState() => _RootTabsScreenState();
 }
 
-class _RootTabsScreenState extends State<RootTabsScreen> {
+class _RootTabsScreenState extends State<RootTabsScreen>
+    with WidgetsBindingObserver {
   int _selectedIndex = 0;
-  static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), MyBusinessPagesScreen(), MenuScreen()];
+  static List<Widget> _tabWidgets = <Widget>[
+    GlobensScreen(),
+    MyBusinessPagesScreen(),
+    MenuScreen()
+  ];
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
     AppUser.init().then((value) => setState(() {}));
+  }
+
+ @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // TODO: implement didChangeAppLifecycleState
+    print(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
