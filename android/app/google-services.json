@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "829480803516",
-    "firebase_url": "https://globens-uz.firebaseio.com",
-    "project_id": "globens-uz",
-    "storage_bucket": "globens-uz.appspot.com"
+    "project_number": "413445644782",
+    "firebase_url": "https://globens-uzbekistan.firebaseio.com",
+    "project_id": "globens-uzbekistan",
+    "storage_bucket": "globens-uzbekistan.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:829480803516:android:27e3ce0de13c64477a84b9",
+        "mobilesdk_app_id": "1:413445644782:android:391680860fc0bb03226eff",
         "android_client_info": {
           "package_name": "uz.globens"
         }
       },
       "oauth_client": [
         {
-          "client_id": "829480803516-sd5bpssds645ru7kore24cstdhfd2enr.apps.googleusercontent.com",
+          "client_id": "413445644782-6k5feas67nlt5r1i7knlq4ijs0dqloco.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "uz.globens",
@@ -23,24 +23,24 @@
           }
         },
         {
-          "client_id": "829480803516-qocp2cam1hik5q3atiq8haivk4fs5m8r.apps.googleusercontent.com",
+          "client_id": "413445644782-0f4srs46mdfjaq5ogaem3sd3hrshan4n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAyyoxnw9V--cLtoCfj6aT3R4DTDPRUQXI"
+          "current_key": "AIzaSyDR5FWF1LzMDoLYYP_FcRlSZdBU3O6UCSY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "829480803516-qocp2cam1hik5q3atiq8haivk4fs5m8r.apps.googleusercontent.com",
+              "client_id": "413445644782-0f4srs46mdfjaq5ogaem3sd3hrshan4n.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "829480803516-t92p94vpsbkbffqf26iul1bpskdr54d5.apps.googleusercontent.com",
+              "client_id": "413445644782-4127hu79n714j89ua9ahfvvcdsgtj827.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "uz.globens"

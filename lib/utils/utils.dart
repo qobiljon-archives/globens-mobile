@@ -88,6 +88,8 @@ Future<Tuple3<bool, int, String>> gprcAuthenticateUser(
 
     userId = response.userId;
     sessionKey = response.sessionKey;
+    print(sessionKey);
+    print(userId);
   } catch (e) {
     print(e);
   } finally {
