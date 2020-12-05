@@ -8,14 +8,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:413445644782:android:391680860fc0bb03226eff",
+        "mobilesdk_app_id": "1:413445644782:android:b625f8e249af6b24226eff",
         "android_client_info": {
           "package_name": "uz.globens"
         }
       },
       "oauth_client": [
         {
-          "client_id": "413445644782-6k5feas67nlt5r1i7knlq4ijs0dqloco.apps.googleusercontent.com",
+          "client_id": "413445644782-hbal88heuu7nhj3ckm5jmriaqjp9c7t9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "uz.globens",

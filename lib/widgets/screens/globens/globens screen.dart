@@ -1,6 +1,7 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/widgets/modal_views/product%20category%20modal%20view.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 
 class GlobensScreen extends StatefulWidget {
@@ -18,8 +19,9 @@ class GlobensScreenState extends State<GlobensScreen> {
     super.initState();
 
     _header = [getTitleWidget("Globens")];
-    _footer = [Container(
-      child: Column(
+    _footer = [
+      Container(
+        child: Column(
           children: [
             Container(
               width: double.maxFinite,
@@ -31,13 +33,15 @@ class GlobensScreenState extends State<GlobensScreen> {
             Container(
               width: double.maxFinite,
               child: RaisedButton(
-                onPressed: () => _onExploreProductsPressed(context),
+                onPressed: () => showCategoryModalBottomSheet(context),
+                //_onExploreProductsPressed(context),
                 child: Text("Explore our products"),
               ),
             ),
           ],
         ),
-      )];
+      )
+    ];
   }
 
   @override
@@ -79,5 +83,9 @@ class GlobensScreenState extends State<GlobensScreen> {
     } else {
       await toast("Please SignIn First");
     }
+  }
+
+  void  showCategoryModalBottomSheet(BuildContext context){
+    showModalBottomSheet(context: context, builder: (context) => ProductCategory());
   }
 }

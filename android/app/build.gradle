@@ -24,11 +24,15 @@ if (flutterVersionName == null) {
 def APP_ID = localProperties.getProperty('app.id')
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
     compileSdkVersion 30
+    ndkVersion "22.0.6917172"
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -45,6 +49,8 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -52,13 +58,13 @@ android {
             // todo change keystore location
             storeFile file('../../globens-dev-key.jks')
             storePassword 'globens'
-            keyAlias = 'globens'
+            keyAlias 'globens'
             keyPassword 'globens'
         }
         release {
             storeFile file('../../globens-dev-key.jks')
             storePassword 'globens'
-            keyAlias = 'globens'
+            keyAlias 'globens'
             keyPassword 'globens'
         }
     }

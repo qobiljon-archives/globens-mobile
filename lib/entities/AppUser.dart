@@ -1,5 +1,4 @@
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
-import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
@@ -38,8 +37,6 @@ class AppUser {
       'https://www.googleapis.com/auth/userinfo.profile',
       'openid'
     ]);
-    facebookLogin = FacebookLogin();
-
     // todo setup phone, apple
   }
 
@@ -48,7 +45,6 @@ class AppUser {
   // region Variables
   static AppUser _singleton;
   static GoogleSignIn googleSignIn;
-  static FacebookLogin facebookLogin;
   static SharedPreferences userPrefs;
 
   static AuthMethod _authMethod = AuthMethod.NONE;
@@ -155,24 +151,6 @@ class AppUser {
         return false;
 
       case AuthMethod.FACEBOOK:
-        Tuple2<Map, Map> tp = await AppUser._facebookAuth();
-        if (tp != null) {
-          Map user = tp.item1;
-          Map tokens = tp.item2;
-          Tuple3<bool, int, String> res = await gprcAuthenticateUser(
-              AuthenticateUser_AuthMethod.FACEBOOK, JSON.jsonEncode(tokens));
-
-          bool success = res.item1;
-          int userId = res.item2;
-          String sessionKey = res.item3;
-          if (success) {
-            AppUser.setProfileInfo(
-                AuthMethod.FACEBOOK, userId, user["email"], user["name"],
-                user["picture"]["data"]["url"], sessionKey);
-            AppUser.updateUserPrefsData();
-            return true;
-          }
-        }
         return false;
 
       default:
@@ -193,9 +171,6 @@ class AppUser {
           AppUser.clearProfileInfo();
           break;
         case AuthMethod.FACEBOOK:
-          await facebookLogin.logOut();
-          await userPrefs.clear();
-          AppUser.clearProfileInfo();
           break;
         case AuthMethod.APPLE:
           break;
@@ -305,36 +280,6 @@ class AppUser {
       tokens.putIfAbsent("accessToken", () => auth.accessToken);
       tokens.putIfAbsent("serverAuthCode", () => auth.serverAuthCode);
       return Tuple2(account, tokens);
-    }
-
-    return null;
-  }
-
-  static Future<Tuple2<Map, Map>> _facebookAuth() async {
-    Map<String, dynamic> tokens = {};
-
-    FacebookLoginResult facebookLoginResult = await AppUser.facebookLogin.logIn(
-        ['email']);
-
-    if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
-      final graphResponse = await http.get(
-          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,picture,email&access_token=${facebookLoginResult
-              .accessToken.token}');
-
-      tokens.putIfAbsent(
-          "accessToken", () => facebookLoginResult.accessToken.token);
-      tokens.putIfAbsent(
-          "userId", () => facebookLoginResult.accessToken.userId);
-      tokens.putIfAbsent("declinedPermissions", () =>
-          facebookLoginResult.accessToken.declinedPermissions.toString());
-      tokens.putIfAbsent(
-          "expires", () =>
-      facebookLoginResult.accessToken.expires
-          .millisecondsSinceEpoch);
-      tokens.putIfAbsent("permissions", () =>
-          facebookLoginResult.accessToken.permissions.toString());
-
-      return Tuple2(JSON.jsonDecode(graphResponse.body), tokens);
     }
 
     return null;
