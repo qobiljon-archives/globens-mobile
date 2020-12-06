@@ -85,7 +85,8 @@ class GlobensScreenState extends State<GlobensScreen> {
     }
   }
 
-  void  showCategoryModalBottomSheet(BuildContext context){
-    showModalBottomSheet(context: context, builder: (context) => ProductCategory());
+  void showCategoryModalBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+        context: context, builder: (context) => ProductCategory());
   }
 }

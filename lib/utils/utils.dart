@@ -69,12 +69,8 @@ Future<void> toast(String message) async {
 }
 
 // region user management RPCs
-Future<Tuple3<bool, int, String>> gprcAuthenticateUser(
-    AuthenticateUser_AuthMethod method, String tokensJson) async {
-  final channel = ClientChannel(GRPC_HOST,
-      port: GRPC_PORT,
-      options:
-          const ChannelOptions(credentials: ChannelCredentials.insecure()));
+Future<Tuple3<bool, int, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
@@ -353,7 +349,10 @@ Future<bool> grpcCreateVacantJob(
     final response = await stub.createVacantJob(CreateVacantJob_Request()
       ..sessionKey = sessionKey
       ..businessPageId = businessPageId
-      ..title = vacancy.title);
+      ..title = vacancy.title
+      ..description = vacancy.description
+      ..responsibilities = vacancy.responsibilities
+    );
     success = response.success;
   } catch (e) {
     print(e);

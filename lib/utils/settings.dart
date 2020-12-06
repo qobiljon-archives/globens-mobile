@@ -1,4 +1,4 @@
-const String GRPC_HOST = '165.246.42.173';
+const String GRPC_HOST = '165.246.42.32';
 const int GRPC_PORT = 50053;
 
 class VacancyRole {

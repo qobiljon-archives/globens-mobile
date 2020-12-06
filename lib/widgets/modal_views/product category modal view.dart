@@ -6,8 +6,14 @@ class ProductCategory extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        RaisedButton(onPressed: (){},  child: Text("Education"),),
-        RaisedButton(onPressed: (){}, child: Text("Consultation"),)
+        RaisedButton(
+          onPressed: () {},
+          child: Text("Education"),
+        ),
+        RaisedButton(
+          onPressed: () {},
+          child: Text("Consultation"),
+        )
       ],
     );
   }

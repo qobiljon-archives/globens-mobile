@@ -32,8 +32,9 @@ dependencies:
   # endregion
   # region gRPC
   async: ^2.2.0
-  grpc: ^2.2.0
-  protobuf: ^1.0.1
+  grpc: ^2.8.0
+  protobuf: ^1.1.0
+
   # endregion
   # region kakao auth
   kakao_flutter_sdk: ^0.5.2
