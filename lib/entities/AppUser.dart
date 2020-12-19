@@ -128,14 +128,12 @@ class AppUser {
         return false;
 
       case AuthMethod.GOOGLE:
-        if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn
-            .signOut();
+        if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
         Tuple2<GoogleSignInAccount, Map> tp = await AppUser._googleAuth();
         if (tp != null) {
           GoogleSignInAccount user = tp.item1;
           Map tokens = tp.item2;
-          Tuple3<bool, int, String> res = await gprcAuthenticateUser(
-              AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
+          Tuple3<bool, int, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
 
           bool success = res.item1;
           int userId = res.item2;
