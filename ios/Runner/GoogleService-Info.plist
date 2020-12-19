@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>413445644782-4127hu79n714j89ua9ahfvvcdsgtj827.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.413445644782-4127hu79n714j89ua9ahfvvcdsgtj827</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>413445644782-hbal88heuu7nhj3ckm5jmriaqjp9c7t9.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD7w48IG89w_f7HlBis8q80ncA6F61Sasg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>413445644782</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>uz.globens</string>
+	<key>PROJECT_ID</key>
+	<string>globens-uzbekistan</string>
+	<key>STORAGE_BUCKET</key>
+	<string>globens-uzbekistan.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:413445644782:ios:42847fdcb5899c2e226eff</string>
+	<key>DATABASE_URL</key>
+	<string>https://globens-uzbekistan.firebaseio.com</string>
+</dict>
+</plist>
