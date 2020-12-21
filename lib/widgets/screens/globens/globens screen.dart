@@ -1,8 +1,10 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/widgets/modal_views/product%20category%20modal%20view.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:globens_flutter_client/widgets/individual%20item%20widgets/categories_grid_view.dart';
+import 'package:globens_flutter_client/widgets/individual%20item%20widgets/products_grid_view.dart';
+import 'package:tuple/tuple.dart';
 
 class GlobensScreen extends StatefulWidget {
   @override
@@ -10,83 +12,39 @@ class GlobensScreen extends StatefulWidget {
 }
 
 class GlobensScreenState extends State<GlobensScreen> {
-  List<Widget> _header = [];
-  List<dynamic> _body = [];
-  List<Widget> _footer = [];
+  List<Product> _products = [];
 
   @override
   void initState() {
     super.initState();
-
-    _header = [getTitleWidget("Globens")];
-    _footer = [
-      Container(
-        child: Column(
-          children: [
-            Container(
-              width: double.maxFinite,
-              child: RaisedButton(
-                onPressed: () => _onLookingForAJobButtonPressed(context),
-                child: Text("Looking for a job?"),
-              ),
-            ),
-            Container(
-              width: double.maxFinite,
-              child: RaisedButton(
-                onPressed: () => showCategoryModalBottomSheet(context),
-                //_onExploreProductsPressed(context),
-                child: Text("Explore our products"),
-              ),
-            ),
-          ],
-        ),
-      )
-    ];
+    _fetchAvailableProducts();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemCount: _header.length + _body.length + _footer.length,
-        itemBuilder: (BuildContext context, int index) =>
-            _getListViewItem(context, index),
-      ),
+    final heightOfScreen = MediaQuery.of(context).size.height;
+    final widthOftheScreen = MediaQuery.of(context).size.width;
+    return SafeArea(
+      child: ListView(
+        children: [
+          getTitleWidget("Globens"),
+          CategoriesGridView(screenWidth: widthOftheScreen, screenHeight:  heightOfScreen,),
+          Text("You may also like..."),
+          ProductsGridView(screenHeight: heightOfScreen,screenWidth: widthOftheScreen, products: _products)
+
+        ],
+      )
     );
   }
+  void _fetchAvailableProducts() async {
+    Tuple2<bool, List> product = await grpcFetchNextKProducts(AppUser.sessionKey);
+    bool success = product.item1;
+    List<Product> products = product.item2;
 
-  Widget _buildBodySectionItem(int index) {
-    return null;
-  }
-
-  Widget _getListViewItem(BuildContext context, int index) {
-    if (index < _header.length)
-      return _header[index];
-    else if (index >= _header.length + _body.length)
-      return _footer[index - _footer.length - _body.length];
-    else
-      return _buildBodySectionItem(index - _header.length);
-  }
-
-  void _onLookingForAJobButtonPressed(BuildContext context) async {
-    if (AppUser.isAuthenticated())
-      await Navigator.of(context).pushNamed('/vacant_jobs');
-    else {
-      await toast("Please SignIn First");
+    if (success) {
+      setState(() {
+        _products = products;
+      });
     }
-  }
-
-  void _onExploreProductsPressed(BuildContext context) async {
-    if (AppUser.isAuthenticated()) {
-      InAppPurchaseConnection.enablePendingPurchases();
-      await Navigator.of(context).pushNamed('/products_list');
-    } else {
-      await toast("Please SignIn First");
-    }
-  }
-
-  void showCategoryModalBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-        context: context, builder: (context) => ProductCategory());
   }
 }

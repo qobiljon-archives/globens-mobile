@@ -1,10 +1,11 @@
-import 'package:globens_flutter_client/widgets/screens/globens/globens%20screen.dart';
 import 'package:globens_flutter_client/widgets/screens/my_pages/my%20business%20pages%20screen.dart';
 import 'package:globens_flutter_client/widgets/screens/menu/menu%20screen.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'globens/globens screen.dart';
 
 class RootTabsScreen extends StatefulWidget {
   RootTabsScreen({Key key}) : super(key: key);

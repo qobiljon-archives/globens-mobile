@@ -116,6 +116,7 @@ message CreateProduct{
     int32 businessPageId = 2;
     string name = 3;
     bytes pictureBlob = 4;
+    string  type = 5;
   }
   message Response{
     bool success = 1;
@@ -141,6 +142,7 @@ message FetchBusinessPageProductIds{
   message Request{
     string sessionKey = 1;
     int32 businessPageId = 2;
+
   }
   message Response{
     bool success = 1;
@@ -170,6 +172,7 @@ message FetchProductDetails{
     string name = 3;
     bool published = 4;
     bytes pictureBlob = 5;
+
   }
 }
 message PublishProduct{
@@ -195,9 +198,8 @@ message CreateVacantJob{
     string sessionKey = 1;
     int32 businessPageId = 2;
     string title = 3;
-    string  description = 4;
-
-   string responsibilities = 5;
+    string description = 4;
+    repeated  string responsibilities = 5;
   }
   message Response{
     bool success = 1;
@@ -413,7 +415,5 @@ Compile into java source:
 Compile into dart / flutter:
     protoc -I=[input directory] --dart_out=grpc:[output directory] [file name].proto
     protoc -I=protos --dart_out=grpc:lib/generated_protos gb_service.proto
-        protoc -I=protos --dart_out=grpc:lib/generated_protos gb_service.proto
-
 etc.
 */

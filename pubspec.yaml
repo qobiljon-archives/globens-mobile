@@ -34,7 +34,7 @@ dependencies:
   async: ^2.2.0
   grpc: ^2.8.0
   protobuf: ^1.1.0
-
+  protoc_plugin: ^19.2.0+1
   # endregion
   # region kakao auth
   kakao_flutter_sdk: ^0.5.2
@@ -61,12 +61,7 @@ dependencies:
   #region json
   json_conditional: ^1.0.2
   #endregion
-  #region floating_search_bar
-  floating_search_bar: ^0.3.0
-  #endregion
-  #region flappy_search_bar
-  flappy_search_bar: ^1.7.2
-  #endregion
+
   #region camera
   path: ^1.7.0
   path_provider: ^1.6.14
@@ -75,12 +70,10 @@ dependencies:
   #region
   image_picker: ^0.6.7+7
   #endregion
-  # region in app purchases
-  in_app_purchase: ^0.3.4+8
-  # endregion
   #region
   connectivity: ^2.0.1
   #endregion
+  webview_flutter: ^1.0.7
 
 
 dev_dependencies:

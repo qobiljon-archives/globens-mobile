@@ -94,5 +94,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.gms:google-services:4.3.4'
+    implementation platform('com.google.firebase:firebase-bom:26.1.1')
 }
 
