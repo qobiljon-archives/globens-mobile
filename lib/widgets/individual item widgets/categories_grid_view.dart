@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/widgets/individual%20item%20widgets/individual_category_widget.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CategoriesGridView extends StatefulWidget {
   final screenWidth, screenHeight;
@@ -17,6 +18,12 @@ class _CategoriesGridViewState extends State<CategoriesGridView> {
     "Consultation",
     "Others",
   ];
+  List<Widget> _icons = [
+    SvgPicture.asset("assets/education.svg"),
+    SvgPicture.asset("assets/job.svg"),
+    SvgPicture.asset("assets/consulting.svg"),
+    SvgPicture.asset("assets/others.svg"),
+  ];
 
   List<Color> _colors = [Colors.red, Colors.blue, Colors.green, Colors.yellow];
 
@@ -29,15 +36,11 @@ class _CategoriesGridViewState extends State<CategoriesGridView> {
       itemBuilder: (context, index) {
         return ProductCategory(
           categoryName: _availableCategories[index],
-          iconData: null,
+          iconData: _icons[index],
           color: _colors[index],
         );
       },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: widget.screenWidth * 0.05,
-          mainAxisSpacing: widget.screenHeight * 0.01),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3 / 2, crossAxisSpacing: widget.screenWidth * 0.05, mainAxisSpacing: widget.screenHeight * 0.01),
     );
   }
 }

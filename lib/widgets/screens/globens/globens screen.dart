@@ -26,8 +26,8 @@ class GlobensScreenState extends State<GlobensScreen> {
     final heightOfScreen = MediaQuery.of(context).size.height;
     final widthOftheScreen = MediaQuery.of(context).size.width;
     return SafeArea(
-
-      child: Column(
+      child: ListView(
+        physics: AlwaysScrollableScrollPhysics(),
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,33 +38,26 @@ class GlobensScreenState extends State<GlobensScreen> {
             screenWidth: widthOftheScreen,
             screenHeight: heightOfScreen,
           ),
-
-          ListTile(
-            onTap: () {
-              setState(() {
-                isProductsVisible = !isProductsVisible;
-              });
-            },
-            title: Text("Explore more products"),
-            trailing: !isProductsVisible
-                ? Icon(Icons.keyboard_arrow_down)
-                : Icon(Icons.keyboard_arrow_up_outlined),
+          Divider(),
+          Container(
+              margin: EdgeInsets.only(left: 15),
+              child: Text(
+                "Explore  more products",
+                style: TextStyle(fontSize: 20),
+              )),
+          ProductsGridView(
+            screenWidth: widthOftheScreen,
+            screenHeight: heightOfScreen,
+            products: _products,
           ),
-          isProductsVisible
-              ? ProductsGridView(
-                  screenWidth: widthOftheScreen,
-                  screenHeight: heightOfScreen,
-                  products: _products,
-                )
-              : Container()
+          Divider(),
         ],
       ),
     );
   }
 
   void _fetchAvailableProducts() async {
-    Tuple2<bool, List> product =
-        await grpcFetchNextKProducts(AppUser.sessionKey);
+    Tuple2<bool, List> product = await grpcFetchNextKProducts(AppUser.sessionKey);
     bool success = product.item1;
     List<Product> products = product.item2;
 

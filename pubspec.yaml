@@ -86,11 +86,12 @@ dev_dependencies:
   # region in app purchases
   pedantic: ^1.8.0
   # endregion
-  flutter_svg: ^0.19.2+1
+  flutter_svg: ^0.19.0
 flutter_icons:
   ios: true
   android: true
   image_path: "assets/icon.png"
+  animated_bottom_navigation_bar: ^0.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -109,10 +110,10 @@ flutter:
     - assets/google.png
     - assets/kakaotalk.png
     - assets/business_page_placeholder.png
-    - assets/education.png
-    - assets/job.png
-    - assets/others.png
-    - assets/consultation.png
+    - assets/consulting.svg
+    - assets/education.svg
+    - assets/job.svg
+    - assets/others.svg
 
 
 
