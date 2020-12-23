@@ -45,6 +45,7 @@ class _RootTabsScreenState extends State<RootTabsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
       body: _tabWidgets.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

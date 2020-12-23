@@ -13,6 +13,7 @@ class GlobensScreen extends StatefulWidget {
 
 class GlobensScreenState extends State<GlobensScreen> {
   List<Product> _products = [];
+  bool isProductsVisible = false;
 
   @override
   void initState() {
@@ -25,19 +26,45 @@ class GlobensScreenState extends State<GlobensScreen> {
     final heightOfScreen = MediaQuery.of(context).size.height;
     final widthOftheScreen = MediaQuery.of(context).size.width;
     return SafeArea(
-      child: ListView(
-        children: [
-          getTitleWidget("Globens"),
-          CategoriesGridView(screenWidth: widthOftheScreen, screenHeight:  heightOfScreen,),
-          Text("You may also like..."),
-          ProductsGridView(screenHeight: heightOfScreen,screenWidth: widthOftheScreen, products: _products)
 
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [getTitleWidget("Globens"), Icon(Icons.search)],
+          ),
+          Divider(),
+          CategoriesGridView(
+            screenWidth: widthOftheScreen,
+            screenHeight: heightOfScreen,
+          ),
+
+          ListTile(
+            onTap: () {
+              setState(() {
+                isProductsVisible = !isProductsVisible;
+              });
+            },
+            title: Text("Explore more products"),
+            trailing: !isProductsVisible
+                ? Icon(Icons.keyboard_arrow_down)
+                : Icon(Icons.keyboard_arrow_up_outlined),
+          ),
+          isProductsVisible
+              ? ProductsGridView(
+                  screenWidth: widthOftheScreen,
+                  screenHeight: heightOfScreen,
+                  products: _products,
+                )
+              : Container()
         ],
-      )
+      ),
     );
   }
+
   void _fetchAvailableProducts() async {
-    Tuple2<bool, List> product = await grpcFetchNextKProducts(AppUser.sessionKey);
+    Tuple2<bool, List> product =
+        await grpcFetchNextKProducts(AppUser.sessionKey);
     bool success = product.item1;
     List<Product> products = product.item2;
 

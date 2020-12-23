@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/widgets/modal_views/product%20category%20modal%20view.dart';
-
-import 'individual_product_widget.dart';
+import 'package:globens_flutter_client/widgets/individual%20item%20widgets/individual_category_widget.dart';
 
 class CategoriesGridView extends StatefulWidget {
   final screenWidth, screenHeight;
@@ -14,20 +11,38 @@ class CategoriesGridView extends StatefulWidget {
 }
 
 class _CategoriesGridViewState extends State<CategoriesGridView> {
-  List<String> _availableCategories = ["Education", "Job", "Consultation", "Others"];
-  List<IconData> _availableCategoryImages = [Icons.school_outlined, Icons.work, Icons.contact_support, Icons.menu];
+  List<String> _availableCategories = [
+    "Education",
+    "Job",
+    "Consultation",
+    "Others",
+  ];
+  List<Image> _availableCategoryImages = [
+    Image.asset("education.png"),
+    Image.asset("consultation.png"),
+    Image.asset("job.png"),
+    Image.asset("others.png"),
+  ];
+  List<Color> _colors = [Colors.red, Colors.blue, Colors.green, Colors.yellow];
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       padding: const EdgeInsets.all(10),
       itemCount: 4,
       itemBuilder: (context, index) {
-        return ProductCategory(categoryName: _availableCategories[index], iconData: _availableCategoryImages[index]);
+        return ProductCategory(
+          categoryName: _availableCategories[index],
+          image: _availableCategoryImages[index],
+          color: _colors[index],
+        );
       },
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 3 / 2, crossAxisSpacing: widget.screenWidth * 0.05, mainAxisSpacing: widget.screenHeight * 0.01),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 3 / 2,
+          crossAxisSpacing: widget.screenWidth * 0.05,
+          mainAxisSpacing: widget.screenHeight * 0.01),
     );
   }
 }
