@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ProductCategory extends StatelessWidget {
   final String categoryName;
-  final Image image;
+  final iconData;
   final Color color;
 
-  ProductCategory({this.categoryName, this.image, this.color});
+  ProductCategory({this.categoryName, this.iconData, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +25,12 @@ class ProductCategory extends StatelessWidget {
   }
 
 
+
   Widget buildCatergoryContext(BuildContext context) {
     return Row(
       children: [
         Text(categoryName),
-        image
+        Icon(iconData)
       ],
     );
   }

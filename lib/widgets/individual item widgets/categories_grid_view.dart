@@ -17,12 +17,7 @@ class _CategoriesGridViewState extends State<CategoriesGridView> {
     "Consultation",
     "Others",
   ];
-  List<Image> _availableCategoryImages = [
-    Image.asset("education.png"),
-    Image.asset("consultation.png"),
-    Image.asset("job.png"),
-    Image.asset("others.png"),
-  ];
+
   List<Color> _colors = [Colors.red, Colors.blue, Colors.green, Colors.yellow];
 
   @override
@@ -34,7 +29,7 @@ class _CategoriesGridViewState extends State<CategoriesGridView> {
       itemBuilder: (context, index) {
         return ProductCategory(
           categoryName: _availableCategories[index],
-          image: _availableCategoryImages[index],
+          iconData: null,
           color: _colors[index],
         );
       },
