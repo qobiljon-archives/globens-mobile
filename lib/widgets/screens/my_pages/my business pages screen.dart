@@ -15,6 +15,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   List<Widget> _footer = [];
   bool timeout = false;
 
+
   @override
   void initState() {
     super.initState();
@@ -24,16 +25,22 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     _footer = [RaisedButton(onPressed: () => _onCreateProductPressed(context), child: Text("Create"),)];
 
 
-    _updateDynamicPart();
     // 2. dynamic part : change body (i.e., business pages) from server
+    _updateDynamicPart();
   }
 
   @override
   Widget build(context) {
-    return SafeArea(
-      child: getListOfWidgets(context),
+    return ListView.separated(
+      separatorBuilder: (BuildContext context, int index) => Divider(
+        color: index == 0 ? Colors.deepOrange : Colors.blueAccent,
+      ),
+      itemCount: _header.length + _body.length + _footer.length,
+      itemBuilder: (BuildContext context, int index) =>
+          _getListViewItem(context, index),
     );
   }
+
 
   Widget _getListViewItem(BuildContext context, int index) {
     if (index >= _header.length + _body.length) {
@@ -100,12 +107,11 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     );
   }
 
-  Future<List<BusinessPage>> _updateDynamicPart() async {
+  Future<void> _updateDynamicPart() async {
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
       if (success) {
-        if (!mounted) return;
         setState(() {
           _body = businessPages;
         });
@@ -114,22 +120,18 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
         await Navigator.of(context).pushReplacementNamed('/');
       }
     }).timeout(Duration(seconds: TIMEOUT), onTimeout: () {
-      if (!mounted) return;
       setState(() {
         timeout = true;
       });
     });
-    return _body;
   }
 
   void _onCreateProductPressed(BuildContext context) async {
-    await showModalBottomSheet(
-        context: context, builder: (context) => BusinessPageViewerModalView());
+    await showModalBottomSheet(context: context, builder: (context) => BusinessPageViewerModalView());
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
       if (success) {
-        if (!mounted) return;
         setState(() {
           _body = businessPages;
         });
@@ -142,20 +144,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     });
   }
 
-  void _openIndividualBusinessPage(
-      BuildContext context, BusinessPage businessPage) async {
-    await Navigator.of(context)
-        .pushNamed('/business_page_details', arguments: businessPage);
-  }
-
-  Widget getListOfWidgets(BuildContext context) {
-    return ListView.separated(
-      separatorBuilder: (BuildContext context, int index) => Divider(
-        color: index == 0 ? Colors.deepOrange : Colors.blueAccent,
-      ),
-      itemCount: _header.length + _body.length + _footer.length,
-      itemBuilder: (BuildContext context, int index) =>
-          _getListViewItem(context, index),
-    );
+  void _openIndividualBusinessPage(BuildContext context, BusinessPage businessPage) async {
+    await Navigator.of(context).pushNamed('/business_page_details', arguments: businessPage);
   }
 }

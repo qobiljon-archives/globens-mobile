@@ -11,21 +11,19 @@ class MenuScreen extends StatefulWidget {
 class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView(
-        children: [
-          getTitleWidget("Menu", textColor: Colors.black),
-          AppUser.isAuthenticated()
-              ? RaisedButton(
-                  onPressed: _signOutPressed,
-                  child: Text("Sign out"),
-                )
-              : RaisedButton(
-                  onPressed: _signInPressed,
-                  child: Text("Sign in"),
-                )
-        ],
-      ),
+    return ListView(
+      children: [
+        getTitleWidget("Menu", textColor: Colors.black),
+        AppUser.isAuthenticated()
+            ? RaisedButton(
+          onPressed: _signOutPressed,
+          child: Text("Sign out"),
+        )
+            : RaisedButton(
+          onPressed: _signInPressed,
+          child: Text("Sign in"),
+        )
+      ],
     );
   }
 

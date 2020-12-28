@@ -15,10 +15,10 @@ class Job {
   String _title;
   int _hiredUserId;
 
-  String get  description {
+  String get description {
     return _description;
   }
-  String get  responsibilities{
+  String get responsibilities{
     return _responsibilities;
 }
   String get title {

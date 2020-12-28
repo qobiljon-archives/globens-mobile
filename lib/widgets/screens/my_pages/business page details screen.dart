@@ -203,7 +203,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   void _onCreateProductPressed(BuildContext context) async {
     await showModalBottomSheet(
         context: context,
-        builder: (context) => ProductEditorModalView(_businessPage, null));
+        builder: (context) => ProductViewerModalView(_businessPage, null));
 
     Tuple2<bool, List<Product>> res = await grpcFetchBusinessPageProducts(
         AppUser.sessionKey, _businessPage.id);
@@ -247,7 +247,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   void _onProductPressed(BuildContext context, Product product) async {
     await showModalBottomSheet(
         context: context,
-        builder: (context) => ProductEditorModalView(_businessPage, product));
+        builder: (context) => ProductViewerModalView(_businessPage, product));
   }
 
   void _onJobPressed(

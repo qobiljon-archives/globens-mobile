@@ -7,6 +7,7 @@ import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
@@ -15,32 +16,40 @@ import 'dart:io' show Platform;
 
 int TIMEOUT = 6;
 
-Widget getTitleWidget(String text, {Color textColor}) {
+Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
   return Container(
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.all(10),
-          child: AppUser.isAuthenticated()
-              ? CircleAvatar(
-                  radius: 15.0,
-                  backgroundImage: NetworkImage(AppUser.profileImageUrl),
-                )
-              : CircleAvatar(
-                  radius: 15.0,
-                  backgroundImage: NetworkImage("https://p7.hiclipart.com/preview/442/17/110/computer-icons-user-profile-male-user.jpg"),
-                ),
-        ),
-        SizedBox(
-          width: 15,
-        ),
-        Text(
-          text,
-          style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: textColor),
-        ),
-      ],
+    margin: EdgeInsets.only(top: 20.0),
+    child: Text(
+      text,
+      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: textColor),
     ),
+  );
+}
+
+Widget getUserProfileWidget() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      Container(
+        margin: EdgeInsets.all(10),
+        child: AppUser.isAuthenticated()
+            ? CircleAvatar(
+          radius: 15.0,
+          backgroundImage: NetworkImage(AppUser.profileImageUrl),
+        )
+            : CircleAvatar(
+          radius: 15.0,
+          backgroundImage: AssetImage("assets/profile_placeholder.jpg"),
+        ),
+      ),
+      SizedBox(
+        width: 15,
+      ),
+      Text(
+        AppUser.displayName,
+        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
+      ),
+    ],
   );
 }
 
@@ -228,7 +237,7 @@ Future<bool> grpcCreateProduct(String sessionKey, int businessPageId, Product pr
   return success;
 }
 
-Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey) async {
+Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {int k = 100}) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
@@ -238,7 +247,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey) as
   try {
     final productIds = await stub.fetchNextKProductIds(FetchNextKProductIds_Request()
       ..sessionKey = sessionKey
-      ..k = 100
+      ..k = k
       ..filterDetails = FilterDetails()
       ..previousProductId = 0);
     success = productIds.success;

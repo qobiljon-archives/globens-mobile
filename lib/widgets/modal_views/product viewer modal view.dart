@@ -1,5 +1,5 @@
-import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/widgets/modal_views/photo%20selector%20modal%20view.dart';
+import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -8,17 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:typed_data';
 
-class ProductEditorModalView extends StatefulWidget {
+class ProductViewerModalView extends StatefulWidget {
   final BusinessPage _businessPage;
   final Product _product;
 
-  ProductEditorModalView(this._businessPage, this._product);
+  ProductViewerModalView(this._businessPage, this._product);
 
   @override
-  _ProductEditorModalViewState createState() => _ProductEditorModalViewState();
+  _ProductViewerModalViewState createState() => _ProductViewerModalViewState();
 }
 
-class _ProductEditorModalViewState extends State<ProductEditorModalView> {
+class _ProductViewerModalViewState extends State<ProductViewerModalView> {
   final _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
   List<Widget> childWidgets = [];
