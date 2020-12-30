@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
@@ -16,22 +15,23 @@ class VacantJobsListScreen extends StatefulWidget {
 
 //Mixin
 class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
+  Row _header;
   List<Job> _vacantJobs = [];
-  List<Widget> _header = [];
   bool timeout = false;
 
   @override
   void initState() {
     super.initState();
 
-    _header = [
-      Row(
-        children: [
-          getBackNavButton(_onBackButtonPressed, context),
-          getTitleWidget("Vacancies"),
-        ],
-      ),
-    ];
+    _header = Row(
+      children: [
+        IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => _onBackButtonPressed(context),
+        ),
+        getTitleWidget('Vacancies'),
+      ],
+    );
 
     _updateDynamicPart();
   }
@@ -50,9 +50,9 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
 
   Widget _getListViewItem(BuildContext context, int index) {
     if (index == 0)
-      return _header[index];
+      return _header;
     else {
-      index -= _header.length;
+      index -= 1;
       return _buildVacancyItem(context, index);
     }
   }
@@ -87,10 +87,8 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
           _vacantJobs = vacantJobs;
         });
       } else
-        AppUser.signOut()
-            .then((value) => Navigator.of(context).pushReplacementNamed('/'));
+        AppUser.signOut().then((value) => Navigator.of(context).pushReplacementNamed('/'));
     });
-
   }
 
   void _onBackButtonPressed(BuildContext context) {
@@ -98,8 +96,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   }
 
   void _onApplyButtonPressed(BuildContext context, int index) async {
-    Tuple2<bool, List<JobApplication>> res =
-        await grpcFetchJobApplications(AppUser.sessionKey, _vacantJobs[index]);
+    Tuple2<bool, List<JobApplication>> res = await grpcFetchJobApplications(AppUser.sessionKey, _vacantJobs[index]);
     bool success = res.item1;
     List<JobApplication> jobApplications = res.item2;
 
@@ -114,10 +111,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
       if (alreadyApplied)
         toast("You have already applied for this position!");
       else {
-        await showModalBottomSheet(
-            context: context,
-            builder: (context) =>
-                JobApplicationViewerModalView(job: _vacantJobs[index]));
+        await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView(job: _vacantJobs[index]));
         _updateDynamicPart();
       }
     } else {
@@ -127,9 +121,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   }
 
   void _openVacancyDetails(BuildContext context, index) async {
-    await showModalBottomSheet(
-        context: context,
-        builder: (context) => JobViewerModalView(job: _vacantJobs[index]));
+    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: _vacantJobs[index]));
     grpcFetchBusinessPageVacancies(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
       List<Job> jobs = tuple.item2;
@@ -139,8 +131,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
           _vacantJobs = jobs;
         });
       } else
-        AppUser.signOut()
-            .then((value) => Navigator.of(context).pushReplacementNamed('/'));
+        AppUser.signOut().then((value) => Navigator.of(context).pushReplacementNamed('/'));
     });
   }
 
@@ -151,10 +142,8 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
           color: Colors.blueAccent,
         );
       },
-      itemCount: _header.length + _vacantJobs.length,
-      itemBuilder: (BuildContext context, int index) =>
-          _getListViewItem(context, index),
+      itemCount: 1 + _vacantJobs.length,
+      itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
     ));
   }
 }
-

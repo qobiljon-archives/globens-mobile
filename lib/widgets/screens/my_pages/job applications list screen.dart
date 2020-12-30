@@ -32,13 +32,11 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     _header = [
       Row(
         children: [
-          getBackNavButton(_onBackButtonPressed, context),
-          Expanded(
-            child: Text(
-              "${_job.title}",
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
-            ),
+          IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () => _onBackButtonPressed(context),
           ),
+          getTitleWidget(shorten(_job.title, 20, ellipsize: true)),
         ],
       ),
     ];

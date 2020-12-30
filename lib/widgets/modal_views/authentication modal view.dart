@@ -5,18 +5,20 @@ import 'package:flutter/material.dart';
 class AuthenticationModalView {
   static Widget getModalView(BuildContext context) {
     return Column(mainAxisAlignment: MainAxisAlignment.center, mainAxisSize: MainAxisSize.min, children: [
-      Text(
-        "Sign in with",
-        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.blue),
-      ),
+      Container(
+          margin: EdgeInsets.all(20.0),
+          child: Text(
+            "SIGN IN WITH",
+            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue),
+          )),
       Container(
         width: double.infinity,
         height: 50,
         margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
         child: RaisedButton.icon(
           label: Text(
-            "Kakao",
-            style: TextStyle(fontSize: 20.0),
+            "KakaoTalk",
+            style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
           icon: Image.asset(
             'assets/kakaotalk.png',
@@ -34,7 +36,7 @@ class AuthenticationModalView {
         child: RaisedButton.icon(
             label: Text(
               "Google",
-              style: TextStyle(fontSize: 20.0),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             icon: Image.asset(
               'assets/google.png',
@@ -51,7 +53,7 @@ class AuthenticationModalView {
         child: RaisedButton.icon(
             label: Text(
               "Facebook",
-              style: TextStyle(fontSize: 20.0),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             icon: Image.asset(
               'assets/facebook.png',
@@ -66,22 +68,28 @@ class AuthenticationModalView {
 
   static void _onKakaoPressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.KAKAO))
-      Navigator.of(context).popUntil(ModalRoute.withName('/'));
+      await toast("Signed in with Google.");
     else
-      await toast("Failed to login with Kakao.\nPlease try again later!");
+      await toast("Failed to login with KakaoTalk.\nPlease try again later!");
+
+    Navigator.of(context).pop();
   }
 
   static void _onGooglePressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.GOOGLE))
-      Navigator.of(context).popUntil(ModalRoute.withName('/'));
+      await toast("Signed in with Google.");
     else
       await toast("Failed to login with Google.\nPlease try again later!");
+
+    Navigator.of(context).pop();
   }
 
   static void _onFacebookPressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.FACEBOOK))
-      Navigator.of(context).popUntil(ModalRoute.withName('/'));
+      await toast("Signed in with Google.");
     else
       await toast("Failed to login with Facebook.\nPlease try again later!");
+
+    Navigator.of(context).pop();
   }
 }

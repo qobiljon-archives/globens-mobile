@@ -14,14 +14,22 @@ class _MenuScreenState extends State<MenuScreen> {
     return ListView(
       children: [
         getTitleWidget("App menu", textColor: Colors.black),
-        AppUser.isAuthenticated()
-            ? RaisedButton(
-          onPressed: _signOutPressed,
-          child: Text("Sign out"),
-        )
-            : RaisedButton(
-          onPressed: _signInPressed,
-          child: Text("Sign in"),
+        getUserProfileWidget(),
+        Container(
+          margin: EdgeInsets.all(20),
+          child: RaisedButton.icon(
+            onPressed: AppUser.isAuthenticated() ? _signOutPressed : _signInPressed,
+            color: Colors.blueAccent,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            icon: Icon(
+              AppUser.isAuthenticated() ? Icons.logout : Icons.login,
+              color: Colors.white,
+            ),
+            label: Text(
+              "SIGN ${AppUser.isAuthenticated() ? 'OUT' : 'IN'}",
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
         )
       ],
     );
@@ -29,11 +37,11 @@ class _MenuScreenState extends State<MenuScreen> {
 
   void _signOutPressed() async {
     await AppUser.signOut();
-    await Navigator.of(context).pushReplacementNamed('/');
+    setState(() {});
   }
 
   void _signInPressed() async {
     await showModalBottomSheet(context: context, builder: (context) => AuthenticationModalView.getModalView(context));
-    await Navigator.of(context).pushReplacementNamed('/');
+    setState(() {});
   }
 }

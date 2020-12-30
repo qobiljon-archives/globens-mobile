@@ -49,17 +49,12 @@ class _RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObse
             ),
           ),
           BottomNavigationBarItem(
-            label: 'My pages',
-            icon: AppUser.isAuthenticated()
-                ? CircleAvatar(
-                    radius: 15.0,
-                    backgroundImage: NetworkImage(AppUser.profileImageUrl),
-                  )
-                : Icon(Icons.outlined_flag),
+            label: 'My business pages',
+            icon: Icon(Icons.corporate_fare_outlined),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            label: 'Menu',
+            label: 'App menu',
           ),
         ],
       ),

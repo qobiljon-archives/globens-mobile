@@ -1,3 +1,5 @@
+import 'package:globens_flutter_client/entities/GlobensUser.dart';
+
 class Job {
   // region Constants
   static const String BUSINESS_OWNER_ROLE = 'business owner';
@@ -15,15 +17,15 @@ class Job {
   String _responsibilities;
   String _role;
   String _title;
-  int _hiredUserId;
+  GlobensUser _hiredUser;
 
   // endregion
 
-  Job.create(String title, {int id, String role, int hiredUserId, String description, String responsibilities}) {
+  Job.create(String title, {int id, String role, GlobensUser hiredUser, String description, String responsibilities}) {
     this._title = title;
     this._id = id;
     this._role = role;
-    this._hiredUserId = hiredUserId;
+    this._hiredUser = hiredUser;
     this._responsibilities = _responsibilities;
     this._description = description;
   }
@@ -49,8 +51,8 @@ class Job {
     return _role;
   }
 
-  int get hiredUserId {
-    return _hiredUserId;
+  GlobensUser get hiredUser {
+    return _hiredUser;
   }
 
   bool get newlyCreated {
@@ -58,7 +60,8 @@ class Job {
   }
 
   bool get isVacant {
-    return _hiredUserId == -1;
+    return _hiredUser == null;
   }
-// endregion
+
+  // endregion
 }

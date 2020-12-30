@@ -12,13 +12,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:grpc/grpc.dart';
-import 'dart:io' show Platform;
 
 const int TIMEOUT = 6;
 
-Container getTitleWidget(String text, {TextStyle textStyle, Color textColor = Colors.blue}) {
+Container getTitleWidget(String text, {TextStyle textStyle, Color textColor = Colors.blue, EdgeInsets margin}) {
   return Container(
-    margin: EdgeInsets.only(top: 10.0, left: 10.0),
+    margin: margin == null ? EdgeInsets.only(top: 10.0, left: 10.0) : margin,
     child: Text(
       text,
       style: textStyle == null ? TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold, color: textColor) : textStyle,
@@ -67,20 +66,6 @@ Column getSectionSplitter(String text) {
           ))
     ],
   );
-}
-
-IconButton getBackNavButton(Function _onBackButtonPressed, BuildContext context) {
-  if (Platform.isIOS)
-    return IconButton(
-      icon: Icon(Icons.arrow_back_ios),
-      onPressed: () => _onBackButtonPressed(context),
-    );
-  else if (Platform.isAndroid)
-    return IconButton(
-      icon: Icon(Icons.arrow_back),
-      onPressed: () => _onBackButtonPressed(context),
-    );
-  return null;
 }
 
 Future<void> toast(String message) async {
@@ -217,9 +202,8 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
       }
   } catch (e) {
     print(e);
-  } finally {
-    await channel.shutdown();
   }
+
   return Tuple2(success, products);
 }
 
@@ -237,22 +221,18 @@ Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Pro
     success = response.success;
   } catch (e) {
     print(e);
-  } finally {
-    await channel.shutdown();
   }
+
   return success;
 }
 
 Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {int k = 100}) async {
-  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
-  final stub = GlobensServiceClient(channel);
-
   bool success = false;
   List<Product> products = List<Product>();
   Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
 
   try {
-    final productIds = await stub.fetchNextKProductIds(FetchNextKProductIds_Request()
+    final productIds = await getStub().fetchNextKProductIds(FetchNextKProductIds_Request()
       ..sessionKey = sessionKey
       ..k = k
       ..filterDetails = FilterDetails()
@@ -260,7 +240,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
     success = productIds.success;
     if (success) {
       for (int productId in productIds.id) {
-        final productDetails = await stub.fetchProductDetails(FetchProductDetails_Request()
+        final productDetails = await getStub().fetchProductDetails(FetchProductDetails_Request()
           ..sessionKey = sessionKey
           ..productId = productId);
         success &= productDetails.success;
@@ -269,7 +249,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
           if (businessPages.containsKey(productDetails.businessPageId))
             products.add(Product.create(productDetails.name, productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
           else {
-            final businessPageDetails = await stub.fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
+            final businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
               ..sessionKey = sessionKey
               ..businessPageId = productDetails.businessPageId);
             success &= productDetails.success;
@@ -284,8 +264,6 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
     }
   } catch (e) {
     print(e);
-  } finally {
-    await channel.shutdown();
   }
 
   return Tuple2(success, products);
@@ -300,6 +278,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, Bus
 
   bool success = false;
   List<Job> jobs = List<Job>();
+  Map<int, GlobensUser> users = Map<int, GlobensUser>();
 
   try {
     final businessPageJobIdsRes = await stub.fetchBusinessPageJobIds(FetchBusinessPageJobIds_Request()
@@ -313,7 +292,21 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, Bus
           ..jobId = jobId);
         success &= jobDetailsRes.success;
 
-        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUserId: jobDetailsRes.hiredUserId));
+        if (success) {
+          if (users.containsKey(jobDetailsRes.hiredUserId))
+            jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId])); // todo add description and responsibilities
+          else {
+            final hiredUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
+              ..sessionKey = sessionKey
+              ..userId = jobDetailsRes.hiredUserId);
+            success &= jobDetailsRes.success;
+
+            if (success) {
+              users[jobDetailsRes.hiredUserId] = GlobensUser.create(hiredUserDetailsRes.id, hiredUserDetailsRes.email, hiredUserDetailsRes.name, hiredUserDetailsRes.picture, hiredUserDetailsRes.pictureBlob);
+              jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId]));
+            }
+          }
+        }
       }
   } catch (e) {
     print(e);
@@ -364,7 +357,9 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageVacancies(String sessionKey
           ..jobId = jobId);
         success &= jobDetailsRes.success;
 
-        if (success) jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUserId: jobDetailsRes.hiredUserId));
+        if (success) {
+          jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role));
+        }
       }
     }
   } catch (e) {

@@ -1,5 +1,3 @@
-import 'package:globens_flutter_client/entities/BusinessPage.dart';
-import 'package:globens_flutter_client/widgets/modal_views/product%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -15,7 +13,7 @@ class GlobensScreen extends StatefulWidget {
 }
 
 class _GlobensScreenState extends State<GlobensScreen> {
-  List<Widget> _header = [];
+  Widget _header;
   List<ProductCategory> _categories = [];
   List<Product> _products = [];
 
@@ -24,14 +22,12 @@ class _GlobensScreenState extends State<GlobensScreen> {
     super.initState();
 
     // 1. static part : set up common part (i.e., header, categories)
-    _header = [
-      Container(
-        margin: EdgeInsets.only(top: 10.0, left: 10.0),
-        child: RichText(
-          text: TextSpan(children: <TextSpan>[new TextSpan(text: "Globens", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.blueAccent)), new TextSpan(text: "!", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.lightGreen))]),
-        ),
+    _header = Container(
+      margin: EdgeInsets.only(top: 10.0, left: 10.0),
+      child: RichText(
+        text: TextSpan(children: <TextSpan>[new TextSpan(text: "Globens", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.blueAccent)), new TextSpan(text: "!", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.lightGreen))]),
       ),
-    ];
+    );
     _categories = [
       ProductCategory.create("Education", ["Korean", "Programming", "etc"], SvgPicture.asset("assets/education.svg")),
       ProductCategory.create("Consultation", ["Legal matters", "Visa", "etc"], SvgPicture.asset("assets/consulting.svg")),
@@ -49,7 +45,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
     int productRows = (_products.length / 2).ceil();
 
     return ListView.builder(
-      itemCount: _header.length + 2 + categoryRows + 1 + productRows,
+      itemCount: 3 + categoryRows + 1 + productRows,
       itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
     );
   }
@@ -70,28 +66,28 @@ class _GlobensScreenState extends State<GlobensScreen> {
     int categoryRows = (_categories.length / 2).ceil();
     Size screenSize = MediaQuery.of(context).size;
 
-    if (index >= _header.length + 2 + categoryRows + 1) {
+    if (index >= 3 + categoryRows + 1) {
       // products section
-      index -= _header.length + 2 + categoryRows + 1;
+      index -= 3 + categoryRows + 1;
       return _buildProductRow(context, index, screenSize);
-    } else if (index == _header.length + 2 + categoryRows) {
+    } else if (index == 3 + categoryRows) {
       // mid splitter part
       return getSectionSplitter("Top hit products");
-    } else if (index >= _header.length + 2) {
+    } else if (index >= 3) {
       // categories section
-      index -= _header.length + 2;
+      index -= 3;
       return _buildCategoryRow(context, index, screenSize);
-    } else if (index == _header.length + 1) {
+    } else if (index == 2) {
       // top splitter part
       return getSectionSplitter("Product categories");
-    } else if (index == _header.length) {
+    } else if (index == 1) {
       // top profile widget
       return InkWell(
         onTap: () => _onProfileWidgetTap(context),
         child: getUserProfileWidget(),
       );
     } else {
-      return _header[index];
+      return _header;
     }
   }
 

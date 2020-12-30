@@ -15,58 +15,83 @@ class BusinessPageDetailsScreen extends StatefulWidget {
 }
 
 class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
-  List<Widget> _header = [];
+  Row _header;
   List<Product> _products = [];
   List<Job> _jobs = [];
-  List<Widget> _footer = [];
+  Container _createProductButton;
+  Container _createVacancyButton;
   BusinessPage _businessPage;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 1. static part : set up common part of header and footer
+    _header = Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: _onBackButtonPressed,
+        ),
+        getTitleWidget('Business page', textColor: Colors.black, margin: EdgeInsets.all(0))
+      ],
+    );
+
+    _createProductButton = Container(
+        margin: EdgeInsets.all(20),
+        child: RaisedButton.icon(
+          onPressed: _onCreateProductPressed,
+          color: Colors.blueAccent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          icon: Icon(
+            Icons.upload_file,
+            color: Colors.white,
+          ),
+          label: Text(
+            "CREATE NEW PRODUCT",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ));
+    _createVacancyButton = Container(
+        margin: EdgeInsets.all(20),
+        child: RaisedButton.icon(
+          onPressed: _onCreateVacancyPressed,
+          color: Colors.blueAccent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          icon: Icon(
+            Icons.upload_file,
+            color: Colors.white,
+          ),
+          label: Text(
+            "CREATE NEW VACANCY",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ));
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     // 0. parsing arguments passed to this route (business page)
-    _businessPage = ModalRoute.of(context).settings.arguments as BusinessPage;
-
-    // 1. static part : set up common part of header and footer
-    _header = [
-      Row(
-        children: [
-          getBackNavButton(_onBackButtonPressed, context),
-          Expanded(child: getTitleWidget(_businessPage.title)),
-        ],
-      ),
-    ];
-    _footer = [
-      Container(
-        width: double.maxFinite,
-        child: RaisedButton(
-          onPressed: () => _onCreateProductPressed(context),
-          child: Text("Create your product"),
-        ),
-      ),
-    ];
-
-    // 2. dynamic part : change footer according to user's role in business page
-    if (_businessPage.role == Job.BUSINESS_OWNER_ROLE)
-      _footer.add(Container(
-        width: double.maxFinite,
-        child: RaisedButton(
-          onPressed: () => _onCreateVacancyPressed(context),
-          child: Text("Create a new vacancy"),
-        ),
-      ));
+    setState(() {
+      _businessPage = ModalRoute.of(context).settings.arguments as BusinessPage;
+    });
 
     // 3. dynamic part : change body (i.e., products, vacancies, employees) according to user's role in business page
-    _updateDynamicPart();
+    _fetchBusinessPageContent();
   }
 
   @override
   Widget build(BuildContext context) {
+    int productRows = (_products.length / 2).ceil();
+
     return Scaffold(
+      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
       body: Container(
         child: ListView.builder(
-          itemCount: _header.length + _products.length + _jobs.length + _footer.length,
+          itemCount: 2 + productRows + 2 + _jobs.length + (_businessPage.role == Job.BUSINESS_OWNER_ROLE ? 1 : 0),
           itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
         ),
       ),
@@ -74,125 +99,157 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   Widget _getListViewItem(BuildContext context, int index) {
-    if (index >= _header.length + _products.length + _jobs.length) {
-      // footer section
-      index -= _header.length + _products.length + _jobs.length;
-      return _footer[index];
-    } else if (index >= _header.length + _products.length) {
+    int productRows = (_products.length / 2).ceil();
+    Size screenSize = MediaQuery.of(context).size;
+
+    if (index == 2 + productRows + 2 + _jobs.length) {
+      // create new vacancy button
+      return _createVacancyButton;
+    } else if (index >= 2 + productRows + 2) {
       // vacancies section
-      index -= _header.length + _products.length;
-      return _buildJobItem(context, index);
-    } else if (index >= _header.length) {
+      index -= 2 + productRows + 2;
+      return _buildJobItem(context, _jobs[index]);
+    } else if (index == 2 + productRows + 1) {
+      // splitter
+      return getSectionSplitter("Employees and vacancies");
+    } else if (index == 2 + productRows) {
+      // create new product button
+      return _createProductButton;
+    } else if (index >= 2) {
       // products section
-      index -= _header.length;
-      return _buildProductItem(context, index);
+      index -= 2;
+      return _buildProductRow(context, index, screenSize);
+    } else if (index == 1) {
+      // splitter
+      return getSectionSplitter("Products");
     } else {
       // header section
-      return _header[index];
+      return _header;
     }
   }
 
-  Widget _buildProductItem(BuildContext context, int index) {
-    Row productRow = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () => _onProductPressed(context, _products[index]),
-          child: Container(
-            margin: EdgeInsets.only(top: 10.0),
-            child: Row(
+  Row _buildProductRow(BuildContext context, int index, Size screenSize) {
+    int productIndex = index * 2;
+
+    Row row = Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [_buildProductItem(context, _products[productIndex], screenSize)]);
+    if (productIndex < _products.length - 1) // two elements in one row
+      row.children.add(_buildProductItem(context, _products[productIndex + 1], screenSize));
+
+    return row;
+  }
+
+  InkWell _buildProductItem(BuildContext context, Product product, Size screenSize) {
+    double iconWH = screenSize.width * 0.45;
+
+    return InkWell(
+      onTap: () => _onProductTap(context, product),
+      child: Card(
+          shape: RoundedRectangleBorder(
+            side: BorderSide(color: Colors.white70, width: 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          color: Colors.white,
+          elevation: 1.0,
+          child: new Container(
+            width: iconWH,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  margin: EdgeInsets.only(left: 10.0),
-                  child: CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: MemoryImage(_products[index].pictureBlob),
-                  ),
-                ),
-                Container(
-                    margin: EdgeInsets.only(left: 10.0),
-                    child: Text(
-                      "${_products[index].name}",
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(fontSize: 20.0),
+                ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                    child: Image.memory(
+                      product.pictureBlob,
+                      fit: BoxFit.cover,
+                      height: iconWH,
                     )),
+                Container(
+                  padding: EdgeInsets.all(5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
+                        maxLines: 2,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                      ),
+                      Text(
+                        "${product.priceStr}",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
-          ),
-        ),
-      ],
+          )),
     );
-
-    if (index == 0)
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [getTitleWidget("Products", textColor: Colors.black), productRow],
-      );
-    else
-      return productRow;
   }
 
-  Widget _buildJobItem(BuildContext context, int index) {
-    Row jobRow = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: GestureDetector(
-            onTap: () => _onJobPressed(context, _jobs[index], _businessPage),
-            child: Text(
-              "${_jobs[index].title}",
-              style: TextStyle(fontSize: 20.0, color: _jobs[index].isVacant ? Colors.grey : Colors.black, fontStyle: _jobs[index].isVacant ? FontStyle.italic : FontStyle.normal),
-            ),
+  Widget _buildJobItem(BuildContext context, Job job) {
+    return InkWell(
+        onTap: () => _onJobPressed(context, job, _businessPage),
+        child: Card(
+          margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: job.isVacant ? Image.asset("assets/vacancy.png") : MemoryImage(job.hiredUser.pictureBlob),
+                ),
+              ),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    shorten(job.title, 28, ellipsize: true),
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  Text(
+                    job.isVacant ? "[ vacant position ]" : "${job.hiredUser.name} (${job.hiredUser.email})",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
+                  )
+                ]),
+              )
+            ],
           ),
-        ),
-      ],
-    );
-
-    if (index == 0)
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [getTitleWidget("Jobs / positions", textColor: Colors.black), jobRow],
-      );
-    else
-      return jobRow;
+        ));
   }
 
-  void _updateDynamicPart() {
-    grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage).then((tuple) async {
-      bool success = tuple.item1;
-      List<Product> products = tuple.item2;
-      if (success) {
-        if (this.mounted)
-          setState(() {
-            _products = products;
-          });
-      } else {
-        await AppUser.signOut();
-        await Navigator.of(context).pushReplacementNamed('/');
-      }
-    }).timeout(Duration(seconds: 3), onTimeout: () {
-      print("Timeout");
-    });
-    grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage).then((tuple) async {
-      bool success = tuple.item1;
-      List<Job> jobs = tuple.item2;
-      if (success) {
-        if (this.mounted)
-          setState(() {
-            _jobs = jobs;
-          });
-      } else {
-        await AppUser.signOut();
-        await Navigator.of(context).pushReplacementNamed('/');
-      }
-    }).timeout(Duration(seconds: 3), onTimeout: () {
-      print("TimeOut");
-      //TODO: Stop  future call automatically
-    });
+  Future<void> _fetchBusinessPageContent() async {
+    final Tuple2<bool, List<Product>> tp1 = await grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage);
+    bool success = tp1.item1;
+    List<Product> products = tp1.item2;
+    if (success) {
+      setState(() {
+        _products = products;
+      });
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
+
+    final Tuple2<bool, List<Job>> tp2 = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage);
+    success = tp2.item1;
+    List<Job> jobs = tp2.item2;
+    if (success) {
+      setState(() {
+        _jobs = jobs;
+      });
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
   }
 
-  void _onCreateProductPressed(BuildContext context) async {
+  void _onCreateProductPressed() async {
     await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(_businessPage, null));
 
     Tuple2<bool, List<Product>> res = await grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage);
@@ -209,11 +266,11 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     }
   }
 
-  void _onBackButtonPressed(BuildContext context) {
-    Navigator.pop(context);
+  void _onBackButtonPressed() {
+    Navigator.of(context).pop();
   }
 
-  void _onCreateVacancyPressed(BuildContext context) async {
+  void _onCreateVacancyPressed() async {
     await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(businessPage: _businessPage));
     Tuple2<bool, List<Job>> res = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage);
 
@@ -230,12 +287,12 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     }
   }
 
-  void _onProductPressed(BuildContext context, Product product) async {
+  void _onProductTap(BuildContext context, Product product) async {
     await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(_businessPage, product));
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
     await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: job, businessPage: _businessPage));
-    _updateDynamicPart();
+    await _fetchBusinessPageContent();
   }
 }

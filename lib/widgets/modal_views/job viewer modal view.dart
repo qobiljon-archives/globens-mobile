@@ -49,7 +49,7 @@ class _JobViewerModalViewState extends State<JobViewerModalView> {
             AppUser.signOut().then((value) => Navigator.of(context).pushReplacementNamed('/'));
         });
       } else
-        grpcFetchUserDetails(AppUser.sessionKey, widget.job.hiredUserId).then((res) async {
+        grpcFetchUserDetails(AppUser.sessionKey, widget.job.hiredUser.id).then((res) async {
           bool success = res.item1;
           GlobensUser user = res.item2;
 
