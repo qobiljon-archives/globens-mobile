@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
-import 'package:globens_flutter_client/entities/Job.dart';
-import 'package:globens_flutter_client/entities/JobApplication.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
+import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:flutter/material.dart';
 
 class JobApplicationViewerModalView extends StatefulWidget {
   final Job job;
@@ -111,7 +111,7 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
     if (_applicantMessage.text.length < 5)
       await toast("Message can't be less than 5 characters:)");
     else {
-      bool success = await grpcCreateJobApplication(AppUser.sessionKey, job.id, JobApplication.create(_applicantMessage.text));
+      bool success = await grpcCreateJobApplication(AppUser.sessionKey, job, JobApplication.create(_applicantMessage.text));
       if (success) {
         await toast("Submitted");
         Navigator.of(context).pop();

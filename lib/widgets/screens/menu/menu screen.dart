@@ -13,7 +13,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        getTitleWidget("Menu", textColor: Colors.black),
+        getTitleWidget("App menu", textColor: Colors.black),
         AppUser.isAuthenticated()
             ? RaisedButton(
           onPressed: _signOutPressed,

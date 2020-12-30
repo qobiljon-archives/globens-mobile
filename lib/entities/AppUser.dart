@@ -11,37 +11,6 @@ import 'dart:convert' as JSON;
 import 'dart:io';
 
 class AppUser {
-  // region Constructor & init function
-  factory AppUser() {
-    return _singleton;
-  }
-
-  AppUser._internalConstructor();
-
-  static Future<void> init() async {
-    AppUser._singleton = AppUser._internalConstructor();
-    AppUser.userPrefs = await SharedPreferences.getInstance();
-    if (AppUser.userPrefs.containsKey("authMethod"))
-      AppUser.setProfileInfo(
-          AuthMethod.values[AppUser.userPrefs.getInt("authMethod")],
-          AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"),
-          AppUser.userPrefs.getString("displayName"),
-          AppUser.userPrefs.getString("profileImageUrl"),
-          AppUser.userPrefs.getString("sessionKey"));
-
-    // setup kakao, google, and facebook auth
-    KakaoContext.clientId =
-    "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported
-    googleSignIn = GoogleSignIn(scopes: [
-      'https://www.googleapis.com/auth/userinfo.email',
-      'https://www.googleapis.com/auth/userinfo.profile',
-      'openid'
-    ]);
-    // todo setup phone, apple
-  }
-
-  // endregion
-
   // region Variables
   static AppUser _singleton;
   static GoogleSignIn googleSignIn;
@@ -53,6 +22,7 @@ class AppUser {
   static String _displayName;
   static String _profileImageUrl;
   static String _sessionKey;
+  static bool _initialized = false;
 
   static AuthMethod get authMethod {
     return _authMethod;
@@ -60,6 +30,10 @@ class AppUser {
 
   static int get id {
     return _id;
+  }
+
+  static bool get initialized {
+    return _initialized;
   }
 
   static String get email {
@@ -80,9 +54,31 @@ class AppUser {
 
   // endregion
 
+  // region Constructor & init function
+  factory AppUser() {
+    return _singleton;
+  }
+
+  AppUser._internalConstructor();
+
+  static Future<void> init() async {
+    AppUser._singleton = AppUser._internalConstructor();
+    AppUser.userPrefs = await SharedPreferences.getInstance();
+    if (AppUser.userPrefs.containsKey("authMethod"))
+      AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
+
+    // setup kakao, google, and facebook auth
+    KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported
+    AppUser.googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
+    // todo setup phone, apple
+
+    AppUser._initialized = true;
+  }
+
+  // endregion
+
   // region Setters & getters
-  static void setProfileInfo(AuthMethod authMethod, int id, String email,
-      String displayName, String profileImageUrl, String sessionKey) {
+  static void setProfileInfo(AuthMethod authMethod, int id, String email, String displayName, String profileImageUrl, String sessionKey) {
     AppUser._authMethod = authMethod;
     AppUser._id = id;
     AppUser._email = email;
@@ -117,11 +113,7 @@ class AppUser {
           int userId = res.item2;
           String sessionKey = res.item3;
           if (success) {
-            AppUser.setProfileInfo(
-                AuthMethod.KAKAO, userId, user.kakaoAccount.email,
-                user.kakaoAccount.profile.nickname,
-                user.kakaoAccount.profile.profileImageUrl.toString(),
-                sessionKey);
+            AppUser.setProfileInfo(AuthMethod.KAKAO, userId, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString(), sessionKey);
             AppUser.updateUserPrefsData();
           }
         }
@@ -139,9 +131,7 @@ class AppUser {
           int userId = res.item2;
           String sessionKey = res.item3;
           if (success) {
-            AppUser.setProfileInfo(
-                AuthMethod.GOOGLE, userId, user.email, user.displayName,
-                user.photoUrl, sessionKey);
+            AppUser.setProfileInfo(AuthMethod.GOOGLE, userId, user.email, user.displayName, user.photoUrl, sessionKey);
             AppUser.updateUserPrefsData();
             return true;
           }
@@ -194,8 +184,7 @@ class AppUser {
 
   static Future<GlobensUser> getMyGlobensUser() async {
     http.Response response = await http.get(_profileImageUrl);
-    if (response.statusCode == HttpStatus.ok)
-      return GlobensUser.create(_id, _email, _displayName, _profileImageUrl, response.bodyBytes);
+    if (response.statusCode == HttpStatus.ok) return GlobensUser.create(_id, _email, _displayName, _profileImageUrl, response.bodyBytes);
     return null;
   }
 
@@ -214,6 +203,7 @@ class AppUser {
     else
       return null;
   }
+
   static Future<Tuple2<User, Map>> _kakaoAuth() async {
     Map<String, dynamic> tokens = {};
 

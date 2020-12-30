@@ -27,7 +27,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
     _header = [
       Row(
         children: [
-          backButton(_onBackButtonPressed, context),
+          getBackNavButton(_onBackButtonPressed, context),
           getTitleWidget("Vacancies"),
         ],
       ),

@@ -3,7 +3,6 @@ import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +11,7 @@ import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
   @override
-  _BusinessPageDetailsScreenState createState() =>
-      _BusinessPageDetailsScreenState();
+  _BusinessPageDetailsScreenState createState() => _BusinessPageDetailsScreenState();
 }
 
 class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
@@ -34,7 +32,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     _header = [
       Row(
         children: [
-          backButton(_onBackButtonPressed, context),
+          getBackNavButton(_onBackButtonPressed, context),
           Expanded(child: getTitleWidget(_businessPage.title)),
         ],
       ),
@@ -42,12 +40,22 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     _footer = [
       Container(
         width: double.maxFinite,
-        child: RaisedButton(onPressed: () => _onCreateProductPressed(context), child: Text("Create your product"),),),
+        child: RaisedButton(
+          onPressed: () => _onCreateProductPressed(context),
+          child: Text("Create your product"),
+        ),
+      ),
     ];
 
     // 2. dynamic part : change footer according to user's role in business page
-    if (_businessPage.role == VacancyRole.BUSINESS_OWNER)
-      _footer.add(Container(width: double.maxFinite, child: RaisedButton(onPressed: () => _onCreateVacancyPressed(context), child: Text("Create a new vacancy"),),));
+    if (_businessPage.role == Job.BUSINESS_OWNER_ROLE)
+      _footer.add(Container(
+        width: double.maxFinite,
+        child: RaisedButton(
+          onPressed: () => _onCreateVacancyPressed(context),
+          child: Text("Create a new vacancy"),
+        ),
+      ));
 
     // 3. dynamic part : change body (i.e., products, vacancies, employees) according to user's role in business page
     _updateDynamicPart();
@@ -58,10 +66,8 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     return Scaffold(
       body: Container(
         child: ListView.builder(
-          itemCount:
-              _header.length + _products.length + _jobs.length + _footer.length,
-          itemBuilder: (BuildContext context, int index) =>
-              _getListViewItem(context, index),
+          itemCount: _header.length + _products.length + _jobs.length + _footer.length,
+          itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
         ),
       ),
     );
@@ -115,17 +121,13 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
             ),
           ),
         ),
-
       ],
     );
 
     if (index == 0)
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          getTitleWidget("Products", textColor: Colors.black),
-          productRow
-        ],
+        children: [getTitleWidget("Products", textColor: Colors.black), productRow],
       );
     else
       return productRow;
@@ -140,12 +142,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
             onTap: () => _onJobPressed(context, _jobs[index], _businessPage),
             child: Text(
               "${_jobs[index].title}",
-              style: TextStyle(
-                  fontSize: 20.0,
-                  color: _jobs[index].isVacant ? Colors.grey : Colors.black,
-                  fontStyle: _jobs[index].isVacant
-                      ? FontStyle.italic
-                      : FontStyle.normal),
+              style: TextStyle(fontSize: 20.0, color: _jobs[index].isVacant ? Colors.grey : Colors.black, fontStyle: _jobs[index].isVacant ? FontStyle.italic : FontStyle.normal),
             ),
           ),
         ),
@@ -155,18 +152,14 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     if (index == 0)
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          getTitleWidget("Jobs / positions", textColor: Colors.black),
-          jobRow
-        ],
+        children: [getTitleWidget("Jobs / positions", textColor: Colors.black), jobRow],
       );
     else
       return jobRow;
   }
 
   void _updateDynamicPart() {
-    grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage.id)
-        .then((tuple) async {
+    grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage).then((tuple) async {
       bool success = tuple.item1;
       List<Product> products = tuple.item2;
       if (success) {
@@ -181,8 +174,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     }).timeout(Duration(seconds: 3), onTimeout: () {
       print("Timeout");
     });
-    grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage.id)
-        .then((tuple) async {
+    grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage).then((tuple) async {
       bool success = tuple.item1;
       List<Job> jobs = tuple.item2;
       if (success) {
@@ -201,12 +193,9 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateProductPressed(BuildContext context) async {
-    await showModalBottomSheet(
-        context: context,
-        builder: (context) => ProductViewerModalView(_businessPage, null));
+    await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(_businessPage, null));
 
-    Tuple2<bool, List<Product>> res = await grpcFetchBusinessPageProducts(
-        AppUser.sessionKey, _businessPage.id);
+    Tuple2<bool, List<Product>> res = await grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage);
     bool success = res.item1;
     List<Product> products = res.item2;
     if (success) {
@@ -225,11 +214,8 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateVacancyPressed(BuildContext context) async {
-    await showModalBottomSheet(
-        context: context,
-        builder: (context) => JobViewerModalView(businessPage: _businessPage));
-    Tuple2<bool, List<Job>> res =
-        await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage.id);
+    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(businessPage: _businessPage));
+    Tuple2<bool, List<Job>> res = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage);
 
     bool success = res.item1;
     List<Job> vacancies = res.item2;
@@ -245,17 +231,11 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onProductPressed(BuildContext context, Product product) async {
-    await showModalBottomSheet(
-        context: context,
-        builder: (context) => ProductViewerModalView(_businessPage, product));
+    await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(_businessPage, product));
   }
 
-  void _onJobPressed(
-      BuildContext context, Job job, BusinessPage businessPage) async {
-    await showModalBottomSheet(
-        context: context,
-        builder: (context) =>
-            JobViewerModalView(job: job, businessPage: _businessPage));
+  void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
+    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: job, businessPage: _businessPage));
     _updateDynamicPart();
   }
 }

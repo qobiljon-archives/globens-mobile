@@ -1,8 +1,9 @@
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/widgets/modal_views/photo%20selector%20modal%20view.dart';
-import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,7 +66,7 @@ class _ProductViewerModalViewState extends State<ProductViewerModalView> {
       ],
     );
     if (widget._product != null) {
-      if (widget._businessPage.role == VacancyRole.BUSINESS_OWNER || widget._businessPage.role == VacancyRole.INDIVIDUAL_ENTREPRENEUR) {
+      if (widget._businessPage.role == Job.BUSINESS_OWNER_ROLE || widget._businessPage.role == Job.INDIVIDUAL_ENTREPRENEUR_ROLE) {
         childWidgets.addAll([
           getTitleWidget("Viewing a product"),
           Text("Product name: ${widget._product.name}"),
@@ -121,7 +122,8 @@ class _ProductViewerModalViewState extends State<ProductViewerModalView> {
       return;
     }
 
-    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage.id, Product.create(_titleTextController.text, _businessPageImageBytes));
+    // todo add price to product creation step
+    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _businessPageImageBytes, widget._businessPage, 0.0, Currency.KRW));
 
     if (success)
       Navigator.of(context).pop();

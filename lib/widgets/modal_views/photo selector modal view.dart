@@ -1,8 +1,7 @@
-import 'dart:typed_data';
-
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
+import 'dart:typed_data';
 
 class PhotoSelectorModalView {
   static Uint8List resultImageBytes;

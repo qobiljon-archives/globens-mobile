@@ -7,73 +7,69 @@ import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:grpc/grpc.dart';
 import 'dart:io' show Platform;
 
-int TIMEOUT = 6;
+const int TIMEOUT = 6;
 
-Widget getTitleWidget(String text, {Color textColor = Colors.blue}) {
+Container getTitleWidget(String text, {TextStyle textStyle, Color textColor = Colors.blue}) {
   return Container(
-    margin: EdgeInsets.only(top: 20.0),
+    margin: EdgeInsets.only(top: 10.0, left: 10.0),
     child: Text(
       text,
-      style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: textColor),
+      style: textStyle == null ? TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold, color: textColor) : textStyle,
     ),
   );
 }
 
-Widget getUserProfileWidget() {
+Row getUserProfileWidget() {
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
       Container(
         margin: EdgeInsets.all(10),
-        child: AppUser.isAuthenticated()
-            ? CircleAvatar(
-          radius: 15.0,
-          backgroundImage: NetworkImage(AppUser.profileImageUrl),
-        )
-            : CircleAvatar(
-          radius: 15.0,
-          backgroundImage: AssetImage("assets/profile_placeholder.jpg"),
+        child: CircleAvatar(
+          radius: 20.0,
+          backgroundImage: AppUser.isAuthenticated() ? NetworkImage(AppUser.profileImageUrl) : AssetImage("assets/profile_placeholder.jpg"),
         ),
       ),
       SizedBox(
-        width: 15,
+        width: 5,
       ),
-      Text(
-        AppUser.displayName,
-        style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black),
-      ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(AppUser.isAuthenticated() ? AppUser.displayName : "Sign in", style: TextStyle(fontSize: 20.0, color: Colors.black)),
+          Text(
+            AppUser.isAuthenticated() ? AppUser.email : "Go to menu",
+            style: GoogleFonts.lato(fontSize: 14.0, color: Colors.black),
+          ),
+        ],
+      )
     ],
   );
 }
 
-Widget showLoadingAnimation() {
-  if (Platform.isIOS)
-    return const Center(child: CupertinoActivityIndicator());
-  else if (Platform.isAndroid)
-    return const Center(child: CircularProgressIndicator());
-  else
-    return null;
+Column getSectionSplitter(String text) {
+  return Column(
+    children: [
+      Divider(),
+      Container(
+          margin: EdgeInsets.only(top: 5, bottom: 10),
+          child: Text(
+            text,
+            style: TextStyle(fontSize: 20),
+          ))
+    ],
+  );
 }
 
-Widget getErrorMessage(String message) {
-  if (message == "Time Out!")
-    return const Center(
-      child: const Text("Time Out!"),
-    );
-  else
-    return const Center(
-      child: const Text("Error occured!"),
-    );
-}
-
-Widget backButton(Function _onBackButtonPressed, BuildContext context) {
+IconButton getBackNavButton(Function _onBackButtonPressed, BuildContext context) {
   if (Platform.isIOS)
     return IconButton(
       icon: Icon(Icons.arrow_back_ios),
@@ -84,6 +80,7 @@ Widget backButton(Function _onBackButtonPressed, BuildContext context) {
       icon: Icon(Icons.arrow_back),
       onPressed: () => _onBackButtonPressed(context),
     );
+  return null;
 }
 
 Future<void> toast(String message) async {
@@ -189,7 +186,7 @@ Future<bool> grpcCreateBusinessPage(String sessionKey, BusinessPage businessPage
 // endregion
 
 // region products management RPCs
-Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String sessionKey, int businessPageId) async {
+Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String sessionKey, BusinessPage businessPage) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
@@ -199,7 +196,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
   try {
     final productIdsRes = await stub.fetchBusinessPageProductIds(FetchBusinessPageProductIds_Request()
       ..sessionKey = sessionKey
-      ..businessPageId = businessPageId);
+      ..businessPageId = businessPage.id);
     success = productIdsRes.success;
     if (success)
       for (int productId in productIdsRes.id) {
@@ -207,7 +204,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
           ..sessionKey = sessionKey
           ..productId = productId);
         success &= productDetailsRes.success;
-        if (success) products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, id: productDetailsRes.id));
+        if (success) products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, businessPage, productDetailsRes.price, productDetailsRes.currency, id: productDetailsRes.id));
       }
   } catch (e) {
     print(e);
@@ -217,7 +214,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
   return Tuple2(success, products);
 }
 
-Future<bool> grpcCreateProduct(String sessionKey, int businessPageId, Product product) async {
+Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Product product) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
@@ -225,7 +222,7 @@ Future<bool> grpcCreateProduct(String sessionKey, int businessPageId, Product pr
   try {
     final response = await stub.createProduct(CreateProduct_Request()
       ..sessionKey = sessionKey
-      ..businessPageId = businessPageId
+      ..businessPageId = businessPage.id
       ..name = product.name
       ..pictureBlob = product.pictureBlob);
     success = response.success;
@@ -243,6 +240,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
 
   bool success = false;
   List<Product> products = List<Product>();
+  Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
 
   try {
     final productIds = await stub.fetchNextKProductIds(FetchNextKProductIds_Request()
@@ -253,16 +251,27 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
     success = productIds.success;
     if (success) {
       for (int productId in productIds.id) {
-        final producDetails = await stub.fetchProductDetails(FetchProductDetails_Request()
+        final productDetails = await stub.fetchProductDetails(FetchProductDetails_Request()
           ..sessionKey = sessionKey
           ..productId = productId);
-        success &= producDetails.success;
+        success &= productDetails.success;
 
-        if (success) products.add(Product.create(producDetails.name, producDetails.pictureBlob));
+        if (success) {
+          if (businessPages.containsKey(productDetails.id))
+            products.add(Product.create(productDetails.name, productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
+          else {
+            final businessPageDetails = await stub.fetchBusinessPageDetails(FetchBusinessPageDetails_Request()..businessPageId = productDetails.businessPageId);
+            success &= productDetails.success;
+
+            if (success) products.add(Product.create(productDetails.name, productDetails.pictureBlob, BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob), productDetails.price, productDetails.currency, id: productDetails.id));
+          }
+        }
       }
     }
   } catch (e) {
     print(e);
+  } finally {
+    await channel.shutdown();
   }
 
   return Tuple2(success, products);
@@ -271,7 +280,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
 // endregion
 
 // region job management RPCs
-Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, int businessPageId) async {
+Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, BusinessPage businessPage) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
@@ -281,7 +290,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, int
   try {
     final businessPageJobIdsRes = await stub.fetchBusinessPageJobIds(FetchBusinessPageJobIds_Request()
       ..sessionKey = sessionKey
-      ..businessPageId = businessPageId);
+      ..businessPageId = businessPage.id);
     success = businessPageJobIdsRes.success;
     if (success)
       for (int jobId in businessPageJobIdsRes.id) {
@@ -301,7 +310,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, int
   return Tuple2(success, jobs);
 }
 
-Future<bool> grpcCreateVacantJob(String sessionKey, int businessPageId, Job vacancy) async {
+Future<bool> grpcCreateVacantJob(String sessionKey, BusinessPage businessPage, Job vacancy) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
@@ -309,10 +318,8 @@ Future<bool> grpcCreateVacantJob(String sessionKey, int businessPageId, Job vaca
   try {
     final response = await stub.createVacantJob(CreateVacantJob_Request()
       ..sessionKey = sessionKey
-      ..businessPageId = businessPageId
-      ..title = vacancy.title
-      ..description = vacancy.description
-      ..responsibilities = vacancy.responsibilities);
+      ..businessPageId = businessPage.id
+      ..title = vacancy.title);
     success = response.success;
   } catch (e) {
     print(e);
@@ -386,7 +393,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
   return Tuple2(success, vacancyApplications);
 }
 
-Future<bool> grpcCreateJobApplication(String sessionKey, int jobId, JobApplication jobApplication) async {
+Future<bool> grpcCreateJobApplication(String sessionKey, Job job, JobApplication jobApplication) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
@@ -395,7 +402,7 @@ Future<bool> grpcCreateJobApplication(String sessionKey, int jobId, JobApplicati
   try {
     final response = await stub.createJobApplication(CreateJobApplication_Request()
       ..sessionKey = sessionKey
-      ..jobId = jobId
+      ..jobId = job.id
       ..message = jobApplication.message);
     success = response.success;
   } catch (e) {
@@ -419,7 +426,10 @@ Future<bool> grpcApproveJobApplication(String sessionKey, JobApplication applica
     success = result.success;
   } catch (e) {
     print(e);
+  } finally {
+    await channel.shutdown();
   }
+
   return success;
 }
 
@@ -436,7 +446,10 @@ Future<bool> grpcDeclineJobApplication(String sessionKey, JobApplication applica
     success = result.success;
   } catch (e) {
     print(e);
+  } finally {
+    await channel.shutdown();
   }
+
   return success;
 }
 // endregion

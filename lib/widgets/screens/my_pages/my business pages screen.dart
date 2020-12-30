@@ -21,7 +21,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     super.initState();
 
     // 1. static part : set up common part of header and footer
-    _header = [getTitleWidget("My pages", textColor: Colors.black)];
+    _header = [getTitleWidget("My business pages", textColor: Colors.black)];
     _footer = [RaisedButton(onPressed: () => _onCreateProductPressed(context), child: Text("Create"),)];
 
 

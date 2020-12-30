@@ -14,32 +14,18 @@ class RootTabsScreen extends StatefulWidget {
   _RootTabsScreenState createState() => _RootTabsScreenState();
 }
 
-class _RootTabsScreenState extends State<RootTabsScreen>
-    with WidgetsBindingObserver {
+class _RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObserver {
   int _selectedIndex = 0;
-  static List<Widget> _tabWidgets = <Widget>[
-    GlobensScreen(),
-    MyBusinessPagesScreen(),
-    MenuScreen()
-  ];
+  static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), MyBusinessPagesScreen(), MenuScreen()];
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     super.initState();
-    AppUser.init().then((value) => setState(() {}));
-  }
 
- @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
-    print(state);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
+    if (!AppUser.initialized)
+      AppUser.init().then((_) {
+        Navigator.of(context).pushReplacementNamed('/');
+      });
   }
 
   @override
@@ -56,14 +42,14 @@ class _RootTabsScreenState extends State<RootTabsScreen>
         showUnselectedLabels: false,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            title: Text('Globens'),
+            label: 'Globens',
             icon: Image.asset(
               'assets/icon.png',
               width: 25,
             ),
           ),
           BottomNavigationBarItem(
-            title: Text('My pages'),
+            label: 'My pages',
             icon: AppUser.isAuthenticated()
                 ? CircleAvatar(
                     radius: 15.0,
@@ -73,23 +59,25 @@ class _RootTabsScreenState extends State<RootTabsScreen>
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            title: Text('Menu'),
+            label: 'Menu',
           ),
         ],
       ),
     );
   }
 
+  void switchTab(int index) {
+    if (index < 3)
+      setState(() {
+        _selectedIndex = index;
+      });
+  }
+
   void _onTabSelected(int selectedIndex) async {
     if (selectedIndex == 1 && !AppUser.isAuthenticated()) {
-      setState(() {
-        _selectedIndex = 2;
-      });
-
+      switchTab(2);
       await toast("Please Sign In first!");
     } else
-      setState(() {
-        _selectedIndex = selectedIndex;
-      });
+      switchTab(selectedIndex);
   }
 }

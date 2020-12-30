@@ -67,11 +67,10 @@ dependencies:
   path_provider: ^1.6.14
   camera: ^0.5.8+5
   #endregion
-  #region
+  #region others
   image_picker: ^0.6.7+7
-  #endregion
-  #region
   connectivity: ^2.0.1
+  google_fonts: ^1.1.1
   #endregion
   webview_flutter: ^1.0.7
 

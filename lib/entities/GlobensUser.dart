@@ -2,6 +2,15 @@ import 'dart:typed_data';
 import 'AppUser.dart';
 
 class GlobensUser {
+  // region Variables
+  int _id;
+  String _email;
+  String _name;
+  String _picture;
+  Uint8List _pictureBlob;
+
+  // endregion
+
   GlobensUser.create(int id, String email, String name, String picture, Uint8List pictureBlob) {
     this._id = id;
     this._email = email;
@@ -10,12 +19,7 @@ class GlobensUser {
     this._pictureBlob = pictureBlob;
   }
 
-  int _id;
-  String _email;
-  String _name;
-  String _picture;
-  Uint8List _pictureBlob;
-
+  // region Getters
   int get id {
     return _id;
   }
@@ -39,4 +43,6 @@ class GlobensUser {
   bool get isMe {
     return _id == AppUser.id;
   }
+
+  // endregion
 }
