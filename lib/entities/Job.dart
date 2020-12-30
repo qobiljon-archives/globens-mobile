@@ -63,5 +63,5 @@ class Job {
     return _hiredUser == null;
   }
 
-  // endregion
+// endregion
 }

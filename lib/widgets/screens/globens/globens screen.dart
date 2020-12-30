@@ -1,9 +1,7 @@
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
-import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -29,10 +27,10 @@ class _GlobensScreenState extends State<GlobensScreen> {
       ),
     );
     _categories = [
-      ProductCategory.create("Education", ["Korean", "Programming", "etc"], SvgPicture.asset("assets/education.svg")),
-      ProductCategory.create("Consultation", ["Legal matters", "Visa", "etc"], SvgPicture.asset("assets/consulting.svg")),
-      ProductCategory.create("Vacancies", ["Engineering", "Freelancing", "etc"], SvgPicture.asset("assets/job.svg")),
-      ProductCategory.create("Others", ["1-1 services", "Delivery", "etc"], SvgPicture.asset("assets/others.svg"))
+      ProductCategory.create("Education", ["Korean", "Programming", "etc"], Image.asset("assets/education.png")),
+      ProductCategory.create("Consultation", ["Legal matters", "Visa", "etc"], Image.asset("assets/consulting.png")),
+      ProductCategory.create("Vacancies", ["Engineering", "Freelancing", "etc"], Image.asset("assets/vacancies.png")),
+      ProductCategory.create("Others", ["1-1 services", "Delivery", "etc"], Image.asset("assets/others.png"))
     ];
 
     // 2. dynamic part : change body (i.e., ad products) from server
@@ -51,7 +49,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
   }
 
   Future<void> _fetchAdProducts() async {
-    Tuple2<bool, List> product = await grpcFetchNextKProducts(AppUser.sessionKey, k: 15);
+    Tuple2<bool, List> product = await grpcFetchNextKProducts(k: 50);
     bool success = product.item1;
     List<Product> products = product.item2;
 
@@ -183,10 +181,13 @@ class _GlobensScreenState extends State<GlobensScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        product.name,
-                        maxLines: 2,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                      Container(
+                        height: 20.0,
+                        child: Text(
+                          product.name,
+                          maxLines: 2,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                        ),
                       ),
                       Text(
                         "by `${product.businessPage.title}`",

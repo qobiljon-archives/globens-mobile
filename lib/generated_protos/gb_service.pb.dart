@@ -1373,10 +1373,9 @@ class FetchBusinessPageProductIds extends $pb.GeneratedMessage {
 
 class FetchNextKProductIds_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchNextKProductIds.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, 'k', $pb.PbFieldType.O3)
-    ..a<$core.int>(3, 'previousProductId', $pb.PbFieldType.O3, protoName: 'previousProductId')
-    ..aOM<FilterDetails>(4, 'filterDetails', protoName: 'filterDetails', subBuilder: FilterDetails.create)
+    ..a<$core.int>(1, 'k', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, 'previousProductId', $pb.PbFieldType.O3, protoName: 'previousProductId')
+    ..aOM<FilterDetails>(3, 'filterDetails', protoName: 'filterDetails', subBuilder: FilterDetails.create)
     ..hasRequiredFields = false
   ;
 
@@ -1396,42 +1395,33 @@ class FetchNextKProductIds_Request extends $pb.GeneratedMessage {
   static FetchNextKProductIds_Request _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
+  $core.int get k => $_getIZ(0);
   @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
+  set k($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
+  $core.bool hasK() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
+  void clearK() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get k => $_getIZ(1);
+  $core.int get previousProductId => $_getIZ(1);
   @$pb.TagNumber(2)
-  set k($core.int v) { $_setSignedInt32(1, v); }
+  set previousProductId($core.int v) { $_setSignedInt32(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasK() => $_has(1);
+  $core.bool hasPreviousProductId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearK() => clearField(2);
+  void clearPreviousProductId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.int get previousProductId => $_getIZ(2);
+  FilterDetails get filterDetails => $_getN(2);
   @$pb.TagNumber(3)
-  set previousProductId($core.int v) { $_setSignedInt32(2, v); }
+  set filterDetails(FilterDetails v) { setField(3, v); }
   @$pb.TagNumber(3)
-  $core.bool hasPreviousProductId() => $_has(2);
+  $core.bool hasFilterDetails() => $_has(2);
   @$pb.TagNumber(3)
-  void clearPreviousProductId() => clearField(3);
-
-  @$pb.TagNumber(4)
-  FilterDetails get filterDetails => $_getN(3);
-  @$pb.TagNumber(4)
-  set filterDetails(FilterDetails v) { setField(4, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasFilterDetails() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearFilterDetails() => clearField(4);
-  @$pb.TagNumber(4)
-  FilterDetails ensureFilterDetails() => $_ensure(3);
+  void clearFilterDetails() => clearField(3);
+  @$pb.TagNumber(3)
+  FilterDetails ensureFilterDetails() => $_ensure(2);
 }
 
 class FetchNextKProductIds_Response extends $pb.GeneratedMessage {
@@ -1492,8 +1482,7 @@ class FetchNextKProductIds extends $pb.GeneratedMessage {
 
 class FetchProductDetails_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProductDetails.Request', createEmptyInstance: create)
-    ..aOS(1, 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, 'productId', $pb.PbFieldType.O3, protoName: 'productId')
+    ..a<$core.int>(1, 'productId', $pb.PbFieldType.O3, protoName: 'productId')
     ..hasRequiredFields = false
   ;
 
@@ -1513,22 +1502,13 @@ class FetchProductDetails_Request extends $pb.GeneratedMessage {
   static FetchProductDetails_Request _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
+  $core.int get productId => $_getIZ(0);
   @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
+  set productId($core.int v) { $_setSignedInt32(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
+  $core.bool hasProductId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get productId => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set productId($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasProductId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearProductId() => clearField(2);
+  void clearProductId() => clearField(1);
 }
 
 class FetchProductDetails_Response extends $pb.GeneratedMessage {

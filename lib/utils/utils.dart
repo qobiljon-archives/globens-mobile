@@ -195,7 +195,6 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
     if (success)
       for (int productId in productIdsRes.id) {
         final productDetailsRes = await stub.fetchProductDetails(FetchProductDetails_Request()
-          ..sessionKey = sessionKey
           ..productId = productId);
         success &= productDetailsRes.success;
         if (success) products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, businessPage, productDetailsRes.price, productDetailsRes.currency, id: productDetailsRes.id));
@@ -226,14 +225,13 @@ Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Pro
   return success;
 }
 
-Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {int k = 100}) async {
+Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100}) async {
   bool success = false;
   List<Product> products = List<Product>();
   Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
 
   try {
     final productIds = await getStub().fetchNextKProductIds(FetchNextKProductIds_Request()
-      ..sessionKey = sessionKey
       ..k = k
       ..filterDetails = FilterDetails()
       ..previousProductId = 0);
@@ -241,7 +239,6 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
     if (success) {
       for (int productId in productIds.id) {
         final productDetails = await getStub().fetchProductDetails(FetchProductDetails_Request()
-          ..sessionKey = sessionKey
           ..productId = productId);
         success &= productDetails.success;
 
@@ -250,7 +247,6 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
             products.add(Product.create(productDetails.name, productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
           else {
             final businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
-              ..sessionKey = sessionKey
               ..businessPageId = productDetails.businessPageId);
             success &= productDetails.success;
 

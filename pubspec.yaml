@@ -109,12 +109,14 @@ flutter:
     - assets/google.png
     - assets/kakaotalk.png
     - assets/business_page_placeholder.png
-    - assets/consulting.svg
-    - assets/education.svg
-    - assets/job.svg
-    - assets/others.svg
+    - assets/consulting.png
+    - assets/education.png
+    - assets/vacancies.png
+    - assets/others.png
     - assets/profile_placeholder.jpg
     - assets/vacancy.png
+    - assets/menu.png
+    - assets/business_page.png
 
 
 

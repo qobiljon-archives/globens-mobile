@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     themeMode: ThemeMode.light,
     theme: ThemeData(primaryColor: Colors.white, primaryColorBrightness: Brightness.light, brightness: Brightness.light, primaryColorDark: Colors.black, canvasColor: Colors.white, appBarTheme: AppBarTheme(brightness: Brightness.light), textTheme: GoogleFonts.latoTextTheme()),

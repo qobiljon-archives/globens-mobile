@@ -1,17 +1,18 @@
-import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:flutter/widgets.dart';
 
 class ProductCategory {
   // region Variables
   String _text;
   List<String> _examples;
-  SvgPicture _icon;
+  Image _image;
 
   // endregion
 
-  ProductCategory.create(String text, List<String> examples, SvgPicture icon) {
+  ProductCategory.create(String text, List<String> examples, Image image) {
     this._text = text;
     this._examples = examples;
-    this._icon = icon;
+    this._image = image;
   }
 
   // region Getters
@@ -23,8 +24,8 @@ class ProductCategory {
     return this._examples;
   }
 
-  SvgPicture get icon {
-    return _icon;
+  Image get icon {
+    return _image;
   }
 // endregion
 }

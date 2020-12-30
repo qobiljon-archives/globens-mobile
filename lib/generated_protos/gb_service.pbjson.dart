@@ -315,10 +315,9 @@ const FetchNextKProductIds$json = const {
 const FetchNextKProductIds_Request$json = const {
   '1': 'Request',
   '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'k', '3': 2, '4': 1, '5': 5, '10': 'k'},
-    const {'1': 'previousProductId', '3': 3, '4': 1, '5': 5, '10': 'previousProductId'},
-    const {'1': 'filterDetails', '3': 4, '4': 1, '5': 11, '6': '.FilterDetails', '10': 'filterDetails'},
+    const {'1': 'k', '3': 1, '4': 1, '5': 5, '10': 'k'},
+    const {'1': 'previousProductId', '3': 2, '4': 1, '5': 5, '10': 'previousProductId'},
+    const {'1': 'filterDetails', '3': 3, '4': 1, '5': 11, '6': '.FilterDetails', '10': 'filterDetails'},
   ],
 };
 
@@ -338,8 +337,7 @@ const FetchProductDetails$json = const {
 const FetchProductDetails_Request$json = const {
   '1': 'Request',
   '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'productId', '3': 2, '4': 1, '5': 5, '10': 'productId'},
+    const {'1': 'productId', '3': 1, '4': 1, '5': 5, '10': 'productId'},
   ],
 };
 

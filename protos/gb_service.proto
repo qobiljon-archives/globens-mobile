@@ -157,10 +157,9 @@ message FetchBusinessPageProductIds{
 }
 message FetchNextKProductIds{
   message Request{
-    string sessionKey = 1;
-    int32 k = 2;
-    int32 previousProductId = 3;
-    FilterDetails filterDetails = 4;
+    int32 k = 1;
+    int32 previousProductId = 2;
+    FilterDetails filterDetails = 3;
   }
   message Response{
     bool success = 1;
@@ -169,8 +168,7 @@ message FetchNextKProductIds{
 }
 message FetchProductDetails{
   message Request{
-    string sessionKey = 1;
-    int32 productId = 2;
+    int32 productId = 1;
   }
   message Response{
     bool success = 1;

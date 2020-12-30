@@ -19,13 +19,11 @@ class _RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObse
   static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), MyBusinessPagesScreen(), MenuScreen()];
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
     if (!AppUser.initialized)
-      AppUser.init().then((_) {
-        Navigator.of(context).pushReplacementNamed('/');
-      });
+      AppUser.init();
   }
 
   @override
@@ -49,12 +47,12 @@ class _RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObse
             ),
           ),
           BottomNavigationBarItem(
-            label: 'My business pages',
-            icon: Icon(Icons.corporate_fare_outlined),
+            label: 'My pages',
+            icon: Image.asset('assets/business_page.png', width: 25,),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'App menu',
+            icon: Image.asset('assets/menu.png',width: 25,),
+            label: 'Menu',
           ),
         ],
       ),

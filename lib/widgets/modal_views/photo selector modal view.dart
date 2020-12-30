@@ -37,13 +37,13 @@ class PhotoSelectorModalView {
   }
 
   static void _galleryImagePressed(BuildContext context) async {
-    PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery, maxWidth: 96, maxHeight: 96);
+    PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.gallery, maxWidth: 512, maxHeight: 512);
     PhotoSelectorModalView.resultImageBytes = await pickedFile.readAsBytes();
     if (Navigator.canPop(context)) Navigator.pop(context);
   }
 
   static void _captureCameraPressed(BuildContext context) async {
-    PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.camera, maxWidth: 96, maxHeight: 96);
+    PickedFile pickedFile = await ImagePicker().getImage(source: ImageSource.camera, maxWidth: 512, maxHeight: 512);
     PhotoSelectorModalView.resultImageBytes = await pickedFile.readAsBytes();
     if (Navigator.canPop(context)) Navigator.pop(context);
   }
