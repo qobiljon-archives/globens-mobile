@@ -11,10 +11,9 @@ class MyBusinessPagesScreen extends StatefulWidget {
 
 class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   List<Widget> _header = [];
-  List<BusinessPage> _body = [];
+  List<BusinessPage> _businessPages = [];
   List<Widget> _footer = [];
   bool timeout = false;
-
 
   @override
   void initState() {
@@ -22,98 +21,91 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
 
     // 1. static part : set up common part of header and footer
     _header = [getTitleWidget("My business pages", textColor: Colors.black)];
-    _footer = [RaisedButton(onPressed: () => _onCreateProductPressed(context), child: Text("Create"),)];
-
+    _footer = [
+      Container(
+        margin: EdgeInsets.all(20),
+        child: RaisedButton.icon(
+          onPressed: () => _onCreateProductPressed(context),
+          color: Colors.blueAccent,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          icon: Icon(
+            Icons.corporate_fare_outlined,
+            color: Colors.white,
+          ),
+          label: Text(
+            "BUILD A NEW BUSINESS",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      )
+    ];
 
     // 2. dynamic part : change body (i.e., business pages) from server
-    _updateDynamicPart();
+    _fetchMyBusinessPages();
   }
 
   @override
   Widget build(context) {
-    return ListView.separated(
-      separatorBuilder: (BuildContext context, int index) => Divider(
-        color: index == 0 ? Colors.deepOrange : Colors.blueAccent,
-      ),
-      itemCount: _header.length + _body.length + _footer.length,
-      itemBuilder: (BuildContext context, int index) =>
-          _getListViewItem(context, index),
+    return ListView.builder(
+      itemCount: _header.length + _businessPages.length + _footer.length,
+      itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
     );
   }
 
+  Widget _buildBusinessPageItem(BuildContext context, BusinessPage businessPage) {
+    return InkWell(
+        onTap: () => _openIndividualBusinessPage(context, businessPage),
+        child: Card(
+          margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: MemoryImage(businessPage.pictureBlob),
+                ),
+              ),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    "${shorten(businessPage.title, 28, ellipsize: true)}",
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  Text(
+                    "My role : ${businessPage.role}",
+                    style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+                  )
+                ]),
+              )
+            ],
+          ),
+        ));
+  }
 
   Widget _getListViewItem(BuildContext context, int index) {
-    if (index >= _header.length + _body.length) {
+    if (index >= _header.length + _businessPages.length) {
       // footer section
-      index -= _header.length + _body.length;
+      index -= _header.length + _businessPages.length;
       return _footer[index];
     } else if (index >= _header.length) {
       // business pages section
       index -= _header.length;
-      return _buildBusinessPageItem(context, index);
+      return _buildBusinessPageItem(context, _businessPages[index]);
     } else {
       // header section
       return _header[index];
     }
   }
 
-  Widget _buildBusinessPageItem(BuildContext context, int index) {
-    return Container(
-      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      child: GestureDetector(
-        onTap: () {
-          _openIndividualBusinessPage(context, _body[index]);
-        },
-        onLongPress: () {},
-        child: Container(
-          margin: EdgeInsets.only(top: 10.0),
-          child: Row(
-            //mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 10.0),
-                child: CircleAvatar(
-                  radius: 20.0,
-                  backgroundImage: MemoryImage(_body[index].pictureBlob),
-                ),
-              ),
-              if (index == 0)
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 10),
-                    child: Text(
-                      "${_body[index].title}",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                )
-              else
-                Expanded(
-                    child: Container(
-                  margin: EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    "${_body[index].title}",
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                )),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Future<void> _updateDynamicPart() async {
+  Future<void> _fetchMyBusinessPages() async {
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;
       if (success) {
         setState(() {
-          _body = businessPages;
+          _businessPages = businessPages;
         });
       } else {
         await AppUser.signOut();
@@ -133,7 +125,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
       List<BusinessPage> businessPages = tuple.item2;
       if (success) {
         setState(() {
-          _body = businessPages;
+          _businessPages = businessPages;
         });
       } else {
         await AppUser.signOut();

@@ -4,7 +4,7 @@ import 'BusinessPage.dart';
 import 'dart:typed_data';
 
 class Product {
-  // region constants
+  // region Constants
   static const String CREATE_ACTION = 'create';
   static const String UNCREATE_ACTION = 'uncreate';
   static const String PUBLISH_ACTION = 'publish';
@@ -12,7 +12,7 @@ class Product {
 
   // endregion
 
-  // region variables
+  // region Variables
   static Map<int, Product> _instances = Map<int, Product>();
   int _id;
   String _name;
@@ -32,7 +32,7 @@ class Product {
     this._currency = currency;
   }
 
-  // region getters
+  // region Getters
   int get id {
     return this._id;
   }
@@ -62,6 +62,8 @@ class Product {
   }
 
   String get priceStr {
+    if (price == 0) return "free";
+
     switch (currency) {
       case Currency.KRW:
         return '$price ₩';
@@ -70,7 +72,6 @@ class Product {
       default:
         return '[N/A]';
     }
-    return "${price}";
   }
 
 // endregion

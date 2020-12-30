@@ -87,6 +87,15 @@ Future<void> toast(String message) async {
   await Fluttertoast.showToast(msg: message, toastLength: Toast.LENGTH_SHORT, gravity: ToastGravity.BOTTOM, timeInSecForIosWeb: 1, backgroundColor: Colors.grey, textColor: Colors.white, fontSize: 16.0);
 }
 
+String shorten(String str, int len, {bool ellipsize = false}) {
+  if (str.length <= len)
+    return str;
+  else if (ellipsize)
+    return "${str.substring(0, len)}…";
+  else
+    return str.substring(0, len);
+}
+
 // region user management RPCs
 Future<Tuple3<bool, int, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
@@ -257,13 +266,18 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(String sessionKey, {i
         success &= productDetails.success;
 
         if (success) {
-          if (businessPages.containsKey(productDetails.id))
+          if (businessPages.containsKey(productDetails.businessPageId))
             products.add(Product.create(productDetails.name, productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
           else {
-            final businessPageDetails = await stub.fetchBusinessPageDetails(FetchBusinessPageDetails_Request()..businessPageId = productDetails.businessPageId);
+            final businessPageDetails = await stub.fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
+              ..sessionKey = sessionKey
+              ..businessPageId = productDetails.businessPageId);
             success &= productDetails.success;
 
-            if (success) products.add(Product.create(productDetails.name, productDetails.pictureBlob, BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob), productDetails.price, productDetails.currency, id: productDetails.id));
+            if (success) {
+              businessPages[productDetails.businessPageId] = BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob, id: businessPageDetails.id, type: businessPageDetails.type, role: businessPageDetails.role);
+              products.add(Product.create(productDetails.name, productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
+            }
           }
         }
       }

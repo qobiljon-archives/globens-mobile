@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/widgets/modal_views/product%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
@@ -33,7 +34,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
     ];
     _categories = [
       ProductCategory.create("Education", ["Korean", "Programming", "etc"], SvgPicture.asset("assets/education.svg")),
-      ProductCategory.create("Consulting", ["Legal matters", "Visa", "etc"], SvgPicture.asset("assets/consulting.svg")),
+      ProductCategory.create("Consultation", ["Legal matters", "Visa", "etc"], SvgPicture.asset("assets/consulting.svg")),
       ProductCategory.create("Vacancies", ["Engineering", "Freelancing", "etc"], SvgPicture.asset("assets/job.svg")),
       ProductCategory.create("Others", ["1-1 services", "Delivery", "etc"], SvgPicture.asset("assets/others.svg"))
     ];
@@ -44,10 +45,8 @@ class _GlobensScreenState extends State<GlobensScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int categoryRows = (_categories.length / 2).round();
-    categoryRows += _categories.length % 2;
-    int productRows = (_products.length / 2).round();
-    productRows += _products.length % 2;
+    int categoryRows = (_categories.length / 2).ceil();
+    int productRows = (_products.length / 2).ceil();
 
     return ListView.builder(
       itemCount: _header.length + 2 + categoryRows + 1 + productRows,
@@ -56,7 +55,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
   }
 
   Future<void> _fetchAdProducts() async {
-    Tuple2<bool, List> product = await grpcFetchNextKProducts(AppUser.sessionKey, k: 20);
+    Tuple2<bool, List> product = await grpcFetchNextKProducts(AppUser.sessionKey, k: 15);
     bool success = product.item1;
     List<Product> products = product.item2;
 
@@ -68,8 +67,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
   }
 
   Widget _getListViewItem(BuildContext context, int index) {
-    int categoryRows = (_categories.length / 2).round();
-    categoryRows += _categories.length % 2;
+    int categoryRows = (_categories.length / 2).ceil();
     Size screenSize = MediaQuery.of(context).size;
 
     if (index >= _header.length + 2 + categoryRows + 1) {
@@ -119,7 +117,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
                   children: [
                     Text(
                       category.text,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                     ),
                     Divider(
                       color: Colors.blueGrey,
@@ -127,15 +125,15 @@ class _GlobensScreenState extends State<GlobensScreen> {
                     ),
                     Text(
                       "• ${category.examples[0]}",
-                      style: TextStyle(fontSize: 9.0),
+                      style: TextStyle(fontSize: 11.0),
                     ),
                     Text(
                       "• ${category.examples[1]}",
-                      style: TextStyle(fontSize: 9.0),
+                      style: TextStyle(fontSize: 11.0),
                     ),
                     Text(
                       "• ${category.examples[2]}",
-                      style: TextStyle(fontSize: 9.0),
+                      style: TextStyle(fontSize: 11.0),
                     ),
                   ],
                 ),
@@ -157,15 +155,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
   }
 
   InkWell _buildProductItem(BuildContext context, Product product, Size screenSize) {
-    ClipRRect image = ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-          topRight: Radius.circular(10.0),
-        ),
-        child: Image.memory(
-          product.pictureBlob,
-          fit: BoxFit.fill,
-        ));
+    double iconWH = screenSize.width * 0.45;
 
     return InkWell(
       onTap: () => _onProductTap(context, product),
@@ -177,11 +167,21 @@ class _GlobensScreenState extends State<GlobensScreen> {
           color: Colors.white,
           elevation: 1.0,
           child: new Container(
-            width: screenSize.width * 0.45,
+            width: iconWH,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                image,
+                ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10.0),
+                      topRight: Radius.circular(10.0),
+                    ),
+                    child: Image.memory(
+                      product.pictureBlob,
+                      fit: BoxFit.cover,
+                      height: iconWH,
+                    )),
                 Container(
                   padding: EdgeInsets.all(5.0),
                   child: Column(
@@ -189,11 +189,19 @@ class _GlobensScreenState extends State<GlobensScreen> {
                     children: [
                       Text(
                         product.name,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
+                        maxLines: 2,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                      ),
+                      Text(
+                        "by `${product.businessPage.title}`",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12.0, color: Colors.blueGrey),
                       ),
                       Text(
                         "${product.priceStr}",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
                       )
                     ],
                   ),
@@ -207,7 +215,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
   Row _buildProductRow(BuildContext context, int index, Size screenSize) {
     int productIndex = index * 2;
 
-    Row row = Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, crossAxisAlignment: CrossAxisAlignment.start, children: [_buildProductItem(context, _products[productIndex], screenSize)]);
+    Row row = Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [_buildProductItem(context, _products[productIndex], screenSize)]);
     if (productIndex < _products.length - 1) // two elements in one row
       row.children.add(_buildProductItem(context, _products[productIndex + 1], screenSize));
 
