@@ -128,6 +128,7 @@ message CreateProduct{
     bytes pictureBlob = 5;
     float price = 6;
     Currency currency = 7;
+    string description = 8;
   }
   message Response{
     bool success = 1;
@@ -174,6 +175,7 @@ message FetchProductDetails{
     int32 businessPageId = 7;
     float price = 8;
     Currency currency = 9;
+    string description = 10;
   }
 }
 message PublishProduct{

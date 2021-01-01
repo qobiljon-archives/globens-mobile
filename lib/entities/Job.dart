@@ -13,38 +13,26 @@ class Job {
 
   // region Variables
   int _id;
-  String _description;
-  String _responsibilities;
   String _role;
   String _title;
   GlobensUser _hiredUser;
 
   // endregion
 
-  Job.create(String title, {int id, String role, GlobensUser hiredUser, String description, String responsibilities}) {
+  Job.create(String title, {int id, String role, GlobensUser hiredUser}) {
     this._title = title;
     this._id = id;
     this._role = role;
     this._hiredUser = hiredUser;
-    this._responsibilities = _responsibilities;
-    this._description = description;
   }
 
   // region Getters
-  String get description {
-    return _description;
-  }
-
-  String get responsibilities {
-    return _responsibilities;
+  int get id {
+    return _id;
   }
 
   String get title {
     return _title;
-  }
-
-  int get id {
-    return _id;
   }
 
   String get role {

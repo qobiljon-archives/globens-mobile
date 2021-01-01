@@ -1014,6 +1014,7 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
     ..a<$core.List<$core.int>>(5, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
     ..a<$core.double>(6, 'price', $pb.PbFieldType.OF)
     ..e<Currency>(7, 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
+    ..aOS(8, 'description')
     ..hasRequiredFields = false
   ;
 
@@ -1094,6 +1095,15 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
   $core.bool hasCurrency() => $_has(6);
   @$pb.TagNumber(7)
   void clearCurrency() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get description => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set description($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasDescription() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearDescription() => clearField(8);
 }
 
 class CreateProduct_Response extends $pb.GeneratedMessage {
@@ -1465,6 +1475,7 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
     ..a<$core.int>(7, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
     ..a<$core.double>(8, 'price', $pb.PbFieldType.OF)
     ..e<Currency>(9, 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
+    ..aOS(10, 'description')
     ..hasRequiredFields = false
   ;
 
@@ -1563,6 +1574,15 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
   $core.bool hasCurrency() => $_has(8);
   @$pb.TagNumber(9)
   void clearCurrency() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get description => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set description($core.String v) { $_setString(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasDescription() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearDescription() => clearField(10);
 }
 
 class FetchProductDetails extends $pb.GeneratedMessage {

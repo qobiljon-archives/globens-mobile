@@ -6,68 +6,93 @@ import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'PhotoSelectorModalView.dart';
 
-class BusinessPageViewerModalView extends StatefulWidget {
+class BusinessPageCreatorModalView extends StatefulWidget {
   @override
-  _BusinessPageViewerModalViewState createState() => _BusinessPageViewerModalViewState();
+  _BusinessPageCreatorModalViewState createState() => _BusinessPageCreatorModalViewState();
 }
 
-class _BusinessPageViewerModalViewState extends State<BusinessPageViewerModalView> {
+class _BusinessPageCreatorModalViewState extends State<BusinessPageCreatorModalView> {
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        getTitleWidget("New business page", textColor: Colors.black),
-        Row(
-          children: [
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: GestureDetector(
-                onTap: () {
-                  _selectImagePressed(context);
-                },
-                child: CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/business_page_placeholder.png') : MemoryImage(_businessPageImageBytes),
+    return Container(
+      margin: EdgeInsets.only(top: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: EdgeInsets.only(right: 30.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
+                  onPressed: _onBackButtonPressed,
+                ),
+                getTitleWidget("Business details", textColor: Colors.black, margin: EdgeInsets.all(0)),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: GestureDetector(
+                  onTap: () {
+                    _selectImagePressed(context);
+                  },
+                  child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/image_placeholder.png') : MemoryImage(_businessPageImageBytes),
+                  ),
                 ),
               ),
-            ),
-            Flexible(
-                child: TextField(
-              controller: _titleTextController,
-              decoration: InputDecoration(
-                labelText: "Title",
-                hintText: "Enter your title",
-              ),
-            )),
-          ],
-        ),
-        RaisedButton(
-          onPressed: () => _createBusinessPagePressed(context),
-          child: Text("Create"),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Container(),
-        )
-      ],
-    ));
+              Flexible(
+                  child: TextField(
+                controller: _titleTextController,
+                decoration: InputDecoration(
+                  labelText: "Name of business",
+                  hintText: "e.g., SpaceX",
+                ),
+              )),
+            ],
+          ),
+          Container(
+              margin: EdgeInsets.only(top: 20.0),
+              child: RaisedButton.icon(
+                onPressed: _createBusinessPagePressed,
+                color: Colors.blueAccent,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                icon: Icon(
+                  Icons.upload_file,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  "CREATE",
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              )),
+        ],
+      ),
+    );
+  }
+
+  void _onBackButtonPressed() {
+    Navigator.of(context).pop();
   }
 
   void _selectImagePressed(BuildContext context) async {
     PhotoSelectorModalView.resultImageBytes = null;
-    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
     if (PhotoSelectorModalView.resultImageBytes != null)
       setState(() {
         _businessPageImageBytes = PhotoSelectorModalView.resultImageBytes;
       });
   }
 
-  void _createBusinessPagePressed(BuildContext context) async {
+  void _createBusinessPagePressed() async {
     if (_titleTextController.text.length < 2) {
       await toast("Title must be at least two characters");
       return;

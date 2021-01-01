@@ -1,6 +1,6 @@
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
-
+import 'package:intl/intl.dart';
 import 'BusinessPage.dart';
 import 'dart:typed_data';
 
@@ -17,14 +17,15 @@ class Product {
   int _id;
   String _name;
   ProductCategory _category;
-  List<int> _pictureBlob;
+  Uint8List _pictureBlob;
   BusinessPage _businessPage;
   double _price;
   Currency _currency;
+  String _description;
 
   // endregion
 
-  Product.create(String name, ProductCategory category, Uint8List pictureBlob, BusinessPage businessPage, double price, Currency currency, {int id}) {
+  Product.create(String name, ProductCategory category, Uint8List pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, {int id}) {
     this._id = id;
     this._name = name;
     this._category = category;
@@ -32,6 +33,7 @@ class Product {
     this._businessPage = businessPage;
     this._price = price;
     this._currency = currency;
+    this._description = description;
   }
 
   // region Getters
@@ -47,7 +49,7 @@ class Product {
     return this._category;
   }
 
-  List<int> get pictureBlob {
+  Uint8List get pictureBlob {
     return this._pictureBlob;
   }
 
@@ -70,14 +72,19 @@ class Product {
   String get priceStr {
     if (price == 0) return "free";
 
+    NumberFormat fmt = NumberFormat('#,###.00');
     switch (currency) {
       case Currency.KRW:
-        return '$price ₩';
+        return '${fmt.format(price)} ₩';
       case Currency.USD:
         return '\$';
       default:
         return '[N/A]';
     }
+  }
+
+  String get description {
+    return this._description;
   }
 
 // endregion

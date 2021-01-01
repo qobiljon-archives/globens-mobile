@@ -1,17 +1,13 @@
-import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
-import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'JobApplicationViewerModalView.dart';
 import 'package:flutter/material.dart';
 
 class VacancyCreatorModalView extends StatefulWidget {
   final BusinessPage businessPage;
-  final Job job;
 
-  VacancyCreatorModalView({this.businessPage, this.job});
+  VacancyCreatorModalView({this.businessPage});
 
   @override
   _VacancyCreatorModalViewState createState() => _VacancyCreatorModalViewState();
@@ -19,94 +15,68 @@ class VacancyCreatorModalView extends StatefulWidget {
 
 class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
   final TextEditingController _titleTextController = TextEditingController();
-  final TextEditingController _descriptionTextController = TextEditingController();
-  final TextEditingController _responsibilitiesController = TextEditingController();
-  GlobensUser _employeeUser;
-  bool _appliedForVacancy;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (widget.job != null) {
-      if (widget.job.isVacant) {
-        grpcFetchJobApplications(AppUser.sessionKey, widget.job).then((res) {
-          bool success = res.item1;
-          if (success) {
-            List<JobApplication> jobApplications = res.item2;
-            for (JobApplication jobApplication in jobApplications)
-              if (jobApplication.applicantId == AppUser.id) {
-                setState(() {
-                  _appliedForVacancy = true;
-                });
-                return;
-              }
-            setState(() {
-              _appliedForVacancy = false;
-            });
-          } else
-            AppUser.signOut().then((value) => Navigator.of(context).pushReplacementNamed('/'));
-        });
-      } else
-        grpcFetchUserDetails(AppUser.sessionKey, widget.job.hiredUser.id).then((res) async {
-          bool success = res.item1;
-          GlobensUser user = res.item2;
-
-          if (success) {
-            setState(() {
-              _employeeUser = user;
-            });
-          } else {
-            await AppUser.signOut();
-            await Navigator.of(context).pushReplacementNamed('/');
-          }
-        });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> childWidgets = [];
-
-    if (widget.job == null)
-      // creating a new job (write mode)
-      childWidgets.addAll([
-        getTitleWidget("New vacancy details"),
-        TextField(controller: _titleTextController, decoration: InputDecoration(border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.red, width: 10)), labelText: "Please enter the new vacancy's title here", hintText: "e.g., English language teacher")),
-        TextField(maxLines: 5, controller: _descriptionTextController, decoration: InputDecoration(border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.red)), labelText: "Please enter the new  vacancy's description  here", hintText: "e.g.The best position ")),
-        TextField(controller: _responsibilitiesController, decoration: InputDecoration(border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.red)), labelText: "Please enter responsibilities here", hintText: "e.g.coding, cleaning...")),
-        RaisedButton(onPressed: () => _createVacancyPressed(context), child: Text("Create a vacant position"))
-      ]);
-    else {
-      // viewing an existing job (read mode)
-      childWidgets.addAll([
-        getTitleWidget('Viewing a job${widget.job.isVacant ? " / vacancy" : ""}'),
-        Text('Job title: "${widget.job.title}"'),
-      ]);
-
-      if (widget.job.isVacant) {
-        // vacancy application button
-        if (_appliedForVacancy != null) {
-          if (_appliedForVacancy)
-            childWidgets.add(Text("You have already applied for this vacancy"));
-          else
-            childWidgets.add(RaisedButton(onPressed: () => _applyForVacancyPressed(context), child: Text("Apply for vacancy")));
-        }
-
-        // viewing job applications for the position
-        if (widget.businessPage != null && widget.businessPage.role == Job.BUSINESS_OWNER_ROLE) {
-          childWidgets.add(RaisedButton(onPressed: () => _viewJobApplicationsPressed(context), child: Text("View job applications")));
-        }
-      } else
-        childWidgets.add(Text('Job held by : ${_employeeUser == null ? "[loading]" : _employeeUser.isMe ? "you" : "${_employeeUser.name} (${_employeeUser.email})"}'));
-    }
-
-    // ending part (padding)
-    childWidgets.add(Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom), child: Container()));
-    return SingleChildScrollView(child: Column(children: childWidgets));
+    return Container(
+      margin: EdgeInsets.only(top: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Container(
+          margin: EdgeInsets.only(right: 30.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: Icon(Icons.arrow_back_ios),
+                onPressed: _onBackButtonPressed,
+              ),
+              getTitleWidget("Vacancy details", textColor: Colors.black, margin: EdgeInsets.zero),
+            ],
+          ),
+        ),
+        Row(
+          children: [
+            Container(
+              margin: EdgeInsets.all(10.0),
+              child: CircleAvatar(
+                radius: 30.0,
+                backgroundImage: AssetImage('assets/vacancy.png'),
+              ),
+            ),
+            Flexible(
+                child: TextField(
+              controller: _titleTextController,
+              decoration: InputDecoration(
+                labelText: "Vacancy name",
+                hintText: "e.g., Assistant sales manager",
+              ),
+            )),
+          ],
+        ),
+        Container(
+            margin: EdgeInsets.only(top: 20.0),
+            child: RaisedButton.icon(
+              onPressed: _createVacancyPressed,
+              color: Colors.blueAccent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              icon: Icon(
+                Icons.upload_file,
+                color: Colors.white,
+              ),
+              label: Text(
+                "CREATE",
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            )),
+      ]),
+    );
   }
 
-  void _createVacancyPressed(BuildContext context) async {
+  void _onBackButtonPressed() {
+    Navigator.of(context).pop();
+  }
+
+  void _createVacancyPressed() async {
     if (_titleTextController.text.length < 2) {
       await toast("Vacancy title cannot be less than two characters");
       return;
@@ -115,7 +85,7 @@ class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
     bool success = await grpcCreateVacantJob(
       AppUser.sessionKey,
       widget.businessPage,
-      Job.create(_titleTextController.text, description: _descriptionTextController.text, responsibilities: _responsibilitiesController.text),
+      Job.create(_titleTextController.text),
     );
 
     if (success)
@@ -126,14 +96,15 @@ class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
     }
   }
 
-  void _applyForVacancyPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView(job: widget.job));
-    Navigator.of(context).pop();
+  void _applyForVacancyPressed() async {
+    // todo applying to vacancy part
+    // await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationViewerModalView(job: widget.job));
+    // Navigator.of(context).pop();
   }
 
-  void _viewJobApplicationsPressed(BuildContext context) async {
-    // only business owner must be able to see the following screen
-    await Navigator.of(context).pushNamed('/business_page_details/job_applications_list', arguments: {'job': widget.job, 'businessPage': widget.businessPage});
-    Navigator.of(context).pop();
+  void _viewJobApplicationsPressed() async {
+    // todo show applications part - only business owner must be able to see the following screen
+    // await Navigator.of(context).pushNamed('/business_page_details/job_applications_list', arguments: {'job': widget.job, 'businessPage': widget.businessPage});
+    // Navigator.of(context).pop();
   }
 }

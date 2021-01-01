@@ -110,7 +110,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
       if (alreadyApplied)
         toast("You have already applied for this position!");
       else {
-        await showModalBottomSheet(context: context, builder: (context) => JobApplicationViewerModalView(job: _vacantJobs[index]));
+        await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationViewerModalView(job: _vacantJobs[index]));
         _updateDynamicPart();
       }
     } else {
@@ -120,18 +120,8 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   }
 
   void _openVacancyDetails(BuildContext context, index) async {
-    await showModalBottomSheet(context: context, builder: (context) => VacancyCreatorModalView(job: _vacantJobs[index]));
-    grpcFetchBusinessPageVacancies(AppUser.sessionKey).then((tuple) {
-      bool success = tuple.item1;
-      List<Job> jobs = tuple.item2;
-      if (success) {
-        if (!mounted) return;
-        setState(() {
-          _vacantJobs = jobs;
-        });
-      } else
-        AppUser.signOut().then((value) => Navigator.of(context).pushReplacementNamed('/'));
-    });
+    // todo show vacancy details
+    // await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => VacancyCreatorModalView(job: _vacantJobs[index]));
   }
 
   Widget getListOfWidgets(BuildContext context) {

@@ -242,6 +242,7 @@ const CreateProduct_Request$json = const {
     const {'1': 'pictureBlob', '3': 5, '4': 1, '5': 12, '10': 'pictureBlob'},
     const {'1': 'price', '3': 6, '4': 1, '5': 2, '10': 'price'},
     const {'1': 'currency', '3': 7, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
+    const {'1': 'description', '3': 8, '4': 1, '5': 9, '10': 'description'},
   ],
 };
 
@@ -336,6 +337,7 @@ const FetchProductDetails_Response$json = const {
     const {'1': 'businessPageId', '3': 7, '4': 1, '5': 5, '10': 'businessPageId'},
     const {'1': 'price', '3': 8, '4': 1, '5': 2, '10': 'price'},
     const {'1': 'currency', '3': 9, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
+    const {'1': 'description', '3': 10, '4': 1, '5': 9, '10': 'description'},
   ],
 };
 

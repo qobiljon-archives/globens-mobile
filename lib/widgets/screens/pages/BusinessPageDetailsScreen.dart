@@ -251,7 +251,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateProductPressed() async {
-    await showModalBottomSheet(context: context, builder: (context) => ProductCreatorModalView(_businessPage));
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => ProductCreatorModalView(_businessPage));
 
     Tuple2<bool, List<Product>> res = await grpcFetchNextKProducts(filterDetails: FilterDetails()..businessPageId = _businessPage.id);
     bool success = res.item1;
@@ -272,7 +272,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateVacancyPressed() async {
-    await showModalBottomSheet(context: context, builder: (context) => VacancyCreatorModalView(businessPage: _businessPage));
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => VacancyCreatorModalView(businessPage: _businessPage));
     Tuple2<bool, List<Job>> res = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage);
 
     bool success = res.item1;
@@ -293,7 +293,6 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
-    await showModalBottomSheet(context: context, builder: (context) => VacancyCreatorModalView(job: job, businessPage: _businessPage));
-    await _fetchBusinessPageContent();
+    // todo show job details
   }
 }

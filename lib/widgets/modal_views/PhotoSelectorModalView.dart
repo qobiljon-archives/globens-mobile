@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,32 +9,63 @@ class PhotoSelectorModalView {
 
   static Widget getContainer(BuildContext context) {
     return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      margin: EdgeInsets.only(top: 30.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            margin: EdgeInsets.all(5.0),
-            child: IconButton(
-                icon: Icon(
-                  Icons.photo_camera,
-                  color: Colors.blue,
-                  size: 40,
+            margin: EdgeInsets.only(bottom: 30.0, right: 40.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back_ios),
+                  onPressed: () => _onBackButtonPressed(context),
                 ),
-                onPressed: () => _captureCameraPressed(context)),
+                getTitleWidget("Method", textColor: Colors.black, margin: EdgeInsets.all(0)),
+              ],
+            ),
           ),
-          Container(
-            margin: EdgeInsets.all(5.0),
-            child: IconButton(
-                icon: Icon(
-                  Icons.photo,
-                  color: Colors.blue,
-                  size: 40,
-                ),
-                onPressed: () => _galleryImagePressed(context)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              RaisedButton.icon(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  icon: Icon(
+                    Icons.photo_camera,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  label: Text(
+                    "Camera",
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  color: Colors.blueAccent,
+                  onPressed: () => _captureCameraPressed(context)),
+              RaisedButton.icon(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0, bottom: 5.0),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  icon: Icon(
+                    Icons.photo,
+                    color: Colors.white,
+                    size: 40,
+                  ),
+                  label: Text(
+                    "Gallery",
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  color: Colors.blueAccent,
+                  onPressed: () => _galleryImagePressed(context)),
+            ],
           ),
         ],
       ),
     );
+  }
+
+  static void _onBackButtonPressed(BuildContext context) {
+    Navigator.pop(context);
   }
 
   static void _galleryImagePressed(BuildContext context) async {

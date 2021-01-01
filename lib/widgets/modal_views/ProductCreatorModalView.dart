@@ -6,6 +6,7 @@ import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pattern_formatter/numeric_formatter.dart';
 import 'PhotoSelectorModalView.dart';
 import 'dart:typed_data';
 
@@ -20,9 +21,12 @@ class ProductCreatorModalView extends StatefulWidget {
 
 class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   final _titleTextController = TextEditingController();
-  Uint8List _businessPageImageBytes;
+  final _priceTextController = TextEditingController();
+  final _descriptionTextController = TextEditingController();
+  Uint8List _productImageBytes;
   Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
   int _selectedCategoryId;
+  String _selectedCurrency;
 
   @override
   void initState() {
@@ -31,6 +35,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
     // dummy values for initial display
     _categories[1] = ProductCategory.create(1, "Others", null, null);
     _selectedCategoryId = 1;
+    _selectedCurrency = Currency.KRW.name;
 
     grpcFetchProductCategories().then((tp) {
       bool success = tp.item1;
@@ -47,102 +52,136 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10.0, bottom: 50.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      color: Color.fromRGBO(240, 242, 245, 1),
+      padding: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+      child: ListView(
+        shrinkWrap: true,
         children: [
-          getTitleWidget("Product details", textColor: Colors.black),
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.all(10.0),
-                child: GestureDetector(
-                  onTap: () {
-                    _showPhotoUploadOptions(context);
+          Container(
+              margin: EdgeInsets.only(right: 50.0, bottom: 20.0),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: _onBackButtonPressed),
+                getTitleWidget("Product details", textColor: Colors.black, margin: EdgeInsets.zero),
+              ])),
+          Row(children: [
+            Flexible(
+                child: Card(
+                    margin: EdgeInsets.zero,
+                    child: Container(
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _titleTextController, decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none))))),
+            Container(margin: EdgeInsets.all(10.0), child: GestureDetector(onTap: _showPhotoUploadOptions, child: CircleAvatar(radius: 30.0, backgroundImage: _productImageBytes == null ? AssetImage('assets/image_placeholder.png') : MemoryImage(_productImageBytes)))),
+          ]),
+          Card(
+            margin: EdgeInsets.only(top: 10.0),
+            child: Container(
+              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: DropdownButton<int>(
+                  isExpanded: true,
+                  value: _selectedCategoryId,
+                  icon: _categories[_selectedCategoryId].pictureBlob == null ? Icon(Icons.arrow_downward) : Image.memory(_categories[_selectedCategoryId].pictureBlob, width: 20),
+                  iconSize: 24,
+                  elevation: 16,
+                  underline: Container(),
+                  onChanged: (int newId) {
+                    setState(() {
+                      _selectedCategoryId = newId;
+                    });
                   },
-                  child: CircleAvatar(
-                    radius: 30.0,
-                    backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/business_page_placeholder.png') : MemoryImage(_businessPageImageBytes),
-                  ),
-                ),
-              ),
-              Flexible(
-                  child: TextField(
-                controller: _titleTextController,
-                decoration: InputDecoration(
-                  labelText: "Please enter the new product's name here",
-                  hintText: "e.g., British English pronunciation techniques",
-                ),
-              )),
-            ],
-          ),
-          DropdownButton<int>(
-            value: _selectedCategoryId,
-            icon: _categories[_selectedCategoryId].pictureBlob == null
-                ? Icon(Icons.arrow_downward)
-                : Image.memory(
-                    _categories[_selectedCategoryId].pictureBlob,
-                    width: 20,
-                  ),
-            iconSize: 24,
-            elevation: 16,
-            style: TextStyle(color: Colors.deepPurple),
-            underline: Container(
-              height: 2,
-              color: Colors.deepPurpleAccent,
+                  items: _categories.values
+                      .map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
+                          value: category.id,
+                          child: Text(
+                            'Category : ${category.name}',
+                          )))
+                      .toList()),
             ),
-            onChanged: (int newId) {
-              setState(() {
-                _selectedCategoryId = newId;
-              });
-            },
-            items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) {
-              return DropdownMenuItem<int>(
-                value: category.id,
-                child: Text(category.name),
-              );
-            }).toList(),
           ),
           Container(
-              margin: EdgeInsets.only(top: 20.0),
+            margin: EdgeInsets.only(top: 10.0),
+            child: Row(
+              children: [
+                Flexible(
+                    child: Card(
+                        margin: EdgeInsets.only(right: 20.0),
+                        child: Container(
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: TextField(
+                                controller: _priceTextController,
+                                keyboardType: TextInputType.numberWithOptions(signed: false),
+                                inputFormatters: [ThousandsFormatter(allowFraction: true)],
+                                decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
+                DropdownButton<String>(
+                    value: _selectedCurrency,
+                    icon: Icon(Icons.expand_more),
+                    iconSize: 24,
+                    elevation: 16,
+                    underline: Container(),
+                    onChanged: (String newCurrencyName) {
+                      setState(() {
+                        _selectedCurrency = newCurrencyName;
+                      });
+                    },
+                    items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name))).toList())
+              ],
+            ),
+          ),
+          Card(
+              margin: EdgeInsets.only(top: 10.0),
+              child: Container(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: TextField(
+                      controller: _descriptionTextController,
+                      minLines: 10,
+                      maxLines: 10,
+                      keyboardType: TextInputType.multiline,
+                      decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
+          Container(
+              margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
               child: RaisedButton.icon(
-                onPressed: _createProductPressed,
-                color: Colors.blueAccent,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                icon: Icon(
-                  Icons.upload_file,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  "CREATE",
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              )),
+                  onPressed: _createProductPressed,
+                  color: Colors.blueAccent,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  icon: Icon(Icons.upload_file, color: Colors.white),
+                  label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
         ],
       ),
     );
   }
 
-  void _showPhotoUploadOptions(BuildContext context) async {
+  void _onBackButtonPressed() {
+    Navigator.of(context).pop();
+  }
+
+  void _showPhotoUploadOptions() async {
     PhotoSelectorModalView.resultImageBytes = null;
-    await showModalBottomSheet(context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
-    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null ? PhotoSelectorModalView.resultImageBytes : (await rootBundle.load('assets/business_page_placeholder.png')) as Uint8List;
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
+    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null ? PhotoSelectorModalView.resultImageBytes : (await rootBundle.load('assets/image_placeholder.png')) as Uint8List;
     setState(() {
-      _businessPageImageBytes = resultImageBytes;
+      _productImageBytes = resultImageBytes;
     });
   }
 
   void _createProductPressed() async {
+    String priceStr = _priceTextController.text;
+    priceStr.replaceAll(",", "");
+    if (priceStr.endsWith(".")) priceStr = priceStr.substring(0, priceStr.length - 1);
+
     if (_titleTextController.text.length < 2) {
-      await toast("Product title cannot be less than two characters");
+      await toast("Product title cannot be less than two characters!");
       return;
-    } else if (_businessPageImageBytes == null) {
-      await toast("Product must have an icon");
+    } else if (priceStr.length == 0) {
+      await toast("Please fix the price value!");
+      return;
+    } else if (_descriptionTextController.text.length == 0) {
+      await toast("Product description is missing!");
+      return;
+    } else if (_productImageBytes == null) {
+      await toast("Product image is missing!");
       return;
     }
 
     // todo add price to product creation step
-    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _categories[_selectedCategoryId], _businessPageImageBytes, widget._businessPage, 0.0, Currency.KRW));
+    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _categories[_selectedCategoryId], _productImageBytes, widget._businessPage, double.parse(priceStr), Currency.KRW, _descriptionTextController.text));
 
     if (success)
       Navigator.of(context).pop();

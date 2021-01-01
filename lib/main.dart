@@ -10,7 +10,15 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
     themeMode: ThemeMode.light,
-    theme: ThemeData(primaryColor: Colors.white, primaryColorBrightness: Brightness.light, brightness: Brightness.light, primaryColorDark: Colors.black, canvasColor: Colors.white, appBarTheme: AppBarTheme(brightness: Brightness.light), textTheme: GoogleFonts.latoTextTheme()),
+    theme: ThemeData(
+      primaryColor: Color.fromRGBO(240, 242, 245, 1),
+      primaryColorBrightness: Brightness.light,
+      brightness: Brightness.light,
+      primaryColorDark: Colors.black,
+      canvasColor: Colors.white,
+      appBarTheme: AppBarTheme(brightness: Brightness.light),
+      textTheme: GoogleFonts.latoTextTheme(),
+    ),
     debugShowCheckedModeBanner: false,
     title: "Globens",
     initialRoute: '/',

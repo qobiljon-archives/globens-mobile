@@ -151,61 +151,60 @@ class _GlobensScreenState extends State<GlobensScreen> {
     double iconWH = screenSize.width * 0.45;
 
     return InkWell(
-      onTap: () => _onProductTap(context, product),
-      child: Card(
-          shape: RoundedRectangleBorder(
-            side: BorderSide(color: Colors.white70, width: 1),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          color: Colors.white,
-          elevation: 1.0,
-          child: new Container(
-            width: iconWH,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
-                    child: Image.memory(
-                      product.pictureBlob,
-                      fit: BoxFit.cover,
-                      height: iconWH,
-                    )),
-                Container(
-                  padding: EdgeInsets.all(5.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 20.0,
-                        child: Text(
-                          product.name,
-                          maxLines: 2,
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
-                        ),
-                      ),
-                      Text(
-                        "by `${product.businessPage.title}`",
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12.0, color: Colors.blueGrey),
-                      ),
-                      Text(
-                        "${product.priceStr}",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
-                      )
-                    ],
-                  ),
-                )
-              ],
+        onTap: () => _onProductTap(context, product),
+        child: Card(
+            shape: RoundedRectangleBorder(
+              side: BorderSide(color: Colors.white70, width: 1),
+              borderRadius: BorderRadius.circular(10),
             ),
-          )),
-    );
+            color: Colors.white,
+            elevation: 1.0,
+            child: new Container(
+              width: iconWH,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(10.0),
+                      ),
+                      child: Image.memory(
+                        product.pictureBlob,
+                        fit: BoxFit.cover,
+                        height: iconWH,
+                      )),
+                  Container(
+                    padding: EdgeInsets.all(5.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 20.0,
+                          child: Text(
+                            product.name,
+                            maxLines: 2,
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                          ),
+                        ),
+                        Text(
+                          "by `${product.businessPage.title}`",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 12.0, color: Colors.blueGrey),
+                        ),
+                        Text(
+                          "${product.priceStr}",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            )));
   }
 
   Row _buildProductRow(BuildContext context, int index, Size screenSize) {

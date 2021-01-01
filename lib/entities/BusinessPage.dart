@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class BusinessPage {
   // region constants
   static const String SMALL_BUSINESS_TYPE = 'small business';
@@ -10,12 +12,12 @@ class BusinessPage {
   int _id;
   String _title;
   String _type;
-  List<int> _pictureBlob;
+  Uint8List _pictureBlob;
   String _role;
 
   // endregion
 
-  BusinessPage.create(String title, List<int> pictureBlob, {int id, String type, String role}) {
+  BusinessPage.create(String title, Uint8List pictureBlob, {int id, String type, String role}) {
     this._id = id;
     this._title = title;
     this._pictureBlob = pictureBlob;
@@ -36,7 +38,7 @@ class BusinessPage {
     return _type;
   }
 
-  List<int> get pictureBlob {
+  Uint8List get pictureBlob {
     return _pictureBlob;
   }
 

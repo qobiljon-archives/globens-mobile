@@ -115,7 +115,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   }
 
   void _onCreateProductPressed(BuildContext context) async {
-    await showModalBottomSheet(context: context, builder: (context) => BusinessPageViewerModalView());
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => BusinessPageCreatorModalView());
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;

@@ -44,5 +44,5 @@ class GlobensUser {
     return _id == AppUser.id;
   }
 
-  // endregion
+// endregion
 }

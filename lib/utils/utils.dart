@@ -190,7 +190,10 @@ Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Pro
       ..businessPageId = businessPage.id
       ..name = product.name
       ..categoryId = product.category.id
-      ..pictureBlob = product.pictureBlob);
+      ..pictureBlob = product.pictureBlob
+      ..price = product.price
+      ..currency = product.currency
+      ..description = product.description);
     success = response.success;
   } catch (e) {
     print(e);
@@ -234,7 +237,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterD
         }
 
         if (success)
-          products.add(Product.create(productDetails.name, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
+          products.add(Product.create(productDetails.name, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, id: productDetails.id));
         else
           print('error on gb_product $productDetails');
       }
