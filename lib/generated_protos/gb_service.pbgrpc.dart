@@ -101,13 +101,6 @@ class GlobensServiceClient extends $grpc.Client {
       ($0.UncreateProduct_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.UncreateProduct_Response.fromBuffer(value));
-  static final _$fetchBusinessPageProductIds = $grpc.ClientMethod<
-          $0.FetchBusinessPageProductIds_Request,
-          $0.FetchBusinessPageProductIds_Response>(
-      '/GlobensService/fetchBusinessPageProductIds',
-      ($0.FetchBusinessPageProductIds_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.FetchBusinessPageProductIds_Response.fromBuffer(value));
   static final _$fetchNextKProductIds = $grpc.ClientMethod<
           $0.FetchNextKProductIds_Request, $0.FetchNextKProductIds_Response>(
       '/GlobensService/fetchNextKProductIds',
@@ -362,16 +355,6 @@ class GlobensServiceClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$uncreateProduct, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
-  }
-
-  $grpc.ResponseFuture<$0.FetchBusinessPageProductIds_Response>
-      fetchBusinessPageProductIds(
-          $0.FetchBusinessPageProductIds_Request request,
-          {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchBusinessPageProductIds, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -690,16 +673,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.UncreateProduct_Request.fromBuffer(value),
         ($0.UncreateProduct_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.FetchBusinessPageProductIds_Request,
-            $0.FetchBusinessPageProductIds_Response>(
-        'fetchBusinessPageProductIds',
-        fetchBusinessPageProductIds_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.FetchBusinessPageProductIds_Request.fromBuffer(value),
-        ($0.FetchBusinessPageProductIds_Response value) =>
-            value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.FetchNextKProductIds_Request,
             $0.FetchNextKProductIds_Response>(
         'fetchNextKProductIds',
@@ -969,12 +942,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
     return uncreateProduct(call, await request);
   }
 
-  $async.Future<$0.FetchBusinessPageProductIds_Response>
-      fetchBusinessPageProductIds_Pre($grpc.ServiceCall call,
-          $async.Future<$0.FetchBusinessPageProductIds_Request> request) async {
-    return fetchBusinessPageProductIds(call, await request);
-  }
-
   $async.Future<$0.FetchNextKProductIds_Response> fetchNextKProductIds_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.FetchNextKProductIds_Request> request) async {
@@ -1122,9 +1089,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UnpublishProduct_Request request);
   $async.Future<$0.UncreateProduct_Response> uncreateProduct(
       $grpc.ServiceCall call, $0.UncreateProduct_Request request);
-  $async.Future<$0.FetchBusinessPageProductIds_Response>
-      fetchBusinessPageProductIds($grpc.ServiceCall call,
-          $0.FetchBusinessPageProductIds_Request request);
   $async.Future<$0.FetchNextKProductIds_Response> fetchNextKProductIds(
       $grpc.ServiceCall call, $0.FetchNextKProductIds_Request request);
   $async.Future<$0.FetchProductDetails_Response> fetchProductDetails(

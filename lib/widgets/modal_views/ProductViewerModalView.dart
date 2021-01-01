@@ -1,106 +1,126 @@
+import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/entities/Job.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'PhotoSelectorModalView.dart';
 import 'dart:typed_data';
 
-class ProductViewerModalView extends StatefulWidget {
+class ProductCreatorModalView extends StatefulWidget {
   final BusinessPage _businessPage;
-  final Product _product;
 
-  ProductViewerModalView(this._businessPage, this._product);
+  ProductCreatorModalView(this._businessPage);
 
   @override
-  _ProductViewerModalViewState createState() => _ProductViewerModalViewState();
+  _ProductCreatorModalViewState createState() => _ProductCreatorModalViewState();
 }
 
-class _ProductViewerModalViewState extends State<ProductViewerModalView> {
+class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   final _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
-  List<Widget> childWidgets = [];
-  Widget _editingView;
+  Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
+  int _selectedCategoryId;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // dummy values for initial display
+    _categories[1] = ProductCategory.create(1, "Others", null, null);
+    _selectedCategoryId = 1;
+
+    grpcFetchProductCategories().then((tp) {
+      bool success = tp.item1;
+      List<ProductCategory> categories = tp.item2;
+      this._categories.clear();
+      for (ProductCategory category in categories) this._categories[category.id] = category;
+      if (success)
+        setState(() {
+          _selectedCategoryId = 1;
+        });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    _editingView = Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        getTitleWidget("Create a new product", textColor: Colors.black),
-        Row(
-          children: [
-            Container(
-              margin: EdgeInsets.all(10.0),
-              child: GestureDetector(
-                onTap: () {
-                  _showPhotoUploadOptions(context);
-                },
-                child: CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/business_page_placeholder.png') : MemoryImage(_businessPageImageBytes),
+    return Container(
+      margin: EdgeInsets.only(top: 10.0, bottom: 50.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          getTitleWidget("Product details", textColor: Colors.black),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: GestureDetector(
+                  onTap: () {
+                    _showPhotoUploadOptions(context);
+                  },
+                  child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/business_page_placeholder.png') : MemoryImage(_businessPageImageBytes),
+                  ),
                 ),
               ),
-            ),
-            Flexible(
-                child: TextField(
-              controller: _titleTextController,
-              decoration: InputDecoration(
-                labelText: "Please enter the new product's name here",
-                hintText: "e.g., British English pronunciation techniques",
-              ),
-            )),
-          ],
-        ),
-        RaisedButton(
-          onPressed: () => _createProductPressed(context),
-          child: Text("Create"),
-        ),
-        Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Container(),
-        )
-      ],
-    );
-    if (widget._product != null) {
-      if (widget._businessPage.role == Job.BUSINESS_OWNER_ROLE || widget._businessPage.role == Job.INDIVIDUAL_ENTREPRENEUR_ROLE) {
-        childWidgets.addAll([
-          getTitleWidget("Viewing a product"),
-          Text("Product name: ${widget._product.name}"),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              RaisedButton(
-                child: Text("delete"),
-                onPressed: () {},
-              ),
-              RaisedButton(
-                child: Text("edit"),
-                onPressed: () {},
-              ),
+              Flexible(
+                  child: TextField(
+                controller: _titleTextController,
+                decoration: InputDecoration(
+                  labelText: "Please enter the new product's name here",
+                  hintText: "e.g., British English pronunciation techniques",
+                ),
+              )),
             ],
           ),
-        ]);
-      } else {
-        childWidgets.addAll([
-          getTitleWidget("Viewing a product"),
-          Text("Product name: ${widget._product.name}"),
-          RaisedButton(
-            child: Text("edit"),
-            onPressed: () {},
-          )
-        ]);
-      }
-    } else {
-      childWidgets.clear();
-      childWidgets.add(_editingView);
-    }
-    return SingleChildScrollView(
-        child: Column(
-      children: childWidgets,
-    ));
+          DropdownButton<int>(
+            value: _selectedCategoryId,
+            icon: _categories[_selectedCategoryId].pictureBlob == null
+                ? Icon(Icons.arrow_downward)
+                : Image.memory(
+                    _categories[_selectedCategoryId].pictureBlob,
+                    width: 20,
+                  ),
+            iconSize: 24,
+            elevation: 16,
+            style: TextStyle(color: Colors.deepPurple),
+            underline: Container(
+              height: 2,
+              color: Colors.deepPurpleAccent,
+            ),
+            onChanged: (int newId) {
+              setState(() {
+                _selectedCategoryId = newId;
+              });
+            },
+            items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) {
+              return DropdownMenuItem<int>(
+                value: category.id,
+                child: Text(category.name),
+              );
+            }).toList(),
+          ),
+          Container(
+              margin: EdgeInsets.only(top: 20.0),
+              child: RaisedButton.icon(
+                onPressed: _createProductPressed,
+                color: Colors.blueAccent,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                icon: Icon(
+                  Icons.upload_file,
+                  color: Colors.white,
+                ),
+                label: Text(
+                  "CREATE",
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              )),
+        ],
+      ),
+    );
   }
 
   void _showPhotoUploadOptions(BuildContext context) async {
@@ -112,7 +132,7 @@ class _ProductViewerModalViewState extends State<ProductViewerModalView> {
     });
   }
 
-  void _createProductPressed(BuildContext context) async {
+  void _createProductPressed() async {
     if (_titleTextController.text.length < 2) {
       await toast("Product title cannot be less than two characters");
       return;
@@ -121,8 +141,8 @@ class _ProductViewerModalViewState extends State<ProductViewerModalView> {
       return;
     }
 
-    // todo add price and category to product creation step
-    bool success = true; //await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _businessPageImageBytes, widget._businessPage, 0.0, Currency.KRW));
+    // todo add price to product creation step
+    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _categories[_selectedCategoryId], _businessPageImageBytes, widget._businessPage, 0.0, Currency.KRW));
 
     if (success)
       Navigator.of(context).pop();
@@ -130,13 +150,5 @@ class _ProductViewerModalViewState extends State<ProductViewerModalView> {
       await AppUser.signOut();
       await Navigator.of(context).pushReplacementNamed('/');
     }
-  }
-
-  void _deleteProductPressed(BuildContext context) {
-    //TODO Delete a product
-  }
-
-  void _editProductPressed(BuildContext context) {
-    //TODO Edit a  product
   }
 }

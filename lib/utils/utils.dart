@@ -179,42 +179,6 @@ Future<bool> grpcCreateBusinessPage(String sessionKey, BusinessPage businessPage
 // endregion
 
 // region products management RPCs
-Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String sessionKey, BusinessPage businessPage) async {
-  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
-  final stub = GlobensServiceClient(channel);
-
-  bool success = false;
-  List<Product> products = List<Product>();
-  Map<int, ProductCategory> categories = Map<int, ProductCategory>();
-
-  try {
-    final productIdsRes = await stub.fetchBusinessPageProductIds(FetchBusinessPageProductIds_Request()
-      ..sessionKey = sessionKey
-      ..businessPageId = businessPage.id);
-    success = productIdsRes.success;
-    if (success)
-      for (int productId in productIdsRes.id) {
-        final productDetails = await stub.fetchProductDetails(FetchProductDetails_Request()..productId = productId);
-        success &= productDetails.success;
-
-        if (!categories.containsKey(productDetails.categoryId)) {
-          final categoryDetails = await getStub().fetchProductCategoryDetails(FetchProductCategoryDetails_Request()..categoryId = productDetails.categoryId);
-          success &= categoryDetails.success;
-          if (success) categories[productDetails.categoryId] = ProductCategory.create(categoryDetails.id, categoryDetails.name, categoryDetails.examples, categoryDetails.pictureBlob);
-        }
-
-        if (success)
-          products.add(Product.create(productDetails.name, categories[productDetails.categoryId], productDetails.pictureBlob, businessPage, productDetails.price, productDetails.currency, id: productDetails.id));
-        else
-          print('error on gb_product $productDetails');
-      }
-  } catch (e) {
-    print(e);
-  }
-
-  return Tuple2(success, products);
-}
-
 Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Product product) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
@@ -225,6 +189,7 @@ Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Pro
       ..sessionKey = sessionKey
       ..businessPageId = businessPage.id
       ..name = product.name
+      ..categoryId = product.category.id
       ..pictureBlob = product.pictureBlob);
     success = response.success;
   } catch (e) {

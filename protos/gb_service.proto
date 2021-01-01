@@ -124,9 +124,10 @@ message CreateProduct{
     string sessionKey = 1;
     int32 businessPageId = 2;
     string name = 3;
-    bytes pictureBlob = 4;
-    float price = 5;
-    Currency currency = 6;
+    int32 categoryId = 4;
+    bytes pictureBlob = 5;
+    float price = 6;
+    Currency currency = 7;
   }
   message Response{
     bool success = 1;
@@ -146,16 +147,6 @@ message UncreateProduct{
   }
   message Response{
     bool success = 1;
-  }
-}
-message FetchBusinessPageProductIds{
-  message Request{
-    string sessionKey = 1;
-    int32 businessPageId = 2;
-  }
-  message Response{
-    bool success = 1;
-    repeated int32 id = 2;
   }
 }
 message FetchNextKProductIds{
@@ -401,7 +392,6 @@ service GlobensService {
   rpc publishProduct(PublishProduct.Request) returns (PublishProduct.Response) {}
   rpc unpublishProduct(UnpublishProduct.Request) returns (UnpublishProduct.Response) {}
   rpc uncreateProduct(UncreateProduct.Request) returns (UncreateProduct.Response) {}
-  rpc fetchBusinessPageProductIds(FetchBusinessPageProductIds.Request) returns (FetchBusinessPageProductIds.Response) {}
   rpc fetchNextKProductIds(FetchNextKProductIds.Request) returns (FetchNextKProductIds.Response) {}
   rpc fetchProductDetails(FetchProductDetails.Request) returns (FetchProductDetails.Response) {}
   rpc fetchProductCategoryIds(FetchProductCategoryIds.Request) returns (FetchProductCategoryIds.Response) {}

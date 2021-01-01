@@ -238,9 +238,10 @@ const CreateProduct_Request$json = const {
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
     const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
     const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'pictureBlob', '3': 4, '4': 1, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'price', '3': 5, '4': 1, '5': 2, '10': 'price'},
-    const {'1': 'currency', '3': 6, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
+    const {'1': 'categoryId', '3': 4, '4': 1, '5': 5, '10': 'categoryId'},
+    const {'1': 'pictureBlob', '3': 5, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'price', '3': 6, '4': 1, '5': 2, '10': 'price'},
+    const {'1': 'currency', '3': 7, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
   ],
 };
 
@@ -286,27 +287,6 @@ const UncreateProduct_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const FetchBusinessPageProductIds$json = const {
-  '1': 'FetchBusinessPageProductIds',
-  '3': const [FetchBusinessPageProductIds_Request$json, FetchBusinessPageProductIds_Response$json],
-};
-
-const FetchBusinessPageProductIds_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
-  ],
-};
-
-const FetchBusinessPageProductIds_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
   ],
 };
 

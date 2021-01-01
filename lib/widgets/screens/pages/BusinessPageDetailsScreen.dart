@@ -2,6 +2,7 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -224,7 +225,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   Future<void> _fetchBusinessPageContent() async {
-    final Tuple2<bool, List<Product>> tp1 = await grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage);
+    final Tuple2<bool, List<Product>> tp1 = await grpcFetchNextKProducts(filterDetails: FilterDetails()..businessPageId = _businessPage.id);
     bool success = tp1.item1;
     List<Product> products = tp1.item2;
     if (success) {
@@ -250,9 +251,9 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateProductPressed() async {
-    await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(_businessPage, null));
+    await showModalBottomSheet(context: context, builder: (context) => ProductCreatorModalView(_businessPage));
 
-    Tuple2<bool, List<Product>> res = await grpcFetchBusinessPageProducts(AppUser.sessionKey, _businessPage);
+    Tuple2<bool, List<Product>> res = await grpcFetchNextKProducts(filterDetails: FilterDetails()..businessPageId = _businessPage.id);
     bool success = res.item1;
     List<Product> products = res.item2;
     if (success) {
@@ -288,7 +289,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onProductTap(BuildContext context, Product product) async {
-    await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(_businessPage, product));
+    // todo show product details
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
