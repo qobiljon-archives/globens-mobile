@@ -6,7 +6,6 @@ import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pattern_formatter/numeric_formatter.dart';
 import 'PhotoSelectorModalView.dart';
 import 'dart:typed_data';
 
@@ -41,7 +40,8 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
       bool success = tp.item1;
       List<ProductCategory> categories = tp.item2;
       this._categories.clear();
-      for (ProductCategory category in categories) this._categories[category.id] = category;
+      for (ProductCategory category in categories)
+        this._categories[category.id] = category;
       if (success)
         setState(() {
           _selectedCategoryId = 1;
@@ -53,7 +53,10 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   Widget build(BuildContext context) {
     return Container(
       color: Color.fromRGBO(240, 242, 245, 1),
-      padding: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0, bottom: 30.0 + MediaQuery
+          .of(context)
+          .viewInsets
+          .bottom),
       child: ListView(
         shrinkWrap: true,
         children: [
@@ -88,7 +91,8 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                     });
                   },
                   items: _categories.values
-                      .map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
+                      .map<DropdownMenuItem<int>>((ProductCategory category) =>
+                      DropdownMenuItem<int>(
                           value: category.id,
                           child: Text(
                             'Category : ${category.name}',
@@ -108,7 +112,6 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                             child: TextField(
                                 controller: _priceTextController,
                                 keyboardType: TextInputType.numberWithOptions(signed: false),
-                                inputFormatters: [ThousandsFormatter(allowFraction: true)],
                                 decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
                 DropdownButton<String>(
                     value: _selectedCurrency,
@@ -162,14 +165,21 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   }
 
   void _createProductPressed() async {
-    String priceStr = _priceTextController.text;
-    priceStr.replaceAll(",", "");
-    if (priceStr.endsWith(".")) priceStr = priceStr.substring(0, priceStr.length - 1);
+    double price = double.tryParse(_priceTextController.text) ?? double.nan;
+    Currency currency = Currency.KRW;
+    if (_selectedCurrency == Currency.KRW.name)
+      currency = Currency.KRW;
+    else if (_selectedCurrency == Currency.USD.name)
+      currency = Currency.USD;
+    else if (_selectedCurrency == Currency.RUB.name)
+      currency = Currency.RUB;
+    else if (_selectedCurrency == Currency.UZS.name)
+      currency = Currency.UZS;
 
     if (_titleTextController.text.length < 2) {
       await toast("Product title cannot be less than two characters!");
       return;
-    } else if (priceStr.length == 0) {
+    } else if (price == double.nan) {
       await toast("Please fix the price value!");
       return;
     } else if (_descriptionTextController.text.length == 0) {
@@ -180,8 +190,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
       return;
     }
 
-    // todo add price to product creation step
-    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _categories[_selectedCategoryId], _productImageBytes, widget._businessPage, double.parse(priceStr), Currency.KRW, _descriptionTextController.text));
+    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _categories[_selectedCategoryId], _productImageBytes, widget._businessPage, price, currency, _descriptionTextController.text));
 
     if (success)
       Navigator.of(context).pop();

@@ -72,12 +72,16 @@ class Product {
   String get priceStr {
     if (price == 0) return "free";
 
-    NumberFormat fmt = NumberFormat('#,###.00');
+    NumberFormat fmt = NumberFormat('#,###.##');
     switch (currency) {
       case Currency.KRW:
         return '${fmt.format(price)} ₩';
       case Currency.USD:
-        return '\$';
+        return '${fmt.format(price)} \$';
+      case Currency.RUB:
+        return '${fmt.format(price)} ₽';
+      case Currency.UZS:
+        return '${fmt.format(price)} Soum';
       default:
         return '[N/A]';
     }
