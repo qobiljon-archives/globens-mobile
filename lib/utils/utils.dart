@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
@@ -12,8 +13,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'package:grpc/grpc.dart';
-
-const int TIMEOUT = 6;
 
 Container getTitleWidget(String text, {TextStyle textStyle, Color textColor = Colors.blue, EdgeInsets margin}) {
   return Container(
@@ -186,6 +185,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
 
   bool success = false;
   List<Product> products = List<Product>();
+  Map<int, ProductCategory> categories = Map<int, ProductCategory>();
 
   try {
     final productIdsRes = await stub.fetchBusinessPageProductIds(FetchBusinessPageProductIds_Request()
@@ -194,10 +194,19 @@ Future<Tuple2<bool, List<Product>>> grpcFetchBusinessPageProducts(String session
     success = productIdsRes.success;
     if (success)
       for (int productId in productIdsRes.id) {
-        final productDetailsRes = await stub.fetchProductDetails(FetchProductDetails_Request()
-          ..productId = productId);
-        success &= productDetailsRes.success;
-        if (success) products.add(Product.create(productDetailsRes.name, productDetailsRes.pictureBlob, businessPage, productDetailsRes.price, productDetailsRes.currency, id: productDetailsRes.id));
+        final productDetails = await stub.fetchProductDetails(FetchProductDetails_Request()..productId = productId);
+        success &= productDetails.success;
+
+        if (!categories.containsKey(productDetails.categoryId)) {
+          final categoryDetails = await getStub().fetchProductCategoryDetails(FetchProductCategoryDetails_Request()..categoryId = productDetails.categoryId);
+          success &= categoryDetails.success;
+          if (success) categories[productDetails.categoryId] = ProductCategory.create(categoryDetails.id, categoryDetails.name, categoryDetails.examples, categoryDetails.pictureBlob);
+        }
+
+        if (success)
+          products.add(Product.create(productDetails.name, categories[productDetails.categoryId], productDetails.pictureBlob, businessPage, productDetails.price, productDetails.currency, id: productDetails.id));
+        else
+          print('error on gb_product $productDetails');
       }
   } catch (e) {
     print(e);
@@ -225,37 +234,44 @@ Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Pro
   return success;
 }
 
-Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100}) async {
+Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterDetails filterDetails}) async {
   bool success = false;
   List<Product> products = List<Product>();
   Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
+  Map<int, ProductCategory> categories = Map<int, ProductCategory>();
+
+  if (filterDetails == null)
+    filterDetails = FilterDetails()..useFilter = false;
+  else
+    filterDetails.useFilter = true;
 
   try {
     final productIds = await getStub().fetchNextKProductIds(FetchNextKProductIds_Request()
       ..k = k
-      ..filterDetails = FilterDetails()
+      ..filterDetails = filterDetails
       ..previousProductId = 0);
     success = productIds.success;
     if (success) {
       for (int productId in productIds.id) {
-        final productDetails = await getStub().fetchProductDetails(FetchProductDetails_Request()
-          ..productId = productId);
+        final productDetails = await getStub().fetchProductDetails(FetchProductDetails_Request()..productId = productId);
         success &= productDetails.success;
 
-        if (success) {
-          if (businessPages.containsKey(productDetails.businessPageId))
-            products.add(Product.create(productDetails.name, productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
-          else {
-            final businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
-              ..businessPageId = productDetails.businessPageId);
-            success &= productDetails.success;
-
-            if (success) {
-              businessPages[productDetails.businessPageId] = BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob, id: businessPageDetails.id, type: businessPageDetails.type, role: businessPageDetails.role);
-              products.add(Product.create(productDetails.name, productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
-            }
-          }
+        if (!businessPages.containsKey(productDetails.businessPageId)) {
+          final businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()..businessPageId = productDetails.businessPageId);
+          success &= productDetails.success;
+          if (success) businessPages[productDetails.businessPageId] = BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob, id: businessPageDetails.id, type: businessPageDetails.type, role: businessPageDetails.role);
         }
+
+        if (!categories.containsKey(productDetails.categoryId)) {
+          final categoryDetails = await getStub().fetchProductCategoryDetails(FetchProductCategoryDetails_Request()..categoryId = productDetails.categoryId);
+          success &= categoryDetails.success;
+          if (success) categories[productDetails.categoryId] = ProductCategory.create(categoryDetails.id, categoryDetails.name, categoryDetails.examples, categoryDetails.pictureBlob);
+        }
+
+        if (success)
+          products.add(Product.create(productDetails.name, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, id: productDetails.id));
+        else
+          print('error on gb_product $productDetails');
       }
     }
   } catch (e) {
@@ -263,6 +279,36 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100}) async 
   }
 
   return Tuple2(success, products);
+}
+
+Future<Tuple2<bool, List<ProductCategory>>> grpcFetchProductCategories() async {
+  bool success = false;
+  List<ProductCategory> categories = List<ProductCategory>();
+
+  try {
+    final categoryIds = await getStub().fetchProductCategoryIds(FetchProductCategoryIds_Request());
+    success = categoryIds.success;
+    if (success) {
+      for (int categoryId in categoryIds.id) {
+        final categoryDetails = await getStub().fetchProductCategoryDetails(FetchProductCategoryDetails_Request()..categoryId = categoryId);
+        success &= categoryDetails.success;
+        if (success) categories.add(ProductCategory.create(categoryDetails.id, categoryDetails.name, categoryDetails.examples, categoryDetails.pictureBlob));
+      }
+    }
+  } catch (e) {
+    print(e);
+  }
+
+  categories.sort((a, b) {
+    if (a.id == 1)
+      return 1;
+    else if (b.id == 1)
+      return -1;
+    else
+      return a.id.compareTo(b.id);
+  });
+
+  return Tuple2(success, categories);
 }
 
 // endregion

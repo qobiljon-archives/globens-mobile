@@ -1,11 +1,10 @@
-import 'package:globens_flutter_client/widgets/screens/my_pages/my%20business%20pages%20screen.dart';
-import 'package:globens_flutter_client/widgets/screens/menu/menu%20screen.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'globens/globens screen.dart';
+import 'globens/GlobensScreen.dart';
+import 'menu/MenuScreen.dart';
+import 'pages/MyBusinessPagesScreen.dart';
 
 class RootTabsScreen extends StatefulWidget {
   RootTabsScreen({Key key}) : super(key: key);
@@ -22,8 +21,7 @@ class _RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObse
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    if (!AppUser.initialized)
-      AppUser.init();
+    if (!AppUser.initialized) AppUser.init();
   }
 
   @override
@@ -48,10 +46,16 @@ class _RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObse
           ),
           BottomNavigationBarItem(
             label: 'My pages',
-            icon: Image.asset('assets/business_page.png', width: 25,),
+            icon: Image.asset(
+              'assets/business_page.png',
+              width: 25,
+            ),
           ),
           BottomNavigationBarItem(
-            icon: Image.asset('assets/menu.png',width: 25,),
+            icon: Image.asset(
+              'assets/menu.png',
+              width: 25,
+            ),
             label: 'Menu',
           ),
         ],

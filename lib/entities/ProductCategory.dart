@@ -1,31 +1,36 @@
-
-import 'package:flutter/widgets.dart';
+import 'dart:typed_data';
 
 class ProductCategory {
   // region Variables
-  String _text;
+  int _id;
+  String _name;
+  Uint8List _pictureBlob;
   List<String> _examples;
-  Image _image;
 
   // endregion
 
-  ProductCategory.create(String text, List<String> examples, Image image) {
-    this._text = text;
+  ProductCategory.create(int id, String name, List<String> examples, Uint8List pictureBlob) {
+    this._id = id;
+    this._name = name;
     this._examples = examples;
-    this._image = image;
+    this._pictureBlob = pictureBlob;
   }
 
   // region Getters
-  String get text {
-    return _text;
+  int get id {
+    return this._id;
+  }
+
+  String get name {
+    return _name;
   }
 
   List<String> get examples {
     return this._examples;
   }
 
-  Image get icon {
-    return _image;
+  Uint8List get pictureBlob {
+    return this._pictureBlob;
   }
 // endregion
 }

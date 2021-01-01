@@ -16,7 +16,10 @@ export 'gb_service.pbenum.dart';
 class FilterDetails extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FilterDetails', createEmptyInstance: create)
     ..aOB(1, 'useFilter', protoName: 'useFilter')
-    ..aOS(2, 'filterText', protoName: 'filterText')
+    ..aOS(2, 'substring')
+    ..aOS(3, 'regex')
+    ..a<$core.int>(4, 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
+    ..a<$core.int>(5, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
     ..hasRequiredFields = false
   ;
 
@@ -45,13 +48,40 @@ class FilterDetails extends $pb.GeneratedMessage {
   void clearUseFilter() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get filterText => $_getSZ(1);
+  $core.String get substring => $_getSZ(1);
   @$pb.TagNumber(2)
-  set filterText($core.String v) { $_setString(1, v); }
+  set substring($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasFilterText() => $_has(1);
+  $core.bool hasSubstring() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFilterText() => clearField(2);
+  void clearSubstring() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get regex => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set regex($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasRegex() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearRegex() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get categoryId => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set categoryId($core.int v) { $_setSignedInt32(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasCategoryId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearCategoryId() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get businessPageId => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set businessPageId($core.int v) { $_setSignedInt32(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasBusinessPageId() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearBusinessPageId() => clearField(5);
 }
 
 class AuthenticateUser_Request extends $pb.GeneratedMessage {
@@ -1516,11 +1546,12 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
     ..aOB(1, 'success')
     ..a<$core.int>(2, 'id', $pb.PbFieldType.O3)
     ..aOS(3, 'name')
-    ..aOB(4, 'published')
-    ..a<$core.List<$core.int>>(5, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
-    ..a<$core.int>(6, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
-    ..a<$core.double>(7, 'price', $pb.PbFieldType.OF)
-    ..e<Currency>(8, 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
+    ..a<$core.int>(4, 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
+    ..aOB(5, 'published')
+    ..a<$core.List<$core.int>>(6, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
+    ..a<$core.int>(7, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..a<$core.double>(8, 'price', $pb.PbFieldType.OF)
+    ..e<Currency>(9, 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
     ..hasRequiredFields = false
   ;
 
@@ -1567,49 +1598,58 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
   void clearName() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.bool get published => $_getBF(3);
+  $core.int get categoryId => $_getIZ(3);
   @$pb.TagNumber(4)
-  set published($core.bool v) { $_setBool(3, v); }
+  set categoryId($core.int v) { $_setSignedInt32(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasPublished() => $_has(3);
+  $core.bool hasCategoryId() => $_has(3);
   @$pb.TagNumber(4)
-  void clearPublished() => clearField(4);
+  void clearCategoryId() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.List<$core.int> get pictureBlob => $_getN(4);
+  $core.bool get published => $_getBF(4);
   @$pb.TagNumber(5)
-  set pictureBlob($core.List<$core.int> v) { $_setBytes(4, v); }
+  set published($core.bool v) { $_setBool(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasPictureBlob() => $_has(4);
+  $core.bool hasPublished() => $_has(4);
   @$pb.TagNumber(5)
-  void clearPictureBlob() => clearField(5);
+  void clearPublished() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.int get businessPageId => $_getIZ(5);
+  $core.List<$core.int> get pictureBlob => $_getN(5);
   @$pb.TagNumber(6)
-  set businessPageId($core.int v) { $_setSignedInt32(5, v); }
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasBusinessPageId() => $_has(5);
+  $core.bool hasPictureBlob() => $_has(5);
   @$pb.TagNumber(6)
-  void clearBusinessPageId() => clearField(6);
+  void clearPictureBlob() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.double get price => $_getN(6);
+  $core.int get businessPageId => $_getIZ(6);
   @$pb.TagNumber(7)
-  set price($core.double v) { $_setFloat(6, v); }
+  set businessPageId($core.int v) { $_setSignedInt32(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasPrice() => $_has(6);
+  $core.bool hasBusinessPageId() => $_has(6);
   @$pb.TagNumber(7)
-  void clearPrice() => clearField(7);
+  void clearBusinessPageId() => clearField(7);
 
   @$pb.TagNumber(8)
-  Currency get currency => $_getN(7);
+  $core.double get price => $_getN(7);
   @$pb.TagNumber(8)
-  set currency(Currency v) { setField(8, v); }
+  set price($core.double v) { $_setFloat(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasCurrency() => $_has(7);
+  $core.bool hasPrice() => $_has(7);
   @$pb.TagNumber(8)
-  void clearCurrency() => clearField(8);
+  void clearPrice() => clearField(8);
+
+  @$pb.TagNumber(9)
+  Currency get currency => $_getN(8);
+  @$pb.TagNumber(9)
+  set currency(Currency v) { setField(9, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasCurrency() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearCurrency() => clearField(9);
 }
 
 class FetchProductDetails extends $pb.GeneratedMessage {
@@ -1797,6 +1837,200 @@ class UnpublishProduct extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UnpublishProduct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnpublishProduct>(create);
   static UnpublishProduct _defaultInstance;
+}
+
+class FetchProductCategoryIds_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProductCategoryIds.Request', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryIds_Request._() : super();
+  factory FetchProductCategoryIds_Request() => create();
+  factory FetchProductCategoryIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchProductCategoryIds_Request clone() => FetchProductCategoryIds_Request()..mergeFromMessage(this);
+  FetchProductCategoryIds_Request copyWith(void Function(FetchProductCategoryIds_Request) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds_Request create() => FetchProductCategoryIds_Request._();
+  FetchProductCategoryIds_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryIds_Request> createRepeated() => $pb.PbList<FetchProductCategoryIds_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds_Request>(create);
+  static FetchProductCategoryIds_Request _defaultInstance;
+}
+
+class FetchProductCategoryIds_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProductCategoryIds.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..p<$core.int>(2, 'id', $pb.PbFieldType.P3)
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryIds_Response._() : super();
+  factory FetchProductCategoryIds_Response() => create();
+  factory FetchProductCategoryIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchProductCategoryIds_Response clone() => FetchProductCategoryIds_Response()..mergeFromMessage(this);
+  FetchProductCategoryIds_Response copyWith(void Function(FetchProductCategoryIds_Response) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds_Response create() => FetchProductCategoryIds_Response._();
+  FetchProductCategoryIds_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryIds_Response> createRepeated() => $pb.PbList<FetchProductCategoryIds_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds_Response>(create);
+  static FetchProductCategoryIds_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+}
+
+class FetchProductCategoryIds extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProductCategoryIds', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryIds._() : super();
+  factory FetchProductCategoryIds() => create();
+  factory FetchProductCategoryIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchProductCategoryIds clone() => FetchProductCategoryIds()..mergeFromMessage(this);
+  FetchProductCategoryIds copyWith(void Function(FetchProductCategoryIds) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds create() => FetchProductCategoryIds._();
+  FetchProductCategoryIds createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryIds> createRepeated() => $pb.PbList<FetchProductCategoryIds>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds>(create);
+  static FetchProductCategoryIds _defaultInstance;
+}
+
+class FetchProductCategoryDetails_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProductCategoryDetails.Request', createEmptyInstance: create)
+    ..a<$core.int>(1, 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryDetails_Request._() : super();
+  factory FetchProductCategoryDetails_Request() => create();
+  factory FetchProductCategoryDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchProductCategoryDetails_Request clone() => FetchProductCategoryDetails_Request()..mergeFromMessage(this);
+  FetchProductCategoryDetails_Request copyWith(void Function(FetchProductCategoryDetails_Request) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails_Request));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails_Request create() => FetchProductCategoryDetails_Request._();
+  FetchProductCategoryDetails_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryDetails_Request> createRepeated() => $pb.PbList<FetchProductCategoryDetails_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails_Request>(create);
+  static FetchProductCategoryDetails_Request _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get categoryId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set categoryId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasCategoryId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCategoryId() => clearField(1);
+}
+
+class FetchProductCategoryDetails_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProductCategoryDetails.Response', createEmptyInstance: create)
+    ..aOB(1, 'success')
+    ..a<$core.int>(2, 'id', $pb.PbFieldType.O3)
+    ..aOS(3, 'name')
+    ..a<$core.List<$core.int>>(4, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
+    ..pPS(5, 'examples')
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryDetails_Response._() : super();
+  factory FetchProductCategoryDetails_Response() => create();
+  factory FetchProductCategoryDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchProductCategoryDetails_Response clone() => FetchProductCategoryDetails_Response()..mergeFromMessage(this);
+  FetchProductCategoryDetails_Response copyWith(void Function(FetchProductCategoryDetails_Response) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails_Response));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails_Response create() => FetchProductCategoryDetails_Response._();
+  FetchProductCategoryDetails_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryDetails_Response> createRepeated() => $pb.PbList<FetchProductCategoryDetails_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails_Response>(create);
+  static FetchProductCategoryDetails_Response _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get id => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set id($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get name => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set name($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasName() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearName() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get pictureBlob => $_getN(3);
+  @$pb.TagNumber(4)
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPictureBlob() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPictureBlob() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.String> get examples => $_getList(4);
+}
+
+class FetchProductCategoryDetails extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('FetchProductCategoryDetails', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryDetails._() : super();
+  factory FetchProductCategoryDetails() => create();
+  factory FetchProductCategoryDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  FetchProductCategoryDetails clone() => FetchProductCategoryDetails()..mergeFromMessage(this);
+  FetchProductCategoryDetails copyWith(void Function(FetchProductCategoryDetails) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails create() => FetchProductCategoryDetails._();
+  FetchProductCategoryDetails createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryDetails> createRepeated() => $pb.PbList<FetchProductCategoryDetails>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails>(create);
+  static FetchProductCategoryDetails _defaultInstance;
 }
 
 class CreateVacantJob_Request extends $pb.GeneratedMessage {

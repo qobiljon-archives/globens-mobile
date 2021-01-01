@@ -1,8 +1,9 @@
-import 'package:globens_flutter_client/widgets/modal_views/business%20page%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/widgets/modal_views/BusinessPageViewerModalView.dart';
+import 'package:tuple/tuple.dart';
 
 class MyBusinessPagesScreen extends StatefulWidget {
   @override
@@ -100,22 +101,17 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   }
 
   Future<void> _fetchMyBusinessPages() async {
-    grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
-      bool success = tuple.item1;
-      List<BusinessPage> businessPages = tuple.item2;
-      if (success) {
-        setState(() {
-          _businessPages = businessPages;
-        });
-      } else {
-        await AppUser.signOut();
-        await Navigator.of(context).pushReplacementNamed('/');
-      }
-    }).timeout(Duration(seconds: TIMEOUT), onTimeout: () {
+    Tuple2<bool, List<BusinessPage>> tp = await grpcFetchMyBusinessPages(AppUser.sessionKey);
+    bool success = tp.item1;
+    List<BusinessPage> businessPages = tp.item2;
+    if (success) {
       setState(() {
-        timeout = true;
+        _businessPages = businessPages;
       });
-    });
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
   }
 
   void _onCreateProductPressed(BuildContext context) async {

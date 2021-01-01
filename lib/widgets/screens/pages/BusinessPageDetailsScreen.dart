@@ -1,5 +1,3 @@
-import 'package:globens_flutter_client/widgets/modal_views/product%20viewer%20modal%20view.dart';
-import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -7,6 +5,8 @@ import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:globens_flutter_client/widgets/modal_views/JobViewerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/ProductViewerModalView.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {

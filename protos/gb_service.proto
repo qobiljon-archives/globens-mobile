@@ -5,7 +5,10 @@ option java_package = "uz.globens";
 // generic part
 message FilterDetails{
   bool useFilter = 1;
-  string filterText = 2;
+  string substring = 2;
+  string regex = 3;
+  int32 categoryId = 4;
+  int32 businessPageId = 5;
 }
 
 // user management requests/responses
@@ -174,11 +177,12 @@ message FetchProductDetails{
     bool success = 1;
     int32 id = 2;
     string name = 3;
-    bool published = 4;
-    bytes pictureBlob = 5;
-    int32 businessPageId = 6;
-    float price = 7;
-    Currency currency = 8;
+    int32 categoryId = 4;
+    bool published = 5;
+    bytes pictureBlob = 6;
+    int32 businessPageId = 7;
+    float price = 8;
+    Currency currency = 9;
   }
 }
 message PublishProduct{
@@ -195,6 +199,25 @@ message UnpublishProduct{
   }
   message Response{
     bool success = 1;
+  }
+}
+message FetchProductCategoryIds{
+  message Request{}
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchProductCategoryDetails{
+  message Request{
+    int32 categoryId = 1;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string name = 3;
+    bytes pictureBlob = 4;
+    repeated string examples = 5;
   }
 }
 
@@ -381,6 +404,8 @@ service GlobensService {
   rpc fetchBusinessPageProductIds(FetchBusinessPageProductIds.Request) returns (FetchBusinessPageProductIds.Response) {}
   rpc fetchNextKProductIds(FetchNextKProductIds.Request) returns (FetchNextKProductIds.Response) {}
   rpc fetchProductDetails(FetchProductDetails.Request) returns (FetchProductDetails.Response) {}
+  rpc fetchProductCategoryIds(FetchProductCategoryIds.Request) returns (FetchProductCategoryIds.Response) {}
+  rpc fetchProductCategoryDetails(FetchProductCategoryDetails.Request) returns (FetchProductCategoryDetails.Response) {}
 
 
   // vacancy management RPCs

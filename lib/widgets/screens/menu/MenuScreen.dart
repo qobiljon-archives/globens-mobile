@@ -1,4 +1,4 @@
-import 'package:globens_flutter_client/widgets/modal_views/authentication%20modal%20view.dart';
+import 'package:globens_flutter_client/widgets/modal_views/AuthenticationModalView.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';

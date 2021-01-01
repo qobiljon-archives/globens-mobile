@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 
 import 'BusinessPage.dart';
@@ -13,9 +14,9 @@ class Product {
   // endregion
 
   // region Variables
-  static Map<int, Product> _instances = Map<int, Product>();
   int _id;
   String _name;
+  ProductCategory _category;
   List<int> _pictureBlob;
   BusinessPage _businessPage;
   double _price;
@@ -23,9 +24,10 @@ class Product {
 
   // endregion
 
-  Product.create(String name, Uint8List pictureBlob, BusinessPage businessPage, double price, Currency currency, {int id}) {
+  Product.create(String name, ProductCategory category, Uint8List pictureBlob, BusinessPage businessPage, double price, Currency currency, {int id}) {
     this._id = id;
     this._name = name;
+    this._category = category;
     this._pictureBlob = pictureBlob;
     this._businessPage = businessPage;
     this._price = price;
@@ -39,6 +41,10 @@ class Product {
 
   String get name {
     return this._name;
+  }
+
+  ProductCategory get category {
+    return this._category;
   }
 
   List<int> get pictureBlob {

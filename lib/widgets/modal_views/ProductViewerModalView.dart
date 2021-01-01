@@ -1,5 +1,3 @@
-import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
-import 'package:globens_flutter_client/widgets/modal_views/photo%20selector%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -7,6 +5,7 @@ import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'PhotoSelectorModalView.dart';
 import 'dart:typed_data';
 
 class ProductViewerModalView extends StatefulWidget {
@@ -122,8 +121,8 @@ class _ProductViewerModalViewState extends State<ProductViewerModalView> {
       return;
     }
 
-    // todo add price to product creation step
-    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _businessPageImageBytes, widget._businessPage, 0.0, Currency.KRW));
+    // todo add price and category to product creation step
+    bool success = true; //await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _businessPageImageBytes, widget._businessPage, 0.0, Currency.KRW));
 
     if (success)
       Navigator.of(context).pop();

@@ -120,6 +120,20 @@ class GlobensServiceClient extends $grpc.Client {
       ($0.FetchProductDetails_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.FetchProductDetails_Response.fromBuffer(value));
+  static final _$fetchProductCategoryIds = $grpc.ClientMethod<
+          $0.FetchProductCategoryIds_Request,
+          $0.FetchProductCategoryIds_Response>(
+      '/GlobensService/fetchProductCategoryIds',
+      ($0.FetchProductCategoryIds_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchProductCategoryIds_Response.fromBuffer(value));
+  static final _$fetchProductCategoryDetails = $grpc.ClientMethod<
+          $0.FetchProductCategoryDetails_Request,
+          $0.FetchProductCategoryDetails_Response>(
+      '/GlobensService/fetchProductCategoryDetails',
+      ($0.FetchProductCategoryDetails_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchProductCategoryDetails_Response.fromBuffer(value));
   static final _$createVacantJob = $grpc.ClientMethod<
           $0.CreateVacantJob_Request, $0.CreateVacantJob_Response>(
       '/GlobensService/createVacantJob',
@@ -376,6 +390,25 @@ class GlobensServiceClient extends $grpc.Client {
       {$grpc.CallOptions options}) {
     final call = $createCall(
         _$fetchProductDetails, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.FetchProductCategoryIds_Response>
+      fetchProductCategoryIds($0.FetchProductCategoryIds_Request request,
+          {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$fetchProductCategoryIds, $async.Stream.fromIterable([request]),
+        options: options);
+    return $grpc.ResponseFuture(call);
+  }
+
+  $grpc.ResponseFuture<$0.FetchProductCategoryDetails_Response>
+      fetchProductCategoryDetails(
+          $0.FetchProductCategoryDetails_Request request,
+          {$grpc.CallOptions options}) {
+    final call = $createCall(
+        _$fetchProductCategoryDetails, $async.Stream.fromIterable([request]),
         options: options);
     return $grpc.ResponseFuture(call);
   }
@@ -685,6 +718,25 @@ abstract class GlobensServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.FetchProductDetails_Request.fromBuffer(value),
         ($0.FetchProductDetails_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchProductCategoryIds_Request,
+            $0.FetchProductCategoryIds_Response>(
+        'fetchProductCategoryIds',
+        fetchProductCategoryIds_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchProductCategoryIds_Request.fromBuffer(value),
+        ($0.FetchProductCategoryIds_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchProductCategoryDetails_Request,
+            $0.FetchProductCategoryDetails_Response>(
+        'fetchProductCategoryDetails',
+        fetchProductCategoryDetails_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchProductCategoryDetails_Request.fromBuffer(value),
+        ($0.FetchProductCategoryDetails_Response value) =>
+            value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreateVacantJob_Request,
             $0.CreateVacantJob_Response>(
         'createVacantJob',
@@ -935,6 +987,18 @@ abstract class GlobensServiceBase extends $grpc.Service {
     return fetchProductDetails(call, await request);
   }
 
+  $async.Future<$0.FetchProductCategoryIds_Response>
+      fetchProductCategoryIds_Pre($grpc.ServiceCall call,
+          $async.Future<$0.FetchProductCategoryIds_Request> request) async {
+    return fetchProductCategoryIds(call, await request);
+  }
+
+  $async.Future<$0.FetchProductCategoryDetails_Response>
+      fetchProductCategoryDetails_Pre($grpc.ServiceCall call,
+          $async.Future<$0.FetchProductCategoryDetails_Request> request) async {
+    return fetchProductCategoryDetails(call, await request);
+  }
+
   $async.Future<$0.CreateVacantJob_Response> createVacantJob_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.CreateVacantJob_Request> request) async {
@@ -1065,6 +1129,11 @@ abstract class GlobensServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.FetchNextKProductIds_Request request);
   $async.Future<$0.FetchProductDetails_Response> fetchProductDetails(
       $grpc.ServiceCall call, $0.FetchProductDetails_Request request);
+  $async.Future<$0.FetchProductCategoryIds_Response> fetchProductCategoryIds(
+      $grpc.ServiceCall call, $0.FetchProductCategoryIds_Request request);
+  $async.Future<$0.FetchProductCategoryDetails_Response>
+      fetchProductCategoryDetails($grpc.ServiceCall call,
+          $0.FetchProductCategoryDetails_Request request);
   $async.Future<$0.CreateVacantJob_Response> createVacantJob(
       $grpc.ServiceCall call, $0.CreateVacantJob_Request request);
   $async.Future<$0.UpdateJobDetails_Response> updateJobDetails(

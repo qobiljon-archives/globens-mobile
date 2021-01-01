@@ -1,5 +1,5 @@
-import 'package:globens_flutter_client/widgets/modal_views/job%20application%20viewer%20modal%20view.dart';
-import 'package:globens_flutter_client/widgets/modal_views/job%20viewer%20modal%20view.dart';
+import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/JobViewerModalView.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
@@ -13,7 +13,6 @@ class VacantJobsListScreen extends StatefulWidget {
   _VacantJobsListScreenState createState() => _VacantJobsListScreenState();
 }
 
-//Mixin
 class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   Row _header;
   List<Job> _vacantJobs = [];

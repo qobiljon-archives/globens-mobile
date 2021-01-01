@@ -19,7 +19,10 @@ const FilterDetails$json = const {
   '1': 'FilterDetails',
   '2': const [
     const {'1': 'useFilter', '3': 1, '4': 1, '5': 8, '10': 'useFilter'},
-    const {'1': 'filterText', '3': 2, '4': 1, '5': 9, '10': 'filterText'},
+    const {'1': 'substring', '3': 2, '4': 1, '5': 9, '10': 'substring'},
+    const {'1': 'regex', '3': 3, '4': 1, '5': 9, '10': 'regex'},
+    const {'1': 'categoryId', '3': 4, '4': 1, '5': 5, '10': 'categoryId'},
+    const {'1': 'businessPageId', '3': 5, '4': 1, '5': 5, '10': 'businessPageId'},
   ],
 };
 
@@ -347,11 +350,12 @@ const FetchProductDetails_Response$json = const {
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
     const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'published', '3': 4, '4': 1, '5': 8, '10': 'published'},
-    const {'1': 'pictureBlob', '3': 5, '4': 1, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'businessPageId', '3': 6, '4': 1, '5': 5, '10': 'businessPageId'},
-    const {'1': 'price', '3': 7, '4': 1, '5': 2, '10': 'price'},
-    const {'1': 'currency', '3': 8, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
+    const {'1': 'categoryId', '3': 4, '4': 1, '5': 5, '10': 'categoryId'},
+    const {'1': 'published', '3': 5, '4': 1, '5': 8, '10': 'published'},
+    const {'1': 'pictureBlob', '3': 6, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'businessPageId', '3': 7, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'price', '3': 8, '4': 1, '5': 2, '10': 'price'},
+    const {'1': 'currency', '3': 9, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
   ],
 };
 
@@ -390,6 +394,46 @@ const UnpublishProduct_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+const FetchProductCategoryIds$json = const {
+  '1': 'FetchProductCategoryIds',
+  '3': const [FetchProductCategoryIds_Request$json, FetchProductCategoryIds_Response$json],
+};
+
+const FetchProductCategoryIds_Request$json = const {
+  '1': 'Request',
+};
+
+const FetchProductCategoryIds_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+  ],
+};
+
+const FetchProductCategoryDetails$json = const {
+  '1': 'FetchProductCategoryDetails',
+  '3': const [FetchProductCategoryDetails_Request$json, FetchProductCategoryDetails_Response$json],
+};
+
+const FetchProductCategoryDetails_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'categoryId', '3': 1, '4': 1, '5': 5, '10': 'categoryId'},
+  ],
+};
+
+const FetchProductCategoryDetails_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'pictureBlob', '3': 4, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'examples', '3': 5, '4': 3, '5': 9, '10': 'examples'},
   ],
 };
 

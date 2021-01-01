@@ -1,10 +1,10 @@
-import 'package:globens_flutter_client/widgets/modal_views/photo%20selector%20modal%20view.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
+import 'PhotoSelectorModalView.dart';
 
 class BusinessPageViewerModalView extends StatefulWidget {
   @override

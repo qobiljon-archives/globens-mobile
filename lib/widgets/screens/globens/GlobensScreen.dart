@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
@@ -21,20 +23,14 @@ class _GlobensScreenState extends State<GlobensScreen> {
 
     // 1. static part : set up common part (i.e., header, categories)
     _header = Container(
-      margin: EdgeInsets.only(top: 10.0, left: 10.0),
+      margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
       child: RichText(
         text: TextSpan(children: <TextSpan>[new TextSpan(text: "Globens", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.blueAccent)), new TextSpan(text: "!", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.lightGreen))]),
       ),
     );
-    _categories = [
-      ProductCategory.create("Education", ["Korean", "Programming", "etc"], Image.asset("assets/education.png")),
-      ProductCategory.create("Consultation", ["Legal matters", "Visa", "etc"], Image.asset("assets/consulting.png")),
-      ProductCategory.create("Vacancies", ["Engineering", "Freelancing", "etc"], Image.asset("assets/vacancies.png")),
-      ProductCategory.create("Others", ["1-1 services", "Delivery", "etc"], Image.asset("assets/others.png"))
-    ];
 
     // 2. dynamic part : change body (i.e., ad products) from server
-    _fetchAdProducts();
+    _fetchCategoriesAndAdProducts();
   }
 
   @override
@@ -48,10 +44,19 @@ class _GlobensScreenState extends State<GlobensScreen> {
     );
   }
 
-  Future<void> _fetchAdProducts() async {
-    Tuple2<bool, List> product = await grpcFetchNextKProducts(k: 50);
-    bool success = product.item1;
-    List<Product> products = product.item2;
+  Future<void> _fetchCategoriesAndAdProducts() async {
+    final Tuple2<bool, List<ProductCategory>> tp1 = await grpcFetchProductCategories();
+    bool success = tp1.item1;
+    List<ProductCategory> categories = tp1.item2;
+    if (success) {
+      setState(() {
+        _categories = categories;
+      });
+    }
+
+    final Tuple2<bool, List<Product>> tp2 = await grpcFetchNextKProducts(k: 50);
+    success = tp2.item1;
+    List<Product> products = tp2.item2;
 
     if (success) {
       setState(() {
@@ -105,33 +110,27 @@ class _GlobensScreenState extends State<GlobensScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      category.text,
-                      style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-                    ),
-                    Divider(
-                      color: Colors.blueGrey,
-                      height: 4.0,
-                    ),
-                    Text(
-                      "• ${category.examples[0]}",
-                      style: TextStyle(fontSize: 11.0),
-                    ),
-                    Text(
-                      "• ${category.examples[1]}",
-                      style: TextStyle(fontSize: 11.0),
-                    ),
-                    Text(
-                      "• ${category.examples[2]}",
-                      style: TextStyle(fontSize: 11.0),
-                    ),
-                  ],
-                ),
-                Container(width: 50, height: 50, child: category.icon)
+                Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    category.name,
+                    style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  ),
+                  Divider(
+                    color: Colors.blueGrey,
+                    height: 4.0,
+                  ),
+                  ...List<Text>.generate(
+                      min(2, category.examples.length),
+                      (index) => Text(
+                            "• ${shorten(category.examples[index], 15, ellipsize: true)}",
+                            style: TextStyle(fontSize: 11.0),
+                          )),
+                  Text(
+                    "• etc.",
+                    style: TextStyle(fontSize: 11.0),
+                  )
+                ]),
+                Container(width: 50, height: 50, child: Image.memory(category.pictureBlob))
               ],
             ),
           )),
@@ -222,10 +221,11 @@ class _GlobensScreenState extends State<GlobensScreen> {
   void _onProfileWidgetTap(BuildContext context) {}
 
   void _onCategoryTap(BuildContext context, ProductCategory category) async {
-    // todo screen ==> specific category products
+    await Navigator.of(context).pushNamed('/category_products', arguments: category);
   }
 
   void _onProductTap(BuildContext context, Product product) async {
+    // todo show product details and buying part
     // await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(null, product));
   }
 }
