@@ -7,22 +7,21 @@ import 'package:globens_flutter_client/utils/utils.dart';
 import 'JobApplicationViewerModalView.dart';
 import 'package:flutter/material.dart';
 
-class JobViewerModalView extends StatefulWidget {
+class VacancyCreatorModalView extends StatefulWidget {
   final BusinessPage businessPage;
   final Job job;
 
-  JobViewerModalView({this.businessPage, this.job});
+  VacancyCreatorModalView({this.businessPage, this.job});
 
   @override
-  _JobViewerModalViewState createState() => _JobViewerModalViewState();
+  _VacancyCreatorModalViewState createState() => _VacancyCreatorModalViewState();
 }
 
-class _JobViewerModalViewState extends State<JobViewerModalView> {
+class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
   final TextEditingController _titleTextController = TextEditingController();
   final TextEditingController _descriptionTextController = TextEditingController();
   final TextEditingController _responsibilitiesController = TextEditingController();
   GlobensUser _employeeUser;
-  bool _editMode = false;
   bool _appliedForVacancy;
 
   @override
@@ -76,7 +75,7 @@ class _JobViewerModalViewState extends State<JobViewerModalView> {
         TextField(controller: _titleTextController, decoration: InputDecoration(border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.red, width: 10)), labelText: "Please enter the new vacancy's title here", hintText: "e.g., English language teacher")),
         TextField(maxLines: 5, controller: _descriptionTextController, decoration: InputDecoration(border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.red)), labelText: "Please enter the new  vacancy's description  here", hintText: "e.g.The best position ")),
         TextField(controller: _responsibilitiesController, decoration: InputDecoration(border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.red)), labelText: "Please enter responsibilities here", hintText: "e.g.coding, cleaning...")),
-        RaisedButton(onPressed: () => _createVacantJobPressed(context), child: Text("Create a vacant position"))
+        RaisedButton(onPressed: () => _createVacancyPressed(context), child: Text("Create a vacant position"))
       ]);
     else {
       // viewing an existing job (read mode)
@@ -100,13 +99,6 @@ class _JobViewerModalViewState extends State<JobViewerModalView> {
         }
       } else
         childWidgets.add(Text('Job held by : ${_employeeUser == null ? "[loading]" : _employeeUser.isMe ? "you" : "${_employeeUser.name} (${_employeeUser.email})"}'));
-
-      // edit & delete job (i.e., business owner edits/deletes an employee job/position in his business page)
-      if (widget.businessPage != null && widget.businessPage.role == Job.BUSINESS_OWNER_ROLE && widget.job.role == Job.EMPLOYEE_ROLE)
-        childWidgets.add(Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          RaisedButton(onPressed: _editPressed, child: Text("Edit job")),
-          RaisedButton(onPressed: () => _deletePressed(context), child: Text("Delete job")),
-        ]));
     }
 
     // ending part (padding)
@@ -114,17 +106,7 @@ class _JobViewerModalViewState extends State<JobViewerModalView> {
     return SingleChildScrollView(child: Column(children: childWidgets));
   }
 
-  void _editPressed() {
-    setState(() {
-      _editMode = !_editMode;
-    });
-  }
-
-  void _deletePressed(BuildContext context) {
-    // todo add delete job functionality
-  }
-
-  void _createVacantJobPressed(BuildContext context) async {
+  void _createVacancyPressed(BuildContext context) async {
     if (_titleTextController.text.length < 2) {
       await toast("Vacancy title cannot be less than two characters");
       return;

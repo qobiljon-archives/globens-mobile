@@ -1,5 +1,5 @@
 import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
-import 'package:globens_flutter_client/widgets/modal_views/JobViewerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
@@ -120,7 +120,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
   }
 
   void _openVacancyDetails(BuildContext context, index) async {
-    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: _vacantJobs[index]));
+    await showModalBottomSheet(context: context, builder: (context) => VacancyCreatorModalView(job: _vacantJobs[index]));
     grpcFetchBusinessPageVacancies(AppUser.sessionKey).then((tuple) {
       bool success = tuple.item1;
       List<Job> jobs = tuple.item2;

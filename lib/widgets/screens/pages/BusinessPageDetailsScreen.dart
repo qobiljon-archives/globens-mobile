@@ -6,8 +6,8 @@ import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:globens_flutter_client/widgets/modal_views/JobViewerModalView.dart';
-import 'package:globens_flutter_client/widgets/modal_views/ProductViewerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/ProductCreatorModalView.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
@@ -272,7 +272,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateVacancyPressed() async {
-    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(businessPage: _businessPage));
+    await showModalBottomSheet(context: context, builder: (context) => VacancyCreatorModalView(businessPage: _businessPage));
     Tuple2<bool, List<Job>> res = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage);
 
     bool success = res.item1;
@@ -293,7 +293,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
-    await showModalBottomSheet(context: context, builder: (context) => JobViewerModalView(job: job, businessPage: _businessPage));
+    await showModalBottomSheet(context: context, builder: (context) => VacancyCreatorModalView(job: job, businessPage: _businessPage));
     await _fetchBusinessPageContent();
   }
 }
