@@ -289,7 +289,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onProductTap(BuildContext context, Product product) async {
-    // todo show product details
+    // todo show product details for configuration
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {

@@ -160,6 +160,6 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
 
   void _onProductTap(BuildContext context, Product product) async {
     // todo show product details and buying part
-    // await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(null, product));
+    Navigator.of(context).pushNamed('/product_purchase', arguments: product);
   }
 }

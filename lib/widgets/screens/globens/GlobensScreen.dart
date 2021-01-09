@@ -1,11 +1,10 @@
-import 'dart:math';
-
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
+import 'dart:math';
 
 class GlobensScreen extends StatefulWidget {
   @override
@@ -40,7 +39,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
 
     return ListView.builder(
       itemCount: 3 + categoryRows + 1 + productRows,
-      itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+      itemBuilder: (BuildContext context, int index) => _getListViewItem(index),
     );
   }
 
@@ -65,7 +64,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
     }
   }
 
-  Widget _getListViewItem(BuildContext context, int index) {
+  Widget _getListViewItem(int index) {
     int categoryRows = (_categories.length / 2).ceil();
     Size screenSize = MediaQuery.of(context).size;
 
@@ -94,9 +93,9 @@ class _GlobensScreenState extends State<GlobensScreen> {
     }
   }
 
-  InkWell _buildCategoryItem(BuildContext context, ProductCategory category, Size screenSize) {
+  InkWell _buildCategoryItem(ProductCategory category, Size screenSize) {
     return InkWell(
-      onTap: () => _onCategoryTap(context, category),
+      onTap: () => _onCategoryTap(category),
       child: Card(
           shape: RoundedRectangleBorder(
             side: BorderSide(color: Colors.white70, width: 1),
@@ -140,9 +139,9 @@ class _GlobensScreenState extends State<GlobensScreen> {
   Row _buildCategoryRow(BuildContext context, int index, Size screenSize) {
     int categoryIndex = index * 2;
 
-    Row row = Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [_buildCategoryItem(context, _categories[categoryIndex], screenSize)]);
+    Row row = Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [_buildCategoryItem(_categories[categoryIndex], screenSize)]);
     if (categoryIndex < _categories.length - 1) // two elements in one row
-      row.children.add(_buildCategoryItem(context, _categories[categoryIndex + 1], screenSize));
+      row.children.add(_buildCategoryItem(_categories[categoryIndex + 1], screenSize));
 
     return row;
   }
@@ -151,7 +150,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
     double iconWH = screenSize.width * 0.45;
 
     return InkWell(
-        onTap: () => _onProductTap(context, product),
+        onTap: () => _onProductTap(product),
         child: Card(
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.white70, width: 1),
@@ -219,12 +218,12 @@ class _GlobensScreenState extends State<GlobensScreen> {
 
   void _onProfileWidgetTap(BuildContext context) {}
 
-  void _onCategoryTap(BuildContext context, ProductCategory category) async {
+  void _onCategoryTap(ProductCategory category) async {
     await Navigator.of(context).pushNamed('/category_products', arguments: category);
   }
 
-  void _onProductTap(BuildContext context, Product product) async {
+  void _onProductTap(Product product) async {
     // todo show product details and buying part
-    // await showModalBottomSheet(context: context, builder: (context) => ProductViewerModalView(null, product));
+    Navigator.of(context).pushNamed('/product_purchase', arguments: product);
   }
 }

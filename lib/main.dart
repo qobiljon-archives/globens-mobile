@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens/VacantJobsListScreen.dart';
@@ -26,6 +27,7 @@ void main() {
       '/': (context) => RootTabsScreen(),
       '/category_products': (context) => CategoryProductsScreen(),
       '/vacant_jobs': (context) => VacantJobsListScreen(),
+      '/product_purchase': (context) => ProductPurchaseScreen(),
       '/business_page_details': (context) => BusinessPageDetailsScreen(),
       '/business_page_details/job_applications_list': (context) => JobApplicationsListScreen(),
     },
