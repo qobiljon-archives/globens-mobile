@@ -2,7 +2,7 @@ import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dar
 import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens/VacantJobsListScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/CategoryProductsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';

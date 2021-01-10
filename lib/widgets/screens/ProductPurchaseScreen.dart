@@ -1,8 +1,11 @@
-import 'package:webview_flutter/webview_flutter.dart';
-import 'package:http/http.dart' as http;
+import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:bootpay_api/bootpay_api.dart';
+import 'package:bootpay_api/model/payload.dart';
+import 'package:bootpay_api/model/extra.dart';
+import 'package:bootpay_api/model/user.dart';
+import 'package:bootpay_api/model/item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 
 class ProductPurchaseScreen extends StatefulWidget {
   @override
@@ -10,59 +13,90 @@ class ProductPurchaseScreen extends StatefulWidget {
 }
 
 class _ProductPurchaseScreenState extends State<ProductPurchaseScreen> {
-  WebViewController _controller;
+  Product _product;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    _product = ModalRoute.of(context).settings.arguments as Product;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: WebView(
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {
-            _controller = webViewController;
-            loadInicisPaymentHTML();
-          },
+        child: RaisedButton(
+          child: Text("Purchase for ${_product.priceStr}"),
+          onPressed: purchasePressed,
         ),
       ),
     );
   }
 
-  void loadInicisPaymentHTML() async {
-    var res = await http.post('https://mobile.inicis.com/smart/payment/', body: <String, String>{
-      'P_INI_PAYMENT': 'CARD',
-      'P_MID': 'INIpayTest',
-      'P_OID': 'INIpayTest_123456',
-      'P_GOODS': 'test product',
-      'P_AMT': '1000',
-      'P_UNAME': 'Hong Gil Dong',
-      // 'P_NEXT_URL': '',
-      // 'P_NOTI_URL': '',
-      'P_HPP_METHOD': '1',
-      'P_MNAME': 'Test store',
-      'P_MOBILE': '010-1234-5678',
-      'P_EMAIL': 'test@test.com',
-      'P_OFFER_PERIOD': '2020091620200916',
-      'P_CHARSET': 'utf8',
-      // 'P_NOTI': '',
-      'P_TAX': '100',
-      'P_TAXFREE': '1000',
-      'P_QUOTABASE': '01:02:03:04:05',
-      'P_CARD_OPTION': 'selcode=14',
-      'P_VBANK_DT': '20201010',
-      'P_VBANK_TM': '2030',
-      'P_RESERVED': 'below1000=Y&bank_receipt=N',
-    });
-    if (res.statusCode == 200) {
-      print(res.body);
-      _controller.loadUrl(Uri.dataFromString(
-        res.body,
-        mimeType: 'text/html',
-        encoding: Encoding.getByName('utf-8'),
-      ).toString());
-      print('entered');
-    } else {
-      Navigator.of(context).pop();
-      print('exited ${res.statusCode}');
-    }
+  void purchasePressed() async {
+    // todo replace values with the product's details
+    Item item1 = Item();
+    item1.itemName = "미키 마우스"; // 주문정보에 담길 상품명
+    item1.qty = 1; // 해당 상품의 주문 수량
+    item1.unique = "ITEM_CODE_MOUSE"; // 해당 상품의 고유 키
+    item1.price = 500; // 상품의 가격
+
+    Item item2 = Item();
+    item2.itemName = "키보드"; // 주문정보에 담길 상품명
+    item2.qty = 1; // 해당 상품의 주문 수량
+    item2.unique = "ITEM_CODE_KEYBOARD"; // 해당 상품의 고유 키
+    item2.price = 500; // 상품의 가격
+    List<Item> itemList = [item1, item2];
+
+    Payload payload = Payload();
+    payload.applicationId = '5b8f6a4d396fa665fdc2b5e8';
+    payload.androidApplicationId = '5b8f6a4d396fa665fdc2b5e8';
+    payload.iosApplicationId = '5b8f6a4d396fa665fdc2b5e9';
+
+    payload.pg = 'inicis';
+    payload.methods = ['card', 'phone', 'vbank', 'bank'];
+    payload.name = '테스트 상품';
+    payload.price = 1000.0; //정기결제시 0 혹은 주석
+    payload.orderId = DateTime.now().millisecondsSinceEpoch.toString();
+    payload.params = {
+      "callbackParam1": "value12",
+      "callbackParam2": "value34",
+      "callbackParam3": "value56",
+      "callbackParam4": "value78",
+    };
+//    payload.us
+
+    User user = User();
+    user.username = "사용자 이름";
+    user.email = "user1234@gmail.com";
+    user.area = "서울";
+    user.phone = "010-4033-4678";
+    user.addr = '서울시 동작구 상도로 222';
+
+    Extra extra = Extra();
+    extra.appScheme = 'bootpayFlutterSample';
+    extra.quotas = [0, 2, 3];
+
+    BootpayApi.request(
+      context,
+      payload,
+      extra: extra,
+      user: user,
+      items: itemList,
+      onDone: (String json) {
+        print('--- onDone: $json');
+      },
+      onReady: (String json) {
+        //flutter는 가상계좌가 발급되었을때  onReady가 호출되지 않는다. onDone에서 처리해주어야 한다.
+        print('--- onReady: $json');
+      },
+      onCancel: (String json) {
+        print('--- onCancel: $json');
+      },
+      onError: (String json) {
+        print(' --- onError: $json');
+      },
+    );
   }
 }

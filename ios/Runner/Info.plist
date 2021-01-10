@@ -4,93 +4,62 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
-
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
-
 	<key>CFBundleName</key>
 	<string>Globens</string>
-
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
-
 	<key>CFBundleSignature</key>
 	<string>????</string>
-
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
-
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>kakao25bf75f9c559f5f1f78da11571eb818a</string>
-		<string>kakaokompassauth</string>
-		<string>storykompassauth</string>
-		<string>kakaolink</string>
-		<string>kakaotalk-5.9.7</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
 	</array>
-
 	<key>CFBundleURLTypes</key>
-    <array>
-    	<dict>
-    		<key>CFBundleTypeRole</key>
-    		<string>Editor</string>
-    		<key>CFBundleURLSchemes</key>
-    		<array>
-    			
-    			<string>com.googleusercontent.apps.413445644782-4127hu79n714j89ua9ahfvvcdsgtj827</string>
-    		</array>
-    	</dict>
-    	<dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <!--
-                  Replace "000000000000" with your Facebook App ID here.
-                  **NOTE**: The scheme needs to start with `fb` and then your ID.
-                -->
-                <string>fb756128655189782</string>
-            </array>
-        </dict>
-    </array>
-
-    <key>FacebookAppID</key>
-    <!-- Replace "000000000000" with your Facebook App ID here. -->
-    <string>756128655189782</string>
-    <key>FacebookDisplayName</key>
-    <!-- Replace "YOUR_APP_NAME" with your Facebook App name. -->
-    <string>Globens Client App</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>fbapi</string>
-        <string>fb-messenger-share-api</string>
-        <string>fbauth2</string>
-        <string>fbshareextension</string>
-    </array>
-
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.413445644782-4127hu79n714j89ua9ahfvvcdsgtj827</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb756128655189782</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>756128655189782</string>
+	<key>FacebookDisplayName</key>
+	<string>Globens Client App</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
-
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -98,23 +67,33 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
-
+	<true/>
 	<key>NSCameraUsageDescription</key>
-    <string>Globens is requesting a camera permission</string>
-
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Globens is requesting a microphone permission</string>
-
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Globens is requesting photo library permission</string>
-
-    <key>UIUserInterfaceStyle</key>
-    <string>Light</string>
-    <key>UIViewControllerBasedStatusBarAppearance</key>
-    <true/>
-
+	<string>Globens is requesting a camera permission</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Globens is requesting a microphone permission</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Globens is requesting photo library permission</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	<key>NSAppTransportSecurity</key>
+        <dict>
+            <key>NSAllowsArbitraryLoads</key>
+            <true/>
+        </dict>
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLName</key>
+                <string>uz.globens</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>Globens</string>
+                </array>
+            </dict>
+        </array>
 </dict>
 </plist>
