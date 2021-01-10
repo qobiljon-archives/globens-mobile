@@ -15,7 +15,8 @@ class ProductCreatorModalView extends StatefulWidget {
   ProductCreatorModalView(this._businessPage);
 
   @override
-  _ProductCreatorModalViewState createState() => _ProductCreatorModalViewState();
+  _ProductCreatorModalViewState createState() =>
+      _ProductCreatorModalViewState();
 }
 
 class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
@@ -53,26 +54,46 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   Widget build(BuildContext context) {
     return Container(
       color: Color.fromRGBO(240, 242, 245, 1),
-      padding: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0, bottom: 30.0 + MediaQuery
-          .of(context)
-          .viewInsets
-          .bottom),
+      padding: EdgeInsets.only(
+          top: 10.0,
+          left: 30.0,
+          right: 30.0,
+          bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
       child: ListView(
         shrinkWrap: true,
         children: [
           Container(
               margin: EdgeInsets.only(right: 50.0, bottom: 20.0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: _onBackButtonPressed),
-                getTitleWidget("Product details", textColor: Colors.black, margin: EdgeInsets.zero),
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                IconButton(
+                    icon: Icon(Icons.arrow_back_ios),
+                    onPressed: _onBackButtonPressed),
+                getTitleWidget("Product details",
+                    textColor: Colors.black, margin: EdgeInsets.zero),
               ])),
           Row(children: [
             Flexible(
                 child: Card(
                     margin: EdgeInsets.zero,
                     child: Container(
-                        padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _titleTextController, decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none))))),
-            Container(margin: EdgeInsets.all(10.0), child: GestureDetector(onTap: _showPhotoUploadOptions, child: CircleAvatar(radius: 30.0, backgroundImage: _productImageBytes == null ? AssetImage('assets/image_placeholder.png') : MemoryImage(_productImageBytes)))),
+                        padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                        child: TextField(
+                            controller: _titleTextController,
+                            decoration: InputDecoration(
+                                labelText: "Product name",
+                                labelStyle: TextStyle(color: Colors.blueAccent),
+                                hintText: "e.g., Yoga training 24/7",
+                                border: InputBorder.none))))),
+            Container(
+                margin: EdgeInsets.all(10.0),
+                child: GestureDetector(
+                    onTap: _showPhotoUploadOptions,
+                    child: CircleAvatar(
+                        radius: 30.0,
+                        backgroundImage: _productImageBytes == null
+                            ? AssetImage('assets/image_placeholder.png')
+                            : MemoryImage(_productImageBytes)))),
           ]),
           Card(
             margin: EdgeInsets.only(top: 10.0),
@@ -81,7 +102,11 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
               child: DropdownButton<int>(
                   isExpanded: true,
                   value: _selectedCategoryId,
-                  icon: _categories[_selectedCategoryId].pictureBlob == null ? Icon(Icons.arrow_downward) : Image.memory(_categories[_selectedCategoryId].pictureBlob, width: 20),
+                  icon: _categories[_selectedCategoryId].pictureBlob == null
+                      ? Icon(Icons.arrow_downward)
+                      : Image.memory(
+                          _categories[_selectedCategoryId].pictureBlob,
+                          width: 20),
                   iconSize: 24,
                   elevation: 16,
                   underline: Container(),
@@ -91,12 +116,41 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                     });
                   },
                   items: _categories.values
-                      .map<DropdownMenuItem<int>>((ProductCategory category) =>
-                      DropdownMenuItem<int>(
-                          value: category.id,
-                          child: Text(
-                            'Category : ${category.name}',
-                          )))
+                      .map<DropdownMenuItem<int>>(
+                          (ProductCategory category) => DropdownMenuItem<int>(
+                              value: category.id,
+                              child: Text(
+                                'Category : ${category.name}',
+                              )))
+                      .toList()),
+            ),
+          ),  Card(
+            margin: EdgeInsets.only(top: 10.0),
+            child: Container(
+              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: DropdownButton<int>(
+                  isExpanded: true,
+                  value: _selectedCategoryId,
+                  icon: _categories[_selectedCategoryId].pictureBlob == null
+                      ? Icon(Icons.arrow_downward)
+                      : Image.memory(
+                          _categories[_selectedCategoryId].pictureBlob,
+                          width: 20),
+                  iconSize: 24,
+                  elevation: 16,
+                  underline: Container(),
+                  onChanged: (int newId) {
+                    setState(() {
+                      _selectedCategoryId = newId;
+                    });
+                  },
+                  items: _categories.values
+                      .map<DropdownMenuItem<int>>(
+                          (ProductCategory category) => DropdownMenuItem<int>(
+                              value: category.id,
+                              child: Text(
+                                'Type : ${category.name}',
+                              )))
                       .toList()),
             ),
           ),
@@ -111,8 +165,14 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                             padding: EdgeInsets.only(left: 10.0, right: 10.0),
                             child: TextField(
                                 controller: _priceTextController,
-                                keyboardType: TextInputType.numberWithOptions(signed: false),
-                                decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
+                                keyboardType: TextInputType.numberWithOptions(
+                                    signed: false),
+                                decoration: InputDecoration(
+                                    labelText: "Price",
+                                    labelStyle:
+                                        TextStyle(color: Colors.blueAccent),
+                                    hintText: "e.g., 1000",
+                                    border: InputBorder.none))))),
                 DropdownButton<String>(
                     value: _selectedCurrency,
                     icon: Icon(Icons.expand_more),
@@ -124,7 +184,12 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                         _selectedCurrency = newCurrencyName;
                       });
                     },
-                    items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name))).toList())
+                    items: Currency.values
+                        .map<DropdownMenuItem<String>>((Currency currency) =>
+                            DropdownMenuItem<String>(
+                                value: currency.name,
+                                child: Text(currency.name)))
+                        .toList())
               ],
             ),
           ),
@@ -137,15 +202,22 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                       minLines: 10,
                       maxLines: 10,
                       keyboardType: TextInputType.multiline,
-                      decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
+                      decoration: InputDecoration(
+                          labelText: "Product description",
+                          labelStyle: TextStyle(color: Colors.blueAccent),
+                          hintText: "e.g., the best product.",
+                          border: InputBorder.none)))),
           Container(
               margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
               child: RaisedButton.icon(
                   onPressed: _createProductPressed,
                   color: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   icon: Icon(Icons.upload_file, color: Colors.white),
-                  label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
+                  label: Text("CREATE",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold))))
         ],
       ),
     );
@@ -157,8 +229,13 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
 
   void _showPhotoUploadOptions() async {
     PhotoSelectorModalView.resultImageBytes = null;
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
-    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null ? PhotoSelectorModalView.resultImageBytes : (await rootBundle.load('assets/image_placeholder.png')) as Uint8List;
+    await showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => PhotoSelectorModalView.getContainer(context));
+    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null
+        ? PhotoSelectorModalView.resultImageBytes
+        : (await rootBundle.load('assets/image_placeholder.png')) as Uint8List;
     setState(() {
       _productImageBytes = resultImageBytes;
     });
@@ -173,8 +250,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
       currency = Currency.USD;
     else if (_selectedCurrency == Currency.RUB.name)
       currency = Currency.RUB;
-    else if (_selectedCurrency == Currency.UZS.name)
-      currency = Currency.UZS;
+    else if (_selectedCurrency == Currency.UZS.name) currency = Currency.UZS;
 
     if (_titleTextController.text.length < 2) {
       await toast("Product title cannot be less than two characters!");
@@ -190,7 +266,17 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
       return;
     }
 
-    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _categories[_selectedCategoryId], _productImageBytes, widget._businessPage, price, currency, _descriptionTextController.text));
+    bool success = await grpcCreateProduct(
+        AppUser.sessionKey,
+        widget._businessPage,
+        Product.create(
+            _titleTextController.text,
+            _categories[_selectedCategoryId],
+            _productImageBytes,
+            widget._businessPage,
+            price,
+            currency,
+            _descriptionTextController.text));
 
     if (success)
       Navigator.of(context).pop();

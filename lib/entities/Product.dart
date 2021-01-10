@@ -1,4 +1,5 @@
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
+import 'package:globens_flutter_client/entities/ProductType.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:intl/intl.dart';
 import 'BusinessPage.dart';
@@ -17,6 +18,7 @@ class Product {
   int _id;
   String _name;
   ProductCategory _category;
+  ProductType _type;
   Uint8List _pictureBlob;
   BusinessPage _businessPage;
   double _price;
@@ -25,10 +27,11 @@ class Product {
 
   // endregion
 
-  Product.create(String name, ProductCategory category, Uint8List pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, {int id}) {
+  Product.create(String name, ProductCategory category, ProductType type, Uint8List pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, {int id}) {
     this._id = id;
     this._name = name;
     this._category = category;
+    this._type = type;
     this._pictureBlob = pictureBlob;
     this._businessPage = businessPage;
     this._price = price;
@@ -37,6 +40,11 @@ class Product {
   }
 
   // region Getters
+
+  ProductType get type{
+    return this._type;
+  }
+
   int get id {
     return this._id;
   }
@@ -69,6 +77,9 @@ class Product {
     return this._currency;
   }
 
+  String get description {
+    return this._description;
+  }
   String get priceStr {
     if (price == 0) return "free";
 
@@ -85,10 +96,6 @@ class Product {
       default:
         return '[N/A]';
     }
-  }
-
-  String get description {
-    return this._description;
   }
 
 // endregion

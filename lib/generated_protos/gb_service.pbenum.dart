@@ -2,18 +2,18 @@
 //  Generated code. Do not modify.
 //  source: gb_service.proto
 //
-// @dart = 2.3
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
+// @dart = 2.7
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
-// ignore_for_file: UNDEFINED_SHOWN_NAME,UNUSED_SHOWN_NAME
+// ignore_for_file: UNDEFINED_SHOWN_NAME
 import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class Currency extends $pb.ProtobufEnum {
-  static const Currency KRW = Currency._(0, 'KRW');
-  static const Currency USD = Currency._(1, 'USD');
-  static const Currency UZS = Currency._(3, 'UZS');
-  static const Currency RUB = Currency._(4, 'RUB');
+  static const Currency KRW = Currency._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'KRW');
+  static const Currency USD = Currency._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'USD');
+  static const Currency UZS = Currency._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UZS');
+  static const Currency RUB = Currency._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'RUB');
 
   static const $core.List<Currency> values = <Currency> [
     KRW,
@@ -29,11 +29,11 @@ class Currency extends $pb.ProtobufEnum {
 }
 
 class AuthenticateUser_AuthMethod extends $pb.ProtobufEnum {
-  static const AuthenticateUser_AuthMethod GOOGLE = AuthenticateUser_AuthMethod._(0, 'GOOGLE');
-  static const AuthenticateUser_AuthMethod FACEBOOK = AuthenticateUser_AuthMethod._(1, 'FACEBOOK');
-  static const AuthenticateUser_AuthMethod KAKAOTALK = AuthenticateUser_AuthMethod._(3, 'KAKAOTALK');
-  static const AuthenticateUser_AuthMethod PHONE = AuthenticateUser_AuthMethod._(4, 'PHONE');
-  static const AuthenticateUser_AuthMethod APPLE = AuthenticateUser_AuthMethod._(5, 'APPLE');
+  static const AuthenticateUser_AuthMethod GOOGLE = AuthenticateUser_AuthMethod._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'GOOGLE');
+  static const AuthenticateUser_AuthMethod FACEBOOK = AuthenticateUser_AuthMethod._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'FACEBOOK');
+  static const AuthenticateUser_AuthMethod KAKAOTALK = AuthenticateUser_AuthMethod._(3, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'KAKAOTALK');
+  static const AuthenticateUser_AuthMethod PHONE = AuthenticateUser_AuthMethod._(4, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'PHONE');
+  static const AuthenticateUser_AuthMethod APPLE = AuthenticateUser_AuthMethod._(5, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'APPLE');
 
   static const $core.List<AuthenticateUser_AuthMethod> values = <AuthenticateUser_AuthMethod> [
     GOOGLE,

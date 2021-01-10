@@ -125,12 +125,14 @@ message CreateProduct{
     int32 businessPageId = 2;
     string name = 3;
     int32 categoryId = 4;
-    bytes pictureBlob = 5;
-    float price = 6;
-    Currency currency = 7;
-    string description = 8;
+    int32 type_id = 5;
+    bytes pictureBlob = 6;
+    float price = 7;
+    Currency currency = 8;
+    string description = 9;
   }
-  message Response{
+  message Response
+  {
     bool success = 1;
   }
 }
@@ -170,12 +172,13 @@ message FetchProductDetails{
     int32 id = 2;
     string name = 3;
     int32 categoryId = 4;
-    bool published = 5;
-    bytes pictureBlob = 6;
-    int32 businessPageId = 7;
-    float price = 8;
-    Currency currency = 9;
-    string description = 10;
+    int32 typeId = 5;
+    bool published = 6;
+    bytes pictureBlob = 7;
+    int32 businessPageId = 8;
+    float price = 9;
+    Currency currency = 10;
+    string description = 11;
   }
 }
 message PublishProduct{
@@ -192,6 +195,23 @@ message UnpublishProduct{
   }
   message Response{
     bool success = 1;
+  }
+}
+message  FetchProductTypeIds{
+  message Request{}
+  message Response{
+    bool  success = 1;
+    repeated  int32 id = 2;
+  }
+}
+message  FetchProductTypeDetails{
+  message Request{
+    int32 typeId = 1;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string name = 3;
   }
 }
 message FetchProductCategoryIds{
@@ -396,6 +416,8 @@ service GlobensService {
   rpc uncreateProduct(UncreateProduct.Request) returns (UncreateProduct.Response) {}
   rpc fetchNextKProductIds(FetchNextKProductIds.Request) returns (FetchNextKProductIds.Response) {}
   rpc fetchProductDetails(FetchProductDetails.Request) returns (FetchProductDetails.Response) {}
+  rpc fetchProductTypeIds(FetchProductTypeIds.Request) returns (FetchProductTypeIds.Response){}
+  rpc fetchProductTypeDetails(FetchProductTypeDetails.Request) returns (FetchProductTypeDetails.Response){}
   rpc fetchProductCategoryIds(FetchProductCategoryIds.Request) returns (FetchProductCategoryIds.Response) {}
   rpc fetchProductCategoryDetails(FetchProductCategoryDetails.Request) returns (FetchProductCategoryDetails.Response) {}
 
@@ -438,3 +460,5 @@ Compile into dart / flutter:
     protoc -I=protos --dart_out=grpc:lib/generated_protos gb_service.proto
 etc.
 */
+
+

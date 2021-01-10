@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
 class VacantJobsListScreen extends StatefulWidget {
+  static String  route_name = '/vacant_jobs';
+
   @override
   _VacantJobsListScreenState createState() => _VacantJobsListScreenState();
 }
