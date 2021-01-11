@@ -1,7 +1,9 @@
+
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/entities/ProductType.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +27,9 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   final _descriptionTextController = TextEditingController();
   Uint8List _productImageBytes;
   Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
+  Map<int, ProductType> _types = Map<int, ProductType>();
   int _selectedCategoryId;
+  int _selectedTypeId;
   String _selectedCurrency;
 
   @override
@@ -34,6 +38,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
 
     // dummy values for initial display
     _categories[1] = ProductCategory.create(1, "Others", null, null);
+    _types[1] = ProductType.create(1, "downloadable");
     _selectedCategoryId = 1;
     _selectedCurrency = Currency.KRW.name;
 
@@ -48,6 +53,21 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
           _selectedCategoryId = 1;
         });
     });
+    grpcFetchProductTypes().then((tp){
+      bool success = tp.item1;
+      List<ProductType> types = tp.item2;
+      this._types.clear();
+      for(ProductType type in types)
+        this._types[type.id] = type;
+      if(success){
+        setState(() {
+          _selectedTypeId = 1;
+        });
+      }
+
+    });
+
+
   }
 
   @override
@@ -130,7 +150,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
               padding: EdgeInsets.only(left: 10.0, right: 10.0),
               child: DropdownButton<int>(
                   isExpanded: true,
-                  value: _selectedCategoryId,
+                  value: _selectedTypeId,
                   icon: _categories[_selectedCategoryId].pictureBlob == null
                       ? Icon(Icons.arrow_downward)
                       : Image.memory(
@@ -141,15 +161,15 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                   underline: Container(),
                   onChanged: (int newId) {
                     setState(() {
-                      _selectedCategoryId = newId;
+                      _selectedTypeId = newId;
                     });
                   },
-                  items: _categories.values
+                  items: _types.values
                       .map<DropdownMenuItem<int>>(
-                          (ProductCategory category) => DropdownMenuItem<int>(
-                              value: category.id,
+                          (ProductType type) => DropdownMenuItem<int>(
+                              value: type.id,
                               child: Text(
-                                'Type : ${category.name}',
+                                'Type : ${type.name}',
                               )))
                       .toList()),
             ),
@@ -272,6 +292,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
         Product.create(
             _titleTextController.text,
             _categories[_selectedCategoryId],
+            _types[_selectedTypeId],
             _productImageBytes,
             widget._businessPage,
             price,
