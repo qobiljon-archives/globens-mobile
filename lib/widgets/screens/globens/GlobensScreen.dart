@@ -129,7 +129,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
                     style: TextStyle(fontSize: 11.0),
                   )
                 ]),
-                Container(width: 50, height: 50, child: Image.memory(category.pictureBlob))
+                Container(width: 40, height: 40, child: Image.memory(category.pictureBlob))
               ],
             ),
           )),

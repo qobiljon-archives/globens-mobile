@@ -76,6 +76,8 @@ dependencies:
   flutter_plugin_android_lifecycle: ^1.0.11
   intent: ^1.4.0
   bootpay_api: ^1.2.21
+  file_picker: ^2.1.5+1
+
 
 
 dev_dependencies:
@@ -120,6 +122,10 @@ flutter:
     - assets/vacancy.png
     - assets/menu.png
     - assets/business_page.png
+    - assets/downloadable.png
+    - assets/streamed.png
+    - assets/meetup.png
+    - assets/(online)call.png
 
 
 

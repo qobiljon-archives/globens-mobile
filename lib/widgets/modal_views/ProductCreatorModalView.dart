@@ -1,9 +1,9 @@
-
+import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/entities/ProductType.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,7 @@ class ProductCreatorModalView extends StatefulWidget {
   ProductCreatorModalView(this._businessPage);
 
   @override
-  _ProductCreatorModalViewState createState() =>
-      _ProductCreatorModalViewState();
+  _ProductCreatorModalViewState createState() => _ProductCreatorModalViewState();
 }
 
 class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
@@ -26,11 +25,16 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   final _priceTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
   Uint8List _productImageBytes;
+
   Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
-  Map<int, ProductType> _types = Map<int, ProductType>();
+  List<String> _typesIcons = ["assets/downloadable.png", "assets/streamed.png", "assets/meetup.png", "assets/(online)call.png"];
+  List<String> _types = ["downloadable", "streamed", "meetup", "(online)call"];
+
   int _selectedCategoryId;
   int _selectedTypeId;
   String _selectedCurrency;
+  bool _filesUploaded = false;
+  List<File> _files;
 
   @override
   void initState() {
@@ -38,82 +42,39 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
 
     // dummy values for initial display
     _categories[1] = ProductCategory.create(1, "Others", null, null);
-    _types[1] = ProductType.create(1, "downloadable");
     _selectedCategoryId = 1;
+    _selectedTypeId = 0;
     _selectedCurrency = Currency.KRW.name;
 
     grpcFetchProductCategories().then((tp) {
       bool success = tp.item1;
       List<ProductCategory> categories = tp.item2;
       this._categories.clear();
-      for (ProductCategory category in categories)
-        this._categories[category.id] = category;
+      for (ProductCategory category in categories) this._categories[category.id] = category;
       if (success)
         setState(() {
           _selectedCategoryId = 1;
         });
     });
-    grpcFetchProductTypes().then((tp){
-      bool success = tp.item1;
-      List<ProductType> types = tp.item2;
-      this._types.clear();
-      for(ProductType type in types)
-        this._types[type.id] = type;
-      if(success){
-        setState(() {
-          _selectedTypeId = 1;
-        });
-      }
-
-    });
-
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Color.fromRGBO(240, 242, 245, 1),
-      padding: EdgeInsets.only(
-          top: 10.0,
-          left: 30.0,
-          right: 30.0,
-          bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+      padding: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
       child: ListView(
         shrinkWrap: true,
         children: [
           Container(
               margin: EdgeInsets.only(right: 50.0, bottom: 20.0),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                    onPressed: _onBackButtonPressed),
-                getTitleWidget("Product details",
-                    textColor: Colors.black, margin: EdgeInsets.zero),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: _onBackButtonPressed),
+                getTitleWidget("Product details", textColor: Colors.black, margin: EdgeInsets.zero),
               ])),
           Row(children: [
-            Flexible(
-                child: Card(
-                    margin: EdgeInsets.zero,
-                    child: Container(
-                        padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                        child: TextField(
-                            controller: _titleTextController,
-                            decoration: InputDecoration(
-                                labelText: "Product name",
-                                labelStyle: TextStyle(color: Colors.blueAccent),
-                                hintText: "e.g., Yoga training 24/7",
-                                border: InputBorder.none))))),
-            Container(
-                margin: EdgeInsets.all(10.0),
-                child: GestureDetector(
-                    onTap: _showPhotoUploadOptions,
-                    child: CircleAvatar(
-                        radius: 30.0,
-                        backgroundImage: _productImageBytes == null
-                            ? AssetImage('assets/image_placeholder.png')
-                            : MemoryImage(_productImageBytes)))),
+            Flexible(child: Card(margin: EdgeInsets.zero, child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _titleTextController, decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none))))),
+            Container(margin: EdgeInsets.all(10.0), child: GestureDetector(onTap: _showPhotoUploadOptions, child: CircleAvatar(radius: 30.0, backgroundImage: _productImageBytes == null ? AssetImage('assets/image_placeholder.png') : MemoryImage(_productImageBytes)))),
           ]),
           Card(
             margin: EdgeInsets.only(top: 10.0),
@@ -122,11 +83,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
               child: DropdownButton<int>(
                   isExpanded: true,
                   value: _selectedCategoryId,
-                  icon: _categories[_selectedCategoryId].pictureBlob == null
-                      ? Icon(Icons.arrow_downward)
-                      : Image.memory(
-                          _categories[_selectedCategoryId].pictureBlob,
-                          width: 20),
+                  icon: _categories[_selectedCategoryId].pictureBlob == null ? Icon(Icons.arrow_drop_down) : Image.memory(_categories[_selectedCategoryId].pictureBlob, width: 20),
                   iconSize: 24,
                   elevation: 16,
                   underline: Container(),
@@ -136,63 +93,63 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                     });
                   },
                   items: _categories.values
-                      .map<DropdownMenuItem<int>>(
-                          (ProductCategory category) => DropdownMenuItem<int>(
-                              value: category.id,
-                              child: Text(
-                                'Category : ${category.name}',
-                              )))
+                      .map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
+                          value: category.id,
+                          child: Text(
+                            'Category : ${category.name}',
+                          )))
                       .toList()),
             ),
-          ),  Card(
+          ),
+          Card(
             margin: EdgeInsets.only(top: 10.0),
             child: Container(
               padding: EdgeInsets.only(left: 10.0, right: 10.0),
               child: DropdownButton<int>(
-                  isExpanded: true,
-                  value: _selectedTypeId,
-                  icon: _categories[_selectedCategoryId].pictureBlob == null
-                      ? Icon(Icons.arrow_downward)
-                      : Image.memory(
-                          _categories[_selectedCategoryId].pictureBlob,
-                          width: 20),
-                  iconSize: 24,
-                  elevation: 16,
-                  underline: Container(),
-                  onChanged: (int newId) {
-                    setState(() {
-                      _selectedTypeId = newId;
-                    });
-                  },
-                  items: _types.values
-                      .map<DropdownMenuItem<int>>(
-                          (ProductType type) => DropdownMenuItem<int>(
-                              value: type.id,
-                              child: Text(
-                                'Type : ${type.name}',
-                              )))
-                      .toList()),
+                isExpanded: true,
+                value: _selectedTypeId,
+                icon: Image.asset(
+                  _typesIcons[_selectedTypeId],
+                  width: 20,
+                ),
+                iconSize: 24,
+                elevation: 16,
+                underline: Container(),
+                onChanged: (int newId) {
+                  setState(() {
+                    _selectedTypeId = newId;
+                  });
+                },
+                items: _types
+                    .map<DropdownMenuItem<int>>((String type) => DropdownMenuItem<int>(
+                          value: _types.indexOf(type),
+                          child: Text("type: ${type}"),
+                        ))
+                    .toList(),
+              ),
             ),
+          ),
+          _filesUploaded
+              ? Container(
+                  height: 200,
+                  child: Card(
+                      margin: EdgeInsets.only(top: 10),
+                      child: ListView.builder(
+                          itemCount: _files.length,
+                          itemBuilder: (context, index) {
+                            return Text("${_files[index].path}");
+                          })),
+                )
+              : Container(),
+          RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_outlined, color: Colors.white), label: Text("UPLOAD FILE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+          Card(
+            margin: EdgeInsets.only(top: 10.0),
           ),
           Container(
             margin: EdgeInsets.only(top: 10.0),
             child: Row(
               children: [
-                Flexible(
-                    child: Card(
-                        margin: EdgeInsets.only(right: 20.0),
-                        child: Container(
-                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                            child: TextField(
-                                controller: _priceTextController,
-                                keyboardType: TextInputType.numberWithOptions(
-                                    signed: false),
-                                decoration: InputDecoration(
-                                    labelText: "Price",
-                                    labelStyle:
-                                        TextStyle(color: Colors.blueAccent),
-                                    hintText: "e.g., 1000",
-                                    border: InputBorder.none))))),
+                Flexible(child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false), decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
                 DropdownButton<String>(
                     value: _selectedCurrency,
                     icon: Icon(Icons.expand_more),
@@ -204,40 +161,12 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                         _selectedCurrency = newCurrencyName;
                       });
                     },
-                    items: Currency.values
-                        .map<DropdownMenuItem<String>>((Currency currency) =>
-                            DropdownMenuItem<String>(
-                                value: currency.name,
-                                child: Text(currency.name)))
-                        .toList())
+                    items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name))).toList())
               ],
             ),
           ),
-          Card(
-              margin: EdgeInsets.only(top: 10.0),
-              child: Container(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: TextField(
-                      controller: _descriptionTextController,
-                      minLines: 10,
-                      maxLines: 10,
-                      keyboardType: TextInputType.multiline,
-                      decoration: InputDecoration(
-                          labelText: "Product description",
-                          labelStyle: TextStyle(color: Colors.blueAccent),
-                          hintText: "e.g., the best product.",
-                          border: InputBorder.none)))),
-          Container(
-              margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-              child: RaisedButton.icon(
-                  onPressed: _createProductPressed,
-                  color: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  icon: Icon(Icons.upload_file, color: Colors.white),
-                  label: Text("CREATE",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold))))
+          Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
+          Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
         ],
       ),
     );
@@ -249,13 +178,8 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
 
   void _showPhotoUploadOptions() async {
     PhotoSelectorModalView.resultImageBytes = null;
-    await showModalBottomSheet(
-        isScrollControlled: true,
-        context: context,
-        builder: (context) => PhotoSelectorModalView.getContainer(context));
-    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null
-        ? PhotoSelectorModalView.resultImageBytes
-        : (await rootBundle.load('assets/image_placeholder.png')) as Uint8List;
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
+    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null ? PhotoSelectorModalView.resultImageBytes : (await rootBundle.load('assets/image_placeholder.png')) as Uint8List;
     setState(() {
       _productImageBytes = resultImageBytes;
     });
@@ -286,24 +210,26 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
       return;
     }
 
-    bool success = await grpcCreateProduct(
-        AppUser.sessionKey,
-        widget._businessPage,
-        Product.create(
-            _titleTextController.text,
-            _categories[_selectedCategoryId],
-            _types[_selectedTypeId],
-            _productImageBytes,
-            widget._businessPage,
-            price,
-            currency,
-            _descriptionTextController.text));
+    bool success = await grpcCreateProduct(AppUser.sessionKey, widget._businessPage, Product.create(_titleTextController.text, _categories[_selectedCategoryId], _productImageBytes, widget._businessPage, price, currency, _descriptionTextController.text));
 
     if (success)
       Navigator.of(context).pop();
     else {
       await AppUser.signOut();
       await Navigator.of(context).pushReplacementNamed('/');
+    }
+  }
+
+  void _uploadFilePressed() async {
+    FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
+
+    if (result != null) {
+      _files = result.paths.map((path) => File(path)).toList();
+      setState(() {
+        _filesUploaded = true;
+      });
+    } else {
+      toast("Selection cancelled!");
     }
   }
 }

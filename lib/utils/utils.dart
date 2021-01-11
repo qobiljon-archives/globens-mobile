@@ -1,5 +1,4 @@
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
-import 'package:globens_flutter_client/entities/ProductType.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
@@ -93,6 +92,14 @@ String shorten(String str, int len, {bool ellipsize = false}) {
     return "${str.substring(0, len)}…";
   else
     return str.substring(0, len);
+}
+
+
+enum Types{
+  DOWNLOADABLE,
+  STREAMED,
+  MEETUP,
+  LIVE
 }
 
 // region user management RPCs
@@ -239,7 +246,6 @@ Future<bool> grpcCreateProduct(
       ..businessPageId = businessPage.id
       ..name = product.name
       ..categoryId = product.category.id
-      ..typeId = product.type.id
       ..pictureBlob = product.pictureBlob
       ..price = product.price
       ..currency = product.currency
@@ -258,7 +264,6 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(
   List<Product> products = List<Product>();
   Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
   Map<int, ProductCategory> categories = Map<int, ProductCategory>();
-  Map<int, ProductType> types = Map<int, ProductType>();
 
   if (filterDetails == null)
     filterDetails = FilterDetails()..useFilter = false;
@@ -303,7 +308,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(
                 categoryDetails.examples,
                 categoryDetails.pictureBlob);
         }
-
+/*
         if (!types.containsKey(productDetails.typeId)) {
           final typeDetails = await getStub().fetchProductTypeDetails(
               FetchProductTypeDetails_Request()
@@ -313,13 +318,12 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts(
             types[productDetails.typeId] =
                 ProductType.create(typeDetails.id, typeDetails.name);
           }
-        }
+        }*/
 
         if (success)
           products.add(Product.create(
               productDetails.name,
               categories[productDetails.categoryId],
-              types[productDetails.typeId],
               productDetails.pictureBlob,
               businessPages[productDetails.businessPageId],
               productDetails.price,
@@ -374,6 +378,7 @@ Future<Tuple2<bool, List<ProductCategory>>> grpcFetchProductCategories() async {
   return Tuple2(success, categories);
 }
 
+/*
 Future<Tuple2<bool, List<ProductType>>> grpcFetchProductTypes() async {
   bool success = false;
   List<ProductType> types = List<ProductType>();
@@ -407,6 +412,7 @@ Future<Tuple2<bool, List<ProductType>>> grpcFetchProductTypes() async {
 
   return Tuple2(success, types);
 }
+*/
 
 // endregion
 
