@@ -7,11 +7,11 @@ import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
-import 'package:globens_flutter_client/widgets/modal_views/ProductCreatorModalView.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductDetailsScreen.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
-  static String route_name =  '/business_page_details';
+  static const String route_name =  '/business_page_details';
   @override
   _BusinessPageDetailsScreenState createState() => _BusinessPageDetailsScreenState();
 }
@@ -252,7 +252,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateProductPressed() async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => ProductCreatorModalView(_businessPage));
+    await Navigator.of(context).pushNamed(ProductDetailsScreen.route_name, arguments: _businessPage);
 
     Tuple2<bool, List<Product>> res = await grpcFetchNextKProducts(filterDetails: FilterDetails()..businessPageId = _businessPage.id);
     bool success = res.item1;

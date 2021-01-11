@@ -1,3 +1,4 @@
+import 'file:///C:/Users/Kevin/AndroidStudioProjects/globens_flutter_client/lib/widgets/screens/ProductDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/JobApplicationsListScreen.dart';
@@ -30,6 +31,7 @@ void main() {
       ProductPurchaseScreen.route_name: (context) => ProductPurchaseScreen(),
       BusinessPageDetailsScreen.route_name: (context) => BusinessPageDetailsScreen(),
       JobApplicationsListScreen.route_name: (context) => JobApplicationsListScreen(),
+      ProductDetailsScreen.route_name: (context) => ProductDetailsScreen(),
     },
   ));
 }

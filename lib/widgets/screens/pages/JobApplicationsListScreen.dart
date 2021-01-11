@@ -7,7 +7,7 @@ import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class JobApplicationsListScreen extends StatefulWidget {
-  static String route_name = '/business_page_details/job_applications_list';
+  static const String route_name = '/business_page_details/job_applications_list';
   @override
   _JobApplicationsListScreenState createState() => _JobApplicationsListScreenState();
 }

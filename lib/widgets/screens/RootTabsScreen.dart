@@ -7,7 +7,7 @@ import 'menu/MenuScreen.dart';
 import 'pages/MyBusinessPagesScreen.dart';
 
 class RootTabsScreen extends StatefulWidget {
-  static String  route_name = '/';
+  static const String route_name = '/';
   RootTabsScreen({Key key}) : super(key: key);
 
   @override

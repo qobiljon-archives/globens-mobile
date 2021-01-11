@@ -5,7 +5,7 @@ import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class CategoryProductsScreen extends StatefulWidget {
-  static String route_name = '/category_products';
+  static const String route_name = '/category_products';
   @override
   _CategoryProductsScreenState createState() => _CategoryProductsScreenState();
 }
