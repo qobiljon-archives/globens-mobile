@@ -11,7 +11,6 @@ import 'package:globens_flutter_client/widgets/modal_views/ProductCreatorModalVi
 import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
-  static String route_name =  '/business_page_details';
   @override
   _BusinessPageDetailsScreenState createState() => _BusinessPageDetailsScreenState();
 }

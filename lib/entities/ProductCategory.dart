@@ -16,31 +16,21 @@ class ProductCategory {
     this._pictureBlob = pictureBlob;
   }
 
-  List<String> get examples => _examples;
-
-  set examples(List<String> value) {
-    _examples = value;
+  // region Getters
+  int get id {
+    return this._id;
   }
 
-  Uint8List get pictureBlob => _pictureBlob;
-
-  set pictureBlob(Uint8List value) {
-    _pictureBlob = value;
+  String get name {
+    return _name;
   }
 
-  String get name => _name;
-
-  set name(String value) {
-    _name = value;
+  List<String> get examples {
+    return this._examples;
   }
 
-  int get id => _id;
-
-  set id(int value) {
-    _id = value;
+  Uint8List get pictureBlob {
+    return this._pictureBlob;
   }
-
-// region Getters
-
 // endregion
 }

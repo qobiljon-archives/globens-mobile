@@ -3,7 +3,6 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/widgets/modal_views/BusinessPageViewerModalView.dart';
-import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:tuple/tuple.dart';
 
 class MyBusinessPagesScreen extends StatefulWidget {
@@ -27,7 +26,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
       Container(
         margin: EdgeInsets.all(20),
         child: RaisedButton.icon(
-          onPressed: () => _onCreateBusinessPagePressed(context),
+          onPressed: () => _onCreateProductPressed(context),
           color: Colors.blueAccent,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
           icon: Icon(
@@ -115,7 +114,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     }
   }
 
-  void _onCreateBusinessPagePressed(BuildContext context) async {
+  void _onCreateProductPressed(BuildContext context) async {
     await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => BusinessPageCreatorModalView());
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
@@ -134,6 +133,6 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   }
 
   void _openIndividualBusinessPage(BuildContext context, BusinessPage businessPage) async {
-    await Navigator.of(context).pushNamed(BusinessPageDetailsScreen.route_name, arguments: businessPage);
+    await Navigator.of(context).pushNamed('/business_page_details', arguments: businessPage);
   }
 }

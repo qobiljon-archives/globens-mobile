@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProductPurchaseScreen extends StatefulWidget {
-  static  String route_name = '/product_purchase';
   @override
   _ProductPurchaseScreenState createState() => _ProductPurchaseScreenState();
 }

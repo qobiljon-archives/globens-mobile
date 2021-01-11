@@ -24,12 +24,12 @@ void main() {
     title: "Globens",
     initialRoute: '/',
     routes: {
-      RootTabsScreen.route_name: (context) => RootTabsScreen(),
-      CategoryProductsScreen.route_name: (context) => CategoryProductsScreen(),
-      VacantJobsListScreen.route_name: (context) => VacantJobsListScreen(),
-      ProductPurchaseScreen.route_name: (context) => ProductPurchaseScreen(),
-      BusinessPageDetailsScreen.route_name: (context) => BusinessPageDetailsScreen(),
-      JobApplicationsListScreen.route_name: (context) => JobApplicationsListScreen(),
+      '/': (context) => RootTabsScreen(),
+      '/category_products': (context) => CategoryProductsScreen(),
+      '/vacant_jobs': (context) => VacantJobsListScreen(),
+      '/product_purchase': (context) => ProductPurchaseScreen(),
+      '/business_page_details': (context) => BusinessPageDetailsScreen(),
+      '/business_page_details/job_applications_list': (context) => JobApplicationsListScreen(),
     },
   ));
 }

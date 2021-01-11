@@ -2,8 +2,8 @@
 //  Generated code. Do not modify.
 //  source: gb_service.proto
 //
-// @dart = 2.7
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// @dart = 2.3
+// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
 const Currency$json = const {
   '1': 'Currency',
@@ -239,11 +239,10 @@ const CreateProduct_Request$json = const {
     const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
     const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'categoryId', '3': 4, '4': 1, '5': 5, '10': 'categoryId'},
-    const {'1': 'type_id', '3': 5, '4': 1, '5': 5, '10': 'typeId'},
-    const {'1': 'pictureBlob', '3': 6, '4': 1, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'price', '3': 7, '4': 1, '5': 2, '10': 'price'},
-    const {'1': 'currency', '3': 8, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
-    const {'1': 'description', '3': 9, '4': 1, '5': 9, '10': 'description'},
+    const {'1': 'pictureBlob', '3': 5, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'price', '3': 6, '4': 1, '5': 2, '10': 'price'},
+    const {'1': 'currency', '3': 7, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
+    const {'1': 'description', '3': 8, '4': 1, '5': 9, '10': 'description'},
   ],
 };
 
@@ -333,13 +332,12 @@ const FetchProductDetails_Response$json = const {
     const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
     const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'categoryId', '3': 4, '4': 1, '5': 5, '10': 'categoryId'},
-    const {'1': 'typeId', '3': 5, '4': 1, '5': 5, '10': 'typeId'},
-    const {'1': 'published', '3': 6, '4': 1, '5': 8, '10': 'published'},
-    const {'1': 'pictureBlob', '3': 7, '4': 1, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'businessPageId', '3': 8, '4': 1, '5': 5, '10': 'businessPageId'},
-    const {'1': 'price', '3': 9, '4': 1, '5': 2, '10': 'price'},
-    const {'1': 'currency', '3': 10, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
-    const {'1': 'description', '3': 11, '4': 1, '5': 9, '10': 'description'},
+    const {'1': 'published', '3': 5, '4': 1, '5': 8, '10': 'published'},
+    const {'1': 'pictureBlob', '3': 6, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'businessPageId', '3': 7, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'price', '3': 8, '4': 1, '5': 2, '10': 'price'},
+    const {'1': 'currency', '3': 9, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
+    const {'1': 'description', '3': 10, '4': 1, '5': 9, '10': 'description'},
   ],
 };
 
@@ -378,44 +376,6 @@ const UnpublishProduct_Response$json = const {
   '1': 'Response',
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-const FetchProductTypeIds$json = const {
-  '1': 'FetchProductTypeIds',
-  '3': const [FetchProductTypeIds_Request$json, FetchProductTypeIds_Response$json],
-};
-
-const FetchProductTypeIds_Request$json = const {
-  '1': 'Request',
-};
-
-const FetchProductTypeIds_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
-  ],
-};
-
-const FetchProductTypeDetails$json = const {
-  '1': 'FetchProductTypeDetails',
-  '3': const [FetchProductTypeDetails_Request$json, FetchProductTypeDetails_Response$json],
-};
-
-const FetchProductTypeDetails_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'typeId', '3': 1, '4': 1, '5': 5, '10': 'typeId'},
-  ],
-};
-
-const FetchProductTypeDetails_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
-    const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
   ],
 };
 
