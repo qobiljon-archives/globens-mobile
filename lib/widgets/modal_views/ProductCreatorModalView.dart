@@ -24,9 +24,13 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   final _titleTextController = TextEditingController();
   final _priceTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
+  int FILE_TYPE = 1;
+  int SCHEDULED_TYPE = 2;
+
   Uint8List _productImageBytes;
 
   Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
+
   List<String> _typesIcons = ["assets/downloadable.png", "assets/streamed.png", "assets/meetup.png", "assets/(online)call.png"];
   List<String> _types = ["downloadable", "streamed", "meetup", "(online)call"];
 
@@ -137,11 +141,13 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                       child: ListView.builder(
                           itemCount: _files.length,
                           itemBuilder: (context, index) {
-                            return Text("${_files[index].path}");
+                            String path = _files[index].path;
+                            String  path2 = path.substring(path.indexOf("picker/"), path.length);
+                            return Text("${index + 1}.${path2.substring(path2.indexOf("/")+1, path2.length)}");
                           })),
                 )
               : Container(),
-          RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_outlined, color: Colors.white), label: Text("UPLOAD FILE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+          RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_outlined, color: Colors.white), label: Text(!_filesUploaded?"UPLOAD FILE":"CHANGE FILES", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
           Card(
             margin: EdgeInsets.only(top: 10.0),
           ),
@@ -224,8 +230,8 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
     FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
 
     if (result != null) {
-      _files = result.paths.map((path) => File(path)).toList();
       setState(() {
+        _files = result.paths.map((path) => File(path)).toList();
         _filesUploaded = true;
       });
     } else {
