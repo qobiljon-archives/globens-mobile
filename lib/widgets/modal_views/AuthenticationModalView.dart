@@ -6,9 +6,7 @@ class AuthenticationModalView {
   static Widget getModalView(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 10.0, bottom: 100.0),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min, children: [
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, mainAxisSize: MainAxisSize.min, children: [
         Container(
             margin: EdgeInsets.all(20.0),
             child: Text(

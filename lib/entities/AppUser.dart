@@ -64,8 +64,7 @@ class AppUser {
   static Future<void> init() async {
     AppUser._singleton = AppUser._internalConstructor();
     AppUser.userPrefs = await SharedPreferences.getInstance();
-    if (AppUser.userPrefs.containsKey("authMethod"))
-      AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
+    if (AppUser.userPrefs.containsKey("authMethod")) AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
 
     // setup kakao, google, and facebook auth
     KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported

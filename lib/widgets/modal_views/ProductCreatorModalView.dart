@@ -40,8 +40,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
       bool success = tp.item1;
       List<ProductCategory> categories = tp.item2;
       this._categories.clear();
-      for (ProductCategory category in categories)
-        this._categories[category.id] = category;
+      for (ProductCategory category in categories) this._categories[category.id] = category;
       if (success)
         setState(() {
           _selectedCategoryId = 1;
@@ -53,10 +52,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
   Widget build(BuildContext context) {
     return Container(
       color: Color.fromRGBO(240, 242, 245, 1),
-      padding: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0, bottom: 30.0 + MediaQuery
-          .of(context)
-          .viewInsets
-          .bottom),
+      padding: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
       child: ListView(
         shrinkWrap: true,
         children: [
@@ -67,11 +63,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                 getTitleWidget("Product details", textColor: Colors.black, margin: EdgeInsets.zero),
               ])),
           Row(children: [
-            Flexible(
-                child: Card(
-                    margin: EdgeInsets.zero,
-                    child: Container(
-                        padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _titleTextController, decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none))))),
+            Flexible(child: Card(margin: EdgeInsets.zero, child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _titleTextController, decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none))))),
             Container(margin: EdgeInsets.all(10.0), child: GestureDetector(onTap: _showPhotoUploadOptions, child: CircleAvatar(radius: 30.0, backgroundImage: _productImageBytes == null ? AssetImage('assets/image_placeholder.png') : MemoryImage(_productImageBytes)))),
           ]),
           Card(
@@ -91,8 +83,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
                     });
                   },
                   items: _categories.values
-                      .map<DropdownMenuItem<int>>((ProductCategory category) =>
-                      DropdownMenuItem<int>(
+                      .map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
                           value: category.id,
                           child: Text(
                             'Category : ${category.name}',
@@ -104,15 +95,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
             margin: EdgeInsets.only(top: 10.0),
             child: Row(
               children: [
-                Flexible(
-                    child: Card(
-                        margin: EdgeInsets.only(right: 20.0),
-                        child: Container(
-                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                            child: TextField(
-                                controller: _priceTextController,
-                                keyboardType: TextInputType.numberWithOptions(signed: false),
-                                decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
+                Flexible(child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false), decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
                 DropdownButton<String>(
                     value: _selectedCurrency,
                     icon: Icon(Icons.expand_more),
@@ -128,24 +111,8 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
               ],
             ),
           ),
-          Card(
-              margin: EdgeInsets.only(top: 10.0),
-              child: Container(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: TextField(
-                      controller: _descriptionTextController,
-                      minLines: 10,
-                      maxLines: 10,
-                      keyboardType: TextInputType.multiline,
-                      decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
-          Container(
-              margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-              child: RaisedButton.icon(
-                  onPressed: _createProductPressed,
-                  color: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  icon: Icon(Icons.upload_file, color: Colors.white),
-                  label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
+          Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
+          Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
         ],
       ),
     );
@@ -173,8 +140,7 @@ class _ProductCreatorModalViewState extends State<ProductCreatorModalView> {
       currency = Currency.USD;
     else if (_selectedCurrency == Currency.RUB.name)
       currency = Currency.RUB;
-    else if (_selectedCurrency == Currency.UZS.name)
-      currency = Currency.UZS;
+    else if (_selectedCurrency == Currency.UZS.name) currency = Currency.UZS;
 
     if (_titleTextController.text.length < 2) {
       await toast("Product title cannot be less than two characters!");
