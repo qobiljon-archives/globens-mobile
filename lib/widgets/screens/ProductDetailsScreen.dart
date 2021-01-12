@@ -13,7 +13,7 @@ import '../modal_views/PhotoSelectorModalView.dart';
 import 'dart:typed_data';
 
 class ProductDetailsScreen extends StatefulWidget {
-  static const String route_name = '/business_page_details/job_applications_list';
+  static const String route_name = '/product_details';
 
   ProductDetailsScreen();
 
@@ -93,7 +93,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               ),
               getSectionSplitter("Basic info"),
               Row(children: [
-                Flexible(child: Card(margin: EdgeInsets.zero, child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _titleTextController, decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none))))),
+                Flexible(
+                    child: Card(
+                        margin: EdgeInsets.zero,
+                        child: Container(
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                            child: TextField(controller: _titleTextController, decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none))))),
                 Container(margin: EdgeInsets.all(10.0), child: GestureDetector(onTap: _showPhotoUploadOptions, child: CircleAvatar(radius: 30.0, backgroundImage: _productImageBytes == null ? AssetImage('assets/image_placeholder.png') : MemoryImage(_productImageBytes)))),
               ]),
               Card(
@@ -139,7 +144,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 margin: EdgeInsets.only(top: 10.0),
                 child: Row(
                   children: [
-                    Flexible(child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false), decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
+                    Flexible(
+                        child: Card(
+                            margin: EdgeInsets.only(right: 20.0),
+                            child: Container(
+                                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false), decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
                     DropdownButton<String>(
                         value: _selectedCurrency,
                         icon: Icon(Icons.expand_more),
@@ -155,7 +165,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ],
                 ),
               ),
-              Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
+              Card(
+                  margin: EdgeInsets.only(top: 10.0),
+                  child: Container(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: TextField(
+                          controller: _descriptionTextController,
+                          minLines: 10,
+                          maxLines: 10,
+                          keyboardType: TextInputType.multiline,
+                          decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
               getSectionSplitter("Product content"),
               if (_productContentFiles.length > 0)
                 Column(
@@ -173,9 +192,21 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
                                 ]))))
                         .toList()),
-              RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+              RaisedButton.icon(
+                  onPressed: _uploadFilePressed,
+                  color: Colors.blueAccent,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  icon: Icon(Icons.attachment_outlined, color: Colors.white),
+                  label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               Divider(height: 10.0),
-              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
+              Container(
+                  margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                  child: RaisedButton.icon(
+                      onPressed: _createProductPressed,
+                      color: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                      icon: Icon(Icons.upload_file, color: Colors.white),
+                      label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
             ],
           ),
         ));
