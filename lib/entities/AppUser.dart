@@ -3,8 +3,6 @@ import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:kakao_flutter_sdk/auth.dart';
-import 'package:kakao_flutter_sdk/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:tuple/tuple.dart';
 import 'dart:convert' as JSON;
@@ -68,7 +66,7 @@ class AppUser {
       AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
 
     // setup kakao, google, and facebook auth
-    KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366" // not yet supported
+    // todo KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366"
     AppUser.googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
     // todo setup phone, apple
 
@@ -101,8 +99,9 @@ class AppUser {
   static Future<bool> signIn(AuthMethod authMethod) async {
     switch (authMethod) {
       case AuthMethod.KAKAO:
+        /*
+        todo kakao
         Tuple2<User, Map> tp = await AppUser._kakaoAuth();
-
         if (tp != null) {
           User user = tp.item1;
           Map tokens = tp.item2;
@@ -116,7 +115,8 @@ class AppUser {
             AppUser.setProfileInfo(AuthMethod.KAKAO, userId, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString(), sessionKey);
             AppUser.updateUserPrefsData();
           }
-        }
+
+        }*/
         return false;
 
       case AuthMethod.GOOGLE:
@@ -191,6 +191,8 @@ class AppUser {
   // endregion
 
   // region 3rd-party auth methods
+  /*
+  // todo kakao
   static Future<AccessTokenResponse> _getKakaoAccessToken() async {
     String authCode;
     if (await isKakaoTalkInstalled())
@@ -254,7 +256,7 @@ class AppUser {
       return Tuple2(await UserApi.instance.me(), tokens);
     }
     return null; // todo when token is locally available, return it
-  }
+  }*/
 
   static Future<Tuple2<GoogleSignInAccount, Map>> _googleAuth() async {
     Map<String, dynamic> tokens = {};

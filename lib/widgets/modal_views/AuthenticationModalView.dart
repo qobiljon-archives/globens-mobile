@@ -25,7 +25,7 @@ class AuthenticationModalView {
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             icon: Image.asset(
-              'assets/kakaotalk.png',
+              'assets/auth_kakaotalk.png',
               width: 25,
               fit: BoxFit.cover,
             ),
@@ -43,7 +43,7 @@ class AuthenticationModalView {
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               icon: Image.asset(
-                'assets/google.png',
+                'assets/auth_google.png',
                 width: 25,
                 fit: BoxFit.cover,
               ),
@@ -60,7 +60,7 @@ class AuthenticationModalView {
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               icon: Image.asset(
-                'assets/facebook.png',
+                'assets/auth_facebook.png',
                 width: 25,
                 fit: BoxFit.cover,
               ),

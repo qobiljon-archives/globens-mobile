@@ -73,8 +73,13 @@ class Product {
   String get description {
     return this._description;
   }
+
   String get priceStr {
-    if (price == 0) return "free";
+    return price2string(price, currency);
+  }
+
+  static String price2string(double price, Currency currency) {
+    if (price == 0) return "free item";
 
     NumberFormat fmt = NumberFormat('#,###.##');
     switch (currency) {

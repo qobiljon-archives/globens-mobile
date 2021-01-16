@@ -38,7 +38,7 @@ Row getUserProfileWidget() {
           radius: 20.0,
           backgroundImage: AppUser.isAuthenticated()
               ? NetworkImage(AppUser.profileImageUrl)
-              : AssetImage("assets/profile_placeholder.jpg"),
+              : AssetImage("assets/placeholder_avatar.jpg"),
         ),
       ),
       SizedBox(

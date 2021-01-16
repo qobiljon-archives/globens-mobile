@@ -1,5 +1,6 @@
-import 'file:///C:/Users/Kevin/AndroidStudioProjects/globens_flutter_client/lib/widgets/screens/ProductDetailsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/globens/GlobensScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens/VacantJobsListScreen.dart';

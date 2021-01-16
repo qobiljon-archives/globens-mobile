@@ -45,7 +45,7 @@ class _BusinessPageCreatorModalViewState extends State<BusinessPageCreatorModalV
                   },
                   child: CircleAvatar(
                     radius: 30.0,
-                    backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/image_placeholder.png') : MemoryImage(_businessPageImageBytes),
+                    backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/placeholder_image.png') : MemoryImage(_businessPageImageBytes),
                   ),
                 ),
               ),

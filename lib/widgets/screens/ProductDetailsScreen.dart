@@ -13,7 +13,7 @@ import '../modal_views/PhotoSelectorModalView.dart';
 import 'dart:typed_data';
 
 class ProductDetailsScreen extends StatefulWidget {
-  static const String route_name = '/business_page_details/job_applications_list';
+  static const String route_name = '/product_details_screen';
 
   ProductDetailsScreen();
 
@@ -32,15 +32,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
 
   List<Tuple2<String, String>> _productTypes = <Tuple2<String, String>>[
-    Tuple2('Downloadable file', 'assets/downloadable.png'),
-    Tuple2('Streamed file', 'assets/streamed.png'),
-    Tuple2('Scheduled meetup', 'assets/meetup.png'),
-    Tuple2('Scheduled call', 'assets/(online)call.png'),
+    Tuple2('Downloadable files', 'assets/product_type_downloadable.png'),
+    Tuple2('Streamed files', 'assets/product_type_streamed.png'),
+    Tuple2('Scheduled face-to-face meeting', 'assets/product_type_scheduled.png'),
+    Tuple2('Scheduled online call', 'assets/product_type_scheduled.png'),
   ];
 
   int _selectedCategoryId;
   int _selectedProductTypeIndex;
-  String _selectedCurrency;
+  Currency _selectedCurrency;
   List<File> _productContentFiles = <File>[];
 
   @override
@@ -51,7 +51,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     _categories[1] = ProductCategory.create(1, "Others", null, null);
     _selectedCategoryId = 1;
     _selectedProductTypeIndex = 0;
-    _selectedCurrency = Currency.KRW.name;
+    _selectedCurrency = Currency.KRW;
 
     grpcFetchProductCategories().then((tp) {
       bool success = tp.item1;
@@ -91,11 +91,92 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   getTitleWidget('Product details', textColor: Colors.black, margin: EdgeInsets.all(0))
                 ],
               ),
-              getSectionSplitter("Basic info"),
-              Row(children: [
-                Flexible(child: Card(margin: EdgeInsets.zero, child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _titleTextController, decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none))))),
-                Container(margin: EdgeInsets.all(10.0), child: GestureDetector(onTap: _showPhotoUploadOptions, child: CircleAvatar(radius: 30.0, backgroundImage: _productImageBytes == null ? AssetImage('assets/image_placeholder.png') : MemoryImage(_productImageBytes)))),
-              ]),
+              getSectionSplitter("Basic information"),
+              Card(
+                  color: Colors.white,
+                  margin: EdgeInsets.zero,
+                  elevation: 1.0,
+                  child: Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Stack(
+                          children: [
+                            GestureDetector(
+                              onTap: _showPhotoUploadOptions,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                                child: _productImageBytes == null ? Image.asset('assets/placeholder_background_image.png', fit: BoxFit.cover) : Image.memory(_productImageBytes, fit: BoxFit.cover),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 10.0, top: 10.0),
+                              child: Text(
+                                "${Product.price2string(double.tryParse(_priceTextController.text) ?? 0.0, _selectedCurrency)}",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(5.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 20.0,
+                                margin: EdgeInsets.only(top: 10, bottom: 10),
+                                child: TextField(
+                                    controller: _titleTextController,
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                                    decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none)),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+              Container(
+                margin: EdgeInsets.only(top: 10.0),
+                child: Row(
+                  children: [
+                    Flexible(
+                        child: Card(
+                            margin: EdgeInsets.only(right: 20.0),
+                            child: Container(
+                                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                                child: TextField(
+                                    controller: _priceTextController,
+                                    keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true),
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                                    decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
+                    DropdownButton<String>(
+                        value: _selectedCurrency.name,
+                        icon: Icon(Icons.expand_more),
+                        iconSize: 24,
+                        elevation: 16,
+                        underline: Container(),
+                        onChanged: (String newCurrencyName) {
+                          setState(() {
+                            if (newCurrencyName == Currency.KRW.name)
+                              _selectedCurrency = Currency.KRW;
+                            else if (newCurrencyName == Currency.RUB.name)
+                              _selectedCurrency = Currency.RUB;
+                            else if (newCurrencyName == Currency.USD.name)
+                              _selectedCurrency = Currency.USD;
+                            else if (newCurrencyName == Currency.UZS.name) _selectedCurrency = Currency.UZS;
+                          });
+                        },
+                        items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name))).toList())
+                  ],
+                ),
+              ),
               Card(
                 margin: EdgeInsets.only(top: 10.0),
                 child: Container(
@@ -112,9 +193,28 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           _selectedCategoryId = newId;
                         });
                       },
-                      items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text('Category : ${category.name}'))).toList()),
+                      items: _categories.values
+                          .map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
+                              value: category.id,
+                              child: Text(
+                                'Product category : ${category.name}',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                              )))
+                          .toList()),
                 ),
               ),
+              Card(
+                  margin: EdgeInsets.only(top: 10.0),
+                  child: Container(
+                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                      child: TextField(
+                          controller: _descriptionTextController,
+                          minLines: 10,
+                          maxLines: 10,
+                          keyboardType: TextInputType.multiline,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                          decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
+              getSectionSplitter("Product content"),
               Card(
                 margin: EdgeInsets.only(top: 10.0),
                 child: Container(
@@ -126,38 +226,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                     iconSize: 24,
                     elevation: 16,
                     underline: Container(),
-                    onChanged: (int newId) {
-                      setState(() {
-                        _selectedProductTypeIndex = newId;
-                      });
-                    },
-                    items: _productTypes.map<DropdownMenuItem<int>>((Tuple2<String, String> selectedProductType) => DropdownMenuItem<int>(value: _productTypes.indexOf(selectedProductType), child: Text("Content: ${selectedProductType.item1}"))).toList(),
+                    onChanged: _onProductTypeChanged,
+                    items: _productTypes.map<DropdownMenuItem<int>>((Tuple2<String, String> selectedProductType) => DropdownMenuItem<int>(value: _productTypes.indexOf(selectedProductType), child: Text("Content type : ${selectedProductType.item1}"))).toList(),
                   ),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 10.0),
-                child: Row(
-                  children: [
-                    Flexible(child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false), decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
-                    DropdownButton<String>(
-                        value: _selectedCurrency,
-                        icon: Icon(Icons.expand_more),
-                        iconSize: 24,
-                        elevation: 16,
-                        underline: Container(),
-                        onChanged: (String newCurrencyName) {
-                          setState(() {
-                            _selectedCurrency = newCurrencyName;
-                          });
-                        },
-                        items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name))).toList())
-                  ],
-                ),
-              ),
-              Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
-              getSectionSplitter("Product content"),
-              if (_productContentFiles.length > 0)
+              if ([0, 1].contains(_selectedProductTypeIndex) && _productContentFiles.length > 0)
                 Column(
                     children: _productContentFiles
                         .map((file) => Card(
@@ -173,12 +247,32 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                   IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
                                 ]))))
                         .toList()),
-              RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-              Divider(height: 10.0),
-              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
+              if ([0, 1].contains(_selectedProductTypeIndex))
+                RaisedButton.icon(
+                    onPressed: _uploadFilePressed,
+                    color: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                    icon: Icon(Icons.attachment_outlined, color: Colors.white),
+                    label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+              if ([2, 3].contains(_selectedProductTypeIndex)) Column(),
+              getSectionSplitter("Proceed with this product"),
+              Container(
+                  margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                  child: RaisedButton.icon(
+                      onPressed: _createProductPressed,
+                      color: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                      icon: Icon(Icons.upload_file, color: Colors.white),
+                      label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))))
             ],
           ),
         ));
+  }
+
+  void _onProductTypeChanged(int newIndex) {
+    setState(() {
+      _selectedProductTypeIndex = newIndex;
+    });
   }
 
   void _onBackButtonPressed() {
@@ -188,7 +282,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   void _showPhotoUploadOptions() async {
     PhotoSelectorModalView.resultImageBytes = null;
     await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
-    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null ? PhotoSelectorModalView.resultImageBytes : (await rootBundle.load('assets/image_placeholder.png')) as Uint8List;
+    Uint8List resultImageBytes = PhotoSelectorModalView.resultImageBytes != null ? PhotoSelectorModalView.resultImageBytes : (await rootBundle.load('assets/placeholder_image.png')) as Uint8List;
     setState(() {
       _productImageBytes = resultImageBytes;
     });

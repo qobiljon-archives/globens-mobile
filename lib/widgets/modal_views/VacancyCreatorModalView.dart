@@ -40,7 +40,7 @@ class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
               margin: EdgeInsets.all(10.0),
               child: CircleAvatar(
                 radius: 30.0,
-                backgroundImage: AssetImage('assets/vacancy.png'),
+                backgroundImage: AssetImage('assets/placeholder_vacancy.png'),
               ),
             ),
             Flexible(

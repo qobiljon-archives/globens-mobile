@@ -41,20 +41,20 @@ class _RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObse
           BottomNavigationBarItem(
             label: 'Globens',
             icon: Image.asset(
-              'assets/icon.png',
+              'assets/globens_icon.png',
               width: 25,
             ),
           ),
           BottomNavigationBarItem(
             label: 'My pages',
             icon: Image.asset(
-              'assets/business_page.png',
+              'assets/tab_business_page.png',
               width: 25,
             ),
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/menu.png',
+              'assets/tab_menu.png',
               width: 25,
             ),
             label: 'Menu',
