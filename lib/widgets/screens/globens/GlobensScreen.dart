@@ -1,6 +1,7 @@
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductDetailsScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
@@ -224,6 +225,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
 
   void _onProductTap(Product product) async {
     // todo show product details and buying part
-    Navigator.of(context).pushNamed('/product_purchase', arguments: product);
+    // Navigator.of(context).pushNamed('/product_purchase', arguments: product);
+    await Navigator.of(context).pushNamed(ProductDetailsScreen.route_name, arguments: {'product': product});
   }
 }

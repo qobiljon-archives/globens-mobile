@@ -2,7 +2,6 @@ import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:intl/intl.dart';
 import 'BusinessPage.dart';
-import 'dart:typed_data';
 
 class Product {
   // region Constants
@@ -16,24 +15,28 @@ class Product {
   // region Variables
   int _id;
   String _name;
+  String _productType;
   ProductCategory _category;
-  Uint8List _pictureBlob;
+  List<int> _pictureBlob;
   BusinessPage _businessPage;
   double _price;
   Currency _currency;
   String _description;
+  List<int> _productContent;
 
   // endregion
 
-  Product.create(String name, ProductCategory category, Uint8List pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, {int id}) {
+  Product.create(String name, String productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, List<int> productContent, {int id}) {
     this._id = id;
     this._name = name;
+    this._productType = productType;
     this._category = category;
     this._pictureBlob = pictureBlob;
     this._businessPage = businessPage;
     this._price = price;
     this._currency = currency;
     this._description = description;
+    this._productContent = productContent;
   }
 
   // region Getters
@@ -46,11 +49,15 @@ class Product {
     return this._name;
   }
 
+  String get productType {
+    return this._productType;
+  }
+
   ProductCategory get category {
     return this._category;
   }
 
-  Uint8List get pictureBlob {
+  List<int> get pictureBlob {
     return this._pictureBlob;
   }
 
@@ -78,6 +85,12 @@ class Product {
     return price2string(price, currency);
   }
 
+  List<int> get productContent {
+    return this._productContent;
+  }
+
+  // endregion
+
   static String price2string(double price, Currency currency) {
     if (price == 0) return "free item";
 
@@ -95,6 +108,4 @@ class Product {
         return '[N/A]';
     }
   }
-
-// endregion
 }

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 class ProductPurchaseScreen extends StatefulWidget {
   static const String route_name = '/product_purchase';
+
   @override
   _ProductPurchaseScreenState createState() => _ProductPurchaseScreenState();
 }

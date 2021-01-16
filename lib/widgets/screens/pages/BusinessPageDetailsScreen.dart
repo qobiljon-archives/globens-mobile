@@ -11,7 +11,8 @@ import 'package:globens_flutter_client/widgets/screens/ProductDetailsScreen.dart
 import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
-  static const String route_name =  '/business_page_details';
+  static const String route_name = '/business_page_details';
+
   @override
   _BusinessPageDetailsScreenState createState() => _BusinessPageDetailsScreenState();
 }
@@ -252,7 +253,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateProductPressed() async {
-    await Navigator.of(context).pushNamed(ProductDetailsScreen.route_name, arguments: _businessPage);
+    await Navigator.of(context).pushNamed(ProductDetailsScreen.route_name, arguments: {'businessPage': _businessPage});
 
     Tuple2<bool, List<Product>> res = await grpcFetchNextKProducts(filterDetails: FilterDetails()..businessPageId = _businessPage.id);
     bool success = res.item1;
@@ -291,6 +292,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   void _onProductTap(BuildContext context, Product product) async {
     // todo show product details for configuration
+
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {

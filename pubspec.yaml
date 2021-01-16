@@ -65,6 +65,7 @@ dependencies:
   connectivity: ^2.0.2
   google_fonts: ^1.1.1
   #endregion
+  archive: ^2.0.13
   bootpay_api: ^1.2.21
   file_picker: ^2.1.5+1
 
