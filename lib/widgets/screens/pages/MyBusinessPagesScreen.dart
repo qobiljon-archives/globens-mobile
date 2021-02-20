@@ -2,7 +2,7 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/widgets/modal_views/BusinessPageViewerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/BusinessPageCreatorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:tuple/tuple.dart';
 

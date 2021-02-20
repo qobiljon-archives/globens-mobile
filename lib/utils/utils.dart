@@ -282,43 +282,6 @@ Future<Tuple2<bool, List<ProductCategory>>> grpcFetchProductCategories() async {
 
   return Tuple2(success, categories);
 }
-
-/*
-Future<Tuple2<bool, List<ProductType>>> grpcFetchProductTypes() async {
-  bool success = false;
-  List<ProductType> types = List<ProductType>();
-
-  try {
-    final typeIds =
-        await getStub().fetchProductTypeIds(FetchProductTypeIds_Request());
-    success = typeIds.success;
-    if (success) {
-      for (int typeId in typeIds.id) {
-        print(typeId);
-        final typeDetails = await getStub().fetchProductTypeDetails(
-            FetchProductTypeDetails_Request()..typeId = typeId);
-        success &= typeDetails.success;
-        if (success)
-          types.add(ProductType.create(typeDetails.id, typeDetails.name));
-      }
-    }
-  } catch (e) {
-    print(e);
-  }
-
-  types.sort((a, b) {
-    if (a.id == 1)
-      return 1;
-    else if (b.id == 1)
-      return -1;
-    else
-      return a.id.compareTo(b.id);
-  });
-
-  return Tuple2(success, types);
-}
-*/
-
 // endregion
 
 // region job management RPCs
