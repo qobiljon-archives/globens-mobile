@@ -205,7 +205,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
                 margin: EdgeInsets.all(10.0),
                 child: CircleAvatar(
                   radius: 20.0,
-                  backgroundImage: job.isVacant ? Image.asset("assets/placeholder_vacancy.png") : MemoryImage(job.hiredUser.pictureBlob),
+                  backgroundImage: job.isVacant ? Image.asset("assets/placeholder_vacancy.png") : NetworkImage(job.hiredUser.picture),
                 ),
               ),
               Expanded(
