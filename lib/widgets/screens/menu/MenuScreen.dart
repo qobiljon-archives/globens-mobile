@@ -2,6 +2,7 @@ import 'package:globens_flutter_client/widgets/modal_views/AuthenticationModalVi
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MenuScreen extends StatefulWidget {
   @override
@@ -30,7 +31,8 @@ class _MenuScreenState extends State<MenuScreen> {
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
-        )
+        ),
+        Text("Language", style: TextStyle(fontSize: 20))
       ],
     );
   }
