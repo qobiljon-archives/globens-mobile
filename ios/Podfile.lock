@@ -35,7 +35,7 @@ PODS:
     - GTMSessionFetcher/Core (= 1.4.0)
   - image_picker (0.0.1):
     - Flutter
-  - kakao_flutter_sdk (0.5.2):
+  - kakao_flutter_sdk (0.5.4):
     - Flutter
   - ObjectMapper (4.2.0)
   - package_info (0.0.1):
@@ -120,7 +120,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
-  kakao_flutter_sdk: c314c15347e033a31279acaa3c5efb5cad1426eb
+  kakao_flutter_sdk: b9b525a2b41cb75a761bea4b48dba4121f58dce1
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   package_info: 873975fc26034f0b863a300ad47e7f1ac6c7ec62
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
@@ -132,4 +132,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a5adfe7971131cf0589107393691ada35be2b45f
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1
