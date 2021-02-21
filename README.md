@@ -1,3 +1,5 @@
+before collaborating
+
 # globens_flutter_client
 
 Globens Flutter Client Application (iOS + Android)
