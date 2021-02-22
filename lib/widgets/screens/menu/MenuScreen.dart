@@ -30,7 +30,23 @@ class _MenuScreenState extends State<MenuScreen> {
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
-        )
+        ),
+        Container(
+          margin: EdgeInsets.all(20),
+          child: RaisedButton.icon(
+              onPressed: _setLanguagePressed,
+              color: Colors.blueAccent,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+              icon: Icon(
+                Icons.language_rounded,
+                color: Colors.white,
+              ),
+              label: Text(
+                'Language',
+                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+          ),
+        ),
       ],
     );
   }
@@ -43,5 +59,9 @@ class _MenuScreenState extends State<MenuScreen> {
   void _signInPressed() async {
     await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => AuthenticationModalView.getModalView(context));
     setState(() {});
+  }
+
+  void _setLanguagePressed() async{
+    toast('Shows a modal view');
   }
 }
