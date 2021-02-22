@@ -2,6 +2,7 @@ import 'package:globens_flutter_client/widgets/modal_views/AuthenticationModalVi
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/widgets/modal_views/LanguageModalView.dart';
 
 class MenuScreen extends StatefulWidget {
   @override
@@ -30,7 +31,23 @@ class _MenuScreenState extends State<MenuScreen> {
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
-        )
+        ),
+        Container(
+          margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
+          child: RaisedButton.icon(
+            onPressed: _setLanguagePressed,
+            color: Colors.blueAccent,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            icon: Icon(
+              Icons.language_rounded,
+              color: Colors.white,
+            ),
+            label: Text(
+              'Language',
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -42,6 +59,11 @@ class _MenuScreenState extends State<MenuScreen> {
 
   void _signInPressed() async {
     await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => AuthenticationModalView.getModalView(context));
+    setState(() {});
+  }
+
+  void _setLanguagePressed() async {
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => LanguageModalView.getModalView(context));
     setState(() {});
   }
 }
