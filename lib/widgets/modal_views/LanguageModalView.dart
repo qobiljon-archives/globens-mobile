@@ -74,6 +74,25 @@ class LanguageModalView {
               onPressed: () => _onLanguagePressed(context, "eng"),
             ),
           ),
+          Container(
+            width: double.infinity,
+            height: 50,
+            margin: EdgeInsets.only(left: 10, top: 10, right: 10),
+            child: RaisedButton.icon(
+              label: Text(
+                'Korean',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              icon: Image.asset(
+                'icons/flags/png/kr.png',
+                package: 'country_icons',
+                width: 40,
+                height: 25,
+                fit: BoxFit.cover,
+              ),
+              onPressed: () => _onLanguagePressed(context, "eng"),
+            ),
+          ),
         ],
       ),
     );
