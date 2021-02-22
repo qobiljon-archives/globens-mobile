@@ -68,6 +68,7 @@ dependencies:
   archive: ^2.0.13
   bootpay_api: ^1.2.21
   file_picker: ^2.1.5+1
+  country_icons: ^1.1.1
 
 
 
