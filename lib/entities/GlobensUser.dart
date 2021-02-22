@@ -1,4 +1,3 @@
-import 'dart:typed_data';
 import 'AppUser.dart';
 
 class GlobensUser {
@@ -7,11 +6,11 @@ class GlobensUser {
   String _email;
   String _name;
   String _picture;
-  Uint8List _pictureBlob;
+  List<int> _pictureBlob;
 
   // endregion
 
-  GlobensUser.create(int id, String email, String name, String picture, Uint8List pictureBlob) {
+  GlobensUser.create(int id, String email, String name, String picture, List<int> pictureBlob) {
     this._id = id;
     this._email = email;
     this._name = name;
@@ -36,7 +35,7 @@ class GlobensUser {
     return _picture;
   }
 
-  Uint8List get pictureBlob {
+  List<int> get pictureBlob {
     return _pictureBlob;
   }
 

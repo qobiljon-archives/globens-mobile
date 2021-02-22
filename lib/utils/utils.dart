@@ -312,12 +312,12 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, Bus
             final hiredUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
               ..sessionKey = sessionKey
               ..userId = jobDetailsRes.hiredUserId);
-            success &= jobDetailsRes.success;
 
-            if (success) {
+            if (hiredUserDetailsRes.success) {
               users[jobDetailsRes.hiredUserId] = GlobensUser.create(hiredUserDetailsRes.id, hiredUserDetailsRes.email, hiredUserDetailsRes.name, hiredUserDetailsRes.picture, hiredUserDetailsRes.pictureBlob);
               jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId]));
-            }
+            } else
+              jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role));
           }
         }
       }
