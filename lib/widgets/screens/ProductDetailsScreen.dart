@@ -1,24 +1,20 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:archive/archive_io.dart';
-import 'package:bootpay_api/bootpay_api.dart';
-import 'package:bootpay_api/model/extra.dart';
-import 'package:bootpay_api/model/item.dart';
-import 'package:bootpay_api/model/payload.dart';
-import 'package:bootpay_api/model/user.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
+import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:archive/archive_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
+import 'ProductPurchaseScreen.dart';
 import 'package:tuple/tuple.dart';
-import '../modal_views/PhotoSelectorModalView.dart';
 import 'dart:typed_data';
+import 'dart:convert';
+import 'dart:io';
 
 class ProductDetailsScreen extends StatefulWidget {
   static const String route_name = '/product_details_screen';
@@ -499,64 +495,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   void _purchaseProductPressed() async {
-    // todo replace values with the product's details
-    Item item1 = Item();
-    item1.itemName = _product.name; // 주문정보에 담길 상품명
-    item1.qty = 1; // 해당 상품의 주문 수량
-    item1.unique = "ITEM_CODE_MOUSE"; // 해당 상품의 고유 키
-    item1.price = _product.price; // 상품의 가격
-
-    List<Item> itemList = [item1];
-
-    Payload payload = Payload();
-    payload.applicationId = '5b8f6a4d396fa665fdc2b5e8';
-    payload.androidApplicationId = '5b8f6a4d396fa665fdc2b5e8';
-    payload.iosApplicationId = '5b8f6a4d396fa665fdc2b5e9';
-
-    payload.pg = 'inicis';
-    payload.methods = ['card', 'phone', 'vbank', 'bank'];
-    payload.name = '테스트 상품';
-    payload.price = _product.price; //정기결제시 0 혹은 주석
-    payload.orderId = DateTime.now().millisecondsSinceEpoch.toString();
-    payload.params = {
-      "callbackParam1": "value12",
-      "callbackParam2": "value34",
-      "callbackParam3": "value56",
-      "callbackParam4": "value78",
-    };
-    //    payload.us
-
-    User user = User();
-    user.username = "사용자 이름";
-    user.email = "user1234@gmail.com";
-    user.area = "서울";
-    user.phone = "010-4033-4678";
-    user.addr = '서울시 동작구 상도로 222';
-
-    Extra extra = Extra();
-    extra.appScheme = 'bootpayFlutterSample';
-    extra.quotas = [0, 2, 3];
-
-    BootpayApi.request(
-      context,
-      payload,
-      extra: extra,
-      user: user,
-      items: itemList,
-      onDone: (String json) {
-        print('--- onDone: $json');
-      },
-      onReady: (String json) {
-        //flutter는 가상계좌가 발급되었을때  onReady가 호출되지 않는다. onDone에서 처리해주어야 한다.
-        print('--- onReady: $json');
-      },
-      onCancel: (String json) {
-        print('--- onCancel: $json');
-      },
-      onError: (String json) {
-        print(' --- onError: $json');
-      },
-    );
+    await Navigator.of(context).pushNamed(ProductPurchaseScreen.route_name, arguments: _product);
   }
 
   void _uploadFilePressed() async {
