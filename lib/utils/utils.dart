@@ -80,6 +80,16 @@ String shorten(String str, int len, {bool ellipsize = false}) {
     return str.substring(0, len);
 }
 
+String timestamp2String(int timestamp) {
+  if (timestamp < 0)
+    return "N/A";
+  else {
+    var datetime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    var timeZone = "${datetime.timeZoneOffset.isNegative ? '' : '+'}${datetime.timeZoneOffset.inHours}";
+    return "${datetime.month}/${datetime.day}, ${datetime.year}   ${datetime.hour}:${datetime.minute.toString().padLeft(2, '0')} ($timeZone)";
+  }
+}
+
 enum Types { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
 
 // region user management RPCs

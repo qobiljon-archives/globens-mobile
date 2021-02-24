@@ -48,7 +48,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   Currency _selectedCurrency;
   List<File> _productContentFiles = <File>[];
   Map<String, Set<int>> _productAvailableTimeSlots = Map<String, Set<int>>();
-  Map<String, String> _fromUntilDateTime = {"from": "N/A", "until": "N/A"};
+  Map<String, int> _fromUntilDateTime = <String, int>{"from": -1, "until": -1};
 
   @override
   void initState() {
@@ -238,37 +238,31 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
               if (uploadFile && _productContentFiles.length > 0) Column(children: _productContentFiles.map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Image.file(file, width: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))])))).toList()),
               if (uploadFile) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               if (calendarSchedule)
-                Card(
-                    margin: EdgeInsets.only(top: 10.0),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("From"),
-                          GestureDetector(
-                            child: Text(_fromUntilDateTime['from']),
-                            onTap: () => _selectDateTime('from'),
-                          ),
-                        ],
-                      ),
-                    )),
+                GestureDetector(
+                  onTap: () => _selectDateTime('from'),
+                  child: Card(
+                      margin: EdgeInsets.only(top: 10.0),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [Text("From"), Text(timestamp2String(_fromUntilDateTime['from']))],
+                        ),
+                      )),
+                ),
               if (calendarSchedule)
-                Card(
-                    margin: EdgeInsets.only(top: 10.0),
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Until"),
-                          GestureDetector(
-                            child: Text(_fromUntilDateTime['until']),
-                            onTap: () => _selectDateTime('until'),
-                          ),
-                        ],
-                      ),
-                    )),
+                GestureDetector(
+                  onTap: () => _selectDateTime('until'),
+                  child: Card(
+                      margin: EdgeInsets.only(top: 10.0),
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [Text("Until"), Text(timestamp2String(_fromUntilDateTime['until']))],
+                        ),
+                      )),
+                ),
               if (calendarSchedule)
                 Card(
                   margin: EdgeInsets.only(top: 10.0),
@@ -319,29 +313,39 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     }
   }
 
-  Future<String> _selectDateTime(String key) async {
-    String date, timeZone;
+  void _selectDateTime(String key) async {
+    int timestamp;
     try {
       var now = DateTime.now();
       var oneYearFromNow = now.add(Duration(days: 365));
-      var res = await showDatePicker(context: context, initialDate: now, firstDate: now, lastDate: oneYearFromNow);
-      date = "${res.month}/${res.day}, ${res.year}";
-      timeZone = "${res.timeZoneOffset.isNegative ? '' : '+'}${res.timeZoneOffset.inHours}";
+      var res = await showDatePicker(
+        context: context,
+        initialDate: _fromUntilDateTime['from'] > 0 ? DateTime.fromMillisecondsSinceEpoch(_fromUntilDateTime['from']) : now,
+        firstDate: key == 'until' && _fromUntilDateTime['from'] > 0 ? DateTime.fromMillisecondsSinceEpoch(_fromUntilDateTime['from']) : now,
+        lastDate: key == 'from' && _fromUntilDateTime['until'] > 0 ? DateTime.fromMillisecondsSinceEpoch(_fromUntilDateTime['until']) : oneYearFromNow,
+      );
+      timestamp = res.millisecondsSinceEpoch;
     } catch (_) {
       return null;
     }
 
-    String time;
     try {
       var now = TimeOfDay.now();
       var res = await showTimePicker(context: context, initialTime: now);
-      time = "${res.hour}:${res.minute | 02} ($timeZone)";
+
+      var dt = DateTime.fromMillisecondsSinceEpoch(timestamp);
+      timestamp = DateTime(dt.year, dt.month, dt.day, res.hour, res.minute).millisecondsSinceEpoch;
     } catch (_) {
       return null;
     }
 
+    if (_fromUntilDateTime['from'] > _fromUntilDateTime['until']) if (key == 'from')
+      _fromUntilDateTime['until'] = _fromUntilDateTime['from'];
+    else
+      _fromUntilDateTime['from'] = _fromUntilDateTime['until'];
+
     setState(() {
-      _fromUntilDateTime[key] = "$date   $time";
+      _fromUntilDateTime[key] = timestamp;
     });
   }
 
