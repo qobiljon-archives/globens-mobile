@@ -43,17 +43,19 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
   Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
 
-  int _selectedCategoryId = 1;
+  int _selectedCategoryId;
   int _selectedProductTypeIndex;
   Currency _selectedCurrency;
   List<File> _productContentFiles = <File>[];
   Map<String, Set<int>> _productAvailableTimeSlots = Map<String, Set<int>>();
+  Map<String, String> _fromUntilDateTime = {"from": "N/A", "until": "N/A"};
 
   @override
   void initState() {
     super.initState();
 
     // dummy values for initial display
+    _selectedCategoryId = 1;
     _selectedProductTypeIndex = 0;
     _selectedCurrency = Currency.KRW;
 
@@ -100,6 +102,9 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool uploadFile = [0, 1].contains(_selectedProductTypeIndex);
+    bool calendarSchedule = [2, 3].contains(_selectedProductTypeIndex);
+
     return Scaffold(
         backgroundColor: Color.fromRGBO(240, 242, 245, 1),
         body: SafeArea(
@@ -164,11 +169,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 margin: EdgeInsets.only(top: 10.0),
                 child: Row(
                   children: [
-                    Flexible(
-                        child: Card(
-                            margin: EdgeInsets.only(right: 20.0),
-                            child: Container(
-                                padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
+                    Flexible(child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
                     DropdownButton<String>(
                         value: _selectedCurrency.name,
                         icon: Icon(Icons.expand_more),
@@ -206,20 +207,17 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                           _selectedCategoryId = newId;
                         });
                       },
-                      items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
-                          value: category.id,
-                          child: Text(
-                            'Product category : ${category.name}',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
-                          )))
-                      .toList()),
+                      items: _categories.values
+                          .map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
+                              value: category.id,
+                              child: Text(
+                                'Product category : ${category.name}',
+                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                              )))
+                          .toList()),
                 ),
               ),
-              Card(
-                  margin: EdgeInsets.only(top: 10.0),
-                  child: Container(
-                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
+              Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
               getSectionSplitter("Product content"),
               Card(
                 margin: EdgeInsets.only(top: 10.0),
@@ -237,58 +235,73 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   ),
                 ),
               ),
-              if ([0, 1].contains(_selectedProductTypeIndex) && _productContentFiles.length > 0)
-                Column(
-                    children: _productContentFiles
-                        .map((file) => Card(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: Container(
-                                padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                  Image.file(
-                                    file,
-                                    width: 30.0,
-                                  ),
-                                  Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)),
-                                  IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
-                                ]))))
-                        .toList()),
-              if ([0, 1].contains(_selectedProductTypeIndex)) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-              if ([2, 3].contains(_selectedProductTypeIndex)) Container(),
-              if ([2, 3].contains(_selectedProductTypeIndex))
+              if (uploadFile && _productContentFiles.length > 0) Column(children: _productContentFiles.map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Image.file(file, width: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))])))).toList()),
+              if (uploadFile) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+              if (calendarSchedule)
+                Card(
+                    margin: EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("From"),
+                          GestureDetector(
+                            child: Text(_fromUntilDateTime['from']),
+                            onTap: () => _selectDateTime('from'),
+                          ),
+                        ],
+                      ),
+                    )),
+              if (calendarSchedule)
+                Card(
+                    margin: EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Until"),
+                          GestureDetector(
+                            child: Text(_fromUntilDateTime['until']),
+                            onTap: () => _selectDateTime('until'),
+                          ),
+                        ],
+                      ),
+                    )),
+              if (calendarSchedule)
                 Card(
                   margin: EdgeInsets.only(top: 10.0),
                   child: Container(
                     child: GridView.count(
-                      primary: false,
-                      shrinkWrap: true,
-                      crossAxisSpacing: 0,
-                      mainAxisSpacing: 0,
-                      crossAxisCount: _weekdays.length + 1,
-                      children: List<Widget>.generate((24 - _calendarStartHour + 1) * (_weekdays.length + 1), (index) {
-                        int col = index % (_weekdays.length + 1);
-                        int row = index ~/ (_weekdays.length + 1);
+                        primary: false,
+                        shrinkWrap: true,
+                        crossAxisSpacing: 0,
+                        mainAxisSpacing: 0,
+                        crossAxisCount: _weekdays.length + 1,
+                        children: List<Widget>.generate((24 - _calendarStartHour + 1) * (_weekdays.length + 1), (index) {
+                          int col = index % (_weekdays.length + 1);
+                          int row = index ~/ (_weekdays.length + 1);
 
-                        if (row == 0) {
-                          if (col == 0)
-                            return TextButton(onPressed: _calendarMasterButtonPressed, child: Text('*', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
-                          else {
-                            String weekday = _weekdays[col - 1];
-                            return TextButton(onPressed: () => _calendarWeekdayPressed(weekday), child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
-                          }
-                        } else {
-                          int hour = row + _calendarStartHour - 1;
+                          if (row == 0) {
+                            if (col == 0)
+                              return TextButton(onPressed: _calendarMasterButtonPressed, child: Text('*', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
+                            else {
+                              String weekday = _weekdays[col - 1];
+                              return TextButton(onPressed: () => _calendarWeekdayPressed(weekday), child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
+                            }
+                          } else {
+                            int hour = row + _calendarStartHour - 1;
 
-                          if (col == 0)
-                            return TextButton(onPressed: () => _calendarHourPressed(hour), child: Text('${hour < 13 ? hour : hour % 12}\n${hour < 12 ? "AM" : "PM"}', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
-                          else {
-                            String weekday = _weekdays[col - 1];
-                            bool selected = _productAvailableTimeSlots.containsKey(weekday) && _productAvailableTimeSlots[weekday].contains(hour);
-                            return IconButton(onPressed: () => _calendarSlotPressed(weekday, hour), icon: selected ? Icon(Icons.check, color: Colors.green) : Icon(Icons.block, color: Colors.grey), padding: EdgeInsets.zero);
+                            if (col == 0)
+                              return TextButton(onPressed: () => _calendarHourPressed(hour), child: Text('${hour < 13 ? hour : hour % 12}\n${hour < 12 ? "AM" : "PM"}', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
+                            else {
+                              String weekday = _weekdays[col - 1];
+                              bool selected = _productAvailableTimeSlots.containsKey(weekday) && _productAvailableTimeSlots[weekday].contains(hour);
+                              return IconButton(onPressed: () => _calendarSlotPressed(weekday, hour), icon: selected ? Icon(Icons.check, color: Colors.green) : Icon(Icons.block, color: Colors.grey), padding: EdgeInsets.zero);
+                            }
                           }
-                        }
-                      }),
-                    ),
+                        })),
                   ),
                 ),
               getSectionSplitter("Proceed with this product"),
@@ -304,6 +317,32 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     } catch (e) {
       return Icon(Icons.arrow_drop_down);
     }
+  }
+
+  Future<String> _selectDateTime(String key) async {
+    String date, timeZone;
+    try {
+      var now = DateTime.now();
+      var oneYearFromNow = now.add(Duration(days: 365));
+      var res = await showDatePicker(context: context, initialDate: now, firstDate: now, lastDate: oneYearFromNow);
+      date = "${res.month}/${res.day}, ${res.year}";
+      timeZone = "${res.timeZoneOffset.isNegative ? '' : '+'}${res.timeZoneOffset.inHours}";
+    } catch (_) {
+      return null;
+    }
+
+    String time;
+    try {
+      var now = TimeOfDay.now();
+      var res = await showTimePicker(context: context, initialTime: now);
+      time = "${res.hour}:${res.minute | 02} ($timeZone)";
+    } catch (_) {
+      return null;
+    }
+
+    setState(() {
+      _fromUntilDateTime[key] = "$date   $time";
+    });
   }
 
   void _calendarMasterButtonPressed() {
