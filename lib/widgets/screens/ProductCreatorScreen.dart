@@ -16,7 +16,7 @@ import 'dart:convert';
 import 'dart:io';
 
 class ProductCreatorScreen extends StatefulWidget {
-  static const String route_name = '/product_details_screen';
+  static const String route_name = '/product_creator_screen';
 
   ProductCreatorScreen();
 
@@ -37,12 +37,13 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     Tuple2('Scheduled online call', 'assets/product_type_scheduled.png'),
   ];
 
+  Product _product;
   BusinessPage _businessPage;
   Uint8List _productImageBytes;
 
   Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
 
-  int _selectedCategoryId;
+  int _selectedCategoryId = 1;
   int _selectedProductTypeIndex;
   Currency _selectedCurrency;
   List<File> _productContentFiles = <File>[];
@@ -53,8 +54,6 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     super.initState();
 
     // dummy values for initial display
-    _categories[1] = ProductCategory.create(1, "Others", null, null);
-    _selectedCategoryId = 1;
     _selectedProductTypeIndex = 0;
     _selectedCurrency = Currency.KRW;
 
@@ -65,7 +64,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       for (ProductCategory category in categories) this._categories[category.id] = category;
       if (success)
         setState(() {
-          _selectedCategoryId = 1;
+          _selectedCategoryId = _selectedCategoryId;
         });
     });
   }
@@ -74,7 +73,29 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _businessPage = ModalRoute.of(context).settings.arguments as BusinessPage;
+    var argument = ModalRoute.of(context).settings.arguments;
+    if (argument is Product) {
+      _product = argument;
+      _businessPage = _product.businessPage;
+
+      _productImageBytes = _product.pictureBlob;
+      _selectedCategoryId = _product.category.id;
+      for (int n = 0; n < _productTypes.length; n++)
+        if (_productTypes[n].item1.toLowerCase() == _product.productType) {
+          _selectedProductTypeIndex = n;
+          break;
+        }
+      _selectedCurrency = _product.currency;
+      _titleTextController.text = _product.name;
+      _priceTextController.text = _product.price.toString();
+      _descriptionTextController.text = _product.description;
+      if ([0, 1].contains(_selectedProductTypeIndex)) {
+        // todo view/edit files
+      } else if ([2, 3].contains(_selectedProductTypeIndex)) {
+        // todo view/edit schedule
+      }
+    } else
+      _businessPage = argument as BusinessPage;
   }
 
   @override
@@ -176,7 +197,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   child: DropdownButton<int>(
                       isExpanded: true,
                       value: _selectedCategoryId,
-                      icon: _categories[_selectedCategoryId].pictureBlob == null ? Icon(Icons.arrow_drop_down) : Image.memory(_categories[_selectedCategoryId].pictureBlob, width: 20),
+                      icon: _getProductImage(),
                       iconSize: 24,
                       elevation: 16,
                       underline: Container(),
@@ -185,14 +206,13 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                           _selectedCategoryId = newId;
                         });
                       },
-                      items: _categories.values
-                          .map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
-                              value: category.id,
-                              child: Text(
-                                'Product category : ${category.name}',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
-                              )))
-                          .toList()),
+                      items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
+                          value: category.id,
+                          child: Text(
+                            'Product category : ${category.name}',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                          )))
+                      .toList()),
                 ),
               ),
               Card(
@@ -234,8 +254,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                                 ]))))
                         .toList()),
               if ([0, 1].contains(_selectedProductTypeIndex)) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-              if ([2, 3].contains(_selectedProductTypeIndex))
-                Container(),
+              if ([2, 3].contains(_selectedProductTypeIndex)) Container(),
               if ([2, 3].contains(_selectedProductTypeIndex))
                 Card(
                   margin: EdgeInsets.only(top: 10.0),
@@ -273,10 +292,18 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   ),
                 ),
               getSectionSplitter("Proceed with this product"),
-              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text("CREATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
+  }
+
+  Widget _getProductImage() {
+    try {
+      return Image.memory(_categories[_selectedCategoryId].pictureBlob, width: 20);
+    } catch (e) {
+      return Icon(Icons.arrow_drop_down);
+    }
   }
 
   void _calendarMasterButtonPressed() {

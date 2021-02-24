@@ -291,7 +291,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onProductTap(BuildContext context, Product product) async {
-    // todo show product details for configuration
+    await Navigator.of(context).pushNamed(ProductCreatorScreen.route_name, arguments: product);
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {

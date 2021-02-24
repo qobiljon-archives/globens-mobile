@@ -5,7 +5,7 @@ import 'ProductPurchaseScreen.dart';
 import 'dart:convert';
 
 class ProductViewerScreen extends StatefulWidget {
-  static const String route_name = '/product_details_screen';
+  static const String route_name = '/product_viewer_screen';
 
   ProductViewerScreen();
 

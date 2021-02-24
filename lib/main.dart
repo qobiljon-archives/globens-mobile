@@ -1,5 +1,6 @@
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens/GlobensScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/JobApplicationsListScreen.dart';
@@ -32,6 +33,7 @@ void main() {
       ProductPurchaseScreen.route_name: (context) => ProductPurchaseScreen(),
       BusinessPageDetailsScreen.route_name: (context) => BusinessPageDetailsScreen(),
       JobApplicationsListScreen.route_name: (context) => JobApplicationsListScreen(),
+      ProductViewerScreen.route_name: (context) => ProductViewerScreen(),
       ProductCreatorScreen.route_name: (context) => ProductCreatorScreen(),
     },
   ));
