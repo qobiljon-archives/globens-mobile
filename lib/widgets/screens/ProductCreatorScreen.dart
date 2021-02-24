@@ -168,7 +168,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 margin: EdgeInsets.only(top: 10.0),
                 child: Row(
                   children: [
-                    Flexible(child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: "Price", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
+                    Flexible(child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: calendarSchedule ? "Price per time slot" : "Price", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
                     DropdownButton<String>(
                         value: _selectedCurrency.name,
                         icon: Icon(Icons.expand_more),
