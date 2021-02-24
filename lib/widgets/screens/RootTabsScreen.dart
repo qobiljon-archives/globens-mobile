@@ -1,28 +1,37 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'pages/MyBusinessPagesScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'globens/GlobensScreen.dart';
 import 'menu/MenuScreen.dart';
-import 'pages/MyBusinessPagesScreen.dart';
 
 class RootTabsScreen extends StatefulWidget {
   static const String route_name = '/';
+
   RootTabsScreen({Key key}) : super(key: key);
 
   @override
-  _RootTabsScreenState createState() => _RootTabsScreenState();
+  RootTabsScreenState createState() => RootTabsScreenState();
 }
 
-class _RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObserver {
-  int _selectedIndex = 0;
-  static List<Widget> _tabWidgets = <Widget>[GlobensScreen(), MyBusinessPagesScreen(), MenuScreen()];
+class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObserver {
+  static const int GLOBENS_TAB = 0;
+  static const int MY_PAGES_TAB = 1;
+  static const int MENU_TAB = 2;
+  int _selectedIndex;
+  List<Widget> _tabWidgets;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
 
-    if (!AppUser.initialized) AppUser.init();
+    if (!AppUser.initialized) {
+      AppUser.init();
+
+      _selectedIndex = GLOBENS_TAB;
+      _tabWidgets = <Widget>[GlobensScreen(this), MyBusinessPagesScreen(this), MenuScreen(this)];
+    }
   }
 
   @override

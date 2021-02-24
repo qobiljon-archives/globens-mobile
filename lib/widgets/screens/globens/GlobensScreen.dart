@@ -1,13 +1,19 @@
+import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'package:globens_flutter_client/widgets/screens/ProductDetailsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 import 'dart:math';
 
 class GlobensScreen extends StatefulWidget {
+  final RootTabsScreenState rootTabsScreenState;
+
+  GlobensScreen(this.rootTabsScreenState);
+
   @override
   _GlobensScreenState createState() => _GlobensScreenState();
 }
@@ -217,15 +223,15 @@ class _GlobensScreenState extends State<GlobensScreen> {
     return row;
   }
 
-  void _onProfileWidgetTap(BuildContext context) {}
+  void _onProfileWidgetTap(BuildContext context) {
+    widget.rootTabsScreenState.switchTab(RootTabsScreenState.MENU_TAB);
+  }
 
   void _onCategoryTap(ProductCategory category) async {
-    await Navigator.of(context).pushNamed('/category_products', arguments: category);
+    await Navigator.of(context).pushNamed(CategoryProductsScreen.route_name, arguments: category);
   }
 
   void _onProductTap(Product product) async {
-    // todo show product details and buying part
-    // Navigator.of(context).pushNamed('/product_purchase', arguments: product);
-    await Navigator.of(context).pushNamed(ProductDetailsScreen.route_name, arguments: {'product': product});
+    await Navigator.of(context).pushNamed(ProductViewerScreen.route_name, arguments: product);
   }
 }
