@@ -6,69 +6,66 @@ class AuthenticationModalView {
   static Widget getModalView(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 10.0, bottom: 100.0),
-      child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-                margin: EdgeInsets.all(20.0),
-                child: Text(
-                  "SIGN IN WITH",
-                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue),
-                )),
-            Container(
-              width: double.infinity,
-              height: 50,
-              margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
-              child: RaisedButton.icon(
-                label: Text(
-                  "KakaoTalk",
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-                icon: Image.asset(
-                  'assets/auth_kakaotalk.png',
-                  width: 25,
-                  fit: BoxFit.cover,
-                ),
-                elevation: 0.0,
-                onPressed: () => _onKakaoPressed(context),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, mainAxisSize: MainAxisSize.min, children: [
+        Container(
+            margin: EdgeInsets.all(20.0),
+            child: Text(
+              "SIGN IN WITH",
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue),
+            )),
+        Container(
+          width: double.infinity,
+          height: 50,
+          margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+          child: RaisedButton.icon(
+            label: Text(
+              "KakaoTalk",
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
+            icon: Image.asset(
+              'assets/auth_kakaotalk.png',
+              width: 25,
+              fit: BoxFit.cover,
+            ),
+            elevation: 0.0,
+            onPressed: () => _onKakaoPressed(context),
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          height: 50,
+          margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
+          child: RaisedButton.icon(
+              label: Text(
+                "Google",
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 50,
-              margin: EdgeInsets.only(left: 10.0, top: 10.0, right: 10.0),
-              child: RaisedButton.icon(
-                  label: Text(
-                    "Google",
-                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                  icon: Image.asset(
-                    'assets/auth_google.png',
-                    width: 25,
-                    fit: BoxFit.cover,
-                  ),
-                  elevation: 0.0,
-                  onPressed: () => _onGooglePressed(context)),
-            ),
-            Container(
-              width: double.infinity,
-              height: 50,
-              margin: EdgeInsets.all(10.0),
-              child: RaisedButton.icon(
-                  label: Text(
-                    "Facebook",
-                    style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                  ),
-                  icon: Image.asset(
-                    'assets/auth_facebook.png',
-                    width: 25,
-                    fit: BoxFit.cover,
-                  ),
-                  elevation: 0.0,
-                  onPressed: () => _onFacebookPressed(context)),
-            ),
-          ]),
+              icon: Image.asset(
+                'assets/auth_google.png',
+                width: 25,
+                fit: BoxFit.cover,
+              ),
+              elevation: 0.0,
+              onPressed: () => _onGooglePressed(context)),
+        ),
+        Container(
+          width: double.infinity,
+          height: 50,
+          margin: EdgeInsets.all(10.0),
+          child: RaisedButton.icon(
+              label: Text(
+                "Facebook",
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              ),
+              icon: Image.asset(
+                'assets/auth_facebook.png',
+                width: 25,
+                fit: BoxFit.cover,
+              ),
+              elevation: 0.0,
+              onPressed: () => _onFacebookPressed(context)),
+        ),
+      ]),
     );
   }
 

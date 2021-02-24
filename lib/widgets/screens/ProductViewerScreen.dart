@@ -15,6 +15,7 @@ class ProductViewerScreen extends StatefulWidget {
 
 class _ProductViewerScreenState extends State<ProductViewerScreen> {
   Product _product;
+  bool _repeating = false;
 
   @override
   void didChangeDependencies() {
@@ -94,6 +95,22 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
               if (_product.productType.toLowerCase().contains('schedule')) Text(Utf8Decoder().convert(_product.productContent)),
               getSectionSplitter("Proceed with this product"),
               Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _purchaseProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag_outlined, color: Colors.white), label: Text("PURCHASE FOR ${_product.priceStr}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              /*Card(
+                margin: EdgeInsets.only(top: 10.0),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    Text("Repeating"),
+                    Switch(
+                        value: _repeating,
+                        onChanged: (value) {
+                          setState(() {
+                            _repeating = value;
+                          });
+                        })
+                  ]),
+                ),
+              ),*/
             ],
           ),
         ));

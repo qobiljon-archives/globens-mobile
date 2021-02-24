@@ -28,10 +28,10 @@ class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObser
 
     if (!AppUser.initialized) {
       AppUser.init();
-
-      _selectedIndex = GLOBENS_TAB;
-      _tabWidgets = <Widget>[GlobensScreen(this), MyBusinessPagesScreen(this), MenuScreen(this)];
     }
+
+    _selectedIndex = GLOBENS_TAB;
+    _tabWidgets = <Widget>[GlobensScreen(this), MyBusinessPagesScreen(this), MenuScreen(this)];
   }
 
   @override

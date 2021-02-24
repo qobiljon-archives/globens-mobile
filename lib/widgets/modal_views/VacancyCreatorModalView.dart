@@ -4,17 +4,11 @@ import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
-class VacancyCreatorModalView extends StatefulWidget {
+class VacancyCreatorModalView extends StatelessWidget {
   final BusinessPage businessPage;
+  final TextEditingController _titleTextController = TextEditingController();
 
   VacancyCreatorModalView({this.businessPage});
-
-  @override
-  _VacancyCreatorModalViewState createState() => _VacancyCreatorModalViewState();
-}
-
-class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
-  final TextEditingController _titleTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +22,7 @@ class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
             children: [
               IconButton(
                 icon: Icon(Icons.arrow_back_ios),
-                onPressed: _onBackButtonPressed,
+                onPressed: () => _onBackButtonPressed(context),
               ),
               getTitleWidget("Vacancy details", textColor: Colors.black, margin: EdgeInsets.zero),
             ],
@@ -56,7 +50,7 @@ class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
         Container(
             margin: EdgeInsets.only(top: 20.0),
             child: RaisedButton.icon(
-              onPressed: _createVacancyPressed,
+              onPressed: () => _createVacancyPressed(context),
               color: Colors.blueAccent,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
               icon: Icon(
@@ -72,11 +66,11 @@ class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
     );
   }
 
-  void _onBackButtonPressed() {
+  void _onBackButtonPressed(BuildContext context) {
     Navigator.of(context).pop();
   }
 
-  void _createVacancyPressed() async {
+  void _createVacancyPressed(BuildContext context) async {
     if (_titleTextController.text.length < 2) {
       await toast("Vacancy title cannot be less than two characters");
       return;
@@ -84,7 +78,7 @@ class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
 
     bool success = await grpcCreateVacantJob(
       AppUser.sessionKey,
-      widget.businessPage,
+      businessPage,
       Job.create(_titleTextController.text),
     );
 
@@ -96,13 +90,13 @@ class _VacancyCreatorModalViewState extends State<VacancyCreatorModalView> {
     }
   }
 
-  void _applyForVacancyPressed() async {
+  void _applyForVacancyPressed(BuildContext context) async {
     // todo applying to vacancy part
     // await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationViewerModalView(job: widget.job));
     // Navigator.of(context).pop();
   }
 
-  void _viewJobApplicationsPressed() async {
+  void _viewJobApplicationsPressed(BuildContext context) async {
     // todo show applications part - only business owner must be able to see the following screen
     // await Navigator.of(context).pushNamed('/business_page_details/job_applications_list', arguments: {'job': widget.job, 'businessPage': widget.businessPage});
     // Navigator.of(context).pop();

@@ -5,6 +5,7 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/widgets/modal_views/TimeSlotSelectorModalView.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:archive/archive_io.dart';
@@ -28,8 +29,6 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   final _titleTextController = TextEditingController();
   final _priceTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
-  static const _weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-  static const _calendarStartHour = 8;
   static const List<Tuple2<String, String>> _productTypes = <Tuple2<String, String>>[
     Tuple2('Downloadable files', 'assets/product_type_downloadable.png'),
     Tuple2('Streamed files', 'assets/product_type_streamed.png'),
@@ -47,8 +46,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   int _selectedProductTypeIndex;
   Currency _selectedCurrency;
   List<File> _productContentFiles = <File>[];
-  Map<String, Set<int>> _productAvailableTimeSlots = Map<String, Set<int>>();
   Map<String, int> _fromUntilDateTime = <String, int>{"from": -1, "until": -1};
+  Map<String, Set<int>> _productAvailableTimeSlots = Map<String, Set<int>>();
 
   @override
   void initState() {
@@ -246,7 +245,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("From"), Text(timestamp2String(_fromUntilDateTime['from']))],
+                          children: [Text("Available from"), Text(timestamp2String(_fromUntilDateTime['from']))],
                         ),
                       )),
                 ),
@@ -259,43 +258,22 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("Until"), Text(timestamp2String(_fromUntilDateTime['until']))],
+                          children: [Text("Available until"), Text(timestamp2String(_fromUntilDateTime['until']))],
                         ),
                       )),
                 ),
               if (calendarSchedule)
-                Card(
-                  margin: EdgeInsets.only(top: 10.0),
-                  child: Container(
-                    child: GridView.count(
-                        primary: false,
-                        shrinkWrap: true,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 0,
-                        crossAxisCount: _weekdays.length + 1,
-                        children: List<Widget>.generate((24 - _calendarStartHour + 1) * (_weekdays.length + 1), (index) {
-                          int col = index % (_weekdays.length + 1);
-                          int row = index ~/ (_weekdays.length + 1);
-
-                          if (row == 0) {
-                            if (col == 0)
-                              return TextButton(onPressed: _calendarMasterButtonPressed, child: Text('*', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
-                            else {
-                              String weekday = _weekdays[col - 1];
-                              return TextButton(onPressed: () => _calendarWeekdayPressed(weekday), child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
-                            }
-                          } else {
-                            int hour = row + _calendarStartHour - 1;
-
-                            if (col == 0)
-                              return TextButton(onPressed: () => _calendarHourPressed(hour), child: Text('${hour < 13 ? hour : hour % 12}\n${hour < 12 ? "AM" : "PM"}', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)));
-                            else {
-                              String weekday = _weekdays[col - 1];
-                              bool selected = _productAvailableTimeSlots.containsKey(weekday) && _productAvailableTimeSlots[weekday].contains(hour);
-                              return IconButton(onPressed: () => _calendarSlotPressed(weekday, hour), icon: selected ? Icon(Icons.check, color: Colors.green) : Icon(Icons.block, color: Colors.grey), padding: EdgeInsets.zero);
-                            }
-                          }
-                        })),
+                GestureDetector(
+                  onTap: _selectTimeSlots,
+                  child: Card(
+                    margin: EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      padding: EdgeInsets.all(10.0),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                        Text("Available time slots"),
+                        Text("${_countTimeSlots()} selected"),
+                      ]),
+                    ),
                   ),
                 ),
               getSectionSplitter("Proceed with this product"),
@@ -303,6 +281,19 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
             ],
           ),
         ));
+  }
+
+  void _selectTimeSlots() async {
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => TimeSlotSelectorModalView(_productAvailableTimeSlots, _fromUntilDateTime['from'], _fromUntilDateTime['until']));
+    setState(() {});
+  }
+
+  int _countTimeSlots() {
+    var count = 0;
+    _productAvailableTimeSlots.forEach((key, value) {
+      count += value.length;
+    });
+    return count;
   }
 
   Widget _getProductImage() {
@@ -339,91 +330,18 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       return null;
     }
 
-    if (_fromUntilDateTime['from'] > _fromUntilDateTime['until']) if (key == 'from')
-      _fromUntilDateTime['until'] = _fromUntilDateTime['from'];
-    else
-      _fromUntilDateTime['from'] = _fromUntilDateTime['until'];
+    if (_fromUntilDateTime['from'] > 0 && _fromUntilDateTime['until'] > 0) {
+      if (_fromUntilDateTime['from'] > _fromUntilDateTime['until']) {
+        if (key == 'from')
+          _fromUntilDateTime['until'] = _fromUntilDateTime['from'];
+        else
+          _fromUntilDateTime['from'] = _fromUntilDateTime['until'];
+      }
+    }
 
     setState(() {
       _fromUntilDateTime[key] = timestamp;
     });
-  }
-
-  void _calendarMasterButtonPressed() {
-    bool completelySelected = _productAvailableTimeSlots.length == _weekdays.length;
-    for (String weekday in _weekdays)
-      if (completelySelected)
-        completelySelected &= _productAvailableTimeSlots[weekday].length == 24 - _calendarStartHour;
-      else
-        break;
-
-    _productAvailableTimeSlots.clear();
-    if (!completelySelected) for (String weekday in _weekdays) _productAvailableTimeSlots[weekday] = List<int>.generate(24 - _calendarStartHour, (index) => _calendarStartHour + index).toSet();
-
-    setState(() {});
-  }
-
-  void _calendarHourPressed(int hour) {
-    bool hourCompletelySelected = _productAvailableTimeSlots.length == _weekdays.length;
-    for (String weekday in _weekdays)
-      if (hourCompletelySelected)
-        hourCompletelySelected &= _productAvailableTimeSlots.containsKey(weekday) && _productAvailableTimeSlots[weekday].contains(hour);
-      else
-        break;
-
-    if (hourCompletelySelected) {
-      // remove
-      for (String weekday in _weekdays) {
-        _productAvailableTimeSlots[weekday].remove(hour);
-        if (_productAvailableTimeSlots[weekday].isEmpty) _productAvailableTimeSlots.remove(weekday);
-      }
-    } else {
-      // insert
-      for (String weekday in _weekdays)
-        if (_productAvailableTimeSlots.containsKey(weekday))
-          _productAvailableTimeSlots[weekday].add(hour);
-        else
-          _productAvailableTimeSlots[weekday] = <int>[hour].toSet();
-    }
-
-    setState(() {});
-  }
-
-  void _calendarWeekdayPressed(final String day) {
-    bool dayCompletelySelected = _productAvailableTimeSlots.containsKey(day);
-    for (int hour = _calendarStartHour; hour < 24; hour++)
-      if (dayCompletelySelected)
-        dayCompletelySelected &= _productAvailableTimeSlots[day].contains(hour);
-      else
-        break;
-
-    if (dayCompletelySelected) {
-      // remove
-      _productAvailableTimeSlots.remove(day);
-    } else {
-      // insert
-      if (_productAvailableTimeSlots.containsKey(day))
-        for (int hour = _calendarStartHour; hour < 24; hour++) _productAvailableTimeSlots[day].add(hour);
-      else
-        _productAvailableTimeSlots[day] = List<int>.generate(24 - _calendarStartHour, (index) => _calendarStartHour + index).toSet();
-    }
-    setState(() {});
-  }
-
-  void _calendarSlotPressed(String weekday, int hour) {
-    bool selected = _productAvailableTimeSlots.containsKey(weekday) && _productAvailableTimeSlots[weekday].contains(hour);
-    if (selected) {
-      // remove
-      _productAvailableTimeSlots[weekday].remove(hour);
-      if (_productAvailableTimeSlots[weekday].isEmpty) _productAvailableTimeSlots.remove(weekday);
-    } else {
-      // insert
-      if (_productAvailableTimeSlots.containsKey(weekday))
-        _productAvailableTimeSlots[weekday].add(hour);
-      else
-        _productAvailableTimeSlots[weekday] = <int>[hour].toSet();
-    }
-    setState(() {});
   }
 
   void _onProductTypeChanged(int newIndex) {
@@ -499,11 +417,11 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     } else if (_productTypes[_selectedProductTypeIndex].item1.toLowerCase().contains('schedule')) {
       // content : calendar json
       // content = json.encode(_productAvailableTimeSlots);
-      Map<String, List<int>> contentForJson = new Map<String, List<int>>();
+      Map<String, List<int>> availableTimeSlots = new Map<String, List<int>>();
       for (String key in _productAvailableTimeSlots.keys) {
-        contentForJson[key] = _productAvailableTimeSlots[key].toList();
+        availableTimeSlots[key] = _productAvailableTimeSlots[key].toList();
       }
-      contentBytes = JsonUtf8Encoder().convert(contentForJson);
+      contentBytes = JsonUtf8Encoder().convert({'from': _fromUntilDateTime['from'], 'until': _fromUntilDateTime['until'], 'slots': availableTimeSlots});
     }
 
     if (contentBytes == null) {
