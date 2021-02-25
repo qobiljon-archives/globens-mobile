@@ -292,6 +292,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   void _onProductTap(BuildContext context, Product product) async {
     await Navigator.of(context).pushNamed(ProductCreatorScreen.route_name, arguments: product);
+    await _fetchBusinessPageContent();
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {

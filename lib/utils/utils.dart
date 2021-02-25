@@ -216,6 +216,32 @@ Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Pro
   return success;
 }
 
+Future<bool> grpcUpdateProduct(String sessionKey, Product product) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  try {
+    final response = await stub.updateProductDetails(UpdateProductDetails_Request()
+      ..sessionKey = sessionKey
+      ..productId = product.id
+      ..businessPageId = product.businessPage.id
+      ..name = product.name
+      ..type = product.productType
+      ..categoryId = product.category.id
+      ..pictureBlob = product.pictureBlob
+      ..price = product.price
+      ..currency = product.currency
+      ..description = product.description
+      ..content = product.productContent);
+    success = response.success;
+  } catch (e) {
+    print(e);
+  }
+
+  return success;
+}
+
 Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterDetails filterDetails}) async {
   bool success = false;
   List<Product> products = List<Product>();

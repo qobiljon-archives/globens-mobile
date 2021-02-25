@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/widgets/modal_views/TimeSlotSelectorModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
@@ -5,7 +6,6 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
-import 'package:globens_flutter_client/widgets/modal_views/TimeSlotSelectorModalView.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:archive/archive_io.dart';
@@ -94,6 +94,15 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
         // todo view/edit files
       } else if ([2, 3].contains(_selectedProductTypeIndex)) {
         // todo view/edit schedule
+        var content = JsonDecoder().convert(utf8.decode(_product.productContent));
+
+        _fromUntilDateTime['from'] = content['from'];
+        _fromUntilDateTime['until'] = content['until'];
+
+        _productAvailableTimeSlots.clear();
+        for (var weekday in content['slots'].keys) {
+          _productAvailableTimeSlots.putIfAbsent(weekday, () => content['slots'][weekday].cast<int>().toSet());
+        }
       }
     } else
       _businessPage = argument as BusinessPage;
@@ -168,7 +177,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 margin: EdgeInsets.only(top: 10.0),
                 child: Row(
                   children: [
-                    Flexible(child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: calendarSchedule ? "Price per time slot" : "Price", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
+                    Flexible(
+                        child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: calendarSchedule ? "Price per time slot" : "Price", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
                     DropdownButton<String>(
                         value: _selectedCurrency.name,
                         icon: Icon(Icons.expand_more),
@@ -277,7 +287,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   ),
                 ),
               getSectionSplitter("Proceed with this product"),
-              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
@@ -369,7 +379,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     });
   }
 
-  void _createProductPressed() async {
+  void _createOrUpdateProductPressed() async {
     double price = double.tryParse(_priceTextController.text) ?? double.nan;
     if (_titleTextController.text.length < 2) {
       await toast("Product title must not be shorter than two characters!");
@@ -429,7 +439,11 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       return;
     }
 
-    bool success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _productTypes[_selectedProductTypeIndex].item1.toLowerCase(), _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes));
+    bool success;
+    if (_product == null)
+      success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _productTypes[_selectedProductTypeIndex].item1.toLowerCase(), _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes));
+    else
+      success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _productTypes[_selectedProductTypeIndex].item1.toLowerCase(), _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes, id: _product.id));
 
     if (success)
       Navigator.of(context).pop();

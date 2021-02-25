@@ -1012,11 +1012,11 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
     ..aOS(3, 'name')
     ..aOS(4, 'type')
     ..a<$core.int>(5, 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
-    ..a<$core.List<$core.int>>(7, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
-    ..a<$core.double>(8, 'price', $pb.PbFieldType.OF)
-    ..e<Currency>(9, 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
-    ..aOS(10, 'description')
-    ..a<$core.List<$core.int>>(11, 'content', $pb.PbFieldType.OY)
+    ..a<$core.List<$core.int>>(6, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
+    ..a<$core.double>(7, 'price', $pb.PbFieldType.OF)
+    ..e<Currency>(8, 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
+    ..aOS(9, 'description')
+    ..a<$core.List<$core.int>>(10, 'content', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -1080,50 +1080,50 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   void clearCategoryId() => clearField(5);
 
-  @$pb.TagNumber(7)
+  @$pb.TagNumber(6)
   $core.List<$core.int> get pictureBlob => $_getN(5);
-  @$pb.TagNumber(7)
+  @$pb.TagNumber(6)
   set pictureBlob($core.List<$core.int> v) { $_setBytes(5, v); }
-  @$pb.TagNumber(7)
+  @$pb.TagNumber(6)
   $core.bool hasPictureBlob() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearPictureBlob() => clearField(6);
+
   @$pb.TagNumber(7)
-  void clearPictureBlob() => clearField(7);
-
-  @$pb.TagNumber(8)
   $core.double get price => $_getN(6);
-  @$pb.TagNumber(8)
+  @$pb.TagNumber(7)
   set price($core.double v) { $_setFloat(6, v); }
-  @$pb.TagNumber(8)
+  @$pb.TagNumber(7)
   $core.bool hasPrice() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearPrice() => clearField(7);
+
   @$pb.TagNumber(8)
-  void clearPrice() => clearField(8);
-
-  @$pb.TagNumber(9)
   Currency get currency => $_getN(7);
-  @$pb.TagNumber(9)
-  set currency(Currency v) { setField(9, v); }
-  @$pb.TagNumber(9)
+  @$pb.TagNumber(8)
+  set currency(Currency v) { setField(8, v); }
+  @$pb.TagNumber(8)
   $core.bool hasCurrency() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearCurrency() => clearField(8);
+
   @$pb.TagNumber(9)
-  void clearCurrency() => clearField(9);
-
-  @$pb.TagNumber(10)
   $core.String get description => $_getSZ(8);
-  @$pb.TagNumber(10)
+  @$pb.TagNumber(9)
   set description($core.String v) { $_setString(8, v); }
-  @$pb.TagNumber(10)
+  @$pb.TagNumber(9)
   $core.bool hasDescription() => $_has(8);
-  @$pb.TagNumber(10)
-  void clearDescription() => clearField(10);
+  @$pb.TagNumber(9)
+  void clearDescription() => clearField(9);
 
-  @$pb.TagNumber(11)
+  @$pb.TagNumber(10)
   $core.List<$core.int> get content => $_getN(9);
-  @$pb.TagNumber(11)
+  @$pb.TagNumber(10)
   set content($core.List<$core.int> v) { $_setBytes(9, v); }
-  @$pb.TagNumber(11)
+  @$pb.TagNumber(10)
   $core.bool hasContent() => $_has(9);
-  @$pb.TagNumber(11)
-  void clearContent() => clearField(11);
+  @$pb.TagNumber(10)
+  void clearContent() => clearField(10);
 }
 
 class CreateProduct_Response extends $pb.GeneratedMessage {
@@ -1181,6 +1181,16 @@ class CreateProduct extends $pb.GeneratedMessage {
 class UpdateProductDetails_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('UpdateProductDetails.Request', createEmptyInstance: create)
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, 'productId', $pb.PbFieldType.O3, protoName: 'productId')
+    ..a<$core.int>(3, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..aOS(4, 'name')
+    ..aOS(5, 'type')
+    ..a<$core.int>(6, 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
+    ..a<$core.List<$core.int>>(7, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
+    ..a<$core.double>(8, 'price', $pb.PbFieldType.OF)
+    ..e<Currency>(9, 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
+    ..aOS(10, 'description')
+    ..a<$core.List<$core.int>>(11, 'content', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -1207,6 +1217,96 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get productId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set productId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasProductId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProductId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get businessPageId => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set businessPageId($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasBusinessPageId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearBusinessPageId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get name => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set name($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasName() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearName() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get type => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set type($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasType() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearType() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.int get categoryId => $_getIZ(5);
+  @$pb.TagNumber(6)
+  set categoryId($core.int v) { $_setSignedInt32(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasCategoryId() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearCategoryId() => clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.List<$core.int> get pictureBlob => $_getN(6);
+  @$pb.TagNumber(7)
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(6, v); }
+  @$pb.TagNumber(7)
+  $core.bool hasPictureBlob() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearPictureBlob() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.double get price => $_getN(7);
+  @$pb.TagNumber(8)
+  set price($core.double v) { $_setFloat(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasPrice() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearPrice() => clearField(8);
+
+  @$pb.TagNumber(9)
+  Currency get currency => $_getN(8);
+  @$pb.TagNumber(9)
+  set currency(Currency v) { setField(9, v); }
+  @$pb.TagNumber(9)
+  $core.bool hasCurrency() => $_has(8);
+  @$pb.TagNumber(9)
+  void clearCurrency() => clearField(9);
+
+  @$pb.TagNumber(10)
+  $core.String get description => $_getSZ(9);
+  @$pb.TagNumber(10)
+  set description($core.String v) { $_setString(9, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasDescription() => $_has(9);
+  @$pb.TagNumber(10)
+  void clearDescription() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.List<$core.int> get content => $_getN(10);
+  @$pb.TagNumber(11)
+  set content($core.List<$core.int> v) { $_setBytes(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasContent() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearContent() => clearField(11);
 }
 
 class UpdateProductDetails_Response extends $pb.GeneratedMessage {

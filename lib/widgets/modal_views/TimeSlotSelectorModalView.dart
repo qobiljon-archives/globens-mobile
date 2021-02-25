@@ -40,7 +40,7 @@ class _TimeSlotSelectorModalViewState extends State<TimeSlotSelectorModalView> {
     return ListView(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 25.0, right: 30.0),
+          margin: EdgeInsets.only(top: 40.0, right: 30.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -53,7 +53,7 @@ class _TimeSlotSelectorModalViewState extends State<TimeSlotSelectorModalView> {
           ),
         ),
         Card(
-          margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0, bottom: 20.0),
+          margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
           child: Container(
             child: GridView.count(
                 primary: false,
