@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 
-class TimeSlotSelectorModalView extends StatefulWidget {
+// PPWTSS - Product Purchase Weekly Time Slot Selector Modal View
+
+class PPWTSSModalView extends StatefulWidget {
   final int fromTimestamp, untilTimestamp;
   final Map<String, Set<int>> timeSlots;
 
-  TimeSlotSelectorModalView(this.timeSlots, this.fromTimestamp, this.untilTimestamp);
+  PPWTSSModalView(this.timeSlots, this.fromTimestamp, this.untilTimestamp);
 
   @override
-  _TimeSlotSelectorModalViewState createState() => _TimeSlotSelectorModalViewState();
+  _PPWTSSModalViewState createState() => _PPWTSSModalViewState();
 }
 
-class _TimeSlotSelectorModalViewState extends State<TimeSlotSelectorModalView> {
+class _PPWTSSModalViewState extends State<PPWTSSModalView> {
   static const _weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
   static const _calendarStartHour = 8;
   static Map<String, bool> _weekdayEnabled = {for (var v in _weekdays) v: true};
