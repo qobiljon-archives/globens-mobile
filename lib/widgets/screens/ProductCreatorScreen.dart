@@ -350,6 +350,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     }
 
     setState(() {
+      _productAvailableTimeSlots.clear();
       _fromUntilDateTime[key] = timestamp;
     });
   }
