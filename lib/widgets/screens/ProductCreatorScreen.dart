@@ -1,4 +1,4 @@
-import 'package:globens_flutter_client/widgets/modal_views/TimeSlotSelectorModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/PCTSSModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
@@ -294,7 +294,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   }
 
   void _selectTimeSlots() async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => TimeSlotSelectorModalView(_productAvailableTimeSlots, _fromUntilDateTime['from'], _fromUntilDateTime['until']));
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PCTSSModalView(_productAvailableTimeSlots, _fromUntilDateTime['from'], _fromUntilDateTime['until']));
     setState(() {});
   }
 

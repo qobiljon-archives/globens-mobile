@@ -90,6 +90,16 @@ String timestamp2String(int timestamp) {
   }
 }
 
+String timestamp2HourString(int timestamp) {
+  if (timestamp < 0)
+    return "N/A";
+  else {
+    var datetime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    var timeZone = "${datetime.timeZoneOffset.isNegative ? '' : '+'}${datetime.timeZoneOffset.inHours}";
+    return "${datetime.month}/${datetime.day}, ${datetime.year} ($timeZone)";
+  }
+}
+
 enum Types { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
 
 // region user management RPCs
@@ -511,3 +521,8 @@ Future<bool> grpcDeclineJobApplication(String sessionKey, JobApplication applica
   return success;
 }
 // endregion
+
+class PrimitiveWrapper {
+  var value;
+  PrimitiveWrapper(this.value);
+}
