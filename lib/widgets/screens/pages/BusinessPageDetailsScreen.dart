@@ -1,13 +1,13 @@
+import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
-import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
-import 'package:globens_flutter_client/widgets/screens/ProductDetailsScreen.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
@@ -253,7 +253,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateProductPressed() async {
-    await Navigator.of(context).pushNamed(ProductDetailsScreen.route_name, arguments: {'businessPage': _businessPage});
+    await Navigator.of(context).pushNamed(ProductCreatorScreen.route_name, arguments: _businessPage);
 
     Tuple2<bool, List<Product>> res = await grpcFetchNextKProducts(filterDetails: FilterDetails()..businessPageId = _businessPage.id);
     bool success = res.item1;
@@ -291,8 +291,8 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onProductTap(BuildContext context, Product product) async {
-    // todo show product details for configuration
-
+    await Navigator.of(context).pushNamed(ProductCreatorScreen.route_name, arguments: product);
+    await _fetchBusinessPageContent();
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {

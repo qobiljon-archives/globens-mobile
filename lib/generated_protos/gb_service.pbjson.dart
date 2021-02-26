@@ -240,11 +240,11 @@ const CreateProduct_Request$json = const {
     const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'type', '3': 4, '4': 1, '5': 9, '10': 'type'},
     const {'1': 'categoryId', '3': 5, '4': 1, '5': 5, '10': 'categoryId'},
-    const {'1': 'pictureBlob', '3': 7, '4': 1, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'price', '3': 8, '4': 1, '5': 2, '10': 'price'},
-    const {'1': 'currency', '3': 9, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
-    const {'1': 'description', '3': 10, '4': 1, '5': 9, '10': 'description'},
-    const {'1': 'content', '3': 11, '4': 1, '5': 12, '10': 'content'},
+    const {'1': 'pictureBlob', '3': 6, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'price', '3': 7, '4': 1, '5': 2, '10': 'price'},
+    const {'1': 'currency', '3': 8, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
+    const {'1': 'description', '3': 9, '4': 1, '5': 9, '10': 'description'},
+    const {'1': 'content', '3': 10, '4': 1, '5': 12, '10': 'content'},
   ],
 };
 
@@ -264,6 +264,16 @@ const UpdateProductDetails_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'productId', '3': 2, '4': 1, '5': 5, '10': 'productId'},
+    const {'1': 'businessPageId', '3': 3, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'type', '3': 5, '4': 1, '5': 9, '10': 'type'},
+    const {'1': 'categoryId', '3': 6, '4': 1, '5': 5, '10': 'categoryId'},
+    const {'1': 'pictureBlob', '3': 7, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'price', '3': 8, '4': 1, '5': 2, '10': 'price'},
+    const {'1': 'currency', '3': 9, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
+    const {'1': 'description', '3': 10, '4': 1, '5': 9, '10': 'description'},
+    const {'1': 'content', '3': 11, '4': 1, '5': 12, '10': 'content'},
   ],
 };
 

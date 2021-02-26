@@ -80,6 +80,16 @@ String shorten(String str, int len, {bool ellipsize = false}) {
     return str.substring(0, len);
 }
 
+String timestamp2String(int timestamp) {
+  if (timestamp < 0)
+    return "N/A";
+  else {
+    var datetime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    var timeZone = "${datetime.timeZoneOffset.isNegative ? '' : '+'}${datetime.timeZoneOffset.inHours}";
+    return "${datetime.month}/${datetime.day}, ${datetime.year}   ${datetime.hour}:${datetime.minute.toString().padLeft(2, '0')} ($timeZone)";
+  }
+}
+
 enum Types { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
 
 // region user management RPCs
@@ -190,6 +200,32 @@ Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Pro
     final response = await stub.createProduct(CreateProduct_Request()
       ..sessionKey = sessionKey
       ..businessPageId = businessPage.id
+      ..name = product.name
+      ..type = product.productType
+      ..categoryId = product.category.id
+      ..pictureBlob = product.pictureBlob
+      ..price = product.price
+      ..currency = product.currency
+      ..description = product.description
+      ..content = product.productContent);
+    success = response.success;
+  } catch (e) {
+    print(e);
+  }
+
+  return success;
+}
+
+Future<bool> grpcUpdateProduct(String sessionKey, Product product) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  try {
+    final response = await stub.updateProductDetails(UpdateProductDetails_Request()
+      ..sessionKey = sessionKey
+      ..productId = product.id
+      ..businessPageId = product.businessPage.id
       ..name = product.name
       ..type = product.productType
       ..categoryId = product.category.id

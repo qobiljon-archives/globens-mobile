@@ -126,11 +126,11 @@ message CreateProduct{
     string name = 3;
     string type = 4;
     int32 categoryId = 5;
-    bytes pictureBlob = 7;
-    float price = 8;
-    Currency currency = 9;
-    string description = 10;
-    bytes content = 11;
+    bytes pictureBlob = 6;
+    float price = 7;
+    Currency currency = 8;
+    string description = 9;
+    bytes content = 10;
   }
   message Response{
     bool success = 1;
@@ -139,6 +139,16 @@ message CreateProduct{
 message UpdateProductDetails{
   message Request{
     string sessionKey = 1;
+    int32 productId = 2;
+    int32 businessPageId = 3;
+    string name = 4;
+    string type = 5;
+    int32 categoryId = 6;
+    bytes pictureBlob = 7;
+    float price = 8;
+    Currency currency = 9;
+    string description = 10;
+    bytes content = 11;
   }
   message Response{
     bool success = 1;
@@ -442,5 +452,3 @@ Compile into dart / flutter:
     protoc -I=protos --dart_out=grpc:lib/generated_protos gb_service.proto
 etc.
 */
-
-
