@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:country_icons/country_icons.dart';
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 
 class LanguageModalView {
+
   static Widget getModalView(BuildContext context) {
+    final locale = Locale.language();
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 100),
       child: Column(
@@ -13,7 +17,7 @@ class LanguageModalView {
           Container(
             margin: EdgeInsets.all(20),
             child: Text(
-              "SELECT LANGUAGE",
+              locale.get("SELECT LANGUAGE"),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue),
             ),
           ),
@@ -33,7 +37,7 @@ class LanguageModalView {
                 height: 25,
                 fit: BoxFit.cover,
               ),
-              onPressed: () => _onLanguagePressed(context, "uz"),
+              onPressed: () => _onLanguagePressed(context, Language.UZBEK),
             ),
           ),
           Container(
@@ -52,7 +56,7 @@ class LanguageModalView {
                 height: 25,
                 fit: BoxFit.cover,
               ),
-              onPressed: () => _onLanguagePressed(context, "ru"),
+              onPressed: () => _onLanguagePressed(context, Language.RUSSIAN),
             ),
           ),
           Container(
@@ -71,7 +75,7 @@ class LanguageModalView {
                 height: 25,
                 fit: BoxFit.cover,
               ),
-              onPressed: () => _onLanguagePressed(context, "eng"),
+              onPressed: () => _onLanguagePressed(context, Language.ENGLISH),
             ),
           ),
           Container(
@@ -90,7 +94,7 @@ class LanguageModalView {
                 height: 25,
                 fit: BoxFit.cover,
               ),
-              onPressed: () => _onLanguagePressed(context, "eng"),
+              onPressed: () => _onLanguagePressed(context, Language.KOREAN),
             ),
           ),
         ],
@@ -98,8 +102,8 @@ class LanguageModalView {
     );
   }
 
-  static void _onLanguagePressed(BuildContext context, String languageCode) {
-    toast(languageCode);
+  static void _onLanguagePressed(BuildContext context, int languageCode) {
+    AppUser.userPrefs.setInt("language", languageCode);
     Navigator.of(context).pop();
   }
 }
