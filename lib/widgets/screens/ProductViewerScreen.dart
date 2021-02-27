@@ -70,6 +70,8 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 10.0, top: 10.0),
+                              padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                              color: Colors.white,
                               child: Text(
                                 _product.priceStr,
                                 overflow: TextOverflow.ellipsis,
