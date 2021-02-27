@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 
-// PCTSS - Product Create Time Slot Selector Modal View
-
-class PCTSSModalView extends StatefulWidget {
+class AvailableTimePickerModalView extends StatefulWidget {
   final int fromTimestamp, untilTimestamp;
   final Map<String, Set<int>> timeSlots;
 
-  PCTSSModalView(this.timeSlots, this.fromTimestamp, this.untilTimestamp);
+  AvailableTimePickerModalView(this.timeSlots, this.fromTimestamp, this.untilTimestamp);
 
   @override
-  _PCTSSModalViewState createState() => _PCTSSModalViewState();
+  _AvailableTimePickerModalViewState createState() => _AvailableTimePickerModalViewState();
 }
 
-class _PCTSSModalViewState extends State<PCTSSModalView> {
+class _AvailableTimePickerModalViewState extends State<AvailableTimePickerModalView> {
   static final _weekdays = [Locale.get('MON'), Locale.get('TUE'), Locale.get('WED'), Locale.get('THU'), Locale.get('FRI'), Locale.get('SAT'), Locale.get('SUN')];
   static const _calendarStartHour = 8;
   static Map<String, bool> _weekdayEnabled = {for (var v in _weekdays) v: true};

@@ -1,6 +1,6 @@
 import 'package:globens_flutter_client/utils/Locale.dart';
-import 'package:globens_flutter_client/widgets/modal_views/PPOTSSModalView.dart';
-import 'package:globens_flutter_client/widgets/modal_views/PPWTSSModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +18,6 @@ class ProductViewerScreen extends StatefulWidget {
 
 class _ProductViewerScreenState extends State<ProductViewerScreen> {
   Product _product;
-  bool _repeating = false;
 
   @override
   void didChangeDependencies() {
@@ -102,8 +101,8 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      RaisedButton.icon(onPressed: _openTryTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.checkroom, color: Colors.white), label: Text("TRY", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-                      RaisedButton.icon(onPressed: _openSignUpTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag_outlined, color: Colors.white), label: Text("SIGN UP", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                      RaisedButton.icon(onPressed: _openTryTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.checkroom, color: Colors.white), label: Text(Locale.get("Try"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                      RaisedButton.icon(onPressed: _openSignUpTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag_outlined, color: Colors.white), label: Text(Locale.get("Sign up"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                     ],
                   )),
               /*Card(
@@ -132,7 +131,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
     var _productAvailableTimeSlots = <String, Set<int>>{};
     var tsFrom = DateTime.now().millisecondsSinceEpoch;
     var tsUntil = (DateTime.now().add(Duration(days: 30))).millisecondsSinceEpoch;
-    await showModalBottomSheet(context: context, builder: (context) => PPOTSSModalView(_product));
+    await showModalBottomSheet(context: context, builder: (context) => SingleTimePickerModalView(_product));
   }
 
   void _openSignUpTimeSlotSelector() async {
@@ -140,14 +139,10 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
     var _productAvailableTimeSlots = <String, Set<int>>{};
     var tsFrom = DateTime.now().millisecondsSinceEpoch;
     var tsUntil = (DateTime.now().add(Duration(days: 30))).millisecondsSinceEpoch;
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PPWTSSModalView(_productAvailableTimeSlots, tsFrom, tsUntil));
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => WeeklyTimePickerModalView(_productAvailableTimeSlots, tsFrom, tsUntil));
   }
 
   void _onBackButtonPressed() {
     Navigator.of(context).pop();
-  }
-
-  void _purchaseProductPressed() async {
-    await Navigator.of(context).pushNamed(ProductPurchaseScreen.route_name, arguments: _product);
   }
 }

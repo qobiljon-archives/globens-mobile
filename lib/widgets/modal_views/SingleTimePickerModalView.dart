@@ -5,18 +5,16 @@ import 'package:globens_flutter_client/widgets/modal_views/HourSelectorModalView
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 
-// PPOTSS - Product Purchase One Time Slot Selector Modal View
-
-class PPOTSSModalView extends StatefulWidget {
+class SingleTimePickerModalView extends StatefulWidget {
   final Product product;
 
-  PPOTSSModalView(this.product);
+  SingleTimePickerModalView(this.product);
 
   @override
-  _PPOTSSModalViewState createState() => _PPOTSSModalViewState();
+  _SingleTimePickerModalViewState createState() => _SingleTimePickerModalViewState();
 }
 
-class _PPOTSSModalViewState extends State<PPOTSSModalView> {
+class _SingleTimePickerModalViewState extends State<SingleTimePickerModalView> {
   static final _weekdays = [Locale.get('MON'), Locale.get('TUE'), Locale.get('WED'), Locale.get('THU'), Locale.get('FRI'), Locale.get('SAT'), Locale.get('SUN')];
   static const _calendarStartHour = 8;
   int _selectedDayTimestamp;

@@ -1,5 +1,5 @@
 import 'package:globens_flutter_client/utils/Locale.dart';
-import 'package:globens_flutter_client/widgets/modal_views/PCTSSModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/AvailableTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
@@ -30,12 +30,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   final _titleTextController = TextEditingController();
   final _priceTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
-  static List<Tuple2<String, String>> _productTypes = <Tuple2<String, String>>[
-    Tuple2(Locale.get('Downloadable files'), 'assets/product_type_downloadable.png'),
-    Tuple2(Locale.get('Streamed files'), 'assets/product_type_streamed.png'),
-    Tuple2(Locale.get('Scheduled face-to-face meeting'), 'assets/product_type_scheduled.png'),
-    Tuple2(Locale.get('Scheduled online call'), 'assets/product_type_scheduled.png'),
-  ];
+  List<Tuple2<String, String>> _productTypes;
 
   Product _product;
   BusinessPage _businessPage;
@@ -58,6 +53,13 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     _selectedCategoryId = 1;
     _selectedProductTypeIndex = 0;
     _selectedCurrency = Currency.KRW;
+
+    _productTypes = <Tuple2<String, String>>[
+      Tuple2(Locale.get('Downloadable files'), 'assets/product_type_downloadable.png'),
+      Tuple2(Locale.get('Streamed files'), 'assets/product_type_streamed.png'),
+      Tuple2(Locale.get('Scheduled face-to-face meeting'), 'assets/product_type_scheduled.png'),
+      Tuple2(Locale.get('Scheduled online call'), 'assets/product_type_scheduled.png'),
+    ];
 
     grpcFetchProductCategories().then((tp) {
       bool success = tp.item1;
@@ -325,7 +327,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   }
 
   void _selectTimeSlots() async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PCTSSModalView(_productAvailableTimeSlots, _fromUntilDateTime['from'], _fromUntilDateTime['until']));
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => AvailableTimePickerModalView(_productAvailableTimeSlots, _fromUntilDateTime['from'], _fromUntilDateTime['until']));
     setState(() {});
   }
 
