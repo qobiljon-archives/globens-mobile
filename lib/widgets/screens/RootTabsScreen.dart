@@ -1,4 +1,5 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'pages/MyBusinessPagesScreen.dart';
 import 'package:flutter/cupertino.dart';
@@ -55,7 +56,7 @@ class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObser
             ),
           ),
           BottomNavigationBarItem(
-            label: 'My pages',
+            label: Locale.get('My pages'),
             icon: Image.asset(
               'assets/tab_business_page.png',
               width: 25,
@@ -66,7 +67,7 @@ class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObser
               'assets/tab_menu.png',
               width: 25,
             ),
-            label: 'Menu',
+            label: Locale.get('Menu'),
           ),
         ],
       ),
@@ -83,7 +84,7 @@ class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObser
   void _onTabSelected(int selectedIndex) async {
     if (selectedIndex == 1 && !AppUser.isAuthenticated()) {
       switchTab(2);
-      await toast("Please Sign In first!");
+      await toast(Locale.get("Please Sign In first!"));
     } else
       switchTab(selectedIndex);
   }

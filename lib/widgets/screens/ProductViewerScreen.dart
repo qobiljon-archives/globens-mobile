@@ -1,16 +1,18 @@
-import 'dart:io';
-
-import 'package:path_provider/path_provider.dart';
+import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
 import 'package:flutter_archive/flutter_archive.dart' as ZipFile;
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
+import 'package:path_provider/path_provider.dart';
+import 'PurchasedProductContentsScreen.dart';
+import 'package:archive/archive_io.dart';
+import 'dart:typed_data' show Uint8List;
 import 'package:flutter/material.dart';
 import 'ProductPurchaseScreen.dart';
 import 'dart:convert';
-import 'package:native_pdf_view/native_pdf_view.dart';
-import 'dart:typed_data' show Uint8List;
-import 'PurchasedProductContentsScreen.dart';
-import 'package:archive/archive_io.dart';
+import 'dart:io';
 
 class ProductViewerScreen extends StatefulWidget {
   static const String route_name = '/product_viewer_screen';
@@ -24,7 +26,6 @@ class ProductViewerScreen extends StatefulWidget {
 
 class _ProductViewerScreenState extends State<ProductViewerScreen> {
   Product _product;
-  bool _repeating = false;
 
   @override
   void didChangeDependencies() {
@@ -49,10 +50,10 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                     icon: Icon(Icons.arrow_back_ios),
                     onPressed: _onBackButtonPressed,
                   ),
-                  getTitleWidget('Product details', textColor: Colors.black, margin: EdgeInsets.all(0))
+                  getTitleWidget(Locale.get('Product details'), textColor: Colors.black, margin: EdgeInsets.all(0))
                 ],
               ),
-              getSectionSplitter("Basic information"),
+              getSectionSplitter(Locale.get("Basic information")),
               Card(
                   color: Colors.white,
                   margin: EdgeInsets.zero,
@@ -102,15 +103,16 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
                       ))),
               if (_product.productType.toLowerCase().contains('schedule')) Text(Utf8Decoder().convert(_product.productContent)),
-              getSectionSplitter("Proceed with this product"),
+              getSectionSplitter(Locale.get("Proceed with this product")),
               Container(
                   margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-                  child: RaisedButton.icon(
-                      onPressed: _purchaseProductPressed,
-                      color: Colors.blueAccent,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                      icon: Icon(Icons.shopping_bag_outlined, color: Colors.white),
-                      label: Text("PURCHASE FOR ${_product.priceStr}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RaisedButton.icon(onPressed: _openTryTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.checkroom, color: Colors.white), label: Text(Locale.get("Try"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                      RaisedButton.icon(onPressed: _openSignUpTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag_outlined, color: Colors.white), label: Text(Locale.get("Sign up"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                    ],
+                  )),
               Container(
                   margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
                   child: RaisedButton.icon(
@@ -124,12 +126,19 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
         ));
   }
 
-  void _onBackButtonPressed() {
-    Navigator.of(context).pop();
+  void _openTryTimeSlotSelector() async {
+    await showModalBottomSheet(context: context, builder: (context) => SingleTimePickerModalView(_product));
   }
 
-  void _purchaseProductPressed() async {
-    await Navigator.of(context).pushNamed(ProductPurchaseScreen.route_name, arguments: _product);
+  void _openSignUpTimeSlotSelector() async {
+    var _productAvailableTimeSlots = <String, Set<int>>{};
+    var tsFrom = DateTime.now().millisecondsSinceEpoch;
+    var tsUntil = (DateTime.now().add(Duration(days: 30))).millisecondsSinceEpoch;
+    await showModalBottomSheet(context: context, builder: (context) => WeeklyTimePickerModalView(_productAvailableTimeSlots, tsFrom, tsUntil));
+  }
+
+  void _onBackButtonPressed() {
+    Navigator.of(context).pop();
   }
 
   void _viewProductPressed() async {
@@ -148,14 +157,6 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
           ..writeAsBytesSync(data);
       }
     }
-
     Navigator.push(context, MaterialPageRoute(builder: (context) => PdfViewScreen(filesPaths),));
-
-
-
-  }
-
-  Widget buildProductsList(){
-
   }
 }

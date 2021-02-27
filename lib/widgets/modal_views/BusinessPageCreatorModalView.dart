@@ -1,5 +1,6 @@
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _BusinessPageCreatorModalViewState extends State<BusinessPageCreatorModalV
                   icon: Icon(Icons.arrow_back_ios),
                   onPressed: _onBackButtonPressed,
                 ),
-                getTitleWidget("Business details", textColor: Colors.black, margin: EdgeInsets.all(0)),
+                getTitleWidget(Locale.get("Business details"), textColor: Colors.black, margin: EdgeInsets.all(0)),
               ],
             ),
           ),
@@ -53,8 +54,8 @@ class _BusinessPageCreatorModalViewState extends State<BusinessPageCreatorModalV
                   child: TextField(
                 controller: _titleTextController,
                 decoration: InputDecoration(
-                  labelText: "Name of business",
-                  hintText: "e.g., SpaceX",
+                  labelText: Locale.get("Name of business"),
+                  hintText: Locale.get("e.g., SpaceX"),
                 ),
               )),
             ],
@@ -70,7 +71,7 @@ class _BusinessPageCreatorModalViewState extends State<BusinessPageCreatorModalV
                   color: Colors.white,
                 ),
                 label: Text(
-                  "CREATE",
+                  Locale.get("Create"),
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               )),
@@ -94,11 +95,11 @@ class _BusinessPageCreatorModalViewState extends State<BusinessPageCreatorModalV
 
   void _createBusinessPagePressed() async {
     if (_titleTextController.text.length < 2) {
-      await toast("Title must be at least two characters");
+      await toast(Locale.get("Title must be at least two characters"));
       return;
     }
     if (_businessPageImageBytes == null) {
-      await toast("A business page must have an icon");
+      await toast(Locale.get("A business page must have an icon"));
       return;
     }
 

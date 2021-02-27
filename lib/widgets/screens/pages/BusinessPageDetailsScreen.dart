@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
@@ -37,7 +38,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
           icon: Icon(Icons.arrow_back_ios),
           onPressed: _onBackButtonPressed,
         ),
-        getTitleWidget('Business page', textColor: Colors.black, margin: EdgeInsets.all(0))
+        getTitleWidget(Locale.get('Business page'), textColor: Colors.black, margin: EdgeInsets.all(0))
       ],
     );
 
@@ -52,7 +53,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
             color: Colors.white,
           ),
           label: Text(
-            "CREATE NEW PRODUCT",
+            Locale.get("Create new product"),
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ));
@@ -67,7 +68,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
             color: Colors.white,
           ),
           label: Text(
-            "CREATE NEW VACANCY",
+            Locale.get("Create new vacancy"),
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ));
@@ -114,7 +115,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       return _buildJobItem(context, _jobs[index]);
     } else if (index == 2 + productRows + 1) {
       // splitter
-      return getSectionSplitter("Employees and vacancies");
+      return getSectionSplitter(Locale.get("Employees and vacancies"));
     } else if (index == 2 + productRows) {
       // create new product button
       return _createProductButton;
@@ -124,7 +125,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
       return _buildProductRow(context, index, screenSize);
     } else if (index == 1) {
       // splitter
-      return getSectionSplitter("Products");
+      return getSectionSplitter(Locale.get("Products"));
     } else {
       // header section
       return _header;

@@ -5,6 +5,7 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/settings.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -42,9 +43,9 @@ Row getUserProfileWidget() {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(AppUser.isAuthenticated() ? AppUser.displayName : "Sign in", style: TextStyle(fontSize: 20.0, color: Colors.black)),
+          Text(AppUser.isAuthenticated() ? AppUser.displayName : Locale.get("Sign in"), style: TextStyle(fontSize: 20.0, color: Colors.black)),
           Text(
-            AppUser.isAuthenticated() ? AppUser.email : "Go to menu",
+            AppUser.isAuthenticated() ? AppUser.email : Locale.get("Go to menu"),
             style: GoogleFonts.lato(fontSize: 14.0, color: Colors.black),
           ),
         ],
@@ -87,6 +88,16 @@ String timestamp2String(int timestamp) {
     var datetime = DateTime.fromMillisecondsSinceEpoch(timestamp);
     var timeZone = "${datetime.timeZoneOffset.isNegative ? '' : '+'}${datetime.timeZoneOffset.inHours}";
     return "${datetime.month}/${datetime.day}, ${datetime.year}   ${datetime.hour}:${datetime.minute.toString().padLeft(2, '0')} ($timeZone)";
+  }
+}
+
+String timestamp2HourString(int timestamp) {
+  if (timestamp < 0)
+    return "N/A";
+  else {
+    var datetime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    var timeZone = "${datetime.timeZoneOffset.isNegative ? '' : '+'}${datetime.timeZoneOffset.inHours}";
+    return "${datetime.month}/${datetime.day}, ${datetime.year} ($timeZone)";
   }
 }
 
@@ -511,3 +522,8 @@ Future<bool> grpcDeclineJobApplication(String sessionKey, JobApplication applica
   return success;
 }
 // endregion
+
+class PrimitiveWrapper {
+  var value;
+  PrimitiveWrapper(this.value);
+}

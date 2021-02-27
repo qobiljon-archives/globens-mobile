@@ -1,4 +1,5 @@
-import 'package:globens_flutter_client/widgets/modal_views/TimeSlotSelectorModalView.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
+import 'package:globens_flutter_client/widgets/modal_views/AvailableTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
@@ -29,12 +30,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   final _titleTextController = TextEditingController();
   final _priceTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
-  static const List<Tuple2<String, String>> _productTypes = <Tuple2<String, String>>[
-    Tuple2('Downloadable files', 'assets/product_type_downloadable.png'),
-    Tuple2('Streamed files', 'assets/product_type_streamed.png'),
-    Tuple2('Scheduled face-to-face meeting', 'assets/product_type_scheduled.png'),
-    Tuple2('Scheduled online call', 'assets/product_type_scheduled.png'),
-  ];
+  List<Tuple2<String, String>> _productTypes;
 
   Product _product;
   BusinessPage _businessPage;
@@ -57,6 +53,13 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     _selectedCategoryId = 1;
     _selectedProductTypeIndex = 0;
     _selectedCurrency = Currency.KRW;
+
+    _productTypes = <Tuple2<String, String>>[
+      Tuple2(Locale.get('Downloadable files'), 'assets/product_type_downloadable.png'),
+      Tuple2(Locale.get('Streamed files'), 'assets/product_type_streamed.png'),
+      Tuple2(Locale.get('Scheduled face-to-face meeting'), 'assets/product_type_scheduled.png'),
+      Tuple2(Locale.get('Scheduled online call'), 'assets/product_type_scheduled.png'),
+    ];
 
     grpcFetchProductCategories().then((tp) {
       bool success = tp.item1;
@@ -127,10 +130,10 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                     icon: Icon(Icons.arrow_back_ios),
                     onPressed: _onBackButtonPressed,
                   ),
-                  getTitleWidget('Product details', textColor: Colors.black, margin: EdgeInsets.all(0))
+                  getTitleWidget(Locale.get("Product details"), textColor: Colors.black, margin: EdgeInsets.all(0))
                 ],
               ),
-              getSectionSplitter("Basic information"),
+              getSectionSplitter(Locale.get("Basic information")),
               Card(
                   color: Colors.white,
                   margin: EdgeInsets.zero,
@@ -149,11 +152,13 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                                   topLeft: Radius.circular(4.0),
                                   topRight: Radius.circular(4.0),
                                 ),
-                                child: _productImageBytes == null ? Image.asset('assets/placeholder_background_image.png', fit: BoxFit.cover) : Image.memory(_productImageBytes, fit: BoxFit.cover),
+                                child: AspectRatio(aspectRatio: 1, child: _productImageBytes == null ? Image.asset('assets/placeholder_background_image.png', fit: BoxFit.cover) : Image.memory(_productImageBytes, fit: BoxFit.fitWidth)),
                               ),
                             ),
                             Container(
+                              color: Colors.white,
                               margin: EdgeInsets.only(left: 10.0, top: 10.0),
+                              padding: EdgeInsets.only(left: 5.0, right: 5.0),
                               child: Text(
                                 Product.price2string(double.tryParse(_priceTextController.text) ?? 0.0, _selectedCurrency),
                                 overflow: TextOverflow.ellipsis,
@@ -167,67 +172,19 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                           child: Container(
                             height: 20.0,
                             margin: EdgeInsets.only(top: 10, bottom: 10),
-                            child: TextField(controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: "Product name", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., Yoga training 24/7", border: InputBorder.none)),
+                            child: TextField(controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
                           ),
                         )
                       ],
                     ),
                   )),
-              Container(
-                margin: EdgeInsets.only(top: 10.0),
-                child: Row(
-                  children: [
-                    Flexible(
-                        child: Card(margin: EdgeInsets.only(right: 20.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: calendarSchedule ? "Price per time slot" : "Price", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., 1000", border: InputBorder.none))))),
-                    DropdownButton<String>(
-                        value: _selectedCurrency.name,
-                        icon: Icon(Icons.expand_more),
-                        iconSize: 24,
-                        elevation: 16,
-                        underline: Container(),
-                        onChanged: (String newCurrencyName) {
-                          setState(() {
-                            if (newCurrencyName == Currency.KRW.name)
-                              _selectedCurrency = Currency.KRW;
-                            else if (newCurrencyName == Currency.RUB.name)
-                              _selectedCurrency = Currency.RUB;
-                            else if (newCurrencyName == Currency.USD.name)
-                              _selectedCurrency = Currency.USD;
-                            else if (newCurrencyName == Currency.UZS.name) _selectedCurrency = Currency.UZS;
-                          });
-                        },
-                        items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name))).toList())
-                  ],
-                ),
-              ),
               Card(
                 margin: EdgeInsets.only(top: 10.0),
                 child: Container(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: DropdownButton<int>(
-                      isExpanded: true,
-                      value: _selectedCategoryId,
-                      icon: _getProductImage(),
-                      iconSize: 24,
-                      elevation: 16,
-                      underline: Container(),
-                      onChanged: (int newId) {
-                        setState(() {
-                          _selectedCategoryId = newId;
-                        });
-                      },
-                      items: _categories.values
-                          .map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(
-                              value: category.id,
-                              child: Text(
-                                'Product category : ${category.name}',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
-                              )))
-                          .toList()),
+                  child: DropdownButton<int>(isExpanded: true, value: _selectedCategoryId, icon: _getProductImage(), iconSize: 24, elevation: 16, underline: Container(), onChanged: _categorySelected, items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
                 ),
               ),
-              Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: "Product description", labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: "e.g., the best product.", border: InputBorder.none)))),
-              getSectionSplitter("Product content"),
               Card(
                 margin: EdgeInsets.only(top: 10.0),
                 child: Container(
@@ -240,12 +197,43 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                     elevation: 16,
                     underline: Container(),
                     onChanged: _onProductTypeChanged,
-                    items: _productTypes.map<DropdownMenuItem<int>>((Tuple2<String, String> selectedProductType) => DropdownMenuItem<int>(value: _productTypes.indexOf(selectedProductType), child: Text("Content type : ${selectedProductType.item1}"))).toList(),
+                    items: _productTypes.map<DropdownMenuItem<int>>((Tuple2<String, String> selectedProductType) => DropdownMenuItem<int>(value: _productTypes.indexOf(selectedProductType), child: Text(Locale.get("Content type: ${Locale.REPLACE}", selectedProductType.item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
                   ),
                 ),
               ),
+              Card(
+                margin: EdgeInsets.only(top: 10.0),
+                child: Container(
+                  margin: EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    children: [
+                      Flexible(child: TextField(controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: calendarSchedule ? Locale.get("Price per time slot") : Locale.get("Price"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., 1000"), border: InputBorder.none))),
+                      DropdownButton<String>(
+                          value: _selectedCurrency.name,
+                          icon: Icon(Icons.expand_more),
+                          iconSize: 24,
+                          elevation: 16,
+                          underline: Container(),
+                          onChanged: (String newCurrencyName) {
+                            setState(() {
+                              if (newCurrencyName == Currency.KRW.name)
+                                _selectedCurrency = Currency.KRW;
+                              else if (newCurrencyName == Currency.RUB.name)
+                                _selectedCurrency = Currency.RUB;
+                              else if (newCurrencyName == Currency.USD.name)
+                                _selectedCurrency = Currency.USD;
+                              else if (newCurrencyName == Currency.UZS.name) _selectedCurrency = Currency.UZS;
+                            });
+                          },
+                          items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList())
+                    ],
+                  ),
+                ),
+              ),
+              Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 10.0, right: 10.0), child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
+              getSectionSplitter(Locale.get(calendarSchedule ? "Schedule" : "Product content")),
               if (uploadFile && _productContentFiles.length > 0) Column(children: _productContentFiles.map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Image.file(file, width: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))])))).toList()),
-              if (uploadFile) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? "SELECT CONTENT" : "RESELECT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+              if (uploadFile) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               if (calendarSchedule)
                 GestureDetector(
                   onTap: () => _selectDateTime('from'),
@@ -255,7 +243,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("Available from"), Text(timestamp2String(_fromUntilDateTime['from']))],
+                          children: [Text(Locale.get("Available from")), Text(timestamp2String(_fromUntilDateTime['from']), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))],
                         ),
                       )),
                 ),
@@ -268,7 +256,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                         padding: EdgeInsets.all(10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("Available until"), Text(timestamp2String(_fromUntilDateTime['until']))],
+                          children: [Text(Locale.get("Available until")), Text(timestamp2String(_fromUntilDateTime['until']), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))],
                         ),
                       )),
                 ),
@@ -279,22 +267,25 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                     margin: EdgeInsets.only(top: 10.0),
                     child: Container(
                       padding: EdgeInsets.all(10.0),
-                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                        Text("Available time slots"),
-                        Text("${_countTimeSlots()} selected"),
-                      ]),
+                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(Locale.get("Available time slots")), Text(Locale.get("${Locale.REPLACE} selected", _countTimeSlots().toString()), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))]),
                     ),
                   ),
                 ),
-              getSectionSplitter("Proceed with this product"),
+              getSectionSplitter(Locale.get("Proceed with this product")),
               Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
   }
 
+  void _categorySelected(int newCategoryId) {
+    setState(() {
+      _selectedCategoryId = newCategoryId;
+    });
+  }
+
   void _selectTimeSlots() async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => TimeSlotSelectorModalView(_productAvailableTimeSlots, _fromUntilDateTime['from'], _fromUntilDateTime['until']));
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => AvailableTimePickerModalView(_productAvailableTimeSlots, _fromUntilDateTime['from'], _fromUntilDateTime['until']));
     setState(() {});
   }
 
@@ -361,9 +352,9 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     });
 
     if (_productTypes[newIndex].item1.toLowerCase().contains('schedule')) {
-      toast('Please specify your available time slots for this product');
+      toast(Locale.get('Please specify your available time slots for this product'));
     } else if (_productTypes[newIndex].item1.toLowerCase().contains('file')) {
-      toast('Please specify the content (attachment files) for this product');
+      toast(Locale.get('Please specify the content (attachment files) for this product'));
     }
   }
 
@@ -383,23 +374,23 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   void _createOrUpdateProductPressed() async {
     double price = double.tryParse(_priceTextController.text) ?? double.nan;
     if (_titleTextController.text.length < 2) {
-      await toast("Product title must not be shorter than two characters!");
+      await toast(Locale.get("Product title must not be shorter than two characters!"));
       return;
     } else if (price == double.nan) {
       _priceTextController.text = "0";
-      await toast("Please check the price value!");
+      await toast(Locale.get("Please check the price value!"));
       return;
     } else if (_descriptionTextController.text.length == 0) {
-      await toast("Product description must be at least one character!");
+      await toast(Locale.get("Product description must be at least one character!"));
       return;
     } else if (_productImageBytes == null) {
-      await toast("Please upload a feature image for the product!");
+      await toast(Locale.get("Please upload a feature image for the product!"));
       return;
     } else if (_productTypes[_selectedProductTypeIndex].item1.toLowerCase().contains('file') && _productContentFiles.length < 1) {
-      await toast('At least one attachment (file) required for a product of type - "${_productTypes[_selectedProductTypeIndex].item1}"');
+      await toast(Locale.get('At least one attachment (file) required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductTypeIndex].item1));
       return;
     } else if (_productTypes[_selectedProductTypeIndex].item1.toLowerCase().contains('schedule') && _productAvailableTimeSlots.length == 0) {
-      await toast('At least one available time slot required for a product of type - "${_productTypes[_selectedProductTypeIndex].item1}"');
+      await toast(Locale.get('At least one available time slot required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductTypeIndex].item1));
       return;
     }
 
@@ -436,7 +427,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     }
 
     if (contentBytes == null) {
-      await toast('Problem with product content, please try again!');
+      await toast(Locale.get('Problem with product content, please try again!'));
       return;
     }
 
@@ -462,7 +453,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
         _productContentFiles = result.paths.map((path) => File(path)).toList();
       });
     } else {
-      toast("Selection cancelled!");
+      toast(Locale.get("Selection cancelled!"));
     }
   }
 

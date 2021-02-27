@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
@@ -26,7 +27,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         icon: Icon(Icons.arrow_back_ios),
         onPressed: _onBackButtonPressed,
       ),
-      getTitleWidget('Category', textColor: Colors.black, margin: EdgeInsets.all(0))
+      getTitleWidget(Locale.get('Category'), textColor: Colors.black, margin: EdgeInsets.all(0))
     ]);
   }
 
@@ -80,7 +81,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
       return _buildProductRow(context, index, screenSize);
     } else if (index == 1) {
       // divider
-      return getSectionSplitter("Related products");
+      return getSectionSplitter(Locale.get("Related products"));
     } else {
       return _header;
     }
@@ -128,7 +129,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                         ),
                       ),
                       Text(
-                        "by `${product.businessPage.title}`",
+                        Locale.get("by ${Locale.REPLACE}", product.businessPage.title),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 12.0, color: Colors.blueGrey),

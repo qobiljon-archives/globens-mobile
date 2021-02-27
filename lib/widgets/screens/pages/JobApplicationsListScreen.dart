@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
@@ -84,9 +85,9 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
         ),
         Row(
           children: [
-            RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context, index)),
+            RaisedButton(child: Text(Locale.get("Approve")), onPressed: () => _onApproveButtonPressed(context, index)),
             RaisedButton(
-              child: Text("Decline"),
+              child: Text(Locale.get("Decline")),
               onPressed: () => _onDeclineButtonPressed(context, index),
             ),
           ],
@@ -98,7 +99,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          getTitleWidget("Job applications", textColor: Colors.black),
+          getTitleWidget(Locale.get("Job applications"), textColor: Colors.black),
           row,
         ],
       );
@@ -136,7 +137,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   void _onApproveButtonPressed(BuildContext context, int index) async {
     bool success = await grpcApproveJobApplication(AppUser.sessionKey, _jobApplications[index]);
     if (success) {
-      await toast("Success");
+      await toast(Locale.get("Success"));
       _updateDynamicPart();
     } else {
       await AppUser.signOut();
@@ -147,7 +148,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   void _onDeclineButtonPressed(BuildContext context, int index) async {
     bool success = await grpcDeclineJobApplication(AppUser.sessionKey, _jobApplications[index]);
     if (success) {
-      await toast("Success");
+      await toast(Locale.get("Success"));
       _updateDynamicPart();
     } else {
       await AppUser.signOut();

@@ -80,7 +80,7 @@ dependencies:
   country_icons: ^1.1.1
   video_player: ^1.0.1
   flutter_filereader: ^1.0.0
-
+  cupertino_radio_choice: ^1.0.1+1
 
 
 dev_dependencies:
