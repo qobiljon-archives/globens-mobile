@@ -1,14 +1,22 @@
-import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
+import 'package:flutter_archive/flutter_archive.dart' as ZipFile;
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
+import 'package:path_provider/path_provider.dart';
+import 'PurchasedProductContentsScreen.dart';
+import 'package:archive/archive_io.dart';
+import 'dart:typed_data' show Uint8List;
 import 'package:flutter/material.dart';
 import 'ProductPurchaseScreen.dart';
 import 'dart:convert';
+import 'dart:io';
 
 class ProductViewerScreen extends StatefulWidget {
   static const String route_name = '/product_viewer_screen';
+  List  _products;
 
   ProductViewerScreen();
 
@@ -62,7 +70,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                                 topLeft: Radius.circular(4.0),
                                 topRight: Radius.circular(4.0),
                               ),
-                              child: Image.memory(_product.pictureBlob, fit: BoxFit.cover),
+                              child: AspectRatio(aspectRatio: 1, child: Image.memory(_product.pictureBlob, fit: BoxFit.cover)),
                             ),
                             Container(
                               margin: EdgeInsets.only(left: 10.0, top: 10.0),
@@ -105,22 +113,14 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                       RaisedButton.icon(onPressed: _openSignUpTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag_outlined, color: Colors.white), label: Text(Locale.get("Sign up"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                     ],
                   )),
-              /*Card(
-                margin: EdgeInsets.only(top: 10.0),
-                child: Container(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    Text("Repeating"),
-                    Switch(
-                        value: _repeating,
-                        onChanged: (value) {
-                          setState(() {
-                            _repeating = value;
-                          });
-                        })
-                  ]),
-                ),
-              ),*/
+              Container(
+                  margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                  child: RaisedButton.icon(
+                      onPressed: _viewProductPressed,
+                      color: Colors.blueAccent,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                      icon: Icon(Icons.stream, color: Colors.white),
+                      label: Text("VIEW/DOWNLOAD  PRODUCT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
@@ -139,5 +139,24 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
 
   void _onBackButtonPressed() {
     Navigator.of(context).pop();
+  }
+
+  void _viewProductPressed() async {
+    Archive archive = ZipDecoder().decodeBytes(Uint8List.fromList(_product.productContent));
+    final directory = await getApplicationDocumentsDirectory();
+    List filesPaths = [];
+    print(directory);
+    for (final file in archive) {
+      final filename = file.name;
+      filesPaths.add(filename);
+      print(filename);
+      if (file.isFile) {
+        final data = file.content as List<int>;
+        File("/data/user/0/uz.globens" + "/" + filename)
+          ..createSync(recursive: true)
+          ..writeAsBytesSync(data);
+      }
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PdfViewScreen(filesPaths),));
   }
 }

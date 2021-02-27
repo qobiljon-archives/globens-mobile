@@ -54,9 +54,19 @@ dependencies:
   #region json
   json_conditional: ^1.0.3+1
   #endregion
-
+  #region firebase_messaging
+  firebase_messaging: ^7.0.3
+  #endregion
+  #region  pdf_viewer
+  native_pdf_view: ^3.9.1
+  open_file: ^3.0.3
+  #endregion
+  archive: ^2.0.13
+  flutter_archive: ^2.0.2
   #region camera
   path: ^1.7.0
+
+
   path_provider: ^1.6.27
   camera: ^0.6.4+5
   #endregion
@@ -65,12 +75,12 @@ dependencies:
   connectivity: ^2.0.2
   google_fonts: ^1.1.1
   #endregion
-  archive: ^2.0.13
   iamport_flutter: ^0.9.13
   file_picker: ^2.1.5+1
   country_icons: ^1.1.1
+  video_player: ^1.0.1
+  flutter_filereader: ^1.0.0
   cupertino_radio_choice: ^1.0.1+1
-
 
 
 dev_dependencies:
