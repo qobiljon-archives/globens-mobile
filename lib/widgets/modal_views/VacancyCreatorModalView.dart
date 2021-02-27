@@ -1,6 +1,7 @@
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,7 @@ class VacancyCreatorModalView extends StatelessWidget {
                 icon: Icon(Icons.arrow_back_ios),
                 onPressed: () => _onBackButtonPressed(context),
               ),
-              getTitleWidget("Vacancy details", textColor: Colors.black, margin: EdgeInsets.zero),
+              getTitleWidget(Locale.get("Vacancy details"), textColor: Colors.black, margin: EdgeInsets.zero),
             ],
           ),
         ),
@@ -41,8 +42,8 @@ class VacancyCreatorModalView extends StatelessWidget {
                 child: TextField(
               controller: _titleTextController,
               decoration: InputDecoration(
-                labelText: "Vacancy name",
-                hintText: "e.g., Assistant sales manager",
+                labelText: Locale.get("Vacancy name"),
+                hintText: Locale.get("e.g., Assistant sales manager"),
               ),
             )),
           ],
@@ -58,7 +59,7 @@ class VacancyCreatorModalView extends StatelessWidget {
                 color: Colors.white,
               ),
               label: Text(
-                "CREATE",
+                Locale.get("Create"),
                 style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             )),
@@ -72,7 +73,7 @@ class VacancyCreatorModalView extends StatelessWidget {
 
   void _createVacancyPressed(BuildContext context) async {
     if (_titleTextController.text.length < 2) {
-      await toast("Vacancy title cannot be less than two characters");
+      await toast(Locale.get("Vacancy title cannot be less than two characters"));
       return;
     }
 

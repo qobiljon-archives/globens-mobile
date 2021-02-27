@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
@@ -30,7 +31,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () => _onBackButtonPressed(context),
         ),
-        getTitleWidget('Vacancies'),
+        getTitleWidget(Locale.get('Vacancies')),
       ],
     );
 
@@ -72,7 +73,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
         ),
         RaisedButton(
           onPressed: () => _onApplyButtonPressed(context, index),
-          child: Text("Apply"),
+          child: Text(Locale.get("Apply")),
         ),
       ],
     );
@@ -110,7 +111,7 @@ class _VacantJobsListScreenState extends State<VacantJobsListScreen> {
         }
 
       if (alreadyApplied)
-        toast("You have already applied for this position!");
+        toast(Locale.get("You have already applied for this position!"));
       else {
         await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationViewerModalView(job: _vacantJobs[index]));
         _updateDynamicPart();

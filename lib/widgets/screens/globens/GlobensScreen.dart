@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -81,14 +82,14 @@ class _GlobensScreenState extends State<GlobensScreen> {
       return _buildProductRow(context, index, screenSize);
     } else if (index == 3 + categoryRows) {
       // mid splitter part
-      return getSectionSplitter("Top hit products");
+      return getSectionSplitter(Locale.get("Top hit products"));
     } else if (index >= 3) {
       // categories section
       index -= 3;
       return _buildCategoryRow(context, index, screenSize);
     } else if (index == 2) {
       // top splitter part
-      return getSectionSplitter("Product categories");
+      return getSectionSplitter(Locale.get("Product categories"));
     } else if (index == 1) {
       // top profile widget
       return InkWell(

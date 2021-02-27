@@ -1,5 +1,6 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:iamport_flutter/model/payment_data.dart';
 import 'package:iamport_flutter/iamport_payment.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +30,7 @@ class _ProductPurchaseScreenState extends State<ProductPurchaseScreen> {
     else
       return IamportPayment(
         appBar: new AppBar(
-          title: new Text("Purchase ${_product.name} (${_product.priceStr})"),
+          title: new Text(Locale.get("Purchase") + "${_product.name} (${_product.priceStr})"),
         ),
         /* 웹뷰 로딩 컴포넌트 */
         initialChild: Container(

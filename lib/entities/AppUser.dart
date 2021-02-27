@@ -1,5 +1,6 @@
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -65,6 +66,10 @@ class AppUser {
     if (AppUser.userPrefs.containsKey("authMethod"))
       AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
 
+    // setup app language
+    final languageCode = AppUser.userPrefs.getInt("language");
+    Locale.languageCode = languageCode != null ? languageCode : Language.ENGLISH;
+
     // setup kakao, google, and facebook auth
     // todo KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366"
     AppUser.googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
@@ -99,7 +104,7 @@ class AppUser {
   static Future<bool> signIn(AuthMethod authMethod) async {
     switch (authMethod) {
       case AuthMethod.KAKAO:
-        /*
+      /*
         todo kakao
         Tuple2<User, Map> tp = await AppUser._kakaoAuth();
         if (tp != null) {

@@ -1,5 +1,6 @@
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/widgets/modal_views/BusinessPageCreatorModalView.dart';
@@ -27,7 +28,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     super.initState();
 
     // 1. static part : set up common part of header and footer
-    _header = [getTitleWidget("My business pages", textColor: Colors.black)];
+    _header = [getTitleWidget(Locale.get("My business pages"), textColor: Colors.black)];
     _footer = [
       Container(
         margin: EdgeInsets.all(20),
@@ -40,7 +41,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
             color: Colors.white,
           ),
           label: Text(
-            "BUILD A NEW BUSINESS",
+            Locale.get("Build a new business"),
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
@@ -81,7 +82,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
                     style: TextStyle(fontSize: 20.0),
                   ),
                   Text(
-                    "My role : ${businessPage.role}",
+                    Locale.get("My role: ${Locale.REPLACE}", businessPage.role),
                     style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
                   )
                 ]),

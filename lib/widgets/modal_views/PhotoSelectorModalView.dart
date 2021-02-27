@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class PhotoSelectorModalView {
                   icon: Icon(Icons.arrow_back_ios),
                   onPressed: () => _onBackButtonPressed(context),
                 ),
-                getTitleWidget("Method", textColor: Colors.black, margin: EdgeInsets.all(0)),
+                getTitleWidget(Locale.get("Method"), textColor: Colors.black, margin: EdgeInsets.all(0)),
               ],
             ),
           ),
@@ -38,7 +39,7 @@ class PhotoSelectorModalView {
                     size: 40,
                   ),
                   label: Text(
-                    "Camera",
+                    Locale.get("Camera"),
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   color: Colors.blueAccent,
@@ -52,7 +53,7 @@ class PhotoSelectorModalView {
                     size: 40,
                   ),
                   label: Text(
-                    "Gallery",
+                    Locale.get("Gallery"),
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                   color: Colors.blueAccent,

@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/modal_views/AuthenticationModalView.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
@@ -19,7 +20,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        getTitleWidget("App menu", textColor: Colors.black),
+        getTitleWidget(Locale.get("App menu"), textColor: Colors.black),
         getUserProfileWidget(),
         Container(
           margin: EdgeInsets.all(20),
@@ -32,7 +33,7 @@ class _MenuScreenState extends State<MenuScreen> {
               color: Colors.white,
             ),
             label: Text(
-              "SIGN ${AppUser.isAuthenticated() ? 'OUT' : 'IN'}",
+              AppUser.isAuthenticated() ? Locale.get("Sign out") : Locale.get("Sign in"),
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),
@@ -48,7 +49,7 @@ class _MenuScreenState extends State<MenuScreen> {
               color: Colors.white,
             ),
             label: Text(
-              'Language',
+              Locale.get("Language"),
               style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ),

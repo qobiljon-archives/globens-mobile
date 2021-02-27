@@ -1,4 +1,5 @@
 import 'package:cupertino_radio_choice/cupertino_radio_choice.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class _HourSelectorModalViewState extends State<HourSelectorModalView> {
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
-      Container(margin: EdgeInsets.only(top: 20.0, right: 30.0), child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () => _onBackButtonPressed(context)), getTitleWidget("Hour selector", textColor: Colors.black, margin: EdgeInsets.zero)])),
+      Container(margin: EdgeInsets.only(top: 20.0, right: 30.0), child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () => _onBackButtonPressed(context)), getTitleWidget(Locale.get("Hour selector"), textColor: Colors.black, margin: EdgeInsets.zero)])),
       Card(
         margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
         child: Container(
