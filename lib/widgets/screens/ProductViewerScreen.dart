@@ -127,19 +127,14 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _openTryTimeSlotSelector() async {
-    // todo change
-    var _productAvailableTimeSlots = <String, Set<int>>{};
-    var tsFrom = DateTime.now().millisecondsSinceEpoch;
-    var tsUntil = (DateTime.now().add(Duration(days: 30))).millisecondsSinceEpoch;
     await showModalBottomSheet(context: context, builder: (context) => SingleTimePickerModalView(_product));
   }
 
   void _openSignUpTimeSlotSelector() async {
-    // todo change
     var _productAvailableTimeSlots = <String, Set<int>>{};
     var tsFrom = DateTime.now().millisecondsSinceEpoch;
     var tsUntil = (DateTime.now().add(Duration(days: 30))).millisecondsSinceEpoch;
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => WeeklyTimePickerModalView(_productAvailableTimeSlots, tsFrom, tsUntil));
+    await showModalBottomSheet(context: context, builder: (context) => WeeklyTimePickerModalView(_productAvailableTimeSlots, tsFrom, tsUntil));
   }
 
   void _onBackButtonPressed() {

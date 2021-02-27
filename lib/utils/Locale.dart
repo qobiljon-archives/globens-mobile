@@ -72,7 +72,6 @@ class Locale {
     "Method": ["Метод", "방법", "Usul"],
     "Camera": ["Камера", "카메라", "Kamera"],
     "Gallery": ["Галерея", "갤러리", "Galereya"],
-    'from': ["из", "...에서", "..dan"],
     "Select date": ["Выберите дату", "날짜 선택", "Sanani tanlang"],
     "Select hour": ["Выберите час", "시간 선택", "Soatni tanlang"],
     "Vacancy details": ["Детали вакансии", "공석 세부 정보", "Vakansiya tafsilotlari"],
@@ -100,7 +99,6 @@ class Locale {
     'Streamed files': ["Потоковые файлы", "스트리밍 파일", "Jonli fayllar"],
     'Scheduled face-to-face meeting': ["Запланированная личная встреча", "예약 된 대면 회의", "Rejalashtirilgan yuzma-yuz uchrashuv"],
     'Scheduled online call': ["Запланированный онлайн-звонок", "예약 된 온라인 통화", "Rejalashtirilgan onlayn qo'ng'iroq"],
-    'until': ["до", "...까지", "qadar"],
     "Product details": ["Информация о продукте", "제품 세부 정보", "Mahsulot tafsilotlari"],
     "Basic information": ["Основная информация", "기본 정보", "Asosiy ma'lumotlar"],
     "Product name": ["Наименование товара", "상품명", "Mahsulot nomi"],
@@ -135,5 +133,6 @@ class Locale {
     "Please Sign In first!": ["Пожалуйста, войдите сначала!", "먼저 로그인하세요!", "Iltimos, avval kiring!"],
     "Try": ["Пробная версия", "평가판", "Sinab ko'rmoq"],
     "Sign up": ["Зарегистрироваться", "가입하기", "Ro'yxatdan o'tish"],
+    "Duration (months)": ["Продолжительность (мес.)", "기간 (개월)", "Muddati (oylar)"],
   };
 }

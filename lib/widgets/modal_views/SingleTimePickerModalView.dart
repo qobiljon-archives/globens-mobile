@@ -15,8 +15,6 @@ class SingleTimePickerModalView extends StatefulWidget {
 }
 
 class _SingleTimePickerModalViewState extends State<SingleTimePickerModalView> {
-  static final _weekdays = [Locale.get('MON'), Locale.get('TUE'), Locale.get('WED'), Locale.get('THU'), Locale.get('FRI'), Locale.get('SAT'), Locale.get('SUN')];
-  static const _calendarStartHour = 8;
   int _selectedDayTimestamp;
   int _selectedHour;
 
@@ -38,7 +36,7 @@ class _SingleTimePickerModalViewState extends State<SingleTimePickerModalView> {
           ),
         ),
         GestureDetector(
-          onTap: () => _selectDate(Locale.get('from')),
+          onTap: () => _selectDate('from'),
           child: Card(
               margin: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0),
               child: Container(
@@ -101,10 +99,6 @@ class _SingleTimePickerModalViewState extends State<SingleTimePickerModalView> {
   }
 
   void _onBackButtonPressed(BuildContext context) {
-    Navigator.of(context).pop();
-  }
-
-  void _selectTimeSlotsPressed(BuildContext context) async {
     Navigator.of(context).pop();
   }
 }

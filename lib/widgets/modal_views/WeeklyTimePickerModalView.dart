@@ -13,14 +13,17 @@ class WeeklyTimePickerModalView extends StatefulWidget {
 }
 
 class _WeeklyTimePickerModalViewState extends State<WeeklyTimePickerModalView> {
-  static const _CALENDAR_START_HOUR = 8;
+  static const _CALENDAR_START_HOUR = 0;
   List<String> _weekdays;
   Map<String, bool> _weekdayEnabled;
+  int _startDateTimestamp;
+  int _signUpDurationMonths;
 
   @override
   void initState() {
     super.initState();
 
+    _signUpDurationMonths = 1;
     _weekdays = [Locale.get('MON'), Locale.get('TUE'), Locale.get('WED'), Locale.get('THU'), Locale.get('FRI'), Locale.get('SAT'), Locale.get('SUN')];
     _weekdayEnabled = {for (var v in _weekdays) v: true};
 
@@ -44,7 +47,7 @@ class _WeeklyTimePickerModalViewState extends State<WeeklyTimePickerModalView> {
     return ListView(
       children: [
         Container(
-          margin: EdgeInsets.only(top: 40.0, right: 30.0),
+          margin: EdgeInsets.only(top: 20.0, right: 30.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -56,46 +59,95 @@ class _WeeklyTimePickerModalViewState extends State<WeeklyTimePickerModalView> {
             ],
           ),
         ),
-        Card(
-          margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
-          child: Container(
-            child: GridView.count(
-                primary: false,
-                shrinkWrap: true,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0,
-                crossAxisCount: _weekdays.length + 1,
-                children: List<Widget>.generate((24 - _CALENDAR_START_HOUR + 1) * (_weekdays.length + 1), (index) {
-                  int col = index % (_weekdays.length + 1);
-                  int row = index ~/ (_weekdays.length + 1);
-
-                  if (row == 0) {
-                    if (col == 0)
-                      return TextButton(onPressed: _calendarMasterButtonPressed, child: Text(Locale.get('ALL'), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 7.5)));
-                    else {
-                      String weekday = _weekdays[col - 1];
-                      return TextButton(onPressed: () => _weekdayEnabled[_weekdays[col - 1]] ? _calendarWeekdayPressed(weekday) : null, child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
-                    }
-                  } else {
-                    int hour = row + _CALENDAR_START_HOUR - 1;
-
-                    if (col == 0)
-                      return TextButton(onPressed: () => _calendarHourPressed(hour), child: Text('${hour < 13 ? hour : hour % 12}\n${hour < 12 ? "AM" : "PM"}', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
-                    else {
-                      String weekday = _weekdays[col - 1];
-                      bool selected = widget.timeSlots.containsKey(weekday) && widget.timeSlots[weekday].contains(hour);
-
-                      if (_weekdayEnabled[_weekdays[col - 1]])
-                        return IconButton(onPressed: () => _calendarSlotPressed(weekday, hour), icon: selected ? Icon(Icons.check, color: Colors.green) : Icon(Icons.remove, color: Colors.grey), padding: EdgeInsets.zero);
-                      else
-                        return Icon(Icons.block, color: Colors.grey);
-                    }
-                  }
-                })),
+        GestureDetector(
+          onTap: _selectDate,
+          child: Card(
+              margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Text(Locale.get("Select date")), Text(_startDateTimestamp == null ? "#N/A" : timestamp2HourString(_startDateTimestamp))],
+                ),
+              )),
+        ),
+        if (_startDateTimestamp != null)
+          GestureDetector(
+            onTap: _selectDate,
+            child: Card(
+                margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Text(Locale.get("Duration (months)")), DropdownButton<int>(value: _signUpDurationMonths, icon: Icon(Icons.expand_more), iconSize: 24, elevation: 16, underline: Container(), onChanged: _durationPicked, items: List<DropdownMenuItem<int>>.generate(12, (int index) => DropdownMenuItem<int>(value: index + 1, child: Text((index + 1).toString()))).toList())],
+                  ),
+                )),
           ),
+        Card(
+          margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0, bottom: 15.0),
+          child: GridView.count(
+              primary: false,
+              shrinkWrap: true,
+              crossAxisSpacing: 0,
+              mainAxisSpacing: 0,
+              crossAxisCount: _weekdays.length + 1,
+              children: List<Widget>.generate((24 - _CALENDAR_START_HOUR + 1) * (_weekdays.length + 1), (index) {
+                int col = index % (_weekdays.length + 1);
+                int row = index ~/ (_weekdays.length + 1);
+
+                if (row == 0) {
+                  if (col == 0)
+                    return TextButton(onPressed: _calendarMasterButtonPressed, child: Text(Locale.get('ALL'), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 7.5)));
+                  else {
+                    String weekday = _weekdays[col - 1];
+                    return TextButton(onPressed: () => _weekdayEnabled[_weekdays[col - 1]] ? _calendarWeekdayPressed(weekday) : null, child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
+                  }
+                } else {
+                  int hour = row + _CALENDAR_START_HOUR - 1;
+
+                  if (col == 0)
+                    return TextButton(onPressed: () => _calendarHourPressed(hour), child: Text("${hour.toString().padLeft(2, '0')}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0)));
+                  else {
+                    String weekday = _weekdays[col - 1];
+                    bool selected = widget.timeSlots.containsKey(weekday) && widget.timeSlots[weekday].contains(hour);
+
+                    if (_weekdayEnabled[_weekdays[col - 1]])
+                      return IconButton(onPressed: () => _calendarSlotPressed(weekday, hour), icon: selected ? Icon(Icons.check, color: Colors.green) : Icon(Icons.remove, color: Colors.grey), padding: EdgeInsets.zero);
+                    else
+                      return Icon(Icons.block, color: Colors.grey);
+                  }
+                }
+              })),
         ),
       ],
     );
+  }
+
+  void _selectDate() async {
+    print('here');
+
+    try {
+      var now = DateTime.now();
+      var oneMonthFromNow = now.add(Duration(days: 31));
+      var res = await showDatePicker(
+        context: context,
+        initialDate: now,
+        firstDate: now,
+        lastDate: oneMonthFromNow,
+      );
+      setState(() {
+        _startDateTimestamp = res.millisecondsSinceEpoch;
+      });
+    } catch (_) {
+      return null;
+    }
+  }
+
+  void _durationPicked(int months) async {
+    setState(() {
+      _signUpDurationMonths = months;
+    });
   }
 
   void _calendarMasterButtonPressed() {
