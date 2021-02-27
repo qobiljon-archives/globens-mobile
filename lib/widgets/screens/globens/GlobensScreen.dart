@@ -2,7 +2,7 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -177,11 +177,13 @@ class _GlobensScreenState extends State<GlobensScreen> {
                         topLeft: Radius.circular(10.0),
                         topRight: Radius.circular(10.0),
                       ),
-                      child: AspectRatio(aspectRatio: 1, child: Image.memory(
-                        product.pictureBlob,
-                        fit: BoxFit.cover,
-                        height: iconWH,
-                      ))),
+                      child: AspectRatio(
+                          aspectRatio: 1,
+                          child: Image.memory(
+                            product.pictureBlob,
+                            fit: BoxFit.cover,
+                            height: iconWH,
+                          ))),
                   Container(
                     padding: EdgeInsets.all(5.0),
                     child: Column(

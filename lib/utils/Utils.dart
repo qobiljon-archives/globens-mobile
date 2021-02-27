@@ -6,7 +6,7 @@ import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
-import 'package:globens_flutter_client/utils/settings.dart';
+import 'package:globens_flutter_client/utils/Settings.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -525,5 +525,6 @@ Future<bool> grpcDeclineJobApplication(String sessionKey, JobApplication applica
 
 class PrimitiveWrapper {
   var value;
+
   PrimitiveWrapper(this.value);
 }

@@ -1,8 +1,8 @@
-import 'dart:io';
-import 'package:flutter/material.dart';
+import 'package:flutter_filereader/flutter_filereader.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:video_player/video_player.dart';
-import 'package:flutter_filereader/flutter_filereader.dart';
+import 'package:flutter/material.dart';
+import 'dart:io';
 
 class ContentViewer extends StatefulWidget {
   final String _fileName;
@@ -56,7 +56,7 @@ class _ContentViewerState extends State<ContentViewer> {
           setState(() {
             view = FileReaderView(filePath: filePath);
           });
-          return  view;
+          return view;
         }
         break;
       case "pptx":

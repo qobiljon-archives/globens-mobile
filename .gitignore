@@ -1,4 +1,5 @@
 /.idea/
+/android/.idea/
 /.dart_tool/
 /.gradle/
 .packages

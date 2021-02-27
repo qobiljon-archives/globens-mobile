@@ -1,6 +1,6 @@
 import 'package:cupertino_radio_choice/cupertino_radio_choice.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class HourSelectorModalView extends StatefulWidget {
@@ -51,25 +51,3 @@ class _HourSelectorModalViewState extends State<HourSelectorModalView> {
     Navigator.of(context).pop();
   }
 }
-
-/*
-Card(
-          margin: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0),
-          child: Container(
-            child: GridView.count(
-                primary: false,
-                shrinkWrap: true,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0,
-                crossAxisCount: 4,
-                children: List<Widget>.generate(24, (index) {
-                  return RaisedButton(
-                    onPressed: () {},
-                    color: Colors.blueAccent,
-                    child: Text("${index.toString().padLeft(2, '0')}:00", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  );
-                })),
-          ),
-        ),
-* */

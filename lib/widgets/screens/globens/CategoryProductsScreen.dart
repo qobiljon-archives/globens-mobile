@@ -3,7 +3,7 @@ import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart'
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class CategoryProductsScreen extends StatefulWidget {

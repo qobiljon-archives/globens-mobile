@@ -1,10 +1,8 @@
-import 'package:flutter/material.dart';
-import 'dart:io';
 import 'IndividualPurchasedProductContentViewerScreen.dart';
+import 'package:flutter/material.dart';
 
 class PdfViewScreen extends StatefulWidget {
   final List _fileNames;
-  Widget productView;
 
   PdfViewScreen(this._fileNames);
 

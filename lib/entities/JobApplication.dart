@@ -3,6 +3,7 @@ class JobApplication {
   int _id;
   int _applicantId;
   String _message;
+
   // endregion
 
   JobApplication.create(String message, {int id, int applicantId}) {
@@ -27,5 +28,5 @@ class JobApplication {
   bool get isNewJobApplication {
     return _id == null;
   }
-  // endregion
+// endregion
 }

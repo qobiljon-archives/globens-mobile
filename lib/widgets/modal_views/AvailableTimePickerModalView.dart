@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 
 class AvailableTimePickerModalView extends StatefulWidget {
   final int fromTimestamp, untilTimestamp;
@@ -71,10 +71,7 @@ class _AvailableTimePickerModalViewState extends State<AvailableTimePickerModalV
                       return TextButton(onPressed: _calendarMasterButtonPressed, child: Text(Locale.get('ALL'), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
                     else {
                       String weekday = _weekdays[col - 1];
-                      if (_weekdayEnabled[_weekdays[col - 1]])
-                        return TextButton(onPressed: () => _calendarWeekdayPressed(weekday), child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
-                      else
-                        return TextButton(child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
+                      return TextButton(onPressed: () => _weekdayEnabled[_weekdays[col - 1]] ? _calendarWeekdayPressed(weekday) : null, child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
                     }
                   } else {
                     int hour = row + _calendarStartHour - 1;
@@ -183,10 +180,6 @@ class _AvailableTimePickerModalViewState extends State<AvailableTimePickerModalV
   }
 
   void _onBackButtonPressed(BuildContext context) {
-    Navigator.of(context).pop();
-  }
-
-  void _selectTimeSlotsPressed(BuildContext context) async {
     Navigator.of(context).pop();
   }
 }

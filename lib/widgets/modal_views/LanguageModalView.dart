@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:country_icons/country_icons.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
+import 'package:flutter/material.dart';
 
 class LanguageModalView {
-
   static Widget getModalView(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 100),

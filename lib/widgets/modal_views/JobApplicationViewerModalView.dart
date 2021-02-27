@@ -4,7 +4,7 @@ import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class JobApplicationViewerModalView extends StatefulWidget {
@@ -69,7 +69,13 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
               mainAxisSize: MainAxisSize.min,
               children: [
                 getTitleWidget(Locale.get('Application form for "${Locale.REPLACE}"', widget.job.title)),
-                Text(Locale.get('Submitted by : ${Locale.REPLACE}', applicantUser == null ? Locale.get("Loading") : applicantUser.isMe ? Locale.get("you") : "${applicantUser.name} (${applicantUser.email})")),
+                Text(Locale.get(
+                    'Submitted by : ${Locale.REPLACE}',
+                    applicantUser == null
+                        ? Locale.get("Loading")
+                        : applicantUser.isMe
+                            ? Locale.get("you")
+                            : "${applicantUser.name} (${applicantUser.email})")),
                 Padding(
                   padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: Expanded(

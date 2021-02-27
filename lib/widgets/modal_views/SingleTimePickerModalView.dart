@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:globens_flutter_client/widgets/modal_views/HourSelectorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';

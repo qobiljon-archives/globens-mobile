@@ -1,14 +1,14 @@
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/modal_views/AuthenticationModalView.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/widgets/modal_views/LanguageModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 
 class MenuScreen extends StatefulWidget {
   final RootTabsScreenState rootTabsScreenState;
-  
+
   MenuScreen(this.rootTabsScreenState);
 
   @override

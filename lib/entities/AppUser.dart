@@ -2,7 +2,7 @@ import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:tuple/tuple.dart';
@@ -63,8 +63,7 @@ class AppUser {
   static Future<void> init() async {
     AppUser._singleton = AppUser._internalConstructor();
     AppUser.userPrefs = await SharedPreferences.getInstance();
-    if (AppUser.userPrefs.containsKey("authMethod"))
-      AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
+    if (AppUser.userPrefs.containsKey("authMethod")) AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
 
     // setup app language
     final languageCode = AppUser.userPrefs.getInt("language");
@@ -104,7 +103,7 @@ class AppUser {
   static Future<bool> signIn(AuthMethod authMethod) async {
     switch (authMethod) {
       case AuthMethod.KAKAO:
-      /*
+        /*
         todo kakao
         Tuple2<User, Map> tp = await AppUser._kakaoAuth();
         if (tp != null) {

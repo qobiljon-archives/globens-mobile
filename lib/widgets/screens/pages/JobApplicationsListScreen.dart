@@ -1,14 +1,15 @@
-import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
-import 'package:globens_flutter_client/utils/utils.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
 class JobApplicationsListScreen extends StatefulWidget {
   static const String route_name = '/business_page_details/job_applications_list';
+
   @override
   _JobApplicationsListScreenState createState() => _JobApplicationsListScreenState();
 }
