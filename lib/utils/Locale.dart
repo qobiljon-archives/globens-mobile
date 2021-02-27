@@ -110,6 +110,7 @@ class Locale {
     "Product description": ["Описание товара", "상품 설명", "Mahsulot tavsifi"],
     "e.g., the best product.": ["например, лучший продукт.", "예 : 최고의 제품.", "masalan, eng yaxshi mahsulot."],
     "Product content": ["Koнтeнт продукта", "제품 내용", "Mahsulot tarkibi"],
+    "Schedule": ["График", "시간표", "Jadval"],
     "Content type: ${Locale.REPLACE}": ["Тип кoнтeнтa: ${Locale.REPLACE}", "컨텐츠 타입: ${Locale.REPLACE}", "Tarkib turi: ${Locale.REPLACE}"],
     "Select content": ["Выбрать контент", "콘텐츠 선택", "Tarkibni tanlang"],
     "Reselect": ["Выбрать повторно", "재 선택", "Qayta tanlang"],

@@ -166,7 +166,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
             ),
             color: Colors.white,
             elevation: 1.0,
-            child: new Container(
+            child: Container(
               width: iconWH,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -177,11 +177,11 @@ class _GlobensScreenState extends State<GlobensScreen> {
                         topLeft: Radius.circular(10.0),
                         topRight: Radius.circular(10.0),
                       ),
-                      child: Image.memory(
+                      child: AspectRatio(aspectRatio: 1, child: Image.memory(
                         product.pictureBlob,
                         fit: BoxFit.cover,
                         height: iconWH,
-                      )),
+                      ))),
                   Container(
                     padding: EdgeInsets.all(5.0),
                     child: Column(
