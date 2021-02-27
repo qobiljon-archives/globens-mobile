@@ -84,42 +84,43 @@ class _WeeklyTimePickerModalViewState extends State<WeeklyTimePickerModalView> {
                   ),
                 )),
           ),
-        Card(
-          margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0, bottom: 15.0),
-          child: GridView.count(
-              primary: false,
-              shrinkWrap: true,
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 0,
-              crossAxisCount: _weekdays.length + 1,
-              children: List<Widget>.generate((24 - _CALENDAR_START_HOUR + 1) * (_weekdays.length + 1), (index) {
-                int col = index % (_weekdays.length + 1);
-                int row = index ~/ (_weekdays.length + 1);
+        if (_startDateTimestamp != null && _signUpDurationMonths != null)
+          Card(
+            margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0, bottom: 15.0),
+            child: GridView.count(
+                primary: false,
+                shrinkWrap: true,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0,
+                crossAxisCount: _weekdays.length + 1,
+                children: List<Widget>.generate((24 - _CALENDAR_START_HOUR + 1) * (_weekdays.length + 1), (index) {
+                  int col = index % (_weekdays.length + 1);
+                  int row = index ~/ (_weekdays.length + 1);
 
-                if (row == 0) {
-                  if (col == 0)
-                    return TextButton(onPressed: _calendarMasterButtonPressed, child: Text(Locale.get('ALL'), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 7.5)));
-                  else {
-                    String weekday = _weekdays[col - 1];
-                    return TextButton(onPressed: () => _weekdayEnabled[_weekdays[col - 1]] ? _calendarWeekdayPressed(weekday) : null, child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
+                  if (row == 0) {
+                    if (col == 0)
+                      return TextButton(onPressed: _calendarMasterButtonPressed, child: Text(Locale.get('ALL'), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 7.5)));
+                    else {
+                      String weekday = _weekdays[col - 1];
+                      return TextButton(onPressed: () => _weekdayEnabled[_weekdays[col - 1]] ? _calendarWeekdayPressed(weekday) : null, child: Text(weekday, textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
+                    }
+                  } else {
+                    int hour = row + _CALENDAR_START_HOUR - 1;
+
+                    if (col == 0)
+                      return TextButton(onPressed: () => _calendarHourPressed(hour), child: Text("${hour.toString().padLeft(2, '0')}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0)));
+                    else {
+                      String weekday = _weekdays[col - 1];
+                      bool selected = widget.timeSlots.containsKey(weekday) && widget.timeSlots[weekday].contains(hour);
+
+                      if (_weekdayEnabled[_weekdays[col - 1]])
+                        return IconButton(onPressed: () => _calendarSlotPressed(weekday, hour), icon: selected ? Icon(Icons.check, color: Colors.green) : Icon(Icons.remove, color: Colors.grey), padding: EdgeInsets.zero);
+                      else
+                        return Icon(Icons.block, color: Colors.grey);
+                    }
                   }
-                } else {
-                  int hour = row + _CALENDAR_START_HOUR - 1;
-
-                  if (col == 0)
-                    return TextButton(onPressed: () => _calendarHourPressed(hour), child: Text("${hour.toString().padLeft(2, '0')}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0)));
-                  else {
-                    String weekday = _weekdays[col - 1];
-                    bool selected = widget.timeSlots.containsKey(weekday) && widget.timeSlots[weekday].contains(hour);
-
-                    if (_weekdayEnabled[_weekdays[col - 1]])
-                      return IconButton(onPressed: () => _calendarSlotPressed(weekday, hour), icon: selected ? Icon(Icons.check, color: Colors.green) : Icon(Icons.remove, color: Colors.grey), padding: EdgeInsets.zero);
-                    else
-                      return Icon(Icons.block, color: Colors.grey);
-                  }
-                }
-              })),
-        ),
+                })),
+          ),
       ],
     );
   }
