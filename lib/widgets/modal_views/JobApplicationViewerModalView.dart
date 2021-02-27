@@ -3,6 +3,7 @@ import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
 
@@ -36,19 +37,19 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            getTitleWidget('Application form for "${widget.job.title}"'),
+            getTitleWidget(Locale.get('Application form for "${Locale.REPLACE}"', widget.job.title)),
             TextField(
               maxLines: 1,
               controller: _applicantMessage,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                labelText: "message",
-                hintText: "message",
+                labelText: Locale.get("message"),
+                hintText: Locale.get("message"),
               ),
             ),
             RaisedButton(
               onPressed: () => _onSubmitApplicationFormPressed(context, widget.job),
-              child: Text("Submit application form"),
+              child: Text(Locale.get("Submit application form")),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
@@ -67,8 +68,8 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                getTitleWidget('Application form for "${widget.job.title}"'),
-                Text('Submitted by : ${applicantUser == null ? "[Loading]" : applicantUser.isMe ? "you" : "${applicantUser.name} (${applicantUser.email})"}'),
+                getTitleWidget(Locale.get('Application form for "${Locale.REPLACE}"', widget.job.title)),
+                Text(Locale.get('Submitted by : ${Locale.REPLACE}', applicantUser == null ? Locale.get("Loading") : applicantUser.isMe ? Locale.get("you") : "${applicantUser.name} (${applicantUser.email})")),
                 Padding(
                   padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                   child: Expanded(
@@ -78,9 +79,9 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RaisedButton(child: Text("Approve"), onPressed: () => _onApproveButtonPressed(context)),
+                    RaisedButton(child: Text(Locale.get("Approve")), onPressed: () => _onApproveButtonPressed(context)),
                     RaisedButton(
-                      child: Text("Decline"),
+                      child: Text(Locale.get("Decline")),
                       onPressed: () => _onDeclineButtonPressed(context),
                     ),
                   ],
@@ -109,11 +110,11 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
 
   void _onSubmitApplicationFormPressed(BuildContext context, Job job) async {
     if (_applicantMessage.text.length < 5)
-      await toast("Message can't be less than 5 characters:)");
+      await toast(Locale.get("Message can't be less than 5 characters."));
     else {
       bool success = await grpcCreateJobApplication(AppUser.sessionKey, job, JobApplication.create(_applicantMessage.text));
       if (success) {
-        await toast("Submitted");
+        await toast(Locale.get("Submitted"));
         Navigator.of(context).pop();
       } else {
         await AppUser.signOut();
@@ -125,7 +126,7 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
   void _onApproveButtonPressed(BuildContext context) async {
     bool success = await grpcApproveJobApplication(AppUser.sessionKey, widget.jobApplication);
     if (success) {
-      await toast("Success");
+      await toast(Locale.get("Success"));
       Navigator.of(context).pop();
     } else {
       await AppUser.signOut();
@@ -136,7 +137,7 @@ class _JobApplicationViewerModalViewState extends State<JobApplicationViewerModa
   void _onDeclineButtonPressed(BuildContext context) async {
     bool success = await grpcDeclineJobApplication(AppUser.sessionKey, widget.jobApplication);
     if (success) {
-      await toast("Success");
+      await toast(Locale.get("Success"));
       Navigator.of(context).pop();
     } else {
       await AppUser.signOut();

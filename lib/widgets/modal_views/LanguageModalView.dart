@@ -7,7 +7,6 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 class LanguageModalView {
 
   static Widget getModalView(BuildContext context) {
-    final locale = Locale.language();
     return Container(
       margin: EdgeInsets.only(top: 10, bottom: 100),
       child: Column(
@@ -17,7 +16,7 @@ class LanguageModalView {
           Container(
             margin: EdgeInsets.all(20),
             child: Text(
-              locale.get("SELECT LANGUAGE"),
+              Locale.get("Select language"),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.blue),
             ),
           ),
@@ -104,6 +103,7 @@ class LanguageModalView {
 
   static void _onLanguagePressed(BuildContext context, int languageCode) {
     AppUser.userPrefs.setInt("language", languageCode);
+    Locale.languageCode = languageCode;
     Navigator.of(context).pop();
   }
 }

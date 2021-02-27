@@ -3,6 +3,7 @@ import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:globens_flutter_client/widgets/modal_views/HourSelectorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 
 // PPOTSS - Product Purchase One Time Slot Selector Modal View
 
@@ -16,7 +17,7 @@ class PPOTSSModalView extends StatefulWidget {
 }
 
 class _PPOTSSModalViewState extends State<PPOTSSModalView> {
-  static const _weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+  static final _weekdays = [Locale.get('MON'), Locale.get('TUE'), Locale.get('WED'), Locale.get('THU'), Locale.get('FRI'), Locale.get('SAT'), Locale.get('SUN')];
   static const _calendarStartHour = 8;
   int _selectedDayTimestamp;
   int _selectedHour;
@@ -34,19 +35,19 @@ class _PPOTSSModalViewState extends State<PPOTSSModalView> {
                 icon: Icon(Icons.arrow_back_ios),
                 onPressed: () => _onBackButtonPressed(context),
               ),
-              getTitleWidget("Time slot selector", textColor: Colors.black, margin: EdgeInsets.zero),
+              getTitleWidget(Locale.get("Time slot selector"), textColor: Colors.black, margin: EdgeInsets.zero),
             ],
           ),
         ),
         GestureDetector(
-          onTap: () => _selectDate('from'),
+          onTap: () => _selectDate(Locale.get('from')),
           child: Card(
               margin: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0),
               child: Container(
                 padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("Select date"), Text(_selectedDayTimestamp == null ? "#N/A" : timestamp2HourString(_selectedDayTimestamp))],
+                  children: [Text(Locale.get("Select date")), Text(_selectedDayTimestamp == null ? "#N/A" : timestamp2HourString(_selectedDayTimestamp))],
                 ),
               )),
         ),
@@ -58,7 +59,7 @@ class _PPOTSSModalViewState extends State<PPOTSSModalView> {
                 padding: EdgeInsets.all(10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [Text("Select hour"), Text(_selectedHour == null ? "#N/A" : "${_selectedHour.toString().padLeft(2, '0')}:00")],
+                  children: [Text(Locale.get("Select hour")), Text(_selectedHour == null ? "#N/A" : "${_selectedHour.toString().padLeft(2, '0')}:00")],
                 ),
               )),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 
 // PCTSS - Product Create Time Slot Selector Modal View
@@ -14,7 +15,7 @@ class PCTSSModalView extends StatefulWidget {
 }
 
 class _PCTSSModalViewState extends State<PCTSSModalView> {
-  static const _weekdays = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+  static final _weekdays = [Locale.get('MON'), Locale.get('TUE'), Locale.get('WED'), Locale.get('THU'), Locale.get('FRI'), Locale.get('SAT'), Locale.get('SUN')];
   static const _calendarStartHour = 8;
   static Map<String, bool> _weekdayEnabled = {for (var v in _weekdays) v: true};
 
@@ -50,7 +51,7 @@ class _PCTSSModalViewState extends State<PCTSSModalView> {
                 icon: Icon(Icons.arrow_back_ios),
                 onPressed: () => _onBackButtonPressed(context),
               ),
-              getTitleWidget("Time slot selector", textColor: Colors.black, margin: EdgeInsets.zero),
+              getTitleWidget(Locale.get("Time slot selector"), textColor: Colors.black, margin: EdgeInsets.zero),
             ],
           ),
         ),
@@ -69,7 +70,7 @@ class _PCTSSModalViewState extends State<PCTSSModalView> {
 
                   if (row == 0) {
                     if (col == 0)
-                      return TextButton(onPressed: _calendarMasterButtonPressed, child: Text('ALL', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
+                      return TextButton(onPressed: _calendarMasterButtonPressed, child: Text(Locale.get('ALL'), textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 9.0)));
                     else {
                       String weekday = _weekdays[col - 1];
                       if (_weekdayEnabled[_weekdays[col - 1]])

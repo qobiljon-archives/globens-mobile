@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PPOTSSModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PPWTSSModalView.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -42,10 +43,10 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                     icon: Icon(Icons.arrow_back_ios),
                     onPressed: _onBackButtonPressed,
                   ),
-                  getTitleWidget('Product details', textColor: Colors.black, margin: EdgeInsets.all(0))
+                  getTitleWidget(Locale.get('Product details'), textColor: Colors.black, margin: EdgeInsets.all(0))
                 ],
               ),
-              getSectionSplitter("Basic information"),
+              getSectionSplitter(Locale.get("Basic information")),
               Card(
                   color: Colors.white,
                   margin: EdgeInsets.zero,
@@ -95,7 +96,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
                       ))),
               if (_product.productType.toLowerCase().contains('schedule')) Text(Utf8Decoder().convert(_product.productContent)),
-              getSectionSplitter("Proceed with this product"),
+              getSectionSplitter(Locale.get("Proceed with this product")),
               Container(
                   margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
                   child: Row(

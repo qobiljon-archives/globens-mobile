@@ -1,6 +1,8 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
+
 
 class AuthenticationModalView {
   static Widget getModalView(BuildContext context) {
@@ -10,7 +12,7 @@ class AuthenticationModalView {
         Container(
             margin: EdgeInsets.all(20.0),
             child: Text(
-              "SIGN IN WITH",
+              Locale.get("Sign in with"),
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.blue),
             )),
         Container(
@@ -71,27 +73,27 @@ class AuthenticationModalView {
 
   static void _onKakaoPressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.KAKAO))
-      await toast("Signed in with Google.");
+      await toast(Locale.get("Signed in with KakaoTalk."));
     else
-      await toast("Failed to login with KakaoTalk.\nPlease try again later!");
+      await toast(Locale.get("Failed to login with KakaoTalk.\nPlease try again later!"));
 
     Navigator.of(context).pop();
   }
 
   static void _onGooglePressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.GOOGLE))
-      await toast("Signed in with Google.");
+      await toast(Locale.get("Signed in with Google."));
     else
-      await toast("Failed to login with Google.\nPlease try again later!");
+      await toast(Locale.get("Failed to login with Google.\nPlease try again later!"));
 
     Navigator.of(context).pop();
   }
 
   static void _onFacebookPressed(BuildContext context) async {
     if (await AppUser.signIn(AuthMethod.FACEBOOK))
-      await toast("Signed in with Google.");
+      await toast(Locale.get("Signed in with Facebook."));
     else
-      await toast("Failed to login with Facebook.\nPlease try again later!");
+      await toast(Locale.get("Failed to login with Facebook.\nPlease try again later!"));
 
     Navigator.of(context).pop();
   }
