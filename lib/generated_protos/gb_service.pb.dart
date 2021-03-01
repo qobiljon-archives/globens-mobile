@@ -1010,7 +1010,7 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
     ..aOS(1, 'sessionKey', protoName: 'sessionKey')
     ..a<$core.int>(2, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
     ..aOS(3, 'name')
-    ..aOS(4, 'type')
+    ..e<ProductDeliveryType>(4, 'type', $pb.PbFieldType.OE, defaultOrMaker: ProductDeliveryType.FILE_DOWNLOADABLE, valueOf: ProductDeliveryType.valueOf, enumValues: ProductDeliveryType.values)
     ..a<$core.int>(5, 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
     ..a<$core.List<$core.int>>(6, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
     ..a<$core.double>(7, 'price', $pb.PbFieldType.OF)
@@ -1063,9 +1063,9 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
   void clearName() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get type => $_getSZ(3);
+  ProductDeliveryType get type => $_getN(3);
   @$pb.TagNumber(4)
-  set type($core.String v) { $_setString(3, v); }
+  set type(ProductDeliveryType v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasType() => $_has(3);
   @$pb.TagNumber(4)
@@ -1184,7 +1184,7 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
     ..a<$core.int>(2, 'productId', $pb.PbFieldType.O3, protoName: 'productId')
     ..a<$core.int>(3, 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
     ..aOS(4, 'name')
-    ..aOS(5, 'type')
+    ..e<ProductDeliveryType>(5, 'type', $pb.PbFieldType.OE, defaultOrMaker: ProductDeliveryType.FILE_DOWNLOADABLE, valueOf: ProductDeliveryType.valueOf, enumValues: ProductDeliveryType.values)
     ..a<$core.int>(6, 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
     ..a<$core.List<$core.int>>(7, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
     ..a<$core.double>(8, 'price', $pb.PbFieldType.OF)
@@ -1246,9 +1246,9 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
   void clearName() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get type => $_getSZ(4);
+  ProductDeliveryType get type => $_getN(4);
   @$pb.TagNumber(5)
-  set type($core.String v) { $_setString(4, v); }
+  set type(ProductDeliveryType v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasType() => $_has(4);
   @$pb.TagNumber(5)
@@ -1589,7 +1589,7 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
     ..aOB(1, 'success')
     ..a<$core.int>(2, 'id', $pb.PbFieldType.O3)
     ..aOS(3, 'name')
-    ..aOS(4, 'type')
+    ..e<ProductDeliveryType>(4, 'type', $pb.PbFieldType.OE, defaultOrMaker: ProductDeliveryType.FILE_DOWNLOADABLE, valueOf: ProductDeliveryType.valueOf, enumValues: ProductDeliveryType.values)
     ..a<$core.int>(5, 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
     ..aOB(6, 'published')
     ..a<$core.List<$core.int>>(7, 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
@@ -1644,9 +1644,9 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
   void clearName() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get type => $_getSZ(3);
+  ProductDeliveryType get type => $_getN(3);
   @$pb.TagNumber(4)
-  set type($core.String v) { $_setString(3, v); }
+  set type(ProductDeliveryType v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasType() => $_has(3);
   @$pb.TagNumber(4)

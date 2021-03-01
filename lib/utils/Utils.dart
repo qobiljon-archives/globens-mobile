@@ -102,6 +102,7 @@ String timestamp2HourString(int timestamp) {
 }
 
 enum Types { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
+enum TimeSlotSize { THIRTY_MINUTES, SIXTY_MINUTES }
 
 // region user management RPCs
 Future<Tuple3<bool, int, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
@@ -527,4 +528,15 @@ class PrimitiveWrapper {
   var value;
 
   PrimitiveWrapper(this.value);
+}
+
+class TimeSlot {
+  TimeSlot();
+
+  int startTimestamp;
+  TimeSlotSize size;
+
+  bool get isNa {
+    return startTimestamp == null || size == null;
+  }
 }

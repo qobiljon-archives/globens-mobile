@@ -15,6 +15,16 @@ const Currency$json = const {
   ],
 };
 
+const ProductDeliveryType$json = const {
+  '1': 'ProductDeliveryType',
+  '2': const [
+    const {'1': 'FILE_DOWNLOADABLE', '2': 0},
+    const {'1': 'FILE_STREAMED', '2': 1},
+    const {'1': 'SCHEDULED_FACE_TO_FACE', '2': 3},
+    const {'1': 'SCHEDULED_ONLINE_CALL', '2': 4},
+  ],
+};
+
 const FilterDetails$json = const {
   '1': 'FilterDetails',
   '2': const [
@@ -238,7 +248,7 @@ const CreateProduct_Request$json = const {
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
     const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
     const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'type', '3': 4, '4': 1, '5': 9, '10': 'type'},
+    const {'1': 'type', '3': 4, '4': 1, '5': 14, '6': '.ProductDeliveryType', '10': 'type'},
     const {'1': 'categoryId', '3': 5, '4': 1, '5': 5, '10': 'categoryId'},
     const {'1': 'pictureBlob', '3': 6, '4': 1, '5': 12, '10': 'pictureBlob'},
     const {'1': 'price', '3': 7, '4': 1, '5': 2, '10': 'price'},
@@ -267,7 +277,7 @@ const UpdateProductDetails_Request$json = const {
     const {'1': 'productId', '3': 2, '4': 1, '5': 5, '10': 'productId'},
     const {'1': 'businessPageId', '3': 3, '4': 1, '5': 5, '10': 'businessPageId'},
     const {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'type', '3': 5, '4': 1, '5': 9, '10': 'type'},
+    const {'1': 'type', '3': 5, '4': 1, '5': 14, '6': '.ProductDeliveryType', '10': 'type'},
     const {'1': 'categoryId', '3': 6, '4': 1, '5': 5, '10': 'categoryId'},
     const {'1': 'pictureBlob', '3': 7, '4': 1, '5': 12, '10': 'pictureBlob'},
     const {'1': 'price', '3': 8, '4': 1, '5': 2, '10': 'price'},
@@ -343,7 +353,7 @@ const FetchProductDetails_Response$json = const {
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
     const {'1': 'name', '3': 3, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'type', '3': 4, '4': 1, '5': 9, '10': 'type'},
+    const {'1': 'type', '3': 4, '4': 1, '5': 14, '6': '.ProductDeliveryType', '10': 'type'},
     const {'1': 'categoryId', '3': 5, '4': 1, '5': 5, '10': 'categoryId'},
     const {'1': 'published', '3': 6, '4': 1, '5': 8, '10': 'published'},
     const {'1': 'pictureBlob', '3': 7, '4': 1, '5': 12, '10': 'pictureBlob'},

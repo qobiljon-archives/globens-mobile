@@ -28,6 +28,25 @@ class Currency extends $pb.ProtobufEnum {
   const Currency._($core.int v, $core.String n) : super(v, n);
 }
 
+class ProductDeliveryType extends $pb.ProtobufEnum {
+  static const ProductDeliveryType FILE_DOWNLOADABLE = ProductDeliveryType._(0, 'FILE_DOWNLOADABLE');
+  static const ProductDeliveryType FILE_STREAMED = ProductDeliveryType._(1, 'FILE_STREAMED');
+  static const ProductDeliveryType SCHEDULED_FACE_TO_FACE = ProductDeliveryType._(3, 'SCHEDULED_FACE_TO_FACE');
+  static const ProductDeliveryType SCHEDULED_ONLINE_CALL = ProductDeliveryType._(4, 'SCHEDULED_ONLINE_CALL');
+
+  static const $core.List<ProductDeliveryType> values = <ProductDeliveryType> [
+    FILE_DOWNLOADABLE,
+    FILE_STREAMED,
+    SCHEDULED_FACE_TO_FACE,
+    SCHEDULED_ONLINE_CALL,
+  ];
+
+  static final $core.Map<$core.int, ProductDeliveryType> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static ProductDeliveryType valueOf($core.int value) => _byValue[value];
+
+  const ProductDeliveryType._($core.int v, $core.String n) : super(v, n);
+}
+
 class AuthenticateUser_AuthMethod extends $pb.ProtobufEnum {
   static const AuthenticateUser_AuthMethod GOOGLE = AuthenticateUser_AuthMethod._(0, 'GOOGLE');
   static const AuthenticateUser_AuthMethod FACEBOOK = AuthenticateUser_AuthMethod._(1, 'FACEBOOK');
