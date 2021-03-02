@@ -1,11 +1,11 @@
+import 'package:globens_flutter_client/widgets/modal_views/BusinessPageCreatorModalView.dart';
+import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/widgets/modal_views/BusinessPageCreatorModalView.dart';
-import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:tuple/tuple.dart';
 
 class MyBusinessPagesScreen extends StatefulWidget {
