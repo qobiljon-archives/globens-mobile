@@ -119,12 +119,18 @@ enum Currency {
   UZS = 3;
   RUB = 4;
 }
+enum ProductDeliveryType {
+  FILE_DOWNLOADABLE = 0;
+  FILE_STREAMED = 1;
+  SCHEDULED_FACE_TO_FACE = 3;
+  SCHEDULED_ONLINE_CALL = 4;
+}
 message CreateProduct{
   message Request{
     string sessionKey = 1;
     int32 businessPageId = 2;
     string name = 3;
-    string type = 4;
+    ProductDeliveryType type = 4;
     int32 categoryId = 5;
     bytes pictureBlob = 6;
     float price = 7;
@@ -142,7 +148,7 @@ message UpdateProductDetails{
     int32 productId = 2;
     int32 businessPageId = 3;
     string name = 4;
-    string type = 5;
+    ProductDeliveryType type = 5;
     int32 categoryId = 6;
     bytes pictureBlob = 7;
     float price = 8;
@@ -181,7 +187,7 @@ message FetchProductDetails{
     bool success = 1;
     int32 id = 2;
     string name = 3;
-    string type = 4;
+    ProductDeliveryType type = 4;
     int32 categoryId = 5;
     bool published = 6;
     bytes pictureBlob = 7;
@@ -222,9 +228,9 @@ message FetchProductCategoryDetails{
   message Response{
     bool success = 1;
     int32 id = 2;
-    string name = 3;
+    string nameJsonStr = 3;
     bytes pictureBlob = 4;
-    repeated string examples = 5;
+    string examplesJsonStr = 5;
   }
 }
 

@@ -1,14 +1,16 @@
-import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:globens_flutter_client/widgets/modal_views/HourSelectorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
+import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
+import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class SingleTimePickerModalView extends StatefulWidget {
   final Product product;
+  final TimeSlot timeSlot;
 
-  SingleTimePickerModalView(this.product);
+  SingleTimePickerModalView(this.product, this.timeSlot);
 
   @override
   _SingleTimePickerModalViewState createState() => _SingleTimePickerModalViewState();
@@ -61,7 +63,7 @@ class _SingleTimePickerModalViewState extends State<SingleTimePickerModalView> {
         ),
         Container(
           margin: EdgeInsets.only(top: 10.0, left: 30.0, right: 30.0),
-          child: RaisedButton.icon(onPressed: _selectedHour == null || _selectedDayTimestamp == null ? null : _purchaseClick, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.checkroom, color: Colors.white), label: Text("MAKE PAYMENT ${widget.product.priceStr}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+          child: RaisedButton.icon(onPressed: _selectedDayTimestamp == null || _selectedHour == null ? null : _okClick, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.checkroom, color: Colors.white), label: Text("OK", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
         ),
       ],
     );
@@ -70,7 +72,7 @@ class _SingleTimePickerModalViewState extends State<SingleTimePickerModalView> {
   void _selectDate(String key) async {
     try {
       var now = DateTime.now();
-      var oneMonthFromNow = now.add(Duration(days: 31));
+      var oneMonthFromNow = DateTime(now.year, now.month + 1, now.day, now.hour, now.minute, now.second, now.millisecond, now.microsecond);
       var res = await showDatePicker(
         context: context,
         initialDate: now,
@@ -88,17 +90,25 @@ class _SingleTimePickerModalViewState extends State<SingleTimePickerModalView> {
   void _selectHour() async {
     await showModalBottomSheet(context: context, builder: (context) => HourSelectorModalView());
     var res = HourSelectorModalView.getSelectedHour;
-    if (res != null)
+    if (res != null) {
       setState(() {
         _selectedHour = res;
       });
-  }
+    }
+    if (![_selectedDayTimestamp, _selectedHour].contains(null)) {
+      var dt = DateTime.fromMillisecondsSinceEpoch(_selectedDayTimestamp);
+      dt = DateTime(dt.year, dt.month, dt.day, _selectedHour, 0, 0, 0, 0);
 
-  void _purchaseClick() async {
-    await Navigator.of(context).pushNamed(ProductPurchaseScreen.route_name, arguments: widget.product);
+      widget.timeSlot.startTimestamp = dt.millisecondsSinceEpoch;
+      widget.timeSlot.size = TimeSlotSize.SIXTY_MINUTES;
+    }
   }
 
   void _onBackButtonPressed(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
+  void _okClick() async {
     Navigator.of(context).pop();
   }
 }
