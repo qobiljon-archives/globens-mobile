@@ -1,10 +1,10 @@
-import 'package:globens_flutter_client/utils/Locale.dart';
+import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
-import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
