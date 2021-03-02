@@ -4,10 +4,12 @@ import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsS
 import 'package:globens_flutter_client/widgets/screens/globens/VacantJobsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductReviewScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +36,7 @@ void main() {
       JobApplicationsListScreen.route_name: (context) => JobApplicationsListScreen(),
       ProductViewerScreen.route_name: (context) => ProductViewerScreen(),
       ProductCreatorScreen.route_name: (context) => ProductCreatorScreen(),
+      ProductReviewScreen.route_name: (context) => ProductReviewScreen(),
     },
   ));
 }
