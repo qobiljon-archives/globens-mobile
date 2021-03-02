@@ -3,14 +3,42 @@ import 'dart:collection';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 
 class Language {
-  static final ENGLISH = -1;
-  static final RUSSIAN = 0;
-  static final KOREAN = 1;
-  static final UZBEK = 2;
+  static const ENGLISH = -1;
+  static const RUSSIAN = 0;
+  static const KOREAN = 1;
+  static const UZBEK = 2;
+
+  static int languageCodeFromString(String str) {
+    switch (str) {
+      case "en":
+        return Language.ENGLISH;
+      case "ru":
+        return Language.RUSSIAN;
+      case "kr":
+        return Language.KOREAN;
+      case "uz":
+        return Language.UZBEK;
+    }
+    return null;
+  }
+
+  static String languageCodeStringFromInt(int languageCode) {
+    switch (languageCode) {
+      case Language.ENGLISH:
+        return "en";
+      case Language.RUSSIAN:
+        return "ru";
+      case Language.KOREAN:
+        return "kr";
+      case Language.UZBEK:
+        return "uz";
+    }
+    return null;
+  }
 }
 
 class Locale {
-  static final REPLACE = "***";
+  static const REPLACE = "***";
 
   static int languageCode = Language.ENGLISH;
 

@@ -2,8 +2,8 @@
 //  Generated code. Do not modify.
 //  source: gb_service.proto
 //
-// @dart = 2.3
-// ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
+// @dart = 2.7
+// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:async' as $async;
 
@@ -230,315 +230,226 @@ class GlobensServiceClient extends $grpc.Client {
       ($core.List<$core.int> value) =>
           $0.FetchPurchaseDetails_Response.fromBuffer(value));
 
-  GlobensServiceClient($grpc.ClientChannel channel, {$grpc.CallOptions options})
-      : super(channel, options: options);
+  GlobensServiceClient($grpc.ClientChannel channel,
+      {$grpc.CallOptions options,
+      $core.Iterable<$grpc.ClientInterceptor> interceptors})
+      : super(channel, options: options, interceptors: interceptors);
 
   $grpc.ResponseFuture<$0.AuthenticateUser_Response> authenticateUser(
       $0.AuthenticateUser_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$authenticateUser, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$authenticateUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DeactivateUser_Response> deactivateUser(
       $0.DeactivateUser_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$deactivateUser, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$deactivateUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateUserDetails_Response> updateUserDetails(
       $0.UpdateUserDetails_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateUserDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$updateUserDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchUserDetails_Response> fetchUserDetails(
       $0.FetchUserDetails_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchUserDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$fetchUserDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CreateBusinessPage_Response> createBusinessPage(
       $0.CreateBusinessPage_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$createBusinessPage, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$createBusinessPage, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateBusinessPageDetails_Response>
       updateBusinessPageDetails($0.UpdateBusinessPageDetails_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateBusinessPageDetails, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$updateBusinessPageDetails, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.UncreateBusinessPage_Response> uncreateBusinessPage(
       $0.UncreateBusinessPage_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$uncreateBusinessPage, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$uncreateBusinessPage, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchMyBusinessPageIds_Response>
       fetchMyBusinessPageIds($0.FetchMyBusinessPageIds_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchMyBusinessPageIds, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$fetchMyBusinessPageIds, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.FetchBusinessPageDetails_Response>
       fetchBusinessPageDetails($0.FetchBusinessPageDetails_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchBusinessPageDetails, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$fetchBusinessPageDetails, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.CreateProduct_Response> createProduct(
       $0.CreateProduct_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$createProduct, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$createProduct, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateProductDetails_Response> updateProductDetails(
       $0.UpdateProductDetails_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateProductDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$updateProductDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.PublishProduct_Response> publishProduct(
       $0.PublishProduct_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$publishProduct, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$publishProduct, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UnpublishProduct_Response> unpublishProduct(
       $0.UnpublishProduct_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$unpublishProduct, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$unpublishProduct, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UncreateProduct_Response> uncreateProduct(
       $0.UncreateProduct_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$uncreateProduct, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$uncreateProduct, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchNextKProductIds_Response> fetchNextKProductIds(
       $0.FetchNextKProductIds_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchNextKProductIds, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$fetchNextKProductIds, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchProductDetails_Response> fetchProductDetails(
       $0.FetchProductDetails_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchProductDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$fetchProductDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchProductCategoryIds_Response>
       fetchProductCategoryIds($0.FetchProductCategoryIds_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchProductCategoryIds, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$fetchProductCategoryIds, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.FetchProductCategoryDetails_Response>
       fetchProductCategoryDetails(
           $0.FetchProductCategoryDetails_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchProductCategoryDetails, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$fetchProductCategoryDetails, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.CreateVacantJob_Response> createVacantJob(
       $0.CreateVacantJob_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$createVacantJob, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$createVacantJob, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateJobDetails_Response> updateJobDetails(
       $0.UpdateJobDetails_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateJobDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$updateJobDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UncreateJob_Response> uncreateJob(
       $0.UncreateJob_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$uncreateJob, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$uncreateJob, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchBusinessPageJobIds_Response>
       fetchBusinessPageJobIds($0.FetchBusinessPageJobIds_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchBusinessPageJobIds, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$fetchBusinessPageJobIds, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.FetchNextKVacantJobIds_Response>
       fetchNextKVacantJobIds($0.FetchNextKVacantJobIds_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchNextKVacantJobIds, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$fetchNextKVacantJobIds, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.FetchJobDetails_Response> fetchJobDetails(
       $0.FetchJobDetails_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchJobDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$fetchJobDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CreateJobApplication_Response> createJobApplication(
       $0.CreateJobApplication_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$createJobApplication, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$createJobApplication, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateJobApplicationDetails_Response>
       updateJobApplicationDetails(
           $0.UpdateJobApplicationDetails_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$updateJobApplicationDetails, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$updateJobApplicationDetails, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.UncreateJobApplication_Response>
       uncreateJobApplication($0.UncreateJobApplication_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$uncreateJobApplication, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$uncreateJobApplication, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.FetchJobApplicationIds_Response>
       fetchJobApplicationIds($0.FetchJobApplicationIds_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchJobApplicationIds, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$fetchJobApplicationIds, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.FetchJobApplicationDetails_Response>
       fetchJobApplicationDetails($0.FetchJobApplicationDetails_Request request,
           {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchJobApplicationDetails, $async.Stream.fromIterable([request]),
+    return $createUnaryCall(_$fetchJobApplicationDetails, request,
         options: options);
-    return $grpc.ResponseFuture(call);
   }
 
   $grpc.ResponseFuture<$0.ApproveJobApplication_Response> approveJobApplication(
       $0.ApproveJobApplication_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$approveJobApplication, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$approveJobApplication, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DeclineJobApplication_Response> declineJobApplication(
       $0.DeclineJobApplication_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$declineJobApplication, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$declineJobApplication, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.LogPurchase_Response> logPurchase(
       $0.LogPurchase_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$logPurchase, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$logPurchase, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchPurchases_Response> fetchPurchases(
       $0.FetchPurchases_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchPurchases, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$fetchPurchases, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchPurchaseDetails_Response> fetchPurchaseDetails(
       $0.FetchPurchaseDetails_Request request,
       {$grpc.CallOptions options}) {
-    final call = $createCall(
-        _$fetchPurchaseDetails, $async.Stream.fromIterable([request]),
-        options: options);
-    return $grpc.ResponseFuture(call);
+    return $createUnaryCall(_$fetchPurchaseDetails, request, options: options);
   }
 }
 

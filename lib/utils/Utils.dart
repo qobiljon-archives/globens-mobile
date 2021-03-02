@@ -285,7 +285,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterD
         if (!categories.containsKey(productDetails.categoryId)) {
           final categoryDetails = await getStub().fetchProductCategoryDetails(FetchProductCategoryDetails_Request()..categoryId = productDetails.categoryId);
           success &= categoryDetails.success;
-          if (success) categories[productDetails.categoryId] = ProductCategory.create(categoryDetails.id, categoryDetails.name, categoryDetails.examples, categoryDetails.pictureBlob);
+          if (success) categories[productDetails.categoryId] = ProductCategory.create(categoryDetails.id, categoryDetails.nameJsonStr, categoryDetails.examplesJsonStr, categoryDetails.pictureBlob);
         }
 
         if (success)
@@ -312,7 +312,7 @@ Future<Tuple2<bool, List<ProductCategory>>> grpcFetchProductCategories() async {
       for (int categoryId in categoryIds.id) {
         final categoryDetails = await getStub().fetchProductCategoryDetails(FetchProductCategoryDetails_Request()..categoryId = categoryId);
         success &= categoryDetails.success;
-        if (success) categories.add(ProductCategory.create(categoryDetails.id, categoryDetails.name, categoryDetails.examples, categoryDetails.pictureBlob));
+        if (success) categories.add(ProductCategory.create(categoryDetails.id, categoryDetails.nameJsonStr, categoryDetails.examplesJsonStr, categoryDetails.pictureBlob));
       }
     }
   } catch (e) {

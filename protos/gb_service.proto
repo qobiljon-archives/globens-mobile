@@ -228,9 +228,9 @@ message FetchProductCategoryDetails{
   message Response{
     bool success = 1;
     int32 id = 2;
-    string name = 3;
+    string nameJsonStr = 3;
     bytes pictureBlob = 4;
-    repeated string examples = 5;
+    string examplesJsonStr = 5;
   }
 }
 
