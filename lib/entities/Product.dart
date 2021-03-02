@@ -15,7 +15,7 @@ class Product {
   // region Variables
   int _id;
   String _name;
-  String _productType;
+  ProductDeliveryType _productType;
   ProductCategory _category;
   List<int> _pictureBlob;
   BusinessPage _businessPage;
@@ -26,7 +26,7 @@ class Product {
 
   // endregion
 
-  Product.create(String name, String productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, List<int> productContent, {int id}) {
+  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, List<int> productContent, {int id}) {
     this._id = id;
     this._name = name;
     this._productType = productType;
@@ -49,7 +49,7 @@ class Product {
     return this._name;
   }
 
-  String get productType {
+  ProductDeliveryType get productType {
     return this._productType;
   }
 

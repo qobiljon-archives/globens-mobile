@@ -1,9 +1,12 @@
 import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tuple/tuple.dart';
 import 'PurchasedProductContentsScreen.dart';
 import 'package:archive/archive_io.dart';
 import 'dart:typed_data' show Uint8List;
@@ -32,6 +35,9 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isFile = _product.productType == ProductDeliveryType.FILE_DOWNLOADABLE || _product.productType == ProductDeliveryType.FILE_STREAMED;
+    bool isSchedule = _product.productType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _product.productType == ProductDeliveryType.SCHEDULED_ONLINE_CALL;
+
     return Scaffold(
         backgroundColor: Color.fromRGBO(240, 242, 245, 1),
         body: SafeArea(
@@ -100,9 +106,10 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                         maxLines: 10,
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
                       ))),
-              if (_product.productType.toLowerCase().contains('schedule')) Text(Utf8Decoder().convert(_product.productContent)),
+              if (isSchedule) Text(Utf8Decoder().convert(_product.productContent)),
               getSectionSplitter(Locale.get("Proceed with this product")),
-              Container(
+              if(isSchedule)
+                Container(
                   margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -111,28 +118,35 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                       RaisedButton.icon(onPressed: _openSignUpTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag_outlined, color: Colors.white), label: Text(Locale.get("Sign up"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                     ],
                   )),
+              if(isFile)
+                RaisedButton.icon(onPressed: _purchaseProduct, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.checkroom, color: Colors.white), label: Text(Locale.get("Try"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _viewProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.stream, color: Colors.white), label: Text("VIEW/DOWNLOAD  PRODUCT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
   }
 
-  void _openTryTimeSlotSelector() async {
-    await showModalBottomSheet(context: context, builder: (context) => SingleTimePickerModalView(_product));
-  }
-
-  void _openSignUpTimeSlotSelector() async {
-    var _productAvailableTimeSlots = <String, Set<int>>{};
-    var tsFrom = DateTime.now().millisecondsSinceEpoch;
-    var tsUntil = (DateTime.now().add(Duration(days: 30))).millisecondsSinceEpoch;
-    await showModalBottomSheet(context: context, builder: (context) => WeeklyTimePickerModalView(_productAvailableTimeSlots, tsFrom, tsUntil));
-  }
-
   void _onBackButtonPressed() {
     Navigator.of(context).pop();
   }
 
+  void _openTryTimeSlotSelector() async {
+    var timeSlot = TimeSlot();
+    await showModalBottomSheet(context: context, builder: (context) => SingleTimePickerModalView(_product, timeSlot));
+  }
+
+  void _openSignUpTimeSlotSelector() async {
+    var timeSlots = List<TimeSlot>();
+    await showModalBottomSheet(context: context, builder: (context) => WeeklyTimePickerModalView(_product, timeSlots));
+    // todo purchase here
+  }
+
+  void _purchaseProduct() async {
+    await Navigator.of(context).pushNamed(ProductPurchaseScreen.route_name, arguments: _product);
+  }
+
   void _viewProductPressed() async {
+    // todo testing
     Archive archive = ZipDecoder().decodeBytes(Uint8List.fromList(_product.productContent));
     final directory = await getApplicationDocumentsDirectory();
     List filesPaths = [];

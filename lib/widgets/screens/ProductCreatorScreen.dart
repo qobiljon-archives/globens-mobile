@@ -30,7 +30,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   final _titleTextController = TextEditingController();
   final _priceTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
-  List<Tuple2<String, String>> _productTypes;
+  Map<ProductDeliveryType, Tuple2<String, String>> _productTypes;
 
   Product _product;
   BusinessPage _businessPage;
@@ -39,7 +39,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   Map<int, ProductCategory> _categories = Map<int, ProductCategory>();
 
   int _selectedCategoryId;
-  int _selectedProductTypeIndex;
+  ProductDeliveryType _selectedProductDeliveryType;
   Currency _selectedCurrency;
   List<File> _productContentFiles = <File>[];
   Map<String, int> _fromUntilDateTime = <String, int>{"from": -1, "until": -1};
@@ -51,15 +51,15 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
     // dummy values for initial display
     _selectedCategoryId = 1;
-    _selectedProductTypeIndex = 0;
+    _selectedProductDeliveryType = ProductDeliveryType.FILE_DOWNLOADABLE;
     _selectedCurrency = Currency.KRW;
 
-    _productTypes = <Tuple2<String, String>>[
-      Tuple2(Locale.get('Downloadable files'), 'assets/product_type_downloadable.png'),
-      Tuple2(Locale.get('Streamed files'), 'assets/product_type_streamed.png'),
-      Tuple2(Locale.get('Scheduled face-to-face meeting'), 'assets/product_type_scheduled.png'),
-      Tuple2(Locale.get('Scheduled online call'), 'assets/product_type_scheduled.png'),
-    ];
+    _productTypes = <ProductDeliveryType, Tuple2<String, String>>{
+      ProductDeliveryType.FILE_DOWNLOADABLE: Tuple2(Locale.get('Downloadable files'), 'assets/product_type_downloadable.png'),
+      ProductDeliveryType.FILE_STREAMED: Tuple2(Locale.get('Streamed files'), 'assets/product_type_streamed.png'),
+      ProductDeliveryType.SCHEDULED_FACE_TO_FACE: Tuple2(Locale.get('Scheduled face-to-face meeting'), 'assets/product_type_scheduled.png'),
+      ProductDeliveryType.SCHEDULED_ONLINE_CALL: Tuple2(Locale.get('Scheduled online call'), 'assets/product_type_scheduled.png'),
+    };
 
     grpcFetchProductCategories().then((tp) {
       bool success = tp.item1;
@@ -84,18 +84,14 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
       _productImageBytes = _product.pictureBlob;
       _selectedCategoryId = _product.category.id;
-      for (int n = 0; n < _productTypes.length; n++)
-        if (_productTypes[n].item1.toLowerCase() == _product.productType) {
-          _selectedProductTypeIndex = n;
-          break;
-        }
+      _selectedProductDeliveryType = _product.productType;
       _selectedCurrency = _product.currency;
       _titleTextController.text = _product.name;
       _priceTextController.text = _product.price.toString();
       _descriptionTextController.text = _product.description;
-      if ([0, 1].contains(_selectedProductTypeIndex)) {
+      if (_selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED) {
         // todo view/edit files
-      } else if ([2, 3].contains(_selectedProductTypeIndex)) {
+      } else if (_selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL) {
         // todo view/edit schedule
         var content = JsonDecoder().convert(utf8.decode(_product.productContent));
 
@@ -113,8 +109,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool uploadFile = [0, 1].contains(_selectedProductTypeIndex);
-    bool calendarSchedule = [2, 3].contains(_selectedProductTypeIndex);
+    bool uploadFile = _selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED;
+    bool calendarSchedule = _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL;
 
     return Scaffold(
         backgroundColor: Color.fromRGBO(240, 242, 245, 1),
@@ -190,15 +186,15 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 margin: EdgeInsets.only(top: 10.0),
                 child: Container(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: DropdownButton<int>(
+                  child: DropdownButton<ProductDeliveryType>(
                     isExpanded: true,
-                    value: _selectedProductTypeIndex,
-                    icon: Image.asset(_productTypes[_selectedProductTypeIndex].item2, width: 20),
+                    value: _selectedProductDeliveryType,
+                    icon: Image.asset(_productTypes[_selectedProductDeliveryType].item2, width: 20),
                     iconSize: 24,
                     elevation: 16,
                     underline: Container(),
                     onChanged: _onProductTypeChanged,
-                    items: _productTypes.map<DropdownMenuItem<int>>((Tuple2<String, String> selectedProductType) => DropdownMenuItem<int>(value: _productTypes.indexOf(selectedProductType), child: Text(Locale.get("Content type: ${Locale.REPLACE}", selectedProductType.item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
+                    items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", _productTypes[selectedProductType].item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
                   ),
                 ),
               ),
@@ -321,7 +317,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     int timestamp;
     try {
       var now = DateTime.now();
-      var oneYearFromNow = now.add(Duration(days: 365));
+      var oneYearFromNow = DateTime(now.year + 1, now.month, now.day, now.hour, now.minute, now.second, now.millisecond, now.microsecond);
       var res = await showDatePicker(
         context: context,
         initialDate: _fromUntilDateTime['from'] > 0 ? DateTime.fromMillisecondsSinceEpoch(_fromUntilDateTime['from']) : now,
@@ -358,15 +354,15 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     });
   }
 
-  void _onProductTypeChanged(int newIndex) {
+  void _onProductTypeChanged(ProductDeliveryType newProductDeliveryType) {
     setState(() {
-      _selectedProductTypeIndex = newIndex;
+      _selectedProductDeliveryType = newProductDeliveryType;
     });
 
-    if (_productTypes[newIndex].item1.toLowerCase().contains('schedule')) {
-      toast(Locale.get('Please specify your available time slots for this product'));
-    } else if (_productTypes[newIndex].item1.toLowerCase().contains('file')) {
+    if (_selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED) {
       toast(Locale.get('Please specify the content (attachment files) for this product'));
+    } else if (_selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL) {
+      toast(Locale.get('Please specify your available time slots for this product'));
     }
   }
 
@@ -398,16 +394,16 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     } else if (_productImageBytes == null) {
       await toast(Locale.get("Please upload a feature image for the product!"));
       return;
-    } else if (_productTypes[_selectedProductTypeIndex].item1.toLowerCase().contains('file') && _productContentFiles.length < 1) {
-      await toast(Locale.get('At least one attachment (file) required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductTypeIndex].item1));
+    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file') && _productContentFiles.length < 1) {
+      await toast(Locale.get('At least one attachment (file) required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductDeliveryType].item1));
       return;
-    } else if (_productTypes[_selectedProductTypeIndex].item1.toLowerCase().contains('schedule') && _productAvailableTimeSlots.length == 0) {
-      await toast(Locale.get('At least one available time slot required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductTypeIndex].item1));
+    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule') && _productAvailableTimeSlots.length == 0) {
+      await toast(Locale.get('At least one available time slot required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductDeliveryType].item1));
       return;
     }
 
     Uint8List contentBytes;
-    if (_productTypes[_selectedProductTypeIndex].item1.toLowerCase().contains('file')) {
+    if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file')) {
       // content : zip file
       final directory = await getApplicationDocumentsDirectory();
       try {
@@ -428,7 +424,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       } catch (e) {
         print('read error : ${e.toString()}');
       }
-    } else if (_productTypes[_selectedProductTypeIndex].item1.toLowerCase().contains('schedule')) {
+    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule')) {
       // content : calendar json
       // content = json.encode(_productAvailableTimeSlots);
       Map<String, List<int>> availableTimeSlots = new Map<String, List<int>>();
@@ -445,9 +441,9 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
     bool success;
     if (_product == null)
-      success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _productTypes[_selectedProductTypeIndex].item1.toLowerCase(), _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes));
+      success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes));
     else
-      success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _productTypes[_selectedProductTypeIndex].item1.toLowerCase(), _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes, id: _product.id));
+      success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes, id: _product.id));
 
     if (success)
       Navigator.of(context).pop();
