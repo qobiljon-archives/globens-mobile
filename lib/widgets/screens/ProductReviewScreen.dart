@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
+import 'package:globens_flutter_client/entities/Product.dart';
+
 
 class ProductReviewScreen extends StatefulWidget {
   static const String route_name = '/product_review_screen';
@@ -15,6 +17,14 @@ class _ProductReviewState extends State<ProductReviewScreen> {
   final _reviewTitleController = TextEditingController();
   final _reviewController = TextEditingController();
 
+  Product _product;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _product = ModalRoute.of(context).settings.arguments as Product;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +36,6 @@ class _ProductReviewState extends State<ProductReviewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(Locale.get("Review")),
-        actions: [IconButton(icon: Icon(Icons.done), onPressed: _postReview)],
       ),
       body: Container(
         decoration: BoxDecoration(color: Colors.white),
@@ -73,6 +82,7 @@ class _ProductReviewState extends State<ProductReviewScreen> {
                 hintText: Locale.get("Review (Optional)"),
               ),
             ),
+            Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _postReview, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.send, color: Colors.white), label: Text(Locale.get("Submit"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
           ],
         ),
       ),

@@ -160,5 +160,6 @@ class Locale {
     "Sign up": ["Зарегистрироваться", "가입하기", "Ro'yxatdan o'tish"],
     "Duration (months)": ["Продолжительность (мес.)", "기간 (개월)", "Muddati (oylar)"],
     "Review": ["Обзор","리뷰","Fikr-mulohaza"],
+    "Send": ["Oтправлять", "보내다", "Topshirish"],
   };
 }
