@@ -953,3 +953,220 @@ const FetchPurchaseDetails_Response$json = const {
 
 /// Descriptor for `FetchPurchaseDetails`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List fetchPurchaseDetailsDescriptor = $convert.base64Decode('ChRGZXRjaFB1cmNoYXNlRGV0YWlscxopCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
+@$core.Deprecated('Use submitProductReviewDescriptor instead')
+const SubmitProductReview$json = const {
+  '1': 'SubmitProductReview',
+  '3': const [SubmitProductReview_Request$json, SubmitProductReview_Response$json],
+};
+
+@$core.Deprecated('Use submitProductReviewDescriptor instead')
+const SubmitProductReview_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'productId', '3': 2, '4': 1, '5': 5, '10': 'productId'},
+    const {'1': 'stars', '3': 3, '4': 1, '5': 5, '10': 'stars'},
+    const {'1': 'text', '3': 4, '4': 1, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 5, '4': 1, '5': 3, '10': 'timestamp'},
+  ],
+};
+
+@$core.Deprecated('Use submitProductReviewDescriptor instead')
+const SubmitProductReview_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `SubmitProductReview`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List submitProductReviewDescriptor = $convert.base64Decode('ChNTdWJtaXRQcm9kdWN0UmV2aWV3Go8BCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSHAoJcHJvZHVjdElkGAIgASgFUglwcm9kdWN0SWQSFAoFc3RhcnMYAyABKAVSBXN0YXJzEhIKBHRleHQYBCABKAlSBHRleHQSHAoJdGltZXN0YW1wGAUgASgDUgl0aW1lc3RhbXAaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
+@$core.Deprecated('Use retrieveProductReviewsDescriptor instead')
+const RetrieveProductReviews$json = const {
+  '1': 'RetrieveProductReviews',
+  '3': const [RetrieveProductReviews_Request$json, RetrieveProductReviews_Response$json],
+};
+
+@$core.Deprecated('Use retrieveProductReviewsDescriptor instead')
+const RetrieveProductReviews_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'productId', '3': 2, '4': 1, '5': 5, '10': 'productId'},
+  ],
+};
+
+@$core.Deprecated('Use retrieveProductReviewsDescriptor instead')
+const RetrieveProductReviews_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+    const {'1': 'stars', '3': 3, '4': 3, '5': 5, '10': 'stars'},
+    const {'1': 'text', '3': 4, '4': 3, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 5, '4': 3, '5': 3, '10': 'timestamp'},
+  ],
+};
+
+/// Descriptor for `RetrieveProductReviews`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List retrieveProductReviewsDescriptor = $convert.base64Decode('ChZSZXRyaWV2ZVByb2R1Y3RSZXZpZXdzGkcKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIcCglwcm9kdWN0SWQYAiABKAVSCXByb2R1Y3RJZBp8CghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEg4KAmlkGAIgAygFUgJpZBIUCgVzdGFycxgDIAMoBVIFc3RhcnMSEgoEdGV4dBgEIAMoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBSADKANSCXRpbWVzdGFtcA==');
+@$core.Deprecated('Use editProductReviewDescriptor instead')
+const EditProductReview$json = const {
+  '1': 'EditProductReview',
+  '3': const [EditProductReview_Request$json, EditProductReview_Response$json],
+};
+
+@$core.Deprecated('Use editProductReviewDescriptor instead')
+const EditProductReview_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'reviewId', '3': 2, '4': 1, '5': 5, '10': 'reviewId'},
+    const {'1': 'stars', '3': 3, '4': 1, '5': 5, '10': 'stars'},
+    const {'1': 'text', '3': 4, '4': 1, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 5, '4': 1, '5': 3, '10': 'timestamp'},
+  ],
+};
+
+@$core.Deprecated('Use editProductReviewDescriptor instead')
+const EditProductReview_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `EditProductReview`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editProductReviewDescriptor = $convert.base64Decode('ChFFZGl0UHJvZHVjdFJldmlldxqNAQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EhoKCHJldmlld0lkGAIgASgFUghyZXZpZXdJZBIUCgVzdGFycxgDIAEoBVIFc3RhcnMSEgoEdGV4dBgEIAEoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBSABKANSCXRpbWVzdGFtcBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
+@$core.Deprecated('Use deleteProductReviewDescriptor instead')
+const DeleteProductReview$json = const {
+  '1': 'DeleteProductReview',
+  '3': const [DeleteProductReview_Request$json, DeleteProductReview_Response$json],
+};
+
+@$core.Deprecated('Use deleteProductReviewDescriptor instead')
+const DeleteProductReview_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'reviewId', '3': 2, '4': 1, '5': 5, '10': 'reviewId'},
+  ],
+};
+
+@$core.Deprecated('Use deleteProductReviewDescriptor instead')
+const DeleteProductReview_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `DeleteProductReview`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteProductReviewDescriptor = $convert.base64Decode('ChNEZWxldGVQcm9kdWN0UmV2aWV3GkUKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIaCghyZXZpZXdJZBgCIAEoBVIIcmV2aWV3SWQaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
+@$core.Deprecated('Use submitEmployeeReviewDescriptor instead')
+const SubmitEmployeeReview$json = const {
+  '1': 'SubmitEmployeeReview',
+  '3': const [SubmitEmployeeReview_Request$json, SubmitEmployeeReview_Response$json],
+};
+
+@$core.Deprecated('Use submitEmployeeReviewDescriptor instead')
+const SubmitEmployeeReview_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'employeeUserId', '3': 2, '4': 1, '5': 5, '10': 'employeeUserId'},
+    const {'1': 'text', '3': 3, '4': 1, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 4, '4': 1, '5': 3, '10': 'timestamp'},
+  ],
+};
+
+@$core.Deprecated('Use submitEmployeeReviewDescriptor instead')
+const SubmitEmployeeReview_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `SubmitEmployeeReview`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List submitEmployeeReviewDescriptor = $convert.base64Decode('ChRTdWJtaXRFbXBsb3llZVJldmlldxqDAQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EiYKDmVtcGxveWVlVXNlcklkGAIgASgFUg5lbXBsb3llZVVzZXJJZBISCgR0ZXh0GAMgASgJUgR0ZXh0EhwKCXRpbWVzdGFtcBgEIAEoA1IJdGltZXN0YW1wGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
+@$core.Deprecated('Use retrieveEmployeeReviewsDescriptor instead')
+const RetrieveEmployeeReviews$json = const {
+  '1': 'RetrieveEmployeeReviews',
+  '3': const [RetrieveEmployeeReviews_Request$json, RetrieveEmployeeReviews_Response$json],
+};
+
+@$core.Deprecated('Use retrieveEmployeeReviewsDescriptor instead')
+const RetrieveEmployeeReviews_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'employeeUserId', '3': 2, '4': 1, '5': 5, '10': 'employeeUserId'},
+  ],
+};
+
+@$core.Deprecated('Use retrieveEmployeeReviewsDescriptor instead')
+const RetrieveEmployeeReviews_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+    const {'1': 'text', '3': 3, '4': 3, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 4, '4': 3, '5': 3, '10': 'timestamp'},
+  ],
+};
+
+/// Descriptor for `RetrieveEmployeeReviews`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List retrieveEmployeeReviewsDescriptor = $convert.base64Decode('ChdSZXRyaWV2ZUVtcGxveWVlUmV2aWV3cxpRCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSJgoOZW1wbG95ZWVVc2VySWQYAiABKAVSDmVtcGxveWVlVXNlcklkGmYKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSDgoCaWQYAiADKAVSAmlkEhIKBHRleHQYAyADKAlSBHRleHQSHAoJdGltZXN0YW1wGAQgAygDUgl0aW1lc3RhbXA=');
+@$core.Deprecated('Use editEmployeeReviewDescriptor instead')
+const EditEmployeeReview$json = const {
+  '1': 'EditEmployeeReview',
+  '3': const [EditEmployeeReview_Request$json, EditEmployeeReview_Response$json],
+};
+
+@$core.Deprecated('Use editEmployeeReviewDescriptor instead')
+const EditEmployeeReview_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'reviewId', '3': 2, '4': 1, '5': 5, '10': 'reviewId'},
+    const {'1': 'text', '3': 3, '4': 1, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 4, '4': 1, '5': 3, '10': 'timestamp'},
+  ],
+};
+
+@$core.Deprecated('Use editEmployeeReviewDescriptor instead')
+const EditEmployeeReview_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `EditEmployeeReview`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List editEmployeeReviewDescriptor = $convert.base64Decode('ChJFZGl0RW1wbG95ZWVSZXZpZXcadwoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EhoKCHJldmlld0lkGAIgASgFUghyZXZpZXdJZBISCgR0ZXh0GAMgASgJUgR0ZXh0EhwKCXRpbWVzdGFtcBgEIAEoA1IJdGltZXN0YW1wGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
+@$core.Deprecated('Use deleteEmployeeReviewDescriptor instead')
+const DeleteEmployeeReview$json = const {
+  '1': 'DeleteEmployeeReview',
+  '3': const [DeleteEmployeeReview_Request$json, DeleteEmployeeReview_Response$json],
+};
+
+@$core.Deprecated('Use deleteEmployeeReviewDescriptor instead')
+const DeleteEmployeeReview_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'reviewId', '3': 2, '4': 1, '5': 5, '10': 'reviewId'},
+  ],
+};
+
+@$core.Deprecated('Use deleteEmployeeReviewDescriptor instead')
+const DeleteEmployeeReview_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+  ],
+};
+
+/// Descriptor for `DeleteEmployeeReview`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deleteEmployeeReviewDescriptor = $convert.base64Decode('ChREZWxldGVFbXBsb3llZVJldmlldxpFCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSGgoIcmV2aWV3SWQYAiABKAVSCHJldmlld0lkGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
