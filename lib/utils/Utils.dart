@@ -522,6 +522,26 @@ Future<bool> grpcDeclineJobApplication(String sessionKey, JobApplication applica
 
   return success;
 }
+
+Future<bool> grpcSubmitProductReview(String sessionKey, Product product, int stars, String review) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool isSuccess = false;
+  try {
+    final response = await stub.submitProductReview(SubmitProductReview_Request()
+      ..sessionKey = sessionKey
+      ..productId = product.id
+      ..stars = stars
+      ..text = review);
+    isSuccess = response.success;
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+  return isSuccess;
+}
 // endregion
 
 class PrimitiveWrapper {

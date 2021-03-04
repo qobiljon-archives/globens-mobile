@@ -161,5 +161,6 @@ class Locale {
     "Duration (months)": ["Продолжительность (мес.)", "기간 (개월)", "Muddati (oylar)"],
     "Review": ["Обзор","리뷰","Fikr-mulohaza"],
     "Send": ["Oтправлять", "보내다", "Topshirish"],
+    "Try again later": ["Попробуйте позже","나중에 다시 시도","Keyinroq sinab ko'ring"]
   };
 }

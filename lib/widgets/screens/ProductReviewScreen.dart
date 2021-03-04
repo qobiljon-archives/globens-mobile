@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
-
+import 'package:tuple/tuple.dart';
 
 class ProductReviewScreen extends StatefulWidget {
   static const String route_name = '/product_review_screen';
@@ -13,7 +15,7 @@ class ProductReviewScreen extends StatefulWidget {
 }
 
 class _ProductReviewState extends State<ProductReviewScreen> {
-  var _rating = 0.0;
+  var _stars = 0;
   final _reviewTitleController = TextEditingController();
   final _reviewController = TextEditingController();
 
@@ -28,7 +30,7 @@ class _ProductReviewState extends State<ProductReviewScreen> {
   @override
   void initState() {
     super.initState();
-    _rating = 0.0;
+    _stars = 0;
   }
 
   @override
@@ -47,7 +49,7 @@ class _ProductReviewState extends State<ProductReviewScreen> {
             Center(
               child: RatingBar.builder(
                 direction: Axis.horizontal,
-                allowHalfRating: true,
+                allowHalfRating: false,
                 itemCount: 5,
                 itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                 itemBuilder: (context, _) => Icon(
@@ -55,7 +57,7 @@ class _ProductReviewState extends State<ProductReviewScreen> {
                   color: Colors.amber,
                 ),
                 onRatingUpdate: (rating) {
-                  _rating = rating;
+                  _stars = rating.toInt();
                 },
               ),
             ),
@@ -89,9 +91,15 @@ class _ProductReviewState extends State<ProductReviewScreen> {
     );
   }
 
-  void _postReview() {
+  void _postReview() async {
     final reviewTitle = _reviewTitleController.text.toString();
     final review = _reviewController.text.toString();
-    toast("Rating: $_rating, \ntitle: $reviewTitle, \nreview: $review");
+    bool isSuccess = await grpcSubmitProductReview(AppUser.sessionKey, _product, _stars, review);
+    if (isSuccess) {
+      await toast(Locale.get("Submitted"));
+      Navigator.of(context).pop();
+    } else {
+      await toast(Locale.get("Try again later"));
+    }
   }
 }
