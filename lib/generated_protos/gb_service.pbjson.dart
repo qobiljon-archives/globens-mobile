@@ -1002,42 +1002,15 @@ const RetrieveProductReviews_Response$json = const {
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
-    const {'1': 'stars', '3': 3, '4': 3, '5': 5, '10': 'stars'},
-    const {'1': 'text', '3': 4, '4': 3, '5': 9, '10': 'text'},
-    const {'1': 'timestamp', '3': 5, '4': 3, '5': 3, '10': 'timestamp'},
+    const {'1': 'isMyReview', '3': 3, '4': 3, '5': 8, '10': 'isMyReview'},
+    const {'1': 'stars', '3': 4, '4': 3, '5': 5, '10': 'stars'},
+    const {'1': 'text', '3': 5, '4': 3, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 6, '4': 3, '5': 3, '10': 'timestamp'},
   ],
 };
 
 /// Descriptor for `RetrieveProductReviews`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List retrieveProductReviewsDescriptor = $convert.base64Decode('ChZSZXRyaWV2ZVByb2R1Y3RSZXZpZXdzGkcKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIcCglwcm9kdWN0SWQYAiABKAVSCXByb2R1Y3RJZBp8CghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEg4KAmlkGAIgAygFUgJpZBIUCgVzdGFycxgDIAMoBVIFc3RhcnMSEgoEdGV4dBgEIAMoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBSADKANSCXRpbWVzdGFtcA==');
-@$core.Deprecated('Use editProductReviewDescriptor instead')
-const EditProductReview$json = const {
-  '1': 'EditProductReview',
-  '3': const [EditProductReview_Request$json, EditProductReview_Response$json],
-};
-
-@$core.Deprecated('Use editProductReviewDescriptor instead')
-const EditProductReview_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'reviewId', '3': 2, '4': 1, '5': 5, '10': 'reviewId'},
-    const {'1': 'stars', '3': 3, '4': 1, '5': 5, '10': 'stars'},
-    const {'1': 'text', '3': 4, '4': 1, '5': 9, '10': 'text'},
-    const {'1': 'timestamp', '3': 5, '4': 1, '5': 3, '10': 'timestamp'},
-  ],
-};
-
-@$core.Deprecated('Use editProductReviewDescriptor instead')
-const EditProductReview_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-/// Descriptor for `EditProductReview`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editProductReviewDescriptor = $convert.base64Decode('ChFFZGl0UHJvZHVjdFJldmlldxqNAQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EhoKCHJldmlld0lkGAIgASgFUghyZXZpZXdJZBIUCgVzdGFycxgDIAEoBVIFc3RhcnMSEgoEdGV4dBgEIAEoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBSABKANSCXRpbWVzdGFtcBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
+final $typed_data.Uint8List retrieveProductReviewsDescriptor = $convert.base64Decode('ChZSZXRyaWV2ZVByb2R1Y3RSZXZpZXdzGkcKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIcCglwcm9kdWN0SWQYAiABKAVSCXByb2R1Y3RJZBqcAQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAMoBVICaWQSHgoKaXNNeVJldmlldxgDIAMoCFIKaXNNeVJldmlldxIUCgVzdGFycxgEIAMoBVIFc3RhcnMSEgoEdGV4dBgFIAMoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBiADKANSCXRpbWVzdGFtcA==');
 @$core.Deprecated('Use deleteProductReviewDescriptor instead')
 const DeleteProductReview$json = const {
   '1': 'DeleteProductReview',
@@ -1074,9 +1047,10 @@ const SubmitEmployeeReview_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'employeeUserId', '3': 2, '4': 1, '5': 5, '10': 'employeeUserId'},
-    const {'1': 'text', '3': 3, '4': 1, '5': 9, '10': 'text'},
-    const {'1': 'timestamp', '3': 4, '4': 1, '5': 3, '10': 'timestamp'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'employeeUserId', '3': 3, '4': 1, '5': 5, '10': 'employeeUserId'},
+    const {'1': 'text', '3': 4, '4': 1, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 5, '4': 1, '5': 3, '10': 'timestamp'},
   ],
 };
 
@@ -1089,7 +1063,7 @@ const SubmitEmployeeReview_Response$json = const {
 };
 
 /// Descriptor for `SubmitEmployeeReview`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List submitEmployeeReviewDescriptor = $convert.base64Decode('ChRTdWJtaXRFbXBsb3llZVJldmlldxqDAQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EiYKDmVtcGxveWVlVXNlcklkGAIgASgFUg5lbXBsb3llZVVzZXJJZBISCgR0ZXh0GAMgASgJUgR0ZXh0EhwKCXRpbWVzdGFtcBgEIAEoA1IJdGltZXN0YW1wGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
+final $typed_data.Uint8List submitEmployeeReviewDescriptor = $convert.base64Decode('ChRTdWJtaXRFbXBsb3llZVJldmlldxqrAQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EiYKDmJ1c2luZXNzUGFnZUlkGAIgASgFUg5idXNpbmVzc1BhZ2VJZBImCg5lbXBsb3llZVVzZXJJZBgDIAEoBVIOZW1wbG95ZWVVc2VySWQSEgoEdGV4dBgEIAEoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBSABKANSCXRpbWVzdGFtcBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
 @$core.Deprecated('Use retrieveEmployeeReviewsDescriptor instead')
 const RetrieveEmployeeReviews$json = const {
   '1': 'RetrieveEmployeeReviews',
@@ -1101,7 +1075,8 @@ const RetrieveEmployeeReviews_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'employeeUserId', '3': 2, '4': 1, '5': 5, '10': 'employeeUserId'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'employeeUserId', '3': 3, '4': 1, '5': 5, '10': 'employeeUserId'},
   ],
 };
 
@@ -1111,40 +1086,14 @@ const RetrieveEmployeeReviews_Response$json = const {
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
-    const {'1': 'text', '3': 3, '4': 3, '5': 9, '10': 'text'},
-    const {'1': 'timestamp', '3': 4, '4': 3, '5': 3, '10': 'timestamp'},
+    const {'1': 'isMyReview', '3': 3, '4': 3, '5': 8, '10': 'isMyReview'},
+    const {'1': 'text', '3': 4, '4': 3, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 5, '4': 3, '5': 3, '10': 'timestamp'},
   ],
 };
 
 /// Descriptor for `RetrieveEmployeeReviews`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List retrieveEmployeeReviewsDescriptor = $convert.base64Decode('ChdSZXRyaWV2ZUVtcGxveWVlUmV2aWV3cxpRCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSJgoOZW1wbG95ZWVVc2VySWQYAiABKAVSDmVtcGxveWVlVXNlcklkGmYKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSDgoCaWQYAiADKAVSAmlkEhIKBHRleHQYAyADKAlSBHRleHQSHAoJdGltZXN0YW1wGAQgAygDUgl0aW1lc3RhbXA=');
-@$core.Deprecated('Use editEmployeeReviewDescriptor instead')
-const EditEmployeeReview$json = const {
-  '1': 'EditEmployeeReview',
-  '3': const [EditEmployeeReview_Request$json, EditEmployeeReview_Response$json],
-};
-
-@$core.Deprecated('Use editEmployeeReviewDescriptor instead')
-const EditEmployeeReview_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
-    const {'1': 'reviewId', '3': 2, '4': 1, '5': 5, '10': 'reviewId'},
-    const {'1': 'text', '3': 3, '4': 1, '5': 9, '10': 'text'},
-    const {'1': 'timestamp', '3': 4, '4': 1, '5': 3, '10': 'timestamp'},
-  ],
-};
-
-@$core.Deprecated('Use editEmployeeReviewDescriptor instead')
-const EditEmployeeReview_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-  ],
-};
-
-/// Descriptor for `EditEmployeeReview`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List editEmployeeReviewDescriptor = $convert.base64Decode('ChJFZGl0RW1wbG95ZWVSZXZpZXcadwoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EhoKCHJldmlld0lkGAIgASgFUghyZXZpZXdJZBISCgR0ZXh0GAMgASgJUgR0ZXh0EhwKCXRpbWVzdGFtcBgEIAEoA1IJdGltZXN0YW1wGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
+final $typed_data.Uint8List retrieveEmployeeReviewsDescriptor = $convert.base64Decode('ChdSZXRyaWV2ZUVtcGxveWVlUmV2aWV3cxp5CgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSJgoOYnVzaW5lc3NQYWdlSWQYAiABKAVSDmJ1c2luZXNzUGFnZUlkEiYKDmVtcGxveWVlVXNlcklkGAMgASgFUg5lbXBsb3llZVVzZXJJZBqGAQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAMoBVICaWQSHgoKaXNNeVJldmlldxgDIAMoCFIKaXNNeVJldmlldxISCgR0ZXh0GAQgAygJUgR0ZXh0EhwKCXRpbWVzdGFtcBgFIAMoA1IJdGltZXN0YW1w');
 @$core.Deprecated('Use deleteEmployeeReviewDescriptor instead')
 const DeleteEmployeeReview$json = const {
   '1': 'DeleteEmployeeReview',

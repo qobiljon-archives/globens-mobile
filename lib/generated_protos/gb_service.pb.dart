@@ -5599,9 +5599,10 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RetrieveProductReviews.Response', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
     ..p<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.P3)
-    ..p<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stars', $pb.PbFieldType.P3)
-    ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
-    ..p<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp', $pb.PbFieldType.P6)
+    ..p<$core.bool>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isMyReview', $pb.PbFieldType.PB, protoName: 'isMyReview')
+    ..p<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stars', $pb.PbFieldType.P3)
+    ..pPS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
+    ..p<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp', $pb.PbFieldType.P6)
     ..hasRequiredFields = false
   ;
 
@@ -5609,6 +5610,7 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
   factory RetrieveProductReviews_Response({
     $core.bool success,
     $core.Iterable<$core.int> id,
+    $core.Iterable<$core.bool> isMyReview,
     $core.Iterable<$core.int> stars,
     $core.Iterable<$core.String> text,
     $core.Iterable<$fixnum.Int64> timestamp,
@@ -5619,6 +5621,9 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
     }
     if (id != null) {
       _result.id.addAll(id);
+    }
+    if (isMyReview != null) {
+      _result.isMyReview.addAll(isMyReview);
     }
     if (stars != null) {
       _result.stars.addAll(stars);
@@ -5665,13 +5670,16 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
   $core.List<$core.int> get id => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get stars => $_getList(2);
+  $core.List<$core.bool> get isMyReview => $_getList(2);
 
   @$pb.TagNumber(4)
-  $core.List<$core.String> get text => $_getList(3);
+  $core.List<$core.int> get stars => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<$fixnum.Int64> get timestamp => $_getList(4);
+  $core.List<$core.String> get text => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $core.List<$fixnum.Int64> get timestamp => $_getList(5);
 }
 
 class RetrieveProductReviews extends $pb.GeneratedMessage {
@@ -5701,185 +5709,6 @@ class RetrieveProductReviews extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static RetrieveProductReviews getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RetrieveProductReviews>(create);
   static RetrieveProductReviews _defaultInstance;
-}
-
-class EditProductReview_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditProductReview.Request', createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'reviewId', $pb.PbFieldType.O3, protoName: 'reviewId')
-    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stars', $pb.PbFieldType.O3)
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
-    ..aInt64(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
-    ..hasRequiredFields = false
-  ;
-
-  EditProductReview_Request._() : super();
-  factory EditProductReview_Request({
-    $core.String sessionKey,
-    $core.int reviewId,
-    $core.int stars,
-    $core.String text,
-    $fixnum.Int64 timestamp,
-  }) {
-    final _result = create();
-    if (sessionKey != null) {
-      _result.sessionKey = sessionKey;
-    }
-    if (reviewId != null) {
-      _result.reviewId = reviewId;
-    }
-    if (stars != null) {
-      _result.stars = stars;
-    }
-    if (text != null) {
-      _result.text = text;
-    }
-    if (timestamp != null) {
-      _result.timestamp = timestamp;
-    }
-    return _result;
-  }
-  factory EditProductReview_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditProductReview_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  EditProductReview_Request clone() => EditProductReview_Request()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  EditProductReview_Request copyWith(void Function(EditProductReview_Request) updates) => super.copyWith((message) => updates(message as EditProductReview_Request)) as EditProductReview_Request; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static EditProductReview_Request create() => EditProductReview_Request._();
-  EditProductReview_Request createEmptyInstance() => create();
-  static $pb.PbList<EditProductReview_Request> createRepeated() => $pb.PbList<EditProductReview_Request>();
-  @$core.pragma('dart2js:noInline')
-  static EditProductReview_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditProductReview_Request>(create);
-  static EditProductReview_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get reviewId => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set reviewId($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasReviewId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearReviewId() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.int get stars => $_getIZ(2);
-  @$pb.TagNumber(3)
-  set stars($core.int v) { $_setSignedInt32(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasStars() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearStars() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.String get text => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set text($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasText() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearText() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $fixnum.Int64 get timestamp => $_getI64(4);
-  @$pb.TagNumber(5)
-  set timestamp($fixnum.Int64 v) { $_setInt64(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasTimestamp() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearTimestamp() => clearField(5);
-}
-
-class EditProductReview_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditProductReview.Response', createEmptyInstance: create)
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
-    ..hasRequiredFields = false
-  ;
-
-  EditProductReview_Response._() : super();
-  factory EditProductReview_Response({
-    $core.bool success,
-  }) {
-    final _result = create();
-    if (success != null) {
-      _result.success = success;
-    }
-    return _result;
-  }
-  factory EditProductReview_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditProductReview_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  EditProductReview_Response clone() => EditProductReview_Response()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  EditProductReview_Response copyWith(void Function(EditProductReview_Response) updates) => super.copyWith((message) => updates(message as EditProductReview_Response)) as EditProductReview_Response; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static EditProductReview_Response create() => EditProductReview_Response._();
-  EditProductReview_Response createEmptyInstance() => create();
-  static $pb.PbList<EditProductReview_Response> createRepeated() => $pb.PbList<EditProductReview_Response>();
-  @$core.pragma('dart2js:noInline')
-  static EditProductReview_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditProductReview_Response>(create);
-  static EditProductReview_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class EditProductReview extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditProductReview', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  EditProductReview._() : super();
-  factory EditProductReview() => create();
-  factory EditProductReview.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditProductReview.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  EditProductReview clone() => EditProductReview()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  EditProductReview copyWith(void Function(EditProductReview) updates) => super.copyWith((message) => updates(message as EditProductReview)) as EditProductReview; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static EditProductReview create() => EditProductReview._();
-  EditProductReview createEmptyInstance() => create();
-  static $pb.PbList<EditProductReview> createRepeated() => $pb.PbList<EditProductReview>();
-  @$core.pragma('dart2js:noInline')
-  static EditProductReview getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditProductReview>(create);
-  static EditProductReview _defaultInstance;
 }
 
 class DeleteProductReview_Request extends $pb.GeneratedMessage {
@@ -6022,15 +5851,17 @@ class DeleteProductReview extends $pb.GeneratedMessage {
 class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SubmitEmployeeReview.Request', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'employeeUserId', $pb.PbFieldType.O3, protoName: 'employeeUserId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
-    ..aInt64(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'employeeUserId', $pb.PbFieldType.O3, protoName: 'employeeUserId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
+    ..aInt64(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
     ..hasRequiredFields = false
   ;
 
   SubmitEmployeeReview_Request._() : super();
   factory SubmitEmployeeReview_Request({
     $core.String sessionKey,
+    $core.int businessPageId,
     $core.int employeeUserId,
     $core.String text,
     $fixnum.Int64 timestamp,
@@ -6038,6 +5869,9 @@ class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
     final _result = create();
     if (sessionKey != null) {
       _result.sessionKey = sessionKey;
+    }
+    if (businessPageId != null) {
+      _result.businessPageId = businessPageId;
     }
     if (employeeUserId != null) {
       _result.employeeUserId = employeeUserId;
@@ -6081,31 +5915,40 @@ class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
   void clearSessionKey() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get employeeUserId => $_getIZ(1);
+  $core.int get businessPageId => $_getIZ(1);
   @$pb.TagNumber(2)
-  set employeeUserId($core.int v) { $_setSignedInt32(1, v); }
+  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasEmployeeUserId() => $_has(1);
+  $core.bool hasBusinessPageId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearEmployeeUserId() => clearField(2);
+  void clearBusinessPageId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get text => $_getSZ(2);
+  $core.int get employeeUserId => $_getIZ(2);
   @$pb.TagNumber(3)
-  set text($core.String v) { $_setString(2, v); }
+  set employeeUserId($core.int v) { $_setSignedInt32(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasText() => $_has(2);
+  $core.bool hasEmployeeUserId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearText() => clearField(3);
+  void clearEmployeeUserId() => clearField(3);
 
   @$pb.TagNumber(4)
-  $fixnum.Int64 get timestamp => $_getI64(3);
+  $core.String get text => $_getSZ(3);
   @$pb.TagNumber(4)
-  set timestamp($fixnum.Int64 v) { $_setInt64(3, v); }
+  set text($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasTimestamp() => $_has(3);
+  $core.bool hasText() => $_has(3);
   @$pb.TagNumber(4)
-  void clearTimestamp() => clearField(4);
+  void clearText() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get timestamp => $_getI64(4);
+  @$pb.TagNumber(5)
+  set timestamp($fixnum.Int64 v) { $_setInt64(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasTimestamp() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearTimestamp() => clearField(5);
 }
 
 class SubmitEmployeeReview_Response extends $pb.GeneratedMessage {
@@ -6187,18 +6030,23 @@ class SubmitEmployeeReview extends $pb.GeneratedMessage {
 class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RetrieveEmployeeReviews.Request', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'employeeUserId', $pb.PbFieldType.O3, protoName: 'employeeUserId')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'employeeUserId', $pb.PbFieldType.O3, protoName: 'employeeUserId')
     ..hasRequiredFields = false
   ;
 
   RetrieveEmployeeReviews_Request._() : super();
   factory RetrieveEmployeeReviews_Request({
     $core.String sessionKey,
+    $core.int businessPageId,
     $core.int employeeUserId,
   }) {
     final _result = create();
     if (sessionKey != null) {
       _result.sessionKey = sessionKey;
+    }
+    if (businessPageId != null) {
+      _result.businessPageId = businessPageId;
     }
     if (employeeUserId != null) {
       _result.employeeUserId = employeeUserId;
@@ -6236,21 +6084,31 @@ class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
   void clearSessionKey() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.int get employeeUserId => $_getIZ(1);
+  $core.int get businessPageId => $_getIZ(1);
   @$pb.TagNumber(2)
-  set employeeUserId($core.int v) { $_setSignedInt32(1, v); }
+  set businessPageId($core.int v) { $_setSignedInt32(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasEmployeeUserId() => $_has(1);
+  $core.bool hasBusinessPageId() => $_has(1);
   @$pb.TagNumber(2)
-  void clearEmployeeUserId() => clearField(2);
+  void clearBusinessPageId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get employeeUserId => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set employeeUserId($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasEmployeeUserId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearEmployeeUserId() => clearField(3);
 }
 
 class RetrieveEmployeeReviews_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RetrieveEmployeeReviews.Response', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
     ..p<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.P3)
-    ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
-    ..p<$fixnum.Int64>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp', $pb.PbFieldType.P6)
+    ..p<$core.bool>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isMyReview', $pb.PbFieldType.PB, protoName: 'isMyReview')
+    ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
+    ..p<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp', $pb.PbFieldType.P6)
     ..hasRequiredFields = false
   ;
 
@@ -6258,6 +6116,7 @@ class RetrieveEmployeeReviews_Response extends $pb.GeneratedMessage {
   factory RetrieveEmployeeReviews_Response({
     $core.bool success,
     $core.Iterable<$core.int> id,
+    $core.Iterable<$core.bool> isMyReview,
     $core.Iterable<$core.String> text,
     $core.Iterable<$fixnum.Int64> timestamp,
   }) {
@@ -6267,6 +6126,9 @@ class RetrieveEmployeeReviews_Response extends $pb.GeneratedMessage {
     }
     if (id != null) {
       _result.id.addAll(id);
+    }
+    if (isMyReview != null) {
+      _result.isMyReview.addAll(isMyReview);
     }
     if (text != null) {
       _result.text.addAll(text);
@@ -6310,10 +6172,13 @@ class RetrieveEmployeeReviews_Response extends $pb.GeneratedMessage {
   $core.List<$core.int> get id => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.String> get text => $_getList(2);
+  $core.List<$core.bool> get isMyReview => $_getList(2);
 
   @$pb.TagNumber(4)
-  $core.List<$fixnum.Int64> get timestamp => $_getList(3);
+  $core.List<$core.String> get text => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $core.List<$fixnum.Int64> get timestamp => $_getList(4);
 }
 
 class RetrieveEmployeeReviews extends $pb.GeneratedMessage {
@@ -6343,171 +6208,6 @@ class RetrieveEmployeeReviews extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static RetrieveEmployeeReviews getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RetrieveEmployeeReviews>(create);
   static RetrieveEmployeeReviews _defaultInstance;
-}
-
-class EditEmployeeReview_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditEmployeeReview.Request', createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'reviewId', $pb.PbFieldType.O3, protoName: 'reviewId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
-    ..aInt64(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
-    ..hasRequiredFields = false
-  ;
-
-  EditEmployeeReview_Request._() : super();
-  factory EditEmployeeReview_Request({
-    $core.String sessionKey,
-    $core.int reviewId,
-    $core.String text,
-    $fixnum.Int64 timestamp,
-  }) {
-    final _result = create();
-    if (sessionKey != null) {
-      _result.sessionKey = sessionKey;
-    }
-    if (reviewId != null) {
-      _result.reviewId = reviewId;
-    }
-    if (text != null) {
-      _result.text = text;
-    }
-    if (timestamp != null) {
-      _result.timestamp = timestamp;
-    }
-    return _result;
-  }
-  factory EditEmployeeReview_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditEmployeeReview_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  EditEmployeeReview_Request clone() => EditEmployeeReview_Request()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  EditEmployeeReview_Request copyWith(void Function(EditEmployeeReview_Request) updates) => super.copyWith((message) => updates(message as EditEmployeeReview_Request)) as EditEmployeeReview_Request; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static EditEmployeeReview_Request create() => EditEmployeeReview_Request._();
-  EditEmployeeReview_Request createEmptyInstance() => create();
-  static $pb.PbList<EditEmployeeReview_Request> createRepeated() => $pb.PbList<EditEmployeeReview_Request>();
-  @$core.pragma('dart2js:noInline')
-  static EditEmployeeReview_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEmployeeReview_Request>(create);
-  static EditEmployeeReview_Request _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.String get sessionKey => $_getSZ(0);
-  @$pb.TagNumber(1)
-  set sessionKey($core.String v) { $_setString(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSessionKey() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSessionKey() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get reviewId => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set reviewId($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasReviewId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearReviewId() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get text => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set text($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasText() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearText() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $fixnum.Int64 get timestamp => $_getI64(3);
-  @$pb.TagNumber(4)
-  set timestamp($fixnum.Int64 v) { $_setInt64(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasTimestamp() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearTimestamp() => clearField(4);
-}
-
-class EditEmployeeReview_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditEmployeeReview.Response', createEmptyInstance: create)
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
-    ..hasRequiredFields = false
-  ;
-
-  EditEmployeeReview_Response._() : super();
-  factory EditEmployeeReview_Response({
-    $core.bool success,
-  }) {
-    final _result = create();
-    if (success != null) {
-      _result.success = success;
-    }
-    return _result;
-  }
-  factory EditEmployeeReview_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditEmployeeReview_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  EditEmployeeReview_Response clone() => EditEmployeeReview_Response()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  EditEmployeeReview_Response copyWith(void Function(EditEmployeeReview_Response) updates) => super.copyWith((message) => updates(message as EditEmployeeReview_Response)) as EditEmployeeReview_Response; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static EditEmployeeReview_Response create() => EditEmployeeReview_Response._();
-  EditEmployeeReview_Response createEmptyInstance() => create();
-  static $pb.PbList<EditEmployeeReview_Response> createRepeated() => $pb.PbList<EditEmployeeReview_Response>();
-  @$core.pragma('dart2js:noInline')
-  static EditEmployeeReview_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEmployeeReview_Response>(create);
-  static EditEmployeeReview_Response _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-}
-
-class EditEmployeeReview extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'EditEmployeeReview', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  EditEmployeeReview._() : super();
-  factory EditEmployeeReview() => create();
-  factory EditEmployeeReview.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory EditEmployeeReview.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  EditEmployeeReview clone() => EditEmployeeReview()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  EditEmployeeReview copyWith(void Function(EditEmployeeReview) updates) => super.copyWith((message) => updates(message as EditEmployeeReview)) as EditEmployeeReview; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static EditEmployeeReview create() => EditEmployeeReview._();
-  EditEmployeeReview createEmptyInstance() => create();
-  static $pb.PbList<EditEmployeeReview> createRepeated() => $pb.PbList<EditEmployeeReview>();
-  @$core.pragma('dart2js:noInline')
-  static EditEmployeeReview getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEmployeeReview>(create);
-  static EditEmployeeReview _defaultInstance;
 }
 
 class DeleteEmployeeReview_Request extends $pb.GeneratedMessage {
