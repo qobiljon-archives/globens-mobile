@@ -229,6 +229,44 @@ class GlobensServiceClient extends $grpc.Client {
       ($0.FetchPurchaseDetails_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.FetchPurchaseDetails_Response.fromBuffer(value));
+  static final _$submitProductReview = $grpc.ClientMethod<
+          $0.SubmitProductReview_Request, $0.SubmitProductReview_Response>(
+      '/GlobensService/submitProductReview',
+      ($0.SubmitProductReview_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.SubmitProductReview_Response.fromBuffer(value));
+  static final _$retrieveProductReviews = $grpc.ClientMethod<
+          $0.RetrieveProductReviews_Request,
+          $0.RetrieveProductReviews_Response>(
+      '/GlobensService/retrieveProductReviews',
+      ($0.RetrieveProductReviews_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.RetrieveProductReviews_Response.fromBuffer(value));
+  static final _$deleteProductReview = $grpc.ClientMethod<
+          $0.DeleteProductReview_Request, $0.DeleteProductReview_Response>(
+      '/GlobensService/deleteProductReview',
+      ($0.DeleteProductReview_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.DeleteProductReview_Response.fromBuffer(value));
+  static final _$submitEmployeeReview = $grpc.ClientMethod<
+          $0.SubmitEmployeeReview_Request, $0.SubmitEmployeeReview_Response>(
+      '/GlobensService/submitEmployeeReview',
+      ($0.SubmitEmployeeReview_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.SubmitEmployeeReview_Response.fromBuffer(value));
+  static final _$retrieveEmployeeReviews = $grpc.ClientMethod<
+          $0.RetrieveEmployeeReviews_Request,
+          $0.RetrieveEmployeeReviews_Response>(
+      '/GlobensService/retrieveEmployeeReviews',
+      ($0.RetrieveEmployeeReviews_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.RetrieveEmployeeReviews_Response.fromBuffer(value));
+  static final _$deleteEmployeeReview = $grpc.ClientMethod<
+          $0.DeleteEmployeeReview_Request, $0.DeleteEmployeeReview_Response>(
+      '/GlobensService/deleteEmployeeReview',
+      ($0.DeleteEmployeeReview_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.DeleteEmployeeReview_Response.fromBuffer(value));
 
   GlobensServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions options,
@@ -450,6 +488,44 @@ class GlobensServiceClient extends $grpc.Client {
       $0.FetchPurchaseDetails_Request request,
       {$grpc.CallOptions options}) {
     return $createUnaryCall(_$fetchPurchaseDetails, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.SubmitProductReview_Response> submitProductReview(
+      $0.SubmitProductReview_Request request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$submitProductReview, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.RetrieveProductReviews_Response>
+      retrieveProductReviews($0.RetrieveProductReviews_Request request,
+          {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$retrieveProductReviews, request,
+        options: options);
+  }
+
+  $grpc.ResponseFuture<$0.DeleteProductReview_Response> deleteProductReview(
+      $0.DeleteProductReview_Request request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$deleteProductReview, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.SubmitEmployeeReview_Response> submitEmployeeReview(
+      $0.SubmitEmployeeReview_Request request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$submitEmployeeReview, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.RetrieveEmployeeReviews_Response>
+      retrieveEmployeeReviews($0.RetrieveEmployeeReviews_Request request,
+          {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$retrieveEmployeeReviews, request,
+        options: options);
+  }
+
+  $grpc.ResponseFuture<$0.DeleteEmployeeReview_Response> deleteEmployeeReview(
+      $0.DeleteEmployeeReview_Request request,
+      {$grpc.CallOptions options}) {
+    return $createUnaryCall(_$deleteEmployeeReview, request, options: options);
   }
 }
 
@@ -767,6 +843,60 @@ abstract class GlobensServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.FetchPurchaseDetails_Request.fromBuffer(value),
         ($0.FetchPurchaseDetails_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SubmitProductReview_Request,
+            $0.SubmitProductReview_Response>(
+        'submitProductReview',
+        submitProductReview_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.SubmitProductReview_Request.fromBuffer(value),
+        ($0.SubmitProductReview_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.RetrieveProductReviews_Request,
+            $0.RetrieveProductReviews_Response>(
+        'retrieveProductReviews',
+        retrieveProductReviews_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.RetrieveProductReviews_Request.fromBuffer(value),
+        ($0.RetrieveProductReviews_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeleteProductReview_Request,
+            $0.DeleteProductReview_Response>(
+        'deleteProductReview',
+        deleteProductReview_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.DeleteProductReview_Request.fromBuffer(value),
+        ($0.DeleteProductReview_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.SubmitEmployeeReview_Request,
+            $0.SubmitEmployeeReview_Response>(
+        'submitEmployeeReview',
+        submitEmployeeReview_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.SubmitEmployeeReview_Request.fromBuffer(value),
+        ($0.SubmitEmployeeReview_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.RetrieveEmployeeReviews_Request,
+            $0.RetrieveEmployeeReviews_Response>(
+        'retrieveEmployeeReviews',
+        retrieveEmployeeReviews_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.RetrieveEmployeeReviews_Request.fromBuffer(value),
+        ($0.RetrieveEmployeeReviews_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeleteEmployeeReview_Request,
+            $0.DeleteEmployeeReview_Response>(
+        'deleteEmployeeReview',
+        deleteEmployeeReview_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.DeleteEmployeeReview_Request.fromBuffer(value),
+        ($0.DeleteEmployeeReview_Response value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.AuthenticateUser_Response> authenticateUser_Pre(
@@ -971,6 +1101,42 @@ abstract class GlobensServiceBase extends $grpc.Service {
     return fetchPurchaseDetails(call, await request);
   }
 
+  $async.Future<$0.SubmitProductReview_Response> submitProductReview_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.SubmitProductReview_Request> request) async {
+    return submitProductReview(call, await request);
+  }
+
+  $async.Future<$0.RetrieveProductReviews_Response> retrieveProductReviews_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.RetrieveProductReviews_Request> request) async {
+    return retrieveProductReviews(call, await request);
+  }
+
+  $async.Future<$0.DeleteProductReview_Response> deleteProductReview_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.DeleteProductReview_Request> request) async {
+    return deleteProductReview(call, await request);
+  }
+
+  $async.Future<$0.SubmitEmployeeReview_Response> submitEmployeeReview_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.SubmitEmployeeReview_Request> request) async {
+    return submitEmployeeReview(call, await request);
+  }
+
+  $async.Future<$0.RetrieveEmployeeReviews_Response>
+      retrieveEmployeeReviews_Pre($grpc.ServiceCall call,
+          $async.Future<$0.RetrieveEmployeeReviews_Request> request) async {
+    return retrieveEmployeeReviews(call, await request);
+  }
+
+  $async.Future<$0.DeleteEmployeeReview_Response> deleteEmployeeReview_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.DeleteEmployeeReview_Request> request) async {
+    return deleteEmployeeReview(call, await request);
+  }
+
   $async.Future<$0.AuthenticateUser_Response> authenticateUser(
       $grpc.ServiceCall call, $0.AuthenticateUser_Request request);
   $async.Future<$0.DeactivateUser_Response> deactivateUser(
@@ -1043,4 +1209,16 @@ abstract class GlobensServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.FetchPurchases_Request request);
   $async.Future<$0.FetchPurchaseDetails_Response> fetchPurchaseDetails(
       $grpc.ServiceCall call, $0.FetchPurchaseDetails_Request request);
+  $async.Future<$0.SubmitProductReview_Response> submitProductReview(
+      $grpc.ServiceCall call, $0.SubmitProductReview_Request request);
+  $async.Future<$0.RetrieveProductReviews_Response> retrieveProductReviews(
+      $grpc.ServiceCall call, $0.RetrieveProductReviews_Request request);
+  $async.Future<$0.DeleteProductReview_Response> deleteProductReview(
+      $grpc.ServiceCall call, $0.DeleteProductReview_Request request);
+  $async.Future<$0.SubmitEmployeeReview_Response> submitEmployeeReview(
+      $grpc.ServiceCall call, $0.SubmitEmployeeReview_Request request);
+  $async.Future<$0.RetrieveEmployeeReviews_Response> retrieveEmployeeReviews(
+      $grpc.ServiceCall call, $0.RetrieveEmployeeReviews_Request request);
+  $async.Future<$0.DeleteEmployeeReview_Response> deleteEmployeeReview(
+      $grpc.ServiceCall call, $0.DeleteEmployeeReview_Request request);
 }

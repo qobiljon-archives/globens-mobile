@@ -55,22 +55,6 @@ class _MenuScreenState extends State<MenuScreen> {
             ),
           ),
         ),
-        Container(
-          margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
-          child: RaisedButton.icon(
-            onPressed: _setReviewPressed,
-            color: Colors.blueAccent,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-            icon: Icon(
-              Icons.rate_review,
-              color: Colors.white,
-            ),
-            label: Text(
-              Locale.get("Product review"),
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-          ),
-        ),
       ],
     );
   }
@@ -88,9 +72,5 @@ class _MenuScreenState extends State<MenuScreen> {
   void _setLanguagePressed() async {
     await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => LanguageModalView.getModalView(context));
     setState(() {});
-  }
-
-  void _setReviewPressed() async {
-    await Navigator.of(context).pushNamed(ProductReviewScreen.route_name);
   }
 }

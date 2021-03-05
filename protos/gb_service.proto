@@ -392,6 +392,78 @@ message FetchPurchaseDetails{
 }
 
 
+// review management
+message SubmitProductReview{
+  message Request {
+    string sessionKey = 1;
+    int32 productId = 2;
+    int32 stars = 3;
+    string text = 4;
+    int64 timestamp = 5;
+  }
+  message Response {
+    bool success = 1;
+  }
+}
+message RetrieveProductReviews{
+  message Request {
+    string sessionKey = 1;
+    int32 productId = 2;
+  }
+  message Response {
+    bool success = 1;
+    repeated int32 id = 2;
+    repeated bool isMyReview = 3;
+    repeated int32 stars = 4;
+    repeated string text = 5;
+    repeated int64 timestamp = 6;
+  }
+}
+message DeleteProductReview{
+  message Request {
+    string sessionKey = 1;
+    int32 reviewId = 2;
+  }
+  message Response {
+    bool success = 1;
+  }
+}
+message SubmitEmployeeReview{
+  message Request {
+    string sessionKey = 1;
+    int32 businessPageId = 2;
+    int32 employeeUserId = 3;
+    string text = 4;
+    int64 timestamp = 5;
+  }
+  message Response {
+    bool success = 1;
+  }
+}
+message RetrieveEmployeeReviews{
+  message Request {
+    string sessionKey = 1;
+    int32 businessPageId = 2;
+    int32 employeeUserId = 3;
+  }
+  message Response {
+    bool success = 1;
+    repeated int32 id = 2;
+    repeated bool isMyReview = 3;
+    repeated string text = 4;
+    repeated int64 timestamp = 5;
+  }
+}
+message DeleteEmployeeReview{
+  message Request {
+    string sessionKey = 1;
+    int32 reviewId = 2;
+  }
+  message Response {
+    bool success = 1;
+  }
+}
+
 service GlobensService {
   // user management RPCs
   rpc authenticateUser (AuthenticateUser.Request) returns (AuthenticateUser.Response) {}
@@ -443,6 +515,14 @@ service GlobensService {
   rpc logPurchase(LogPurchase.Request) returns (LogPurchase.Response){}
   rpc fetchPurchases(FetchPurchases.Request) returns (FetchPurchases.Response){}
   rpc fetchPurchaseDetails(FetchPurchaseDetails.Request) returns (FetchPurchaseDetails.Response){}
+
+  // review management RPCs
+  rpc submitProductReview(SubmitProductReview.Request) returns (SubmitProductReview.Response){}
+  rpc retrieveProductReviews(RetrieveProductReviews.Request) returns (RetrieveProductReviews.Response){}
+  rpc deleteProductReview(DeleteProductReview.Request) returns (DeleteProductReview.Response){}
+  rpc submitEmployeeReview(SubmitEmployeeReview.Request) returns (SubmitEmployeeReview.Response){}
+  rpc retrieveEmployeeReviews(RetrieveEmployeeReviews.Request) returns (RetrieveEmployeeReviews.Response){}
+  rpc deleteEmployeeReview(DeleteEmployeeReview.Request) returns (DeleteEmployeeReview.Response){}
 }
 
 
