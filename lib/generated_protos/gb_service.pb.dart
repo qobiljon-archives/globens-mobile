@@ -6093,8 +6093,9 @@ class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SubmitEmployeeReview.Request', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'employeeUserId', $pb.PbFieldType.O3, protoName: 'employeeUserId')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
-    ..aInt64(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
+    ..aInt64(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp')
     ..hasRequiredFields = false
   ;
 
@@ -6102,6 +6103,7 @@ class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
   factory SubmitEmployeeReview_Request({
     $core.String sessionKey,
     $core.int employeeUserId,
+    $core.int businessPageId,
     $core.String text,
     $fixnum.Int64 timestamp,
   }) {
@@ -6111,6 +6113,9 @@ class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
     }
     if (employeeUserId != null) {
       _result.employeeUserId = employeeUserId;
+    }
+    if (businessPageId != null) {
+      _result.businessPageId = businessPageId;
     }
     if (text != null) {
       _result.text = text;
@@ -6160,22 +6165,31 @@ class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
   void clearEmployeeUserId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get text => $_getSZ(2);
+  $core.int get businessPageId => $_getIZ(2);
   @$pb.TagNumber(3)
-  set text($core.String v) { $_setString(2, v); }
+  set businessPageId($core.int v) { $_setSignedInt32(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasText() => $_has(2);
+  $core.bool hasBusinessPageId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearText() => clearField(3);
+  void clearBusinessPageId() => clearField(3);
 
   @$pb.TagNumber(4)
-  $fixnum.Int64 get timestamp => $_getI64(3);
+  $core.String get text => $_getSZ(3);
   @$pb.TagNumber(4)
-  set timestamp($fixnum.Int64 v) { $_setInt64(3, v); }
+  set text($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasTimestamp() => $_has(3);
+  $core.bool hasText() => $_has(3);
   @$pb.TagNumber(4)
-  void clearTimestamp() => clearField(4);
+  void clearText() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $fixnum.Int64 get timestamp => $_getI64(4);
+  @$pb.TagNumber(5)
+  set timestamp($fixnum.Int64 v) { $_setInt64(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasTimestamp() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearTimestamp() => clearField(5);
 }
 
 class SubmitEmployeeReview_Response extends $pb.GeneratedMessage {
@@ -6258,6 +6272,7 @@ class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RetrieveEmployeeReviews.Request', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'employeeUserId', $pb.PbFieldType.O3, protoName: 'employeeUserId')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
     ..hasRequiredFields = false
   ;
 
@@ -6265,6 +6280,7 @@ class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
   factory RetrieveEmployeeReviews_Request({
     $core.String sessionKey,
     $core.int employeeUserId,
+    $core.int businessPageId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -6272,6 +6288,9 @@ class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
     }
     if (employeeUserId != null) {
       _result.employeeUserId = employeeUserId;
+    }
+    if (businessPageId != null) {
+      _result.businessPageId = businessPageId;
     }
     return _result;
   }
@@ -6313,6 +6332,15 @@ class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
   $core.bool hasEmployeeUserId() => $_has(1);
   @$pb.TagNumber(2)
   void clearEmployeeUserId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get businessPageId => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set businessPageId($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasBusinessPageId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearBusinessPageId() => clearField(3);
 }
 
 class RetrieveEmployeeReviews_Response extends $pb.GeneratedMessage {

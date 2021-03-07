@@ -1080,8 +1080,9 @@ const SubmitEmployeeReview_Request$json = const {
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
     const {'1': 'employeeUserId', '3': 2, '4': 1, '5': 5, '10': 'employeeUserId'},
-    const {'1': 'text', '3': 3, '4': 1, '5': 9, '10': 'text'},
-    const {'1': 'timestamp', '3': 4, '4': 1, '5': 3, '10': 'timestamp'},
+    const {'1': 'businessPageId', '3': 3, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'text', '3': 4, '4': 1, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 5, '4': 1, '5': 3, '10': 'timestamp'},
   ],
 };
 
@@ -1094,7 +1095,7 @@ const SubmitEmployeeReview_Response$json = const {
 };
 
 /// Descriptor for `SubmitEmployeeReview`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List submitEmployeeReviewDescriptor = $convert.base64Decode('ChRTdWJtaXRFbXBsb3llZVJldmlldxqDAQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EiYKDmVtcGxveWVlVXNlcklkGAIgASgFUg5lbXBsb3llZVVzZXJJZBISCgR0ZXh0GAMgASgJUgR0ZXh0EhwKCXRpbWVzdGFtcBgEIAEoA1IJdGltZXN0YW1wGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
+final $typed_data.Uint8List submitEmployeeReviewDescriptor = $convert.base64Decode('ChRTdWJtaXRFbXBsb3llZVJldmlldxqrAQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EiYKDmVtcGxveWVlVXNlcklkGAIgASgFUg5lbXBsb3llZVVzZXJJZBImCg5idXNpbmVzc1BhZ2VJZBgDIAEoBVIOYnVzaW5lc3NQYWdlSWQSEgoEdGV4dBgEIAEoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBSABKANSCXRpbWVzdGFtcBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
 @$core.Deprecated('Use retrieveEmployeeReviewsDescriptor instead')
 const RetrieveEmployeeReviews$json = const {
   '1': 'RetrieveEmployeeReviews',
@@ -1107,6 +1108,7 @@ const RetrieveEmployeeReviews_Request$json = const {
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
     const {'1': 'employeeUserId', '3': 2, '4': 1, '5': 5, '10': 'employeeUserId'},
+    const {'1': 'businessPageId', '3': 3, '4': 1, '5': 5, '10': 'businessPageId'},
   ],
 };
 
@@ -1122,7 +1124,7 @@ const RetrieveEmployeeReviews_Response$json = const {
 };
 
 /// Descriptor for `RetrieveEmployeeReviews`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List retrieveEmployeeReviewsDescriptor = $convert.base64Decode('ChdSZXRyaWV2ZUVtcGxveWVlUmV2aWV3cxpRCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSJgoOZW1wbG95ZWVVc2VySWQYAiABKAVSDmVtcGxveWVlVXNlcklkGmYKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSDgoCaWQYAiADKAVSAmlkEhIKBHRleHQYAyADKAlSBHRleHQSHAoJdGltZXN0YW1wGAQgAygDUgl0aW1lc3RhbXA=');
+final $typed_data.Uint8List retrieveEmployeeReviewsDescriptor = $convert.base64Decode('ChdSZXRyaWV2ZUVtcGxveWVlUmV2aWV3cxp5CgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSJgoOZW1wbG95ZWVVc2VySWQYAiABKAVSDmVtcGxveWVlVXNlcklkEiYKDmJ1c2luZXNzUGFnZUlkGAMgASgFUg5idXNpbmVzc1BhZ2VJZBpmCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEg4KAmlkGAIgAygFUgJpZBISCgR0ZXh0GAMgAygJUgR0ZXh0EhwKCXRpbWVzdGFtcBgEIAMoA1IJdGltZXN0YW1w');
 @$core.Deprecated('Use editEmployeeReviewDescriptor instead')
 const EditEmployeeReview$json = const {
   '1': 'EditEmployeeReview',

@@ -448,8 +448,9 @@ message SubmitEmployeeReview{
   message Request {
     string sessionKey = 1;
     int32 employeeUserId = 2;
-    string text = 3;
-    int64 timestamp = 4;
+    int32 businessPageId = 3;
+    string text = 4;
+    int64 timestamp = 5;
   }
   message Response {
     bool success = 1;
@@ -459,6 +460,7 @@ message RetrieveEmployeeReviews{
   message Request {
     string sessionKey = 1;
     int32 employeeUserId = 2;
+    int32 businessPageId = 3;
   }
   message Response {
     bool success = 1;
