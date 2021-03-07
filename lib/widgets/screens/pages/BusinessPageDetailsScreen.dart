@@ -298,10 +298,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
-    // todo show job details
-    Navigator.of(context).pushNamed(JobApplicationsListScreen.route_name, arguments: {
-      'job': job,
-      'businessPage': businessPage,
-    });
+    await Navigator.of(context).pushNamed(JobApplicationsListScreen.route_name, arguments: {'job': job, 'businessPage': businessPage});
+    await _fetchBusinessPageContent();
   }
 }

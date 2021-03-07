@@ -1,4 +1,4 @@
-import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/JobApplicationCreatorModalView.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
@@ -6,6 +6,7 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
 
 class JobApplicationsListScreen extends StatefulWidget {
   static const String route_name = '/business_page_details/job_applications_list';
@@ -15,97 +16,69 @@ class JobApplicationsListScreen extends StatefulWidget {
 }
 
 class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
-  List<Widget> _header = [];
-  List<JobApplication> _jobApplications = [];
-  List<Widget> _footer = [];
+  List<Widget> _header;
   BusinessPage _businessPage;
   Job _job;
+  var _jobApplications = List<JobApplication>();
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // 0. parsing arguments passed to this route (business page)
     Map args = ModalRoute.of(context).settings.arguments as Map;
     _job = args['job'] as Job;
     _businessPage = args['businessPage'] as BusinessPage;
     assert(_businessPage.role == Job.BUSINESS_OWNER_ROLE);
 
-    // 1. static part : set up common part of header and footer
     _header = [
-      Row(
-        children: [
-          IconButton(
-            icon: Icon(Icons.arrow_back_ios),
-            onPressed: () => _onBackButtonPressed(context),
-          ),
-          getTitleWidget(shorten(_job.title, 20, ellipsize: true)),
-        ],
-      ),
+      Row(children: [
+        IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: _onBackButtonPressed),
+        getTitleWidget(Locale.get("Job applicants"), textColor: Colors.black),
+      ]),
+      getSectionSplitter(Locale.get("Position : ${Locale.REPLACE}", shorten(_job.title, 20, ellipsize: true))),
     ];
 
-    // 2. dynamic part : change footer according to user's role in business page
     _updateDynamicPart();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("build called");
     return Scaffold(
-        body: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => Divider(
-                  color: Colors.blueAccent,
-                ),
-            itemCount: _header.length + _jobApplications.length + _footer.length,
-            itemBuilder: (BuildContext context, index) => _getListViewItems(context, index)));
+      body: ListView.builder(
+        itemCount: _header.length + _jobApplications.length,
+        itemBuilder: (BuildContext context, index) => _getListViewItems(context, index),
+      ),
+    );
   }
 
   Widget _getListViewItems(BuildContext context, int index) {
     if (index < _header.length)
       return _header[index];
-    else if (index >= _header.length + _jobApplications.length)
-      return _footer[index - _footer.length - _jobApplications.length];
     else
-      return _buildVacancyApplicationItem(context, index - _header.length);
+      return _buildVacancyApplicationItem(context, index - _header.length == 0, _jobApplications[index - _header.length]);
   }
 
-  Widget _buildVacancyApplicationItem(BuildContext context, int index) {
-    Row row = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width * 0.5,
-          child: GestureDetector(
-            onTap: () => _onJobApplicationPressed(context, _jobApplications[index], index),
-            child: Text(
-              "${_jobApplications[index].message}",
-              overflow: TextOverflow.clip,
-              style: TextStyle(fontSize: 20.0),
-            ),
+  Widget _buildVacancyApplicationItem(BuildContext context, bool firstElement, JobApplication jobApplication) {
+    return InkWell(
+        onTap: () => _onJobApplicationPressed(jobApplication),
+        child: Card(
+          margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(margin: EdgeInsets.all(10.0), child: CircleAvatar(radius: 20.0, backgroundImage: NetworkImage(jobApplication.applicant.picture))),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(shorten(jobApplication.applicant.name, 28, ellipsize: true), style: TextStyle(fontSize: 20.0)),
+                    Text('"${shorten(jobApplication.message, 50, ellipsize: true)}"', overflow: TextOverflow.ellipsis, style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic)),
+                  ],
+                ),
+              )
+            ],
           ),
-        ),
-        Row(
-          children: [
-            RaisedButton(child: Text(Locale.get("Approve")), onPressed: () => _onApproveButtonPressed(context, index)),
-            RaisedButton(
-              child: Text(Locale.get("Decline")),
-              onPressed: () => _onDeclineButtonPressed(context, index),
-            ),
-          ],
-        )
-      ],
-    );
-
-    if (index == 0) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          getTitleWidget(Locale.get("Job applications"), textColor: Colors.black),
-          row,
-        ],
-      );
-    } else
-      return row;
+        ));
   }
 
   void _updateDynamicPart() async {
@@ -120,40 +93,15 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
         await AppUser.signOut();
         await Navigator.of(context).pushReplacementNamed('/');
       }
-    }).timeout(const Duration(seconds: 3), onTimeout: () {
-      print("timeout");
-      //TODO: the future should be cancelled automatically after timeout: e.g -> StreamSubscription
     });
   }
 
-  void _onBackButtonPressed(BuildContext context) {
+  void _onBackButtonPressed() {
     Navigator.pop(context);
   }
 
-  void _onJobApplicationPressed(BuildContext context, JobApplication vacancyApplication, int index) async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationModalView(job: _job, jobApplication: _jobApplications[index]));
+  void _onJobApplicationPressed(JobApplication jobApplication) async {
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationViewerModalView(jobApplication));
     _updateDynamicPart();
-  }
-
-  void _onApproveButtonPressed(BuildContext context, int index) async {
-    bool success = await grpcApproveJobApplication(AppUser.sessionKey, _jobApplications[index]);
-    if (success) {
-      await toast(Locale.get("Success"));
-      _updateDynamicPart();
-    } else {
-      await AppUser.signOut();
-      await Navigator.of(context).pushReplacementNamed('/');
-    }
-  }
-
-  void _onDeclineButtonPressed(BuildContext context, int index) async {
-    bool success = await grpcDeclineJobApplication(AppUser.sessionKey, _jobApplications[index]);
-    if (success) {
-      await toast(Locale.get("Success"));
-      _updateDynamicPart();
-    } else {
-      await AppUser.signOut();
-      await Navigator.of(context).pushReplacementNamed('/');
-    }
   }
 }
