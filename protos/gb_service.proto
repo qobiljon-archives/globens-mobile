@@ -291,9 +291,10 @@ message FetchJobDetails{
   message Response{
     bool success = 1;
     int32 id = 2;
-    string role = 3;
-    string title = 4;
-    int32 hiredUserId = 5;
+    int32 businessPageId = 3;
+    string role = 4;
+    string title = 5;
+    int32 hiredUserId = 6;
   }
 }
 
@@ -303,6 +304,7 @@ message CreateJobApplication{
     string sessionKey = 1;
     int32 jobId = 2;
     string message = 3;
+    bytes content = 4;
   }
   message Response{
     bool success = 1;
@@ -342,8 +344,9 @@ message FetchJobApplicationDetails{
   message Response{
     bool success = 1;
     int32 id = 2;
-    string message = 3;
-    int32 applicantId = 4;
+    int32 applicantId = 3;
+    string message = 4;
+    bytes content = 5;
   }
 }
 message ApproveJobApplication{

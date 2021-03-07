@@ -26,5 +26,7 @@ class ProductCategory {
   String get name => _name[Language.languageCodeStringFromInt(Locale.languageCode)] as String;
 
   int get id => _id;
+
+  bool get isVacancyCategory => _id == 4;
 // endregion
 }

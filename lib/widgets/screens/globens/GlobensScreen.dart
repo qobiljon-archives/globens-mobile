@@ -61,7 +61,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
       });
     }
 
-    final Tuple2<bool, List<Product>> tp2 = await grpcFetchNextKProducts(k: 50);
+    final Tuple2<bool, List<Product>> tp2 = await grpcFetchNextKProducts(k: 4);
     success = tp2.item1;
     List<Product> products = tp2.item2;
 

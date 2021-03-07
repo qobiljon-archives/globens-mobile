@@ -1,15 +1,19 @@
+import 'dart:typed_data';
+
 class JobApplication {
   // region Variables
   int _id;
   int _applicantId;
   String _message;
+  Uint8List _content;
 
   // endregion
 
-  JobApplication.create(String message, {int id, int applicantId}) {
-    this._message = message;
+  JobApplication.create(String message, Uint8List content, {int id, int applicantId}) {
     this._id = id;
     this._applicantId = applicantId;
+    this._message = message;
+    this._content = content;
   }
 
   // region Getters
@@ -23,6 +27,10 @@ class JobApplication {
 
   String get message {
     return _message;
+  }
+
+  Uint8List get content {
+    return this._content;
   }
 
   bool get isNewJobApplication {

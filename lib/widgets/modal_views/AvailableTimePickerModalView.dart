@@ -40,19 +40,7 @@ class _AvailableTimePickerModalViewState extends State<AvailableTimePickerModalV
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Container(
-          margin: EdgeInsets.only(top: 40.0, right: 30.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back_ios),
-                onPressed: () => _onBackButtonPressed(context),
-              ),
-              getTitleWidget(Locale.get("Time slot selector"), textColor: Colors.black, margin: EdgeInsets.zero),
-            ],
-          ),
-        ),
+        Container(margin: EdgeInsets.only(top: 40.0, right: 30.0), child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () => _onBackButtonPressed(context)), getTitleWidget(Locale.get("Time slot selector"), textColor: Colors.black, margin: EdgeInsets.zero)])),
         Card(
           margin: EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
           child: Container(

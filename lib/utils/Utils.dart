@@ -355,7 +355,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, Bus
 
         if (success) {
           if (users.containsKey(jobDetailsRes.hiredUserId))
-            jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId])); // todo add description and responsibilities
+            jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPage, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId])); // todo add description and responsibilities
           else {
             final hiredUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
               ..sessionKey = sessionKey
@@ -363,9 +363,9 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, Bus
 
             if (hiredUserDetailsRes.success) {
               users[jobDetailsRes.hiredUserId] = GlobensUser.create(hiredUserDetailsRes.id, hiredUserDetailsRes.email, hiredUserDetailsRes.name, hiredUserDetailsRes.picture, hiredUserDetailsRes.pictureBlob);
-              jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId]));
+              jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPage, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId]));
             } else
-              jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role));
+              jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPage, role: jobDetailsRes.role));
           }
         }
       }
@@ -397,29 +397,41 @@ Future<bool> grpcCreateVacantJob(String sessionKey, BusinessPage businessPage, J
   return success;
 }
 
-Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageVacancies(String sessionKey) async {
+Future<Tuple2<bool, List<Job>>> grpcFetchVacantPositions(String sessionKey) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
-  List<Job> jobs = List<Job>();
+  var jobs = List<Job>();
+  var businessPages = Map<int, BusinessPage>();
 
   try {
-    final businessPageJobIdsRes = await stub.fetchNextKVacantJobIds(FetchNextKVacantJobIds_Request()
+    final vacantJobIdsRes = await stub.fetchNextKVacantJobIds(FetchNextKVacantJobIds_Request()
       ..sessionKey = sessionKey
       ..k = 100
-      ..filterDetails = FilterDetails()
       ..previousVacantJobId = 0);
-    success = businessPageJobIdsRes.success;
+    success = vacantJobIdsRes.success;
     if (success) {
-      for (int jobId in businessPageJobIdsRes.id) {
+      for (int jobId in vacantJobIdsRes.id) {
         final jobDetailsRes = await stub.fetchJobDetails(FetchJobDetails_Request()
           ..sessionKey = sessionKey
           ..jobId = jobId);
         success &= jobDetailsRes.success;
 
         if (success) {
-          jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, role: jobDetailsRes.role));
+          if(businessPages.containsKey(jobDetailsRes.businessPageId))
+            jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPages[jobDetailsRes.businessPageId], role: jobDetailsRes.role));
+          else {
+            final businessPageDetailsRes = await stub.fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
+            ..sessionKey = sessionKey
+            ..businessPageId = jobDetailsRes.businessPageId);
+            success &= businessPageDetailsRes.success;
+
+            if(success) {
+              businessPages.putIfAbsent(jobDetailsRes.businessPageId, () => BusinessPage.create(businessPageDetailsRes.title, businessPageDetailsRes.pictureBlob, id: businessPageDetailsRes.id, type: businessPageDetailsRes.type, role: businessPageDetailsRes.role));
+              jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPages[jobDetailsRes.businessPageId], role: jobDetailsRes.role));
+            }
+          }
         }
       }
     }
@@ -452,7 +464,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
           ..jobApplicationId = applicationId);
         success &= fetchJobApplicationDetailsRes.success;
 
-        if (success) vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, id: fetchJobApplicationDetailsRes.id, applicantId: fetchJobApplicationDetailsRes.applicantId));
+        if (success) vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, fetchJobApplicationDetailsRes.content, id: fetchJobApplicationDetailsRes.id, applicantId: fetchJobApplicationDetailsRes.applicantId));
       }
     }
   } catch (e) {
@@ -473,6 +485,7 @@ Future<bool> grpcCreateJobApplication(String sessionKey, Job job, JobApplication
     final response = await stub.createJobApplication(CreateJobApplication_Request()
       ..sessionKey = sessionKey
       ..jobId = job.id
+      ..content = jobApplication.content
       ..message = jobApplication.message);
     success = response.success;
   } catch (e) {

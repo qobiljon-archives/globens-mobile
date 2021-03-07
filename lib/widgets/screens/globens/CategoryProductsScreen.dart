@@ -1,10 +1,16 @@
-import 'package:globens_flutter_client/utils/Locale.dart';
+import 'package:globens_flutter_client/widgets/modal_views/BusinessPageCreatorModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
+import 'package:globens_flutter_client/entities/JobApplication.dart';
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:tuple/tuple.dart';
 
 class CategoryProductsScreen extends StatefulWidget {
   static const String route_name = '/category_products';
@@ -17,6 +23,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   Widget _header;
   ProductCategory _category;
   List<Product> _products = [];
+  List<Job> _vacantJobs = [];
 
   @override
   void initState() {
@@ -36,6 +43,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
     super.didChangeDependencies();
 
     _category = ModalRoute.of(context).settings.arguments as ProductCategory;
+
     grpcFetchNextKProducts(filterDetails: FilterDetails()..categoryId = _category.id).then((tp) {
       bool success = tp.item1;
       List<Product> products = tp.item2;
@@ -43,6 +51,17 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
       if (success) {
         setState(() {
           this._products = products;
+        });
+      }
+    });
+
+    grpcFetchVacantPositions(AppUser.sessionKey).then((tp) {
+      bool success = tp.item1;
+      List<Job> jobs = tp.item2;
+
+      if (success) {
+        setState(() {
+          this._vacantJobs = jobs;
         });
       }
     });
@@ -63,10 +82,12 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   @override
   Widget build(BuildContext context) {
     int productRows = (_products.length / 2).ceil();
+    int jobRows = _vacantJobs.length;
+    int rows = _category.isVacancyCategory ? jobRows : productRows;
 
     return Scaffold(
       body: ListView.builder(
-        itemCount: 2 + productRows,
+        itemCount: 2 + rows,
         itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
       ),
     );
@@ -78,10 +99,13 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
     if (index >= 2) {
       // products section
       index -= 2;
-      return _buildProductRow(context, index, screenSize);
+      if (_category.isVacancyCategory)
+        return _buildVacancyRow(context, index, screenSize);
+      else
+        return _buildProductRow(context, index, screenSize);
     } else if (index == 1) {
       // divider
-      return getSectionSplitter(Locale.get("Related products"));
+      return getSectionSplitter(Locale.get("Related items"));
     } else {
       return _header;
     }
@@ -156,6 +180,68 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
       row.children.add(_buildProductItem(context, _products[productIndex + 1], screenSize));
 
     return row;
+  }
+
+  Widget _buildVacancyRow(BuildContext context, int index, Size screenSize) {
+    return InkWell(
+        onTap: () => _vacantPositionItemPressed(context, index),
+        child: Card(
+          margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                margin: EdgeInsets.all(10.0),
+                child: CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: AssetImage("assets/placeholder_vacancy.png"),
+                ),
+              ),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(
+                    shorten(_vacantJobs[index].title, 28, ellipsize: true),
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  Text(
+                    "by ${_vacantJobs[index].businessPage.title}",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
+                  )
+                ]),
+              )
+            ],
+          ),
+        ));
+  }
+
+  void _vacantPositionItemPressed(BuildContext context, int index) async {
+    Tuple2<bool, List<JobApplication>> res = await grpcFetchJobApplications(AppUser.sessionKey, _vacantJobs[index]);
+    bool success = res.item1;
+    List<JobApplication> jobApplications = res.item2;
+
+    if (success) {
+      bool alreadyApplied = false;
+      for (JobApplication jobApplication in jobApplications)
+        if (jobApplication.applicantId == AppUser.id) {
+          alreadyApplied = true;
+          break;
+        }
+
+      if (alreadyApplied)
+        toast(Locale.get("You have already applied for this position!"));
+      else {
+        await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationModalView(job: _vacantJobs[index]));
+        _updateDynamicPart();
+      }
+    } else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
+  }
+  
+  void _updateDynamicPart() async {
+
   }
 
   void _onBackButtonPressed() {

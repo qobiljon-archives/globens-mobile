@@ -3863,9 +3863,10 @@ class FetchJobDetails_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchJobDetails.Response', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'role')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
-    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'hiredUserId', $pb.PbFieldType.O3, protoName: 'hiredUserId')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'role')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'hiredUserId', $pb.PbFieldType.O3, protoName: 'hiredUserId')
     ..hasRequiredFields = false
   ;
 
@@ -3873,6 +3874,7 @@ class FetchJobDetails_Response extends $pb.GeneratedMessage {
   factory FetchJobDetails_Response({
     $core.bool success,
     $core.int id,
+    $core.int businessPageId,
     $core.String role,
     $core.String title,
     $core.int hiredUserId,
@@ -3883,6 +3885,9 @@ class FetchJobDetails_Response extends $pb.GeneratedMessage {
     }
     if (id != null) {
       _result.id = id;
+    }
+    if (businessPageId != null) {
+      _result.businessPageId = businessPageId;
     }
     if (role != null) {
       _result.role = role;
@@ -3935,31 +3940,40 @@ class FetchJobDetails_Response extends $pb.GeneratedMessage {
   void clearId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get role => $_getSZ(2);
+  $core.int get businessPageId => $_getIZ(2);
   @$pb.TagNumber(3)
-  set role($core.String v) { $_setString(2, v); }
+  set businessPageId($core.int v) { $_setSignedInt32(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasRole() => $_has(2);
+  $core.bool hasBusinessPageId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRole() => clearField(3);
+  void clearBusinessPageId() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get title => $_getSZ(3);
+  $core.String get role => $_getSZ(3);
   @$pb.TagNumber(4)
-  set title($core.String v) { $_setString(3, v); }
+  set role($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasTitle() => $_has(3);
+  $core.bool hasRole() => $_has(3);
   @$pb.TagNumber(4)
-  void clearTitle() => clearField(4);
+  void clearRole() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.int get hiredUserId => $_getIZ(4);
+  $core.String get title => $_getSZ(4);
   @$pb.TagNumber(5)
-  set hiredUserId($core.int v) { $_setSignedInt32(4, v); }
+  set title($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasHiredUserId() => $_has(4);
+  $core.bool hasTitle() => $_has(4);
   @$pb.TagNumber(5)
-  void clearHiredUserId() => clearField(5);
+  void clearTitle() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.int get hiredUserId => $_getIZ(5);
+  @$pb.TagNumber(6)
+  set hiredUserId($core.int v) { $_setSignedInt32(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasHiredUserId() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearHiredUserId() => clearField(6);
 }
 
 class FetchJobDetails extends $pb.GeneratedMessage {
@@ -3996,6 +4010,7 @@ class CreateJobApplication_Request extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'jobId', $pb.PbFieldType.O3, protoName: 'jobId')
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'message')
+    ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -4004,6 +4019,7 @@ class CreateJobApplication_Request extends $pb.GeneratedMessage {
     $core.String sessionKey,
     $core.int jobId,
     $core.String message,
+    $core.List<$core.int> content,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -4014,6 +4030,9 @@ class CreateJobApplication_Request extends $pb.GeneratedMessage {
     }
     if (message != null) {
       _result.message = message;
+    }
+    if (content != null) {
+      _result.content = content;
     }
     return _result;
   }
@@ -4064,6 +4083,15 @@ class CreateJobApplication_Request extends $pb.GeneratedMessage {
   $core.bool hasMessage() => $_has(2);
   @$pb.TagNumber(3)
   void clearMessage() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get content => $_getN(3);
+  @$pb.TagNumber(4)
+  set content($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasContent() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearContent() => clearField(4);
 }
 
 class CreateJobApplication_Response extends $pb.GeneratedMessage {
@@ -4598,8 +4626,9 @@ class FetchJobApplicationDetails_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchJobApplicationDetails.Response', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'message')
-    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'applicantId', $pb.PbFieldType.O3, protoName: 'applicantId')
+    ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'applicantId', $pb.PbFieldType.O3, protoName: 'applicantId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'message')
+    ..a<$core.List<$core.int>>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content', $pb.PbFieldType.OY)
     ..hasRequiredFields = false
   ;
 
@@ -4607,8 +4636,9 @@ class FetchJobApplicationDetails_Response extends $pb.GeneratedMessage {
   factory FetchJobApplicationDetails_Response({
     $core.bool success,
     $core.int id,
-    $core.String message,
     $core.int applicantId,
+    $core.String message,
+    $core.List<$core.int> content,
   }) {
     final _result = create();
     if (success != null) {
@@ -4617,11 +4647,14 @@ class FetchJobApplicationDetails_Response extends $pb.GeneratedMessage {
     if (id != null) {
       _result.id = id;
     }
+    if (applicantId != null) {
+      _result.applicantId = applicantId;
+    }
     if (message != null) {
       _result.message = message;
     }
-    if (applicantId != null) {
-      _result.applicantId = applicantId;
+    if (content != null) {
+      _result.content = content;
     }
     return _result;
   }
@@ -4665,22 +4698,31 @@ class FetchJobApplicationDetails_Response extends $pb.GeneratedMessage {
   void clearId() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get message => $_getSZ(2);
+  $core.int get applicantId => $_getIZ(2);
   @$pb.TagNumber(3)
-  set message($core.String v) { $_setString(2, v); }
+  set applicantId($core.int v) { $_setSignedInt32(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasMessage() => $_has(2);
+  $core.bool hasApplicantId() => $_has(2);
   @$pb.TagNumber(3)
-  void clearMessage() => clearField(3);
+  void clearApplicantId() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.int get applicantId => $_getIZ(3);
+  $core.String get message => $_getSZ(3);
   @$pb.TagNumber(4)
-  set applicantId($core.int v) { $_setSignedInt32(3, v); }
+  set message($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasApplicantId() => $_has(3);
+  $core.bool hasMessage() => $_has(3);
   @$pb.TagNumber(4)
-  void clearApplicantId() => clearField(4);
+  void clearMessage() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.List<$core.int> get content => $_getN(4);
+  @$pb.TagNumber(5)
+  set content($core.List<$core.int> v) { $_setBytes(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasContent() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearContent() => clearField(5);
 }
 
 class FetchJobApplicationDetails extends $pb.GeneratedMessage {
