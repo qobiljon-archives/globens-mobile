@@ -249,10 +249,8 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
       await Navigator.of(context).pushReplacementNamed('/');
     }
   }
-  
-  void _updateDynamicPart() async {
 
-  }
+  void _updateDynamicPart() async {}
 
   void _onBackButtonPressed() {
     Navigator.of(context).pop();
