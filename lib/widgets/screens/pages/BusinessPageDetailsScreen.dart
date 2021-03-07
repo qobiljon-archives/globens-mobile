@@ -9,6 +9,7 @@ import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:globens_flutter_client/widgets/screens/pages/JobApplicationsListScreen.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessPageDetailsScreen extends StatefulWidget {
@@ -298,5 +299,9 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
     // todo show job details
+    Navigator.of(context).pushNamed(JobApplicationsListScreen.route_name, arguments: {
+      'job': job,
+      'businessPage': businessPage,
+    });
   }
 }
