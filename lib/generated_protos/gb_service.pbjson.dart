@@ -826,14 +826,14 @@ const FetchJobApplicationDetails_Response$json = const {
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
-    const {'1': 'applicantId', '3': 3, '4': 1, '5': 5, '10': 'applicantId'},
-    const {'1': 'message', '3': 4, '4': 1, '5': 9, '10': 'message'},
+    const {'1': 'message', '3': 3, '4': 1, '5': 9, '10': 'message'},
+    const {'1': 'applicantId', '3': 4, '4': 1, '5': 5, '10': 'applicantId'},
     const {'1': 'content', '3': 5, '4': 1, '5': 12, '10': 'content'},
   ],
 };
 
 /// Descriptor for `FetchJobApplicationDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchJobApplicationDetailsDescriptor = $convert.base64Decode('ChpGZXRjaEpvYkFwcGxpY2F0aW9uRGV0YWlscxpVCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSKgoQam9iQXBwbGljYXRpb25JZBgCIAEoBVIQam9iQXBwbGljYXRpb25JZBqKAQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAEoBVICaWQSIAoLYXBwbGljYW50SWQYAyABKAVSC2FwcGxpY2FudElkEhgKB21lc3NhZ2UYBCABKAlSB21lc3NhZ2USGAoHY29udGVudBgFIAEoDFIHY29udGVudA==');
+final $typed_data.Uint8List fetchJobApplicationDetailsDescriptor = $convert.base64Decode('ChpGZXRjaEpvYkFwcGxpY2F0aW9uRGV0YWlscxpVCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSKgoQam9iQXBwbGljYXRpb25JZBgCIAEoBVIQam9iQXBwbGljYXRpb25JZBqKAQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAEoBVICaWQSGAoHbWVzc2FnZRgDIAEoCVIHbWVzc2FnZRIgCgthcHBsaWNhbnRJZBgEIAEoBVILYXBwbGljYW50SWQSGAoHY29udGVudBgFIAEoDFIHY29udGVudA==');
 @$core.Deprecated('Use approveJobApplicationDescriptor instead')
 const ApproveJobApplication$json = const {
   '1': 'ApproveJobApplication',

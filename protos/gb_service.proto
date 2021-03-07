@@ -344,8 +344,8 @@ message FetchJobApplicationDetails{
   message Response{
     bool success = 1;
     int32 id = 2;
-    int32 applicantId = 3;
-    string message = 4;
+    string message = 3;
+    int32 applicantId = 4;
     bytes content = 5;
   }
 }

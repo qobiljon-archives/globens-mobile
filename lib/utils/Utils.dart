@@ -419,15 +419,15 @@ Future<Tuple2<bool, List<Job>>> grpcFetchVacantPositions(String sessionKey) asyn
         success &= jobDetailsRes.success;
 
         if (success) {
-          if(businessPages.containsKey(jobDetailsRes.businessPageId))
+          if (businessPages.containsKey(jobDetailsRes.businessPageId))
             jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPages[jobDetailsRes.businessPageId], role: jobDetailsRes.role));
           else {
             final businessPageDetailsRes = await stub.fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
-            ..sessionKey = sessionKey
-            ..businessPageId = jobDetailsRes.businessPageId);
+              ..sessionKey = sessionKey
+              ..businessPageId = jobDetailsRes.businessPageId);
             success &= businessPageDetailsRes.success;
 
-            if(success) {
+            if (success) {
               businessPages.putIfAbsent(jobDetailsRes.businessPageId, () => BusinessPage.create(businessPageDetailsRes.title, businessPageDetailsRes.pictureBlob, id: businessPageDetailsRes.id, type: businessPageDetailsRes.type, role: businessPageDetailsRes.role));
               jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPages[jobDetailsRes.businessPageId], role: jobDetailsRes.role));
             }
@@ -456,12 +456,14 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
     final fetchJobApplicationIdsRes = await stub.fetchJobApplicationIds(FetchJobApplicationIds_Request()
       ..sessionKey = sessionKey
       ..jobId = job.id);
+
     success = fetchJobApplicationIdsRes.success;
     if (success) {
       for (int applicationId in fetchJobApplicationIdsRes.id) {
         final fetchJobApplicationDetailsRes = await stub.fetchJobApplicationDetails(FetchJobApplicationDetails_Request()
           ..sessionKey = sessionKey
           ..jobApplicationId = applicationId);
+
         success &= fetchJobApplicationDetailsRes.success;
 
         if (success) vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, fetchJobApplicationDetailsRes.content, id: fetchJobApplicationDetailsRes.id, applicantId: fetchJobApplicationDetailsRes.applicantId));

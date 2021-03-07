@@ -204,7 +204,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                     style: TextStyle(fontSize: 20.0),
                   ),
                   Text(
-                    "by ${_vacantJobs[index].businessPage.title}",
+                    'Posted by "${_vacantJobs[index].businessPage.title}"',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
                   )
