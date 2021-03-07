@@ -7,6 +7,7 @@ import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/JobApplicationsListScreen.dart';
@@ -176,10 +177,38 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Container(
+                        height: 20.0,
+                        child: Text(
+                          product.name,
+                          maxLines: 2,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                        ),
+                      ),
                       Text(
-                        product.name,
-                        maxLines: 2,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                        Locale.get("by ${Locale.REPLACE}", product.businessPage.title),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12.0, color: Colors.blueGrey),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 5.0),
+                        color: Colors.white,
+                        child: Row(
+                          children: [
+                            RatingBarIndicator(
+                              rating: product.stars,
+                              direction: Axis.horizontal,
+                              itemCount: 5,
+                              itemSize: 15.0,
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                            ),
+                            Text("(${product.reviewsCount})"),
+                          ],
+                        ),
                       ),
                       Text(
                         "${product.priceStr}",

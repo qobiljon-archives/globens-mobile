@@ -89,15 +89,20 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                         Container(
                           padding: EdgeInsets.only(left: 10.0, top: 10.0),
                           color: Colors.white,
-                          child: RatingBarIndicator(
-                            rating: _product.stars,
-                            direction: Axis.horizontal,
-                            itemCount: 5,
-                            itemSize: 15.0,
-                            itemBuilder: (context, _) => Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
+                          child: Row(
+                            children: [
+                              RatingBarIndicator(
+                                rating: _product.stars,
+                                direction: Axis.horizontal,
+                                itemCount: 5,
+                                itemSize: 15.0,
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                              ),
+                              Text("(${_product.reviewsCount})"),
+                            ],
                           ),
                         ),
                         Container(

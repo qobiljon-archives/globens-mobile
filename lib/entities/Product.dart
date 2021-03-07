@@ -78,7 +78,7 @@ class Product {
   }
 
   double get stars {
-    return this.stars;
+    return this._stars;
   }
 
   int get reviewsCount {

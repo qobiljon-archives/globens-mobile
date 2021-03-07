@@ -7,6 +7,7 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:archive/archive_io.dart';
@@ -141,22 +142,19 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                       children: [
                         Stack(
                           children: [
-                            GestureDetector(
-                              onTap: _showPhotoUploadOptions,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0),
-                                ),
-                                child: AspectRatio(aspectRatio: 1, child: _productImageBytes == null ? Image.asset('assets/placeholder_background_image.png', fit: BoxFit.cover) : Image.memory(_productImageBytes, fit: BoxFit.fitWidth)),
+                            ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
                               ),
+                              child: AspectRatio(aspectRatio: 1, child: Image.memory(_product.pictureBlob, fit: BoxFit.cover)),
                             ),
                             Container(
-                              color: Colors.white,
                               margin: EdgeInsets.only(left: 10.0, top: 10.0),
                               padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                              color: Colors.white,
                               child: Text(
-                                Product.price2string(double.tryParse(_priceTextController.text) ?? 0.0, _selectedCurrency),
+                                _product.priceStr,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
                               ),
@@ -164,7 +162,26 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                           ],
                         ),
                         Container(
-                          padding: EdgeInsets.all(5.0),
+                          padding: EdgeInsets.only(left: 10.0, top: 10.0),
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              RatingBarIndicator(
+                                rating: _product.stars,
+                                direction: Axis.horizontal,
+                                itemCount: 5,
+                                itemSize: 15.0,
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                              ),
+                              Text("(${_product.reviewsCount})"),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 10.0),
                           child: Container(
                             height: 20.0,
                             margin: EdgeInsets.only(top: 10, bottom: 10),

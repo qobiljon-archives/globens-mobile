@@ -204,14 +204,23 @@ class _GlobensScreenState extends State<GlobensScreen> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 12.0, color: Colors.blueGrey),
                         ),
-                        RatingBarIndicator(
-                          rating: 4.5,
-                          direction: Axis.horizontal,
-                          itemCount: 5,
-                          itemSize: 15.0,
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Colors.amber,
+                        Container(
+                          padding: EdgeInsets.only(top: 5.0),
+                          color: Colors.white,
+                          child: Row(
+                            children: [
+                              RatingBarIndicator(
+                                rating: product.stars,
+                                direction: Axis.horizontal,
+                                itemCount: 5,
+                                itemSize: 15.0,
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                              ),
+                              Text("(${product.reviewsCount})"),
+                            ],
                           ),
                         ),
                         Text(
