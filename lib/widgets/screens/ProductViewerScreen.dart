@@ -91,7 +91,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                           padding: EdgeInsets.only(left: 10.0, top: 10.0),
                           color: Colors.white,
                           child: RatingBarIndicator(
-                            rating: 4.5,
+                            rating: _product.id,
                             direction: Axis.horizontal,
                             itemCount: 5,
                             itemSize: 15.0,

@@ -20,13 +20,15 @@ class Product {
   List<int> _pictureBlob;
   BusinessPage _businessPage;
   double _price;
+  double _stars;
+  int _reviewsCount;
   Currency _currency;
   String _description;
   List<int> _productContent;
 
   // endregion
 
-  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, List<int> productContent, {int id}) {
+  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, List<int> productContent, {int id, double stars, int reviewsCount}) {
     this._id = id;
     this._name = name;
     this._productType = productType;
@@ -34,6 +36,8 @@ class Product {
     this._pictureBlob = pictureBlob;
     this._businessPage = businessPage;
     this._price = price;
+    this._stars = stars;
+    this._reviewsCount = reviewsCount;
     this._currency = currency;
     this._description = description;
     this._productContent = productContent;
@@ -71,6 +75,14 @@ class Product {
 
   double get price {
     return this._price;
+  }
+
+  double get stars {
+    return this.stars;
+  }
+
+  int get reviewsCount {
+    return this._reviewsCount;
   }
 
   Currency get currency {
