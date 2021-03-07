@@ -7,6 +7,7 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:tuple/tuple.dart';
 import 'dart:math';
 
@@ -202,6 +203,16 @@ class _GlobensScreenState extends State<GlobensScreen> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(fontSize: 12.0, color: Colors.blueGrey),
+                        ),
+                        RatingBarIndicator(
+                          rating: 4.5,
+                          direction: Axis.horizontal,
+                          itemCount: 5,
+                          itemSize: 15.0,
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          ),
                         ),
                         Text(
                           "${product.priceStr}",

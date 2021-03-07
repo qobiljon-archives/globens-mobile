@@ -4,6 +4,7 @@ import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 
 class CategoryProductsScreen extends StatefulWidget {
@@ -133,6 +134,16 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontSize: 12.0, color: Colors.blueGrey),
+                      ),
+                      RatingBarIndicator(
+                        rating: 4.5,
+                        direction: Axis.horizontal,
+                        itemCount: 5,
+                        itemSize: 15.0,
+                        itemBuilder: (context, _) => Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        ),
                       ),
                       Text(
                         "${product.priceStr}",
