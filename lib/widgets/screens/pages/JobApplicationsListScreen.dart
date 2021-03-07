@@ -131,7 +131,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   }
 
   void _onJobApplicationPressed(BuildContext context, JobApplication vacancyApplication, int index) async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationViewerModalView(job: _job, jobApplication: _jobApplications[index]));
+    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationModalView(job: _job, jobApplication: _jobApplications[index]));
     _updateDynamicPart();
   }
 
