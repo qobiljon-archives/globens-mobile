@@ -193,9 +193,11 @@ message FetchProductDetails{
     bytes pictureBlob = 7;
     int32 businessPageId = 8;
     float price = 9;
-    Currency currency = 10;
-    string description = 11;
-    bytes content = 12;
+    double stars = 10;
+    int32 reviewsCount = 11;
+    Currency currency = 12;
+    string description = 13;
+    bytes content = 14;
   }
 }
 message PublishProduct{
@@ -416,10 +418,21 @@ message RetrieveProductReviews{
   message Response {
     bool success = 1;
     repeated int32 id = 2;
-    repeated bool isMyReview = 3;
-    repeated int32 stars = 4;
-    repeated string text = 5;
-    repeated int64 timestamp = 6;
+    repeated int32 stars = 3;
+    repeated string text = 4;
+    repeated int64 timestamp = 5;
+  }
+}
+message EditProductReview{
+  message Request {
+    string sessionKey = 1;
+    int32 reviewId = 2;
+    int32 stars = 3;
+    string text = 4;
+    int64 timestamp = 5;
+  }
+  message Response {
+    bool success = 1;
   }
 }
 message DeleteProductReview{
@@ -434,10 +447,9 @@ message DeleteProductReview{
 message SubmitEmployeeReview{
   message Request {
     string sessionKey = 1;
-    int32 businessPageId = 2;
-    int32 employeeUserId = 3;
-    string text = 4;
-    int64 timestamp = 5;
+    int32 employeeUserId = 2;
+    string text = 3;
+    int64 timestamp = 4;
   }
   message Response {
     bool success = 1;
@@ -446,15 +458,24 @@ message SubmitEmployeeReview{
 message RetrieveEmployeeReviews{
   message Request {
     string sessionKey = 1;
-    int32 businessPageId = 2;
-    int32 employeeUserId = 3;
+    int32 employeeUserId = 2;
   }
   message Response {
     bool success = 1;
     repeated int32 id = 2;
-    repeated bool isMyReview = 3;
-    repeated string text = 4;
-    repeated int64 timestamp = 5;
+    repeated string text = 3;
+    repeated int64 timestamp = 4;
+  }
+}
+message EditEmployeeReview{
+  message Request {
+    string sessionKey = 1;
+    int32 reviewId = 2;
+    string text = 3;
+    int64 timestamp = 4;
+  }
+  message Response {
+    bool success = 1;
   }
 }
 message DeleteEmployeeReview{
@@ -522,9 +543,11 @@ service GlobensService {
   // review management RPCs
   rpc submitProductReview(SubmitProductReview.Request) returns (SubmitProductReview.Response){}
   rpc retrieveProductReviews(RetrieveProductReviews.Request) returns (RetrieveProductReviews.Response){}
+  rpc editProductReview(EditProductReview.Request) returns (EditProductReview.Response){}
   rpc deleteProductReview(DeleteProductReview.Request) returns (DeleteProductReview.Response){}
   rpc submitEmployeeReview(SubmitEmployeeReview.Request) returns (SubmitEmployeeReview.Response){}
   rpc retrieveEmployeeReviews(RetrieveEmployeeReviews.Request) returns (RetrieveEmployeeReviews.Response){}
+  rpc editEmployeeReview(EditEmployeeReview.Request) returns (EditEmployeeReview.Response){}
   rpc deleteEmployeeReview(DeleteEmployeeReview.Request) returns (DeleteEmployeeReview.Response){}
 }
 
