@@ -1,17 +1,21 @@
+import 'package:globens_flutter_client/entities/GlobensUser.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'dart:typed_data';
 
 class JobApplication {
   // region Variables
   int _id;
-  int _applicantId;
+  GlobensUser _applicant;
+  Job _job;
   String _message;
   Uint8List _content;
 
   // endregion
 
-  JobApplication.create(String message, Uint8List content, {int id, int applicantId}) {
+  JobApplication.create(String message, Uint8List content, Job job, {int id, GlobensUser applicant}) {
     this._id = id;
-    this._applicantId = applicantId;
+    this._job = job;
+    this._applicant = applicant;
     this._message = message;
     this._content = content;
   }
@@ -21,8 +25,12 @@ class JobApplication {
     return _id;
   }
 
-  int get applicantId {
-    return _applicantId;
+  Job get job {
+    return _job;
+  }
+
+  GlobensUser get applicant {
+    return _applicant;
   }
 
   String get message {

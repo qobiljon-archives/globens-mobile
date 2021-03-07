@@ -451,7 +451,8 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
-  List<JobApplication> vacancyApplications = List<JobApplication>();
+  var vacancyApplications = List<JobApplication>();
+  var applicantUsers = Map<int, GlobensUser>();
 
   try {
     final fetchJobApplicationIdsRes = await stub.fetchJobApplicationIds(FetchJobApplicationIds_Request()
@@ -464,10 +465,23 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
         final fetchJobApplicationDetailsRes = await stub.fetchJobApplicationDetails(FetchJobApplicationDetails_Request()
           ..sessionKey = sessionKey
           ..jobApplicationId = applicationId);
-
         success &= fetchJobApplicationDetailsRes.success;
 
-        if (success) vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, fetchJobApplicationDetailsRes.content, id: fetchJobApplicationDetailsRes.id, applicantId: fetchJobApplicationDetailsRes.applicantId));
+        if (success) {
+          if (applicantUsers.containsKey(fetchJobApplicationDetailsRes.applicantId))
+            vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, fetchJobApplicationDetailsRes.content, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchJobApplicationDetailsRes.applicantId]));
+          else {
+            final fetchUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
+              ..sessionKey = sessionKey
+              ..userId = fetchJobApplicationDetailsRes.applicantId);
+            success &= fetchUserDetailsRes.success;
+
+            if (success) {
+              applicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob));
+              vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, fetchJobApplicationDetailsRes.content, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchUserDetailsRes.id]));
+            }
+          }
+        }
       }
     }
   } catch (e) {

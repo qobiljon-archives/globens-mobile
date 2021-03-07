@@ -1,5 +1,4 @@
-import 'package:globens_flutter_client/widgets/modal_views/BusinessPageCreatorModalView.dart';
-import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/JobApplicationCreatorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
@@ -101,7 +100,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
       // products section
       index -= 2;
       if (_category.isVacancyCategory)
-        return _buildVacancyRow(context, index, screenSize);
+        return _buildVacancyRow(context, _vacantJobs[index], screenSize);
       else
         return _buildProductRow(context, index, screenSize);
     } else if (index == 1) {
@@ -193,9 +192,9 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
     return row;
   }
 
-  Widget _buildVacancyRow(BuildContext context, int index, Size screenSize) {
+  Widget _buildVacancyRow(BuildContext context, Job job, Size screenSize) {
     return InkWell(
-        onTap: () => _vacantPositionItemPressed(context, index),
+        onTap: () => _vacantPositionItemPressed(context, job),
         child: Card(
           margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
           child: Row(
@@ -211,11 +210,11 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
-                    shorten(_vacantJobs[index].title, 28, ellipsize: true),
+                    shorten(job.title, 28, ellipsize: true),
                     style: TextStyle(fontSize: 20.0),
                   ),
                   Text(
-                    'Posted by "${_vacantJobs[index].businessPage.title}"',
+                    'Posted by "${job.businessPage.title}"',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
                   )
@@ -226,15 +225,15 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         ));
   }
 
-  void _vacantPositionItemPressed(BuildContext context, int index) async {
-    Tuple2<bool, List<JobApplication>> res = await grpcFetchJobApplications(AppUser.sessionKey, _vacantJobs[index]);
+  void _vacantPositionItemPressed(BuildContext context, Job job) async {
+    Tuple2<bool, List<JobApplication>> res = await grpcFetchJobApplications(AppUser.sessionKey, job);
     bool success = res.item1;
     List<JobApplication> jobApplications = res.item2;
 
     if (success) {
       bool alreadyApplied = false;
       for (JobApplication jobApplication in jobApplications)
-        if (jobApplication.applicantId == AppUser.id) {
+        if (jobApplication.applicant.isMe) {
           alreadyApplied = true;
           break;
         }
@@ -242,7 +241,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
       if (alreadyApplied)
         toast(Locale.get("You have already applied for this position!"));
       else {
-        await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationModalView(job: _vacantJobs[index]));
+        await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationCreatorModalView(job));
         _updateDynamicPart();
       }
     } else {
