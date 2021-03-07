@@ -121,8 +121,6 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                         maxLines: 10,
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
                       ))),
-              if (isSchedule) Text(Utf8Decoder().convert(_product.productContent)),
-              getSectionSplitter(Locale.get("Proceed with this product")),
               if (isSchedule)
                 Container(
                     margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
