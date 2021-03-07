@@ -1,5 +1,7 @@
+import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
+import 'package:globens_flutter_client/widgets/screens/EmployeeReviewScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
@@ -166,6 +168,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _openProductReview() async {
-    await Navigator.of(context).pushNamed(ProductReviewScreen.route_name, arguments: _product);
+    await Navigator.of(context).pushNamed(EmployeeReviewScreen.route_name, arguments: {'business_page_id': 23,'employee_id': 23});
+    //await Navigator.of(context).pushNamed(ProductReviewScreen.route_name, arguments: _product);
   }
 }

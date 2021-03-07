@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/widgets/screens/EmployeeReviewScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsScreen.dart';
@@ -37,6 +38,7 @@ void main() {
       ProductViewerScreen.route_name: (context) => ProductViewerScreen(),
       ProductCreatorScreen.route_name: (context) => ProductCreatorScreen(),
       ProductReviewScreen.route_name: (context) => ProductReviewScreen(),
+      EmployeeReviewScreen.route_name: (context) => EmployeeReviewScreen(),
     },
   ));
 }
