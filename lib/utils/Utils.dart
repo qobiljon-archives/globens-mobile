@@ -550,7 +550,7 @@ Future<bool> grpcSubmitProductReview(String sessionKey, Product product, int sta
       ..productId = product.id
       ..stars = stars
       ..text = review
-      ..timestamp = DateTime.now().millisecondsSinceEpoch as Int64);
+      ..timestamp = Int64(DateTime.now().millisecondsSinceEpoch));
     isSuccess = response.success;
   } catch (e) {
     print(e);
@@ -571,7 +571,7 @@ Future<bool> grpcSubmitEmployeeReview(String sessionKey, int businessPageId, int
       ..businessPageId = businessPageId
       ..employeeUserId = employeeId
       ..text = review
-      ..timestamp = DateTime.now().millisecondsSinceEpoch as Int64);
+      ..timestamp = Int64(DateTime.now().millisecondsSinceEpoch));
     isSuccess = response.success;
   } catch (e) {
     print(e);
