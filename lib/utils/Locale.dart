@@ -157,7 +157,9 @@ class Locale {
     "Sign up": ["Зарегистрироваться", "가입하기", "Ro'yxatdan o'tish"],
     "Duration (months)": ["Продолжительность (мес.)", "기간 (개월)", "Muddati (oylar)"],
     "Review": ["Обзор","리뷰","Fikr-mulohaza"],
+    "Ratings and Reviews": ["Рейтинги и обзоры","평가 및 리뷰","Reytinglar va sharhlar"],
     "Send": ["Oтправлять", "보내다", "Topshirish"],
-    "Try again later": ["Попробуйте позже","나중에 다시 시도","Keyinroq sinab ko'ring"]
+    "Try again later": ["Попробуйте позже","나중에 다시 시도","Keyinroq sinab ko'ring"],
+    "Anonymous user": ["Анонимный пользователь","익명 사용자","Anonim foydalanuvchi"]
   };
 }
