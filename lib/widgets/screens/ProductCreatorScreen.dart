@@ -7,7 +7,6 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:archive/archive_io.dart';
@@ -142,19 +141,22 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                       children: [
                         Stack(
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
+                            GestureDetector(
+                              onTap: _showPhotoUploadOptions,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                                child: AspectRatio(aspectRatio: 1, child: _productImageBytes == null ? Image.asset('assets/placeholder_background_image.png', fit: BoxFit.cover) : Image.memory(_productImageBytes, fit: BoxFit.fitWidth)),
                               ),
-                              child: AspectRatio(aspectRatio: 1, child: Image.memory(_product.pictureBlob, fit: BoxFit.cover)),
                             ),
                             Container(
+                              color: Colors.white,
                               margin: EdgeInsets.only(left: 10.0, top: 10.0),
                               padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                              color: Colors.white,
                               child: Text(
-                                _product.priceStr,
+                                Product.price2string(double.tryParse(_priceTextController.text) ?? 0.0, _selectedCurrency),
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
                               ),
@@ -162,31 +164,11 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                           ],
                         ),
                         Container(
-                          padding: EdgeInsets.only(left: 10.0, top: 10.0),
-                          color: Colors.white,
-                          child: Row(
-                            children: [
-                              RatingBarIndicator(
-                                rating: _product.stars,
-                                direction: Axis.horizontal,
-                                itemCount: 5,
-                                itemSize: 15.0,
-                                itemBuilder: (context, _) => Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                              ),
-                              Text("(${_product.reviewsCount})"),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 10.0),
+                          padding: EdgeInsets.all(5.0),
                           child: Container(
                             height: 20.0,
                             margin: EdgeInsets.only(top: 10, bottom: 10),
-                            child: TextField(
-                                controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
+                            child: TextField(controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
                           ),
                         )
                       ],
@@ -197,14 +179,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 child: Container(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0),
                   child: DropdownButton<int>(
-                      isExpanded: true,
-                      value: _selectedCategoryId,
-                      icon: _getProductImage(),
-                      iconSize: 24,
-                      elevation: 16,
-                      underline: Container(),
-                      onChanged: _categorySelected,
-                      items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
+                      isExpanded: true, value: _selectedCategoryId, icon: _getProductImage(), iconSize: 24, elevation: 16, underline: Container(), onChanged: _categorySelected, items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
                 ),
               ),
               Card(
@@ -219,8 +194,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                     elevation: 16,
                     underline: Container(),
                     onChanged: _onProductTypeChanged,
-                    items:
-                        _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", _productTypes[selectedProductType].item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
+                    items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", _productTypes[selectedProductType].item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
                   ),
                 ),
               ),
@@ -262,25 +236,12 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   margin: EdgeInsets.only(top: 10.0),
                   child: Container(
                       padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: TextField(
-                          controller: _descriptionTextController,
-                          minLines: 10,
-                          maxLines: 10,
-                          keyboardType: TextInputType.multiline,
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
-                          decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
+                      child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
               getSectionSplitter(Locale.get(calendarSchedule ? "Schedule" : "Product content")),
               if (uploadFile && _productContentFiles.length > 0)
                 Column(
-                    children: _productContentFiles
-                        .map((file) => Card(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: Container(
-                                padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Image.file(file, width: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))]))))
-                        .toList()),
-              if (uploadFile)
-                RaisedButton.icon(
-                    onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                    children: _productContentFiles.map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Image.file(file, width: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))])))).toList()),
+              if (uploadFile) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               if (calendarSchedule)
                 GestureDetector(
                   onTap: () => _selectDateTime('from'),
@@ -319,9 +280,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   ),
                 ),
               getSectionSplitter(Locale.get("Proceed with this product")),
-              Container(
-                  margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-                  child: RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
