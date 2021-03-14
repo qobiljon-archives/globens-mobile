@@ -44,7 +44,10 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
 
     _category = ModalRoute.of(context).settings.arguments as ProductCategory;
 
-    grpcFetchNextKProducts(filterDetails: FilterDetails()..categoryId = _category.id).then((tp) {
+    grpcFetchNextKProducts(filterDetails: FilterDetails()
+      ..publishedProductsOnly = true
+      ..categoryId = _category.id
+      ..businessPageId = -1).then((tp) {
       bool success = tp.item1;
       List<Product> products = tp.item2;
 

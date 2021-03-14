@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
@@ -62,7 +63,12 @@ class _GlobensScreenState extends State<GlobensScreen> {
       });
     }
 
-    final Tuple2<bool, List<Product>> tp2 = await grpcFetchNextKProducts(k: 4);
+    final Tuple2<bool, List<Product>> tp2 = await grpcFetchNextKProducts(
+        k: 4,
+        filterDetails: FilterDetails()
+          ..publishedProductsOnly = true
+          ..categoryId = -1
+          ..businessPageId = -1);
     success = tp2.item1;
     List<Product> products = tp2.item2;
 

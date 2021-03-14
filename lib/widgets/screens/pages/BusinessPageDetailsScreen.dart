@@ -258,7 +258,10 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   Future<void> _fetchBusinessPageContent() async {
-    final Tuple2<bool, List<Product>> tp1 = await grpcFetchNextKProducts(filterDetails: FilterDetails()..businessPageId = _businessPage.id);
+    final Tuple2<bool, List<Product>> tp1 = await grpcFetchNextKProducts(
+        filterDetails: FilterDetails()
+          ..categoryId = -1
+          ..businessPageId = _businessPage.id);
     bool success = tp1.item1;
     List<Product> products = tp1.item2;
     if (success) {
@@ -286,7 +289,10 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   void _onCreateProductPressed() async {
     await Navigator.of(context).pushNamed(ProductCreatorScreen.route_name, arguments: _businessPage);
 
-    Tuple2<bool, List<Product>> res = await grpcFetchNextKProducts(filterDetails: FilterDetails()..businessPageId = _businessPage.id);
+    Tuple2<bool, List<Product>> res = await grpcFetchNextKProducts(
+        filterDetails: FilterDetails()
+          ..categoryId = -1
+          ..businessPageId = _businessPage.id);
     bool success = res.item1;
     List<Product> products = res.item2;
     if (success) {

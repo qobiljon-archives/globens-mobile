@@ -204,6 +204,7 @@ message FetchProductDetails{
 message PublishProduct{
   message Request{
     string sessionKey = 1;
+    int32 productId = 2;
   }
   message Response{
     bool success = 1;
@@ -212,6 +213,7 @@ message PublishProduct{
 message UnpublishProduct{
   message Request{
     string sessionKey = 1;
+    int32 productId = 2;
   }
   message Response{
     bool success = 1;

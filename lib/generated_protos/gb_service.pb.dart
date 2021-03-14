@@ -2588,16 +2588,21 @@ class FetchProductDetails extends $pb.GeneratedMessage {
 class PublishProduct_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'PublishProduct.Request', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'productId', $pb.PbFieldType.O3, protoName: 'productId')
     ..hasRequiredFields = false
   ;
 
   PublishProduct_Request._() : super();
   factory PublishProduct_Request({
     $core.String sessionKey,
+    $core.int productId,
   }) {
     final _result = create();
     if (sessionKey != null) {
       _result.sessionKey = sessionKey;
+    }
+    if (productId != null) {
+      _result.productId = productId;
     }
     return _result;
   }
@@ -2630,6 +2635,15 @@ class PublishProduct_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get productId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set productId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasProductId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProductId() => clearField(2);
 }
 
 class PublishProduct_Response extends $pb.GeneratedMessage {
@@ -2711,16 +2725,21 @@ class PublishProduct extends $pb.GeneratedMessage {
 class UnpublishProduct_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UnpublishProduct.Request', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'productId', $pb.PbFieldType.O3, protoName: 'productId')
     ..hasRequiredFields = false
   ;
 
   UnpublishProduct_Request._() : super();
   factory UnpublishProduct_Request({
     $core.String sessionKey,
+    $core.int productId,
   }) {
     final _result = create();
     if (sessionKey != null) {
       _result.sessionKey = sessionKey;
+    }
+    if (productId != null) {
+      _result.productId = productId;
     }
     return _result;
   }
@@ -2753,6 +2772,15 @@ class UnpublishProduct_Request extends $pb.GeneratedMessage {
   $core.bool hasSessionKey() => $_has(0);
   @$pb.TagNumber(1)
   void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get productId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set productId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasProductId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProductId() => clearField(2);
 }
 
 class UnpublishProduct_Response extends $pb.GeneratedMessage {

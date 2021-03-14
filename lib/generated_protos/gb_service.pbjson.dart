@@ -462,6 +462,7 @@ const PublishProduct_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'productId', '3': 2, '4': 1, '5': 5, '10': 'productId'},
   ],
 };
 
@@ -474,7 +475,7 @@ const PublishProduct_Response$json = const {
 };
 
 /// Descriptor for `PublishProduct`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List publishProductDescriptor = $convert.base64Decode('Cg5QdWJsaXNoUHJvZHVjdBopCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
+final $typed_data.Uint8List publishProductDescriptor = $convert.base64Decode('Cg5QdWJsaXNoUHJvZHVjdBpHCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSHAoJcHJvZHVjdElkGAIgASgFUglwcm9kdWN0SWQaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
 @$core.Deprecated('Use unpublishProductDescriptor instead')
 const UnpublishProduct$json = const {
   '1': 'UnpublishProduct',
@@ -486,6 +487,7 @@ const UnpublishProduct_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'productId', '3': 2, '4': 1, '5': 5, '10': 'productId'},
   ],
 };
 
@@ -498,7 +500,7 @@ const UnpublishProduct_Response$json = const {
 };
 
 /// Descriptor for `UnpublishProduct`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List unpublishProductDescriptor = $convert.base64Decode('ChBVbnB1Ymxpc2hQcm9kdWN0GikKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
+final $typed_data.Uint8List unpublishProductDescriptor = $convert.base64Decode('ChBVbnB1Ymxpc2hQcm9kdWN0GkcKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIcCglwcm9kdWN0SWQYAiABKAVSCXByb2R1Y3RJZBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
 @$core.Deprecated('Use fetchProductCategoryIdsDescriptor instead')
 const FetchProductCategoryIds$json = const {
   '1': 'FetchProductCategoryIds',
