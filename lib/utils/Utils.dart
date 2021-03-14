@@ -606,6 +606,7 @@ Future<Tuple2<bool, List<Review>>> grpcFetchProductReviews(String sessionKey, in
       ..sessionKey = sessionKey
       ..productId = productId);
     isSuccess = response.success;
+    print(response.id);
     for (var i = 0; i < response.id.length; i++) {
       reviews.add(Review.create(response.text[i], id: response.id[i], stars: response.stars[i]));
     }

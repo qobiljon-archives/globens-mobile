@@ -7,6 +7,7 @@ import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:globens_flutter_client/widgets/screens/ReviewsScreen.dart';
 import 'package:path_provider/path_provider.dart';
 import 'PurchasedProductContentsScreen.dart';
 import 'package:archive/archive_io.dart';
@@ -138,6 +139,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
               if (isFile) RaisedButton.icon(onPressed: _purchaseProduct, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.checkroom, color: Colors.white), label: Text(Locale.get("Try"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               if (isFile) Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _viewProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.stream, color: Colors.white), label: Text("VIEW/DOWNLOAD  PRODUCT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
               Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _openProductReview, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.rate_review, color: Colors.white), label: Text("REVIEW  PRODUCT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _openProductReviews, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.rate_review, color: Colors.white), label: Text("REVIEWS", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
@@ -184,5 +186,9 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
 
   void _openProductReview() async {
     await Navigator.of(context).pushNamed(ProductReviewScreen.route_name, arguments: _product);
+  }
+
+  void _openProductReviews() async{
+    await Navigator.of(context).pushNamed(ReviewsScreen.route_name, arguments: {'product_id': _product.id});
   }
 }

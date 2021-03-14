@@ -24,7 +24,7 @@ class _ReviewsScreenState extends State<ReviewsScreen> {
 
     grpcFetchProductReviews(AppUser.sessionKey, _productId).then((tp) {
       bool isSuccess = tp.item1;
-      if (isSuccess) {
+      if (isSuccess && tp.item2.length > 0) {
         setState(() {
           _reviews = tp.item2;
         });
