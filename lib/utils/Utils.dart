@@ -290,7 +290,8 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterD
         }
 
         if (success)
-          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, productDetails.content, id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
+          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, productDetails.content,
+              id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
         else
           print('error on gb_product $productDetails');
       }
@@ -606,9 +607,6 @@ Future<Tuple2<bool, List<Review>>> grpcFetchProductReviews(String sessionKey, in
       ..sessionKey = sessionKey
       ..productId = productId);
     isSuccess = response.success;
-    print(response.id);
-    print(response.stars);
-    print(response.text);
     for (var i = 0; i < response.id.length; i++) {
       reviews.add(Review.create(response.text[i], id: response.id[i], stars: response.stars[i], isMyReview: response.isMyReview[i]));
     }
@@ -618,6 +616,42 @@ Future<Tuple2<bool, List<Review>>> grpcFetchProductReviews(String sessionKey, in
     await channel.shutdown();
   }
   return Tuple2(isSuccess, reviews);
+}
+
+Future<bool> grpcPublishProduct(String sessionKey, int productId) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool isSuccess = false;
+  try {
+    final response = await stub.publishProduct(PublishProduct_Request()
+      ..sessionKey = sessionKey
+      ..productId = productId);
+    isSuccess = response.success;
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+  return isSuccess;
+}
+
+Future<bool> grpcUnpublishProduct(String sessionKey, int productId) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool isSuccess = false;
+  try {
+    final response = await stub.unpublishProduct(UnpublishProduct_Request()
+      ..sessionKey = sessionKey
+      ..productId = productId);
+    isSuccess = response.success;
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+  return isSuccess;
 }
 
 // endregion
