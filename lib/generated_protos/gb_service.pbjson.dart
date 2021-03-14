@@ -39,15 +39,16 @@ const FilterDetails$json = const {
   '1': 'FilterDetails',
   '2': const [
     const {'1': 'useFilter', '3': 1, '4': 1, '5': 8, '10': 'useFilter'},
-    const {'1': 'substring', '3': 2, '4': 1, '5': 9, '10': 'substring'},
-    const {'1': 'regex', '3': 3, '4': 1, '5': 9, '10': 'regex'},
-    const {'1': 'categoryId', '3': 4, '4': 1, '5': 5, '10': 'categoryId'},
-    const {'1': 'businessPageId', '3': 5, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'publishedProductsOnly', '3': 2, '4': 1, '5': 8, '10': 'publishedProductsOnly'},
+    const {'1': 'substring', '3': 3, '4': 1, '5': 9, '10': 'substring'},
+    const {'1': 'regex', '3': 4, '4': 1, '5': 9, '10': 'regex'},
+    const {'1': 'categoryId', '3': 5, '4': 1, '5': 5, '10': 'categoryId'},
+    const {'1': 'businessPageId', '3': 6, '4': 1, '5': 5, '10': 'businessPageId'},
   ],
 };
 
 /// Descriptor for `FilterDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List filterDetailsDescriptor = $convert.base64Decode('Cg1GaWx0ZXJEZXRhaWxzEhwKCXVzZUZpbHRlchgBIAEoCFIJdXNlRmlsdGVyEhwKCXN1YnN0cmluZxgCIAEoCVIJc3Vic3RyaW5nEhQKBXJlZ2V4GAMgASgJUgVyZWdleBIeCgpjYXRlZ29yeUlkGAQgASgFUgpjYXRlZ29yeUlkEiYKDmJ1c2luZXNzUGFnZUlkGAUgASgFUg5idXNpbmVzc1BhZ2VJZA==');
+final $typed_data.Uint8List filterDetailsDescriptor = $convert.base64Decode('Cg1GaWx0ZXJEZXRhaWxzEhwKCXVzZUZpbHRlchgBIAEoCFIJdXNlRmlsdGVyEjQKFXB1Ymxpc2hlZFByb2R1Y3RzT25seRgCIAEoCFIVcHVibGlzaGVkUHJvZHVjdHNPbmx5EhwKCXN1YnN0cmluZxgDIAEoCVIJc3Vic3RyaW5nEhQKBXJlZ2V4GAQgASgJUgVyZWdleBIeCgpjYXRlZ29yeUlkGAUgASgFUgpjYXRlZ29yeUlkEiYKDmJ1c2luZXNzUGFnZUlkGAYgASgFUg5idXNpbmVzc1BhZ2VJZA==');
 @$core.Deprecated('Use authenticateUserDescriptor instead')
 const AuthenticateUser$json = const {
   '1': 'AuthenticateUser',

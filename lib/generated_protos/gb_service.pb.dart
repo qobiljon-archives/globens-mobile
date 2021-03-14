@@ -17,16 +17,18 @@ export 'gb_service.pbenum.dart';
 class FilterDetails extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FilterDetails', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'useFilter', protoName: 'useFilter')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'substring')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'regex')
-    ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
-    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
+    ..aOB(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'publishedProductsOnly', protoName: 'publishedProductsOnly')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'substring')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'regex')
+    ..a<$core.int>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
+    ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'businessPageId', $pb.PbFieldType.O3, protoName: 'businessPageId')
     ..hasRequiredFields = false
   ;
 
   FilterDetails._() : super();
   factory FilterDetails({
     $core.bool useFilter,
+    $core.bool publishedProductsOnly,
     $core.String substring,
     $core.String regex,
     $core.int categoryId,
@@ -35,6 +37,9 @@ class FilterDetails extends $pb.GeneratedMessage {
     final _result = create();
     if (useFilter != null) {
       _result.useFilter = useFilter;
+    }
+    if (publishedProductsOnly != null) {
+      _result.publishedProductsOnly = publishedProductsOnly;
     }
     if (substring != null) {
       _result.substring = substring;
@@ -81,40 +86,49 @@ class FilterDetails extends $pb.GeneratedMessage {
   void clearUseFilter() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get substring => $_getSZ(1);
+  $core.bool get publishedProductsOnly => $_getBF(1);
   @$pb.TagNumber(2)
-  set substring($core.String v) { $_setString(1, v); }
+  set publishedProductsOnly($core.bool v) { $_setBool(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasSubstring() => $_has(1);
+  $core.bool hasPublishedProductsOnly() => $_has(1);
   @$pb.TagNumber(2)
-  void clearSubstring() => clearField(2);
+  void clearPublishedProductsOnly() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get regex => $_getSZ(2);
+  $core.String get substring => $_getSZ(2);
   @$pb.TagNumber(3)
-  set regex($core.String v) { $_setString(2, v); }
+  set substring($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasRegex() => $_has(2);
+  $core.bool hasSubstring() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRegex() => clearField(3);
+  void clearSubstring() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.int get categoryId => $_getIZ(3);
+  $core.String get regex => $_getSZ(3);
   @$pb.TagNumber(4)
-  set categoryId($core.int v) { $_setSignedInt32(3, v); }
+  set regex($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasCategoryId() => $_has(3);
+  $core.bool hasRegex() => $_has(3);
   @$pb.TagNumber(4)
-  void clearCategoryId() => clearField(4);
+  void clearRegex() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.int get businessPageId => $_getIZ(4);
+  $core.int get categoryId => $_getIZ(4);
   @$pb.TagNumber(5)
-  set businessPageId($core.int v) { $_setSignedInt32(4, v); }
+  set categoryId($core.int v) { $_setSignedInt32(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasBusinessPageId() => $_has(4);
+  $core.bool hasCategoryId() => $_has(4);
   @$pb.TagNumber(5)
-  void clearBusinessPageId() => clearField(5);
+  void clearCategoryId() => clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.int get businessPageId => $_getIZ(5);
+  @$pb.TagNumber(6)
+  set businessPageId($core.int v) { $_setSignedInt32(5, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasBusinessPageId() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearBusinessPageId() => clearField(6);
 }
 
 class AuthenticateUser_Request extends $pb.GeneratedMessage {

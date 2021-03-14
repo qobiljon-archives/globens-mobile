@@ -5,10 +5,11 @@ option java_package = "uz.globens";
 // generic part
 message FilterDetails{
   bool useFilter = 1;
-  string substring = 2;
-  string regex = 3;
-  int32 categoryId = 4;
-  int32 businessPageId = 5;
+  bool publishedProductsOnly = 2;
+  string substring = 3;
+  string regex = 4;
+  int32 categoryId = 5;
+  int32 businessPageId = 6;
 }
 
 // user management requests/responses
