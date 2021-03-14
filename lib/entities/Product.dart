@@ -25,10 +25,10 @@ class Product {
   Currency _currency;
   String _description;
   List<int> _productContent;
-
+  bool _published;
   // endregion
 
-  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, List<int> productContent, {int id, double stars, int reviewsCount}) {
+  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, List<int> productContent, {int id, double stars, int reviewsCount, bool published}) {
     this._id = id;
     this._name = name;
     this._productType = productType;
@@ -41,6 +41,7 @@ class Product {
     this._currency = currency;
     this._description = description;
     this._productContent = productContent;
+    this._published = published;
   }
 
   // region Getters
@@ -101,6 +102,8 @@ class Product {
     return this._productContent;
   }
 
+
+  bool get published => _published;
   // endregion
 
   static String price2string(double price, Currency currency) {
