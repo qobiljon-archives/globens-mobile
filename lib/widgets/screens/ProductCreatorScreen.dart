@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/widgets/modal_views/AvailableTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
@@ -168,7 +169,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                           child: Container(
                             height: 20.0,
                             margin: EdgeInsets.only(top: 10, bottom: 10),
-                            child: TextField(controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
+                            child: TextField(
+                                controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
                           ),
                         )
                       ],
@@ -179,7 +181,14 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 child: Container(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0),
                   child: DropdownButton<int>(
-                      isExpanded: true, value: _selectedCategoryId, icon: _getProductImage(), iconSize: 24, elevation: 16, underline: Container(), onChanged: _categorySelected, items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
+                      isExpanded: true,
+                      value: _selectedCategoryId,
+                      icon: _getProductImage(),
+                      iconSize: 24,
+                      elevation: 16,
+                      underline: Container(),
+                      onChanged: _categorySelected,
+                      items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
                 ),
               ),
               Card(
@@ -194,7 +203,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                     elevation: 16,
                     underline: Container(),
                     onChanged: _onProductTypeChanged,
-                    items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", _productTypes[selectedProductType].item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
+                    items:
+                        _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", _productTypes[selectedProductType].item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
                   ),
                 ),
               ),
@@ -236,12 +246,25 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   margin: EdgeInsets.only(top: 10.0),
                   child: Container(
                       padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
+                      child: TextField(
+                          controller: _descriptionTextController,
+                          minLines: 10,
+                          maxLines: 10,
+                          keyboardType: TextInputType.multiline,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                          decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
               getSectionSplitter(Locale.get(calendarSchedule ? "Schedule" : "Product content")),
               if (uploadFile && _productContentFiles.length > 0)
                 Column(
-                    children: _productContentFiles.map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Image.file(file, width: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))])))).toList()),
-              if (uploadFile) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                    children: _productContentFiles
+                        .map((file) => Card(
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: Container(
+                                padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Image.file(file, width: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))]))))
+                        .toList()),
+              if (uploadFile)
+                RaisedButton.icon(
+                    onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               if (calendarSchedule)
                 GestureDetector(
                   onTap: () => _selectDateTime('from'),
@@ -280,7 +303,15 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   ),
                 ),
               getSectionSplitter(Locale.get("Proceed with this product")),
-              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              Container(
+                  margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                  child: RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              if (_product != null && _product.published)
+                Container(
+                    margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                    child: RaisedButton.icon(onPressed: _unpublichProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text("UNPUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              if (_product != null && !_product.published)
+                Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text("PUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
@@ -468,6 +499,28 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   void _removeFileContent(File file) {
     setState(() {
       _productContentFiles.remove(file);
+    });
+  }
+
+  void _publishProductPressed() async {
+    // if (_product.published) return
+    grpcPublishProduct(AppUser.sessionKey, _product.id).then((isSuccess) {
+      if (isSuccess) {
+        Navigator.of(context).pop();
+      } else {
+        toast(Locale.get('Problem with product content, please try again!'));
+      }
+    });
+  }
+
+  void _unpublichProductPressed() async {
+    // if (!_product.published) return;
+    grpcUnpublishProduct(AppUser.sessionKey, _product.id).then((isSuccess) {
+      if (isSuccess) {
+        Navigator.of(context).pop();
+      } else {
+        toast(Locale.get('Problem with product content, please try again!'));
+      }
     });
   }
 }
