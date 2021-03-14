@@ -1,5 +1,6 @@
 import 'package:fixnum/fixnum.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
+import 'package:globens_flutter_client/entities/Review.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
@@ -260,7 +261,6 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterD
   List<Product> products = List<Product>();
   Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
   Map<int, ProductCategory> categories = Map<int, ProductCategory>();
-
   if (filterDetails == null)
     filterDetails = FilterDetails()..useFilter = false;
   else
@@ -593,6 +593,28 @@ Future<bool> grpcSubmitEmployeeReview(String sessionKey, int businessPageId, int
     await channel.shutdown();
   }
   return isSuccess;
+}
+
+Future<Tuple2<bool, List<Review>>> grpcFetchProductReviews(String sessionKey, int productId) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool isSuccess = false;
+  List<Review> reviews = List<Review>();
+  try {
+    final response = await stub.retrieveProductReviews(RetrieveProductReviews_Request()
+      ..sessionKey = sessionKey
+      ..productId = productId);
+    isSuccess = response.success;
+    for (var i = 0; i < response.id.length; i++) {
+      reviews.add(Review.create(response.text[i], id: response.id[i], stars: response.stars[i]));
+    }
+  } catch (e) {
+    print(e);
+  } finally {
+    await channel.shutdown();
+  }
+  return Tuple2(isSuccess, reviews);
 }
 
 // endregion
