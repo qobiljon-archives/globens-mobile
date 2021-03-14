@@ -64,7 +64,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
     }
 
     final Tuple2<bool, List<Product>> tp2 = await grpcFetchNextKProducts(
-        k: 4,
+        k: 20,
         filterDetails: FilterDetails()
           ..publishedProductsOnly = true
           ..categoryId = -1
