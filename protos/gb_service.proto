@@ -418,9 +418,10 @@ message RetrieveProductReviews{
   message Response {
     bool success = 1;
     repeated int32 id = 2;
-    repeated int32 stars = 3;
-    repeated string text = 4;
-    repeated int64 timestamp = 5;
+    repeated bool isMyReview = 3;
+    repeated int32 stars = 4;
+    repeated string text = 5;
+    repeated int64 timestamp = 6;
   }
 }
 message EditProductReview{

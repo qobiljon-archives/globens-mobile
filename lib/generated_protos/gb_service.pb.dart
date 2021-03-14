@@ -5669,9 +5669,10 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RetrieveProductReviews.Response', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
     ..p<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.P3)
-    ..p<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stars', $pb.PbFieldType.P3)
-    ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
-    ..p<$fixnum.Int64>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp', $pb.PbFieldType.P6)
+    ..p<$core.bool>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'isMyReview', $pb.PbFieldType.PB, protoName: 'isMyReview')
+    ..p<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'stars', $pb.PbFieldType.P3)
+    ..pPS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
+    ..p<$fixnum.Int64>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp', $pb.PbFieldType.P6)
     ..hasRequiredFields = false
   ;
 
@@ -5679,6 +5680,7 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
   factory RetrieveProductReviews_Response({
     $core.bool success,
     $core.Iterable<$core.int> id,
+    $core.Iterable<$core.bool> isMyReview,
     $core.Iterable<$core.int> stars,
     $core.Iterable<$core.String> text,
     $core.Iterable<$fixnum.Int64> timestamp,
@@ -5689,6 +5691,9 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
     }
     if (id != null) {
       _result.id.addAll(id);
+    }
+    if (isMyReview != null) {
+      _result.isMyReview.addAll(isMyReview);
     }
     if (stars != null) {
       _result.stars.addAll(stars);
@@ -5735,13 +5740,16 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
   $core.List<$core.int> get id => $_getList(1);
 
   @$pb.TagNumber(3)
-  $core.List<$core.int> get stars => $_getList(2);
+  $core.List<$core.bool> get isMyReview => $_getList(2);
 
   @$pb.TagNumber(4)
-  $core.List<$core.String> get text => $_getList(3);
+  $core.List<$core.int> get stars => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<$fixnum.Int64> get timestamp => $_getList(4);
+  $core.List<$core.String> get text => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $core.List<$fixnum.Int64> get timestamp => $_getList(5);
 }
 
 class RetrieveProductReviews extends $pb.GeneratedMessage {
