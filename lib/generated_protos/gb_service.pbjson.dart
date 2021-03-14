@@ -1007,14 +1007,15 @@ const RetrieveProductReviews_Response$json = const {
   '2': const [
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
-    const {'1': 'stars', '3': 3, '4': 3, '5': 5, '10': 'stars'},
-    const {'1': 'text', '3': 4, '4': 3, '5': 9, '10': 'text'},
-    const {'1': 'timestamp', '3': 5, '4': 3, '5': 3, '10': 'timestamp'},
+    const {'1': 'isMyReview', '3': 3, '4': 3, '5': 8, '10': 'isMyReview'},
+    const {'1': 'stars', '3': 4, '4': 3, '5': 5, '10': 'stars'},
+    const {'1': 'text', '3': 5, '4': 3, '5': 9, '10': 'text'},
+    const {'1': 'timestamp', '3': 6, '4': 3, '5': 3, '10': 'timestamp'},
   ],
 };
 
 /// Descriptor for `RetrieveProductReviews`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List retrieveProductReviewsDescriptor = $convert.base64Decode('ChZSZXRyaWV2ZVByb2R1Y3RSZXZpZXdzGkcKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIcCglwcm9kdWN0SWQYAiABKAVSCXByb2R1Y3RJZBp8CghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEg4KAmlkGAIgAygFUgJpZBIUCgVzdGFycxgDIAMoBVIFc3RhcnMSEgoEdGV4dBgEIAMoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBSADKANSCXRpbWVzdGFtcA==');
+final $typed_data.Uint8List retrieveProductReviewsDescriptor = $convert.base64Decode('ChZSZXRyaWV2ZVByb2R1Y3RSZXZpZXdzGkcKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIcCglwcm9kdWN0SWQYAiABKAVSCXByb2R1Y3RJZBqcAQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAMoBVICaWQSHgoKaXNNeVJldmlldxgDIAMoCFIKaXNNeVJldmlldxIUCgVzdGFycxgEIAMoBVIFc3RhcnMSEgoEdGV4dBgFIAMoCVIEdGV4dBIcCgl0aW1lc3RhbXAYBiADKANSCXRpbWVzdGFtcA==');
 @$core.Deprecated('Use editProductReviewDescriptor instead')
 const EditProductReview$json = const {
   '1': 'EditProductReview',

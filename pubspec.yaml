@@ -82,6 +82,8 @@ dependencies:
   flutter_filereader: ^1.0.0
   cupertino_radio_choice: ^1.0.1+1
   flutter_rating_bar: ^3.2.0+1
+  googleapis: ^1.0.0
+  googleapis_auth: ^0.2.7
 
 
 dev_dependencies:
