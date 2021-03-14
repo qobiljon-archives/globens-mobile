@@ -256,7 +256,7 @@ Future<bool> grpcUpdateProduct(String sessionKey, Product product) async {
   return success;
 }
 
-Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterDetails filterDetails}) async {
+Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, int k = 100, FilterDetails filterDetails}) async {
   bool success = false;
   List<Product> products = List<Product>();
   Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
@@ -278,8 +278,17 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterD
         success &= productDetails.success;
 
         if (!businessPages.containsKey(productDetails.businessPageId)) {
-          final businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()..businessPageId = productDetails.businessPageId);
-          success &= productDetails.success;
+          var businessPageDetails;
+          if (sessionKey == null)
+            businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
+              ..businessPageId = productDetails.businessPageId
+            );
+          else
+            businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
+              ..sessionKey = sessionKey
+              ..businessPageId = productDetails.businessPageId
+            );
+          success &= businessPageDetails.success;
           if (success) businessPages[productDetails.businessPageId] = BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob, id: businessPageDetails.id, type: businessPageDetails.type, role: businessPageDetails.role);
         }
 

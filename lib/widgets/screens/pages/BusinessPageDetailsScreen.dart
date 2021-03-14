@@ -259,6 +259,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   Future<void> _fetchBusinessPageContent() async {
     final Tuple2<bool, List<Product>> tp1 = await grpcFetchNextKProducts(
+        sessionKey: AppUser.sessionKey,
         filterDetails: FilterDetails()
           ..categoryId = -1
           ..businessPageId = _businessPage.id);
