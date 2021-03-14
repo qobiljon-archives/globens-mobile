@@ -146,7 +146,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   InkWell _buildProductItem(BuildContext context, Product product, Size screenSize) {
     double iconWH = screenSize.width * 0.45;
-
+    final textColor = product.published ? Colors.black : Colors.grey;
     return InkWell(
       onTap: () => _onProductTap(context, product),
       child: Card(
@@ -182,7 +182,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
                         child: Text(
                           product.name,
                           maxLines: 2,
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0),
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: textColor),
                         ),
                       ),
                       Text(

@@ -290,7 +290,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterD
         }
 
         if (success)
-          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, productDetails.content, id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount));
+          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, productDetails.content, id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
         else
           print('error on gb_product $productDetails');
       }
