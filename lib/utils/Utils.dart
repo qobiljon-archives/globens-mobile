@@ -262,7 +262,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({int k = 100, FilterD
   Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
   Map<int, ProductCategory> categories = Map<int, ProductCategory>();
   if (filterDetails == null)
-    filterDetails = FilterDetails()..useFilter = true;
+    filterDetails = FilterDetails()..useFilter = false;
   else
     filterDetails.useFilter = true;
 
