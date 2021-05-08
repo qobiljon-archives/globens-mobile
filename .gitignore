@@ -4,8 +4,8 @@
 /.gradle/
 .packages
 build/
-/src/debug/
-/src/profile/debug/
+ **/src/debug/
+ **/src/profile/
 pubspec.lock
 .DS_Store
 *.iml
