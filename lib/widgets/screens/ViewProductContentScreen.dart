@@ -1,16 +1,16 @@
 import 'IndividualPurchasedProductContentViewerScreen.dart';
 import 'package:flutter/material.dart';
 
-class PdfViewScreen extends StatefulWidget {
+class ViewProductContentScreen extends StatefulWidget {
   final List _fileNames;
 
-  PdfViewScreen(this._fileNames);
+  ViewProductContentScreen(this._fileNames);
 
   @override
-  _PdfViewScreenState createState() => _PdfViewScreenState();
+  _ViewProductContentScreenState createState() => _ViewProductContentScreenState();
 }
 
-class _PdfViewScreenState extends State<PdfViewScreen> {
+class _ViewProductContentScreenState extends State<ViewProductContentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,21 +1,20 @@
-import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/widgets/modal_views/AvailableTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
+import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
+import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:archive/archive_io.dart';
+import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tuple/tuple.dart';
 import 'dart:typed_data';
-import 'dart:convert';
 import 'dart:io';
 
 class ProductCreatorScreen extends StatefulWidget {
@@ -94,14 +93,12 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
         // todo view/edit files
       } else if (_selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL) {
         // todo view/edit schedule
-        var content = JsonDecoder().convert(utf8.decode(_product.productContent));
-
-        _fromUntilDateTime['from'] = content['from'];
-        _fromUntilDateTime['until'] = content['until'];
+        _fromUntilDateTime['from'] = _product.contents['from'];
+        _fromUntilDateTime['until'] = _product.contents['until'];
 
         _productAvailableTimeSlots.clear();
-        for (var weekday in content['slots'].keys) {
-          _productAvailableTimeSlots.putIfAbsent(weekday, () => content['slots'][weekday].cast<int>().toSet());
+        for (var weekday in _product.contents['slots'].keys) {
+          _productAvailableTimeSlots.putIfAbsent(weekday, () => _product.contents['slots'][weekday].cast<int>().toSet());
         }
       }
     } else
@@ -407,48 +404,37 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       return;
     }
 
-    Uint8List contentBytes;
+    Map<String, dynamic> contents;
+    bool success;
     if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file')) {
-      // content : zip file
-      final directory = await getApplicationDocumentsDirectory();
-      try {
-        var file = File('${directory.path}/temp.zip');
-        if (await file.exists()) await file.delete();
-      } catch (e) {
-        print('delete error : ${e.toString()}');
-      }
-
-      var encoder = ZipFileEncoder();
-      encoder.create('${directory.path}/temp.zip');
-      for (File file in _productContentFiles) encoder.addFile(file);
-      encoder.close();
-
-      try {
-        var file = File('${directory.path}/temp.zip');
-        contentBytes = await file.readAsBytes();
-      } catch (e) {
-        print('read error : ${e.toString()}');
+      // todo add upload progressbar
+      contents = {'ids': <String>[]};
+      for (File localFile in _productContentFiles) {
+        var fileName = path.basename(localFile.path);
+        var tp = await grpcCreateNewContent(AppUser.sessionKey, Content.create(fileName, "", ""));
+        success &= tp.item1;
+        if (success) {
+          var id = tp.item2;
+          var uploadedFile = await DriveHelper.uploadFile(fileName, localFile);
+          success &= uploadedFile != null;
+          if (success) {
+            grpcUpdateContent(AppUser.sessionKey, Content.create(fileName, uploadedFile.id, uploadedFile.webViewLink, id: id));
+            contents['ids'].add(id);
+          }
+        }
       }
     } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule')) {
-      // content : calendar json
-      // content = json.encode(_productAvailableTimeSlots);
       Map<String, List<int>> availableTimeSlots = new Map<String, List<int>>();
       for (String key in _productAvailableTimeSlots.keys) {
         availableTimeSlots[key] = _productAvailableTimeSlots[key].toList();
       }
-      contentBytes = JsonUtf8Encoder().convert({'from': _fromUntilDateTime['from'], 'until': _fromUntilDateTime['until'], 'slots': availableTimeSlots});
+      contents = {'from': _fromUntilDateTime['from'], 'until': _fromUntilDateTime['until'], 'slots': availableTimeSlots};
     }
 
-    if (contentBytes == null) {
-      await toast(Locale.get('Problem with product content, please try again!'));
-      return;
-    }
-
-    bool success;
     if (_product == null)
-      success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes));
+      success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents));
     else
-      success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contentBytes, id: _product.id));
+      success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, id: _product.id));
 
     if (success)
       Navigator.of(context).pop();

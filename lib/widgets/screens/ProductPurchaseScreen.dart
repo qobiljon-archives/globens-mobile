@@ -1,6 +1,9 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
+import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
+import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:iamport_flutter/model/payment_data.dart';
 import 'package:iamport_flutter/iamport_payment.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,7 +73,17 @@ class _ProductPurchaseScreenState extends State<ProductPurchaseScreen> {
       );
   }
 
-  void purchaseResultReceived(Map<String, String> result) {
+  void purchaseResultReceived(Map<String, String> result) async {
+    // todo check purchase result, if success ==> shareWithMe
+    if (_product.productType == ProductDeliveryType.FILE_DOWNLOADABLE || _product.productType == ProductDeliveryType.FILE_STREAMED) {
+      for (int contentId in _product.contents['ids']) {
+        var result = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
+        if (result.item1) {
+          var content = result.item2;
+          DriveHelper.shareFileWithThisUser(content.fileId);
+        }
+      }
+    }
     Navigator.of(context).pop();
   }
 }

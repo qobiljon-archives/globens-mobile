@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: gb_service.proto
 //
-// @dart = 2.7
+// @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:async' as $async;
@@ -101,6 +101,30 @@ class GlobensServiceClient extends $grpc.Client {
       ($0.UncreateProduct_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.UncreateProduct_Response.fromBuffer(value));
+  static final _$createNewContent = $grpc.ClientMethod<
+          $0.CreateNewContent_Request, $0.CreateNewContent_Response>(
+      '/GlobensService/createNewContent',
+      ($0.CreateNewContent_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.CreateNewContent_Response.fromBuffer(value));
+  static final _$updateContent =
+      $grpc.ClientMethod<$0.UpdateContent_Request, $0.UpdateContent_Response>(
+          '/GlobensService/updateContent',
+          ($0.UpdateContent_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.UpdateContent_Response.fromBuffer(value));
+  static final _$fetchContentDetails = $grpc.ClientMethod<
+          $0.FetchContentDetails_Request, $0.FetchContentDetails_Response>(
+      '/GlobensService/fetchContentDetails',
+      ($0.FetchContentDetails_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchContentDetails_Response.fromBuffer(value));
+  static final _$deleteContent =
+      $grpc.ClientMethod<$0.DeleteContent_Request, $0.DeleteContent_Response>(
+          '/GlobensService/deleteContent',
+          ($0.DeleteContent_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.DeleteContent_Response.fromBuffer(value));
   static final _$fetchNextKProductIds = $grpc.ClientMethod<
           $0.FetchNextKProductIds_Request, $0.FetchNextKProductIds_Response>(
       '/GlobensService/fetchNextKProductIds',
@@ -281,112 +305,136 @@ class GlobensServiceClient extends $grpc.Client {
           $0.DeleteEmployeeReview_Response.fromBuffer(value));
 
   GlobensServiceClient($grpc.ClientChannel channel,
-      {$grpc.CallOptions options,
-      $core.Iterable<$grpc.ClientInterceptor> interceptors})
+      {$grpc.CallOptions? options,
+      $core.Iterable<$grpc.ClientInterceptor>? interceptors})
       : super(channel, options: options, interceptors: interceptors);
 
   $grpc.ResponseFuture<$0.AuthenticateUser_Response> authenticateUser(
       $0.AuthenticateUser_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$authenticateUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DeactivateUser_Response> deactivateUser(
       $0.DeactivateUser_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$deactivateUser, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateUserDetails_Response> updateUserDetails(
       $0.UpdateUserDetails_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateUserDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchUserDetails_Response> fetchUserDetails(
       $0.FetchUserDetails_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchUserDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CreateBusinessPage_Response> createBusinessPage(
       $0.CreateBusinessPage_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createBusinessPage, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateBusinessPageDetails_Response>
       updateBusinessPageDetails($0.UpdateBusinessPageDetails_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateBusinessPageDetails, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.UncreateBusinessPage_Response> uncreateBusinessPage(
       $0.UncreateBusinessPage_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$uncreateBusinessPage, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchMyBusinessPageIds_Response>
       fetchMyBusinessPageIds($0.FetchMyBusinessPageIds_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchMyBusinessPageIds, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchBusinessPageDetails_Response>
       fetchBusinessPageDetails($0.FetchBusinessPageDetails_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchBusinessPageDetails, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.CreateProduct_Response> createProduct(
       $0.CreateProduct_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createProduct, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateProductDetails_Response> updateProductDetails(
       $0.UpdateProductDetails_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateProductDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.PublishProduct_Response> publishProduct(
       $0.PublishProduct_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$publishProduct, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UnpublishProduct_Response> unpublishProduct(
       $0.UnpublishProduct_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$unpublishProduct, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UncreateProduct_Response> uncreateProduct(
       $0.UncreateProduct_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$uncreateProduct, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.CreateNewContent_Response> createNewContent(
+      $0.CreateNewContent_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$createNewContent, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.UpdateContent_Response> updateContent(
+      $0.UpdateContent_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateContent, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.FetchContentDetails_Response> fetchContentDetails(
+      $0.FetchContentDetails_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$fetchContentDetails, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.DeleteContent_Response> deleteContent(
+      $0.DeleteContent_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteContent, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchNextKProductIds_Response> fetchNextKProductIds(
       $0.FetchNextKProductIds_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchNextKProductIds, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchProductDetails_Response> fetchProductDetails(
       $0.FetchProductDetails_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchProductDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchProductCategoryIds_Response>
       fetchProductCategoryIds($0.FetchProductCategoryIds_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchProductCategoryIds, request,
         options: options);
   }
@@ -394,161 +442,161 @@ class GlobensServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.FetchProductCategoryDetails_Response>
       fetchProductCategoryDetails(
           $0.FetchProductCategoryDetails_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchProductCategoryDetails, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.CreateVacantJob_Response> createVacantJob(
       $0.CreateVacantJob_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createVacantJob, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateJobDetails_Response> updateJobDetails(
       $0.UpdateJobDetails_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateJobDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UncreateJob_Response> uncreateJob(
       $0.UncreateJob_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$uncreateJob, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchBusinessPageJobIds_Response>
       fetchBusinessPageJobIds($0.FetchBusinessPageJobIds_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchBusinessPageJobIds, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchNextKVacantJobIds_Response>
       fetchNextKVacantJobIds($0.FetchNextKVacantJobIds_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchNextKVacantJobIds, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchJobDetails_Response> fetchJobDetails(
       $0.FetchJobDetails_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchJobDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CreateJobApplication_Response> createJobApplication(
       $0.CreateJobApplication_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$createJobApplication, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.UpdateJobApplicationDetails_Response>
       updateJobApplicationDetails(
           $0.UpdateJobApplicationDetails_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updateJobApplicationDetails, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.UncreateJobApplication_Response>
       uncreateJobApplication($0.UncreateJobApplication_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$uncreateJobApplication, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchJobApplicationIds_Response>
       fetchJobApplicationIds($0.FetchJobApplicationIds_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchJobApplicationIds, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchJobApplicationDetails_Response>
       fetchJobApplicationDetails($0.FetchJobApplicationDetails_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchJobApplicationDetails, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.ApproveJobApplication_Response> approveJobApplication(
       $0.ApproveJobApplication_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$approveJobApplication, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DeclineJobApplication_Response> declineJobApplication(
       $0.DeclineJobApplication_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$declineJobApplication, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.LogPurchase_Response> logPurchase(
       $0.LogPurchase_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$logPurchase, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchPurchases_Response> fetchPurchases(
       $0.FetchPurchases_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchPurchases, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.FetchPurchaseDetails_Response> fetchPurchaseDetails(
       $0.FetchPurchaseDetails_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchPurchaseDetails, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.SubmitProductReview_Response> submitProductReview(
       $0.SubmitProductReview_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$submitProductReview, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.RetrieveProductReviews_Response>
       retrieveProductReviews($0.RetrieveProductReviews_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$retrieveProductReviews, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.EditProductReview_Response> editProductReview(
       $0.EditProductReview_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$editProductReview, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DeleteProductReview_Response> deleteProductReview(
       $0.DeleteProductReview_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$deleteProductReview, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.SubmitEmployeeReview_Response> submitEmployeeReview(
       $0.SubmitEmployeeReview_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$submitEmployeeReview, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.RetrieveEmployeeReviews_Response>
       retrieveEmployeeReviews($0.RetrieveEmployeeReviews_Request request,
-          {$grpc.CallOptions options}) {
+          {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$retrieveEmployeeReviews, request,
         options: options);
   }
 
   $grpc.ResponseFuture<$0.EditEmployeeReview_Response> editEmployeeReview(
       $0.EditEmployeeReview_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$editEmployeeReview, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.DeleteEmployeeReview_Response> deleteEmployeeReview(
       $0.DeleteEmployeeReview_Request request,
-      {$grpc.CallOptions options}) {
+      {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$deleteEmployeeReview, request, options: options);
   }
 }
@@ -684,6 +732,42 @@ abstract class GlobensServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.UncreateProduct_Request.fromBuffer(value),
         ($0.UncreateProduct_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.CreateNewContent_Request,
+            $0.CreateNewContent_Response>(
+        'createNewContent',
+        createNewContent_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.CreateNewContent_Request.fromBuffer(value),
+        ($0.CreateNewContent_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UpdateContent_Request,
+            $0.UpdateContent_Response>(
+        'updateContent',
+        updateContent_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.UpdateContent_Request.fromBuffer(value),
+        ($0.UpdateContent_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchContentDetails_Request,
+            $0.FetchContentDetails_Response>(
+        'fetchContentDetails',
+        fetchContentDetails_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchContentDetails_Request.fromBuffer(value),
+        ($0.FetchContentDetails_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeleteContent_Request,
+            $0.DeleteContent_Response>(
+        'deleteContent',
+        deleteContent_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.DeleteContent_Request.fromBuffer(value),
+        ($0.DeleteContent_Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.FetchNextKProductIds_Request,
             $0.FetchNextKProductIds_Response>(
         'fetchNextKProductIds',
@@ -1025,6 +1109,30 @@ abstract class GlobensServiceBase extends $grpc.Service {
     return uncreateProduct(call, await request);
   }
 
+  $async.Future<$0.CreateNewContent_Response> createNewContent_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.CreateNewContent_Request> request) async {
+    return createNewContent(call, await request);
+  }
+
+  $async.Future<$0.UpdateContent_Response> updateContent_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.UpdateContent_Request> request) async {
+    return updateContent(call, await request);
+  }
+
+  $async.Future<$0.FetchContentDetails_Response> fetchContentDetails_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.FetchContentDetails_Request> request) async {
+    return fetchContentDetails(call, await request);
+  }
+
+  $async.Future<$0.DeleteContent_Response> deleteContent_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.DeleteContent_Request> request) async {
+    return deleteContent(call, await request);
+  }
+
   $async.Future<$0.FetchNextKProductIds_Response> fetchNextKProductIds_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.FetchNextKProductIds_Request> request) async {
@@ -1220,6 +1328,14 @@ abstract class GlobensServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UnpublishProduct_Request request);
   $async.Future<$0.UncreateProduct_Response> uncreateProduct(
       $grpc.ServiceCall call, $0.UncreateProduct_Request request);
+  $async.Future<$0.CreateNewContent_Response> createNewContent(
+      $grpc.ServiceCall call, $0.CreateNewContent_Request request);
+  $async.Future<$0.UpdateContent_Response> updateContent(
+      $grpc.ServiceCall call, $0.UpdateContent_Request request);
+  $async.Future<$0.FetchContentDetails_Response> fetchContentDetails(
+      $grpc.ServiceCall call, $0.FetchContentDetails_Request request);
+  $async.Future<$0.DeleteContent_Response> deleteContent(
+      $grpc.ServiceCall call, $0.DeleteContent_Request request);
   $async.Future<$0.FetchNextKProductIds_Response> fetchNextKProductIds(
       $grpc.ServiceCall call, $0.FetchNextKProductIds_Request request);
   $async.Future<$0.FetchProductDetails_Response> fetchProductDetails(

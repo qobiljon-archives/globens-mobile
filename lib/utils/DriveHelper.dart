@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:googleapis/drive/v3.dart' as ga;
 import 'package:googleapis_auth/auth_io.dart' as ga;
 
@@ -31,7 +32,7 @@ class DriveHelper {
     return null;
   }
 
-  static void downloadFile(String fileId) async {
+  static Future<void> downloadFile(String fileId) async {
     final httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
     try {
       final api = ga.DriveApi(httpClient);
@@ -53,17 +54,33 @@ class DriveHelper {
     }
   }
 
-  static void uploadFile(String fileName, File file) async {
+  static Future<ga.File> uploadFile(String fileName, File file) async {
     final httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
     try {
       final api = ga.DriveApi(httpClient);
-      await api.files.create(
+      final newFile = await api.files.create(
         ga.File()
           ..name = fileName
           ..writersCanShare = false
-          ..viewersCanCopyContent = false,
+          ..viewersCanCopyContent = false
+          ..shared = true,
         uploadMedia: ga.Media(file.openRead(), file.lengthSync()),
       );
+      _shareFileWithGlobens(newFile.id);
+      return newFile;
+    } catch (e) {
+      print(e.toString());
+    } finally {
+      httpClient.close();
+    }
+    return null;
+  }
+
+  static void _shareFileWithGlobens(String fileId) async {
+    final httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
+    try {
+      final api = ga.DriveApi(httpClient);
+      await api.permissions.create(ga.Permission.fromJson({"emailAddress": "globenssoft@gmail.com", "type": "user", "role": "writer"}), fileId);
     } catch (e) {
       print(e.toString());
     } finally {
@@ -71,7 +88,19 @@ class DriveHelper {
     }
   }
 
-  static void setDownloadable(String fileId, bool downloadable) async {
+  static void shareFileWithThisUser(String fileId) async {
+    final httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
+    try {
+      final api = ga.DriveApi(httpClient);
+      await api.permissions.create(ga.Permission.fromJson({"emailAddress": AppUser.email, "type": "user", "role": "reader"}), fileId);
+    } catch (e) {
+      print(e.toString());
+    } finally {
+      httpClient.close();
+    }
+  }
+
+  static Future<void> setDownloadable(String fileId, bool downloadable) async {
     final httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
     try {
       final api = ga.DriveApi(httpClient);
@@ -79,18 +108,6 @@ class DriveHelper {
         ga.File()..writersCanShare = downloadable,
         fileId,
       );
-    } catch (e) {
-      print(e.toString());
-    } finally {
-      httpClient.close();
-    }
-  }
-
-  static void shareFileWithGlobens(String fileId) async {
-    final httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
-    try {
-      final api = ga.DriveApi(httpClient);
-      await api.permissions.create(ga.Permission.fromJson({"emailAddress": "globenssoft@gmail.com", "type": "user", "role": "writer"}), fileId);
     } catch (e) {
       print(e.toString());
     } finally {

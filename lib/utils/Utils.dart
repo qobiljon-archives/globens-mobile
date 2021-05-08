@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fixnum/fixnum.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Review.dart';
@@ -161,7 +163,7 @@ Future<Tuple2<bool, List<BusinessPage>>> grpcFetchMyBusinessPages(String session
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
-  List<BusinessPage> businessPages = List<BusinessPage>();
+  var businessPages = <BusinessPage>[];
 
   try {
     final businessPageIdsRes = await stub.fetchMyBusinessPageIds(FetchMyBusinessPageIds_Request()..sessionKey = sessionKey);
@@ -221,7 +223,83 @@ Future<bool> grpcCreateProduct(String sessionKey, BusinessPage businessPage, Pro
       ..price = product.price
       ..currency = product.currency
       ..description = product.description
-      ..content = product.productContent);
+      ..contents = product.contentsJson);
+    success = response.success;
+  } catch (e) {
+    print(e);
+  }
+
+  return success;
+}
+
+Future<Tuple2<bool, int>> grpcCreateNewContent(String sessionKey, Content content) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  int contentId = -1;
+  try {
+    final response = await stub.createNewContent(CreateNewContent_Request()
+      ..sessionKey = sessionKey
+      ..title = content.title
+      ..fileId = content.fileId
+      ..url = content.url);
+    success = response.success;
+    contentId = response.contentId;
+  } catch (e) {
+    print(e);
+  }
+
+  return Tuple2(success, contentId);
+}
+
+Future<bool> grpcUpdateContent(String sessionKey, Content content) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  try {
+    final response = await stub.updateContent(UpdateContent_Request()
+      ..sessionKey = sessionKey
+      ..title = content.title
+      ..fileId = content.fileId
+      ..url = content.url);
+    success = response.success;
+  } catch (e) {
+    print(e);
+  }
+
+  return success;
+}
+
+Future<Tuple2<bool, Content>> grpcFetchContentDetails(String sessionKey, int contentId) async {
+  bool success = false;
+
+  Content content;
+  try {
+    final contentDetails = await getStub().fetchContentDetails(FetchContentDetails_Request()
+      ..sessionKey = sessionKey
+      ..contentId = contentId);
+    success = contentDetails.success;
+    if (success) {
+      content = Content.create(contentDetails.title, contentDetails.fileId, contentDetails.url, id: contentDetails.id);
+    }
+  } catch (e) {
+    print(e);
+  }
+
+  return Tuple2(success, content);
+}
+
+Future<bool> deleteContent(String sessionKey, Content content) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  try {
+    final response = await stub.deleteContent(DeleteContent_Request()
+      ..sessionKey = sessionKey
+      ..contentId = content.id);
     success = response.success;
   } catch (e) {
     print(e);
@@ -247,7 +325,7 @@ Future<bool> grpcUpdateProduct(String sessionKey, Product product) async {
       ..price = product.price
       ..currency = product.currency
       ..description = product.description
-      ..content = product.productContent);
+      ..contents = product.contentsJson);
     success = response.success;
   } catch (e) {
     print(e);
@@ -258,7 +336,7 @@ Future<bool> grpcUpdateProduct(String sessionKey, Product product) async {
 
 Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, int k = 100, FilterDetails filterDetails}) async {
   bool success = false;
-  List<Product> products = List<Product>();
+  var products = <Product>[];
   Map<int, BusinessPage> businessPages = Map<int, BusinessPage>();
   Map<int, ProductCategory> categories = Map<int, ProductCategory>();
   if (filterDetails == null)
@@ -280,14 +358,11 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, i
         if (!businessPages.containsKey(productDetails.businessPageId)) {
           var businessPageDetails;
           if (sessionKey == null)
-            businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
-              ..businessPageId = productDetails.businessPageId
-            );
+            businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()..businessPageId = productDetails.businessPageId);
           else
             businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()
               ..sessionKey = sessionKey
-              ..businessPageId = productDetails.businessPageId
-            );
+              ..businessPageId = productDetails.businessPageId);
           success &= businessPageDetails.success;
           if (success) businessPages[productDetails.businessPageId] = BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob, id: businessPageDetails.id, type: businessPageDetails.type, role: businessPageDetails.role);
         }
@@ -299,8 +374,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, i
         }
 
         if (success)
-          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, productDetails.content,
-              id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
+          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents), id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
         else
           print('error on gb_product $productDetails');
       }
@@ -314,7 +388,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, i
 
 Future<Tuple2<bool, List<ProductCategory>>> grpcFetchProductCategories() async {
   bool success = false;
-  List<ProductCategory> categories = List<ProductCategory>();
+  var categories = <ProductCategory>[];
 
   try {
     final categoryIds = await getStub().fetchProductCategoryIds(FetchProductCategoryIds_Request());
@@ -349,7 +423,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, Bus
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
-  List<Job> jobs = List<Job>();
+  var jobs = <Job>[];
   Map<int, GlobensUser> users = Map<int, GlobensUser>();
 
   try {
@@ -413,7 +487,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchVacantPositions(String sessionKey) asyn
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
-  var jobs = List<Job>();
+  var jobs = <Job>[];
   var businessPages = Map<int, BusinessPage>();
 
   try {
@@ -461,7 +535,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
   final stub = GlobensServiceClient(channel);
 
   bool success = false;
-  var vacancyApplications = List<JobApplication>();
+  var vacancyApplications = <JobApplication>[];
   var applicantUsers = Map<int, GlobensUser>();
 
   try {
@@ -610,7 +684,7 @@ Future<Tuple2<bool, List<Review>>> grpcFetchProductReviews(String sessionKey, in
   final stub = GlobensServiceClient(channel);
 
   bool isSuccess = false;
-  List<Review> reviews = List<Review>();
+  var reviews = <Review>[];
   try {
     final response = await stub.retrieveProductReviews(RetrieveProductReviews_Request()
       ..sessionKey = sessionKey

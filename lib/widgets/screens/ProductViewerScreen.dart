@@ -3,17 +3,12 @@ import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModal
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductReviewScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
+import 'package:globens_flutter_client/widgets/screens/ReviewsScreen.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:globens_flutter_client/widgets/screens/ReviewsScreen.dart';
-import 'package:path_provider/path_provider.dart';
-import 'PurchasedProductContentsScreen.dart';
-import 'package:archive/archive_io.dart';
-import 'dart:typed_data' show Uint8List;
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class ProductViewerScreen extends StatefulWidget {
   static const String route_name = '/product_viewer_screen';
@@ -155,7 +150,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _openSignUpTimeSlotSelector() async {
-    var timeSlots = List<TimeSlot>();
+    var timeSlots = <TimeSlot>[];
     await showModalBottomSheet(context: context, builder: (context) => WeeklyTimePickerModalView(_product, timeSlots));
     // todo purchase here
   }
@@ -165,30 +160,15 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _viewProductPressed() async {
-    // todo testing
-    Archive archive = ZipDecoder().decodeBytes(Uint8List.fromList(_product.productContent));
-    final directory = await getApplicationDocumentsDirectory();
-    List filesPaths = [];
-    print(directory);
-    for (final file in archive) {
-      final filename = file.name;
-      filesPaths.add(filename);
-      print(filename);
-      if (file.isFile) {
-        final data = file.content as List<int>;
-        File("/data/user/0/uz.globens" + "/" + filename)
-          ..createSync(recursive: true)
-          ..writeAsBytesSync(data);
-      }
-    }
-    Navigator.push(context, MaterialPageRoute(builder: (context) => PdfViewScreen(filesPaths)));
+    // todo show product.contents
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => ViewProductContentScreen(filesPaths)));
   }
 
   void _openProductReview() async {
     await Navigator.of(context).pushNamed(ProductReviewScreen.route_name, arguments: _product);
   }
 
-  void _openProductReviews() async{
+  void _openProductReviews() async {
     await Navigator.of(context).pushNamed(ReviewsScreen.route_name, arguments: {'product_id': _product.id});
   }
 }

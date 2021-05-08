@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:intl/intl.dart';
@@ -24,11 +26,12 @@ class Product {
   int _reviewsCount;
   Currency _currency;
   String _description;
-  List<int> _productContent;
+  Map<String, dynamic> _contents;
   bool _published;
+
   // endregion
 
-  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, List<int> productContent, {int id, double stars, int reviewsCount, bool published}) {
+  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, Map<String, dynamic> contents, {int id, double stars, int reviewsCount, bool published}) {
     this._id = id;
     this._name = name;
     this._productType = productType;
@@ -40,7 +43,7 @@ class Product {
     this._reviewsCount = reviewsCount;
     this._currency = currency;
     this._description = description;
-    this._productContent = productContent;
+    this._contents = contents;
     this._published = published;
   }
 
@@ -98,12 +101,16 @@ class Product {
     return price2string(price, currency);
   }
 
-  List<int> get productContent {
-    return this._productContent;
+  Map<String, dynamic> get contents {
+    return this._contents;
   }
 
+  String get contentsJson {
+    return jsonEncode(this._contents);
+  }
 
   bool get published => _published;
+
   // endregion
 
   static String price2string(double price, Currency currency) {
@@ -123,4 +130,40 @@ class Product {
         return '[N/A]';
     }
   }
+}
+
+class Content {
+  // region Variables
+  int _id;
+  String _title;
+  String _fileId;
+  String _url;
+
+  // endregion
+
+  Content.create(String title, String fileId, String url, {int id}) {
+    this._id = id;
+    this._title = title;
+    this._fileId = fileId;
+    this._url = url;
+  }
+
+  // region Getters
+
+  int get id {
+    return this._id;
+  }
+
+  String get title {
+    return this._title;
+  }
+
+  String get fileId {
+    return this._fileId;
+  }
+
+  String get url {
+    return this._url;
+  }
+// endregion
 }

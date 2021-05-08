@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: gb_service.proto
 //
-// @dart = 2.7
+// @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
 
 import 'dart:core' as $core;
@@ -27,12 +27,12 @@ class FilterDetails extends $pb.GeneratedMessage {
 
   FilterDetails._() : super();
   factory FilterDetails({
-    $core.bool useFilter,
-    $core.bool publishedProductsOnly,
-    $core.String substring,
-    $core.String regex,
-    $core.int categoryId,
-    $core.int businessPageId,
+    $core.bool? useFilter,
+    $core.bool? publishedProductsOnly,
+    $core.String? substring,
+    $core.String? regex,
+    $core.int? categoryId,
+    $core.int? businessPageId,
   }) {
     final _result = create();
     if (useFilter != null) {
@@ -74,7 +74,7 @@ class FilterDetails extends $pb.GeneratedMessage {
   static $pb.PbList<FilterDetails> createRepeated() => $pb.PbList<FilterDetails>();
   @$core.pragma('dart2js:noInline')
   static FilterDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FilterDetails>(create);
-  static FilterDetails _defaultInstance;
+  static FilterDetails? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get useFilter => $_getBF(0);
@@ -140,8 +140,8 @@ class AuthenticateUser_Request extends $pb.GeneratedMessage {
 
   AuthenticateUser_Request._() : super();
   factory AuthenticateUser_Request({
-    AuthenticateUser_AuthMethod method,
-    $core.String tokensJson,
+    AuthenticateUser_AuthMethod? method,
+    $core.String? tokensJson,
   }) {
     final _result = create();
     if (method != null) {
@@ -171,7 +171,7 @@ class AuthenticateUser_Request extends $pb.GeneratedMessage {
   static $pb.PbList<AuthenticateUser_Request> createRepeated() => $pb.PbList<AuthenticateUser_Request>();
   @$core.pragma('dart2js:noInline')
   static AuthenticateUser_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AuthenticateUser_Request>(create);
-  static AuthenticateUser_Request _defaultInstance;
+  static AuthenticateUser_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   AuthenticateUser_AuthMethod get method => $_getN(0);
@@ -202,9 +202,9 @@ class AuthenticateUser_Response extends $pb.GeneratedMessage {
 
   AuthenticateUser_Response._() : super();
   factory AuthenticateUser_Response({
-    $core.bool success,
-    $core.int userId,
-    $core.String sessionKey,
+    $core.bool? success,
+    $core.int? userId,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (success != null) {
@@ -237,7 +237,7 @@ class AuthenticateUser_Response extends $pb.GeneratedMessage {
   static $pb.PbList<AuthenticateUser_Response> createRepeated() => $pb.PbList<AuthenticateUser_Response>();
   @$core.pragma('dart2js:noInline')
   static AuthenticateUser_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AuthenticateUser_Response>(create);
-  static AuthenticateUser_Response _defaultInstance;
+  static AuthenticateUser_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -293,7 +293,7 @@ class AuthenticateUser extends $pb.GeneratedMessage {
   static $pb.PbList<AuthenticateUser> createRepeated() => $pb.PbList<AuthenticateUser>();
   @$core.pragma('dart2js:noInline')
   static AuthenticateUser getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AuthenticateUser>(create);
-  static AuthenticateUser _defaultInstance;
+  static AuthenticateUser? _defaultInstance;
 }
 
 class DeactivateUser_Request extends $pb.GeneratedMessage {
@@ -304,7 +304,7 @@ class DeactivateUser_Request extends $pb.GeneratedMessage {
 
   DeactivateUser_Request._() : super();
   factory DeactivateUser_Request({
-    $core.int sessionKey,
+    $core.int? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -331,7 +331,7 @@ class DeactivateUser_Request extends $pb.GeneratedMessage {
   static $pb.PbList<DeactivateUser_Request> createRepeated() => $pb.PbList<DeactivateUser_Request>();
   @$core.pragma('dart2js:noInline')
   static DeactivateUser_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeactivateUser_Request>(create);
-  static DeactivateUser_Request _defaultInstance;
+  static DeactivateUser_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get sessionKey => $_getIZ(0);
@@ -351,7 +351,7 @@ class DeactivateUser_Response extends $pb.GeneratedMessage {
 
   DeactivateUser_Response._() : super();
   factory DeactivateUser_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -378,7 +378,7 @@ class DeactivateUser_Response extends $pb.GeneratedMessage {
   static $pb.PbList<DeactivateUser_Response> createRepeated() => $pb.PbList<DeactivateUser_Response>();
   @$core.pragma('dart2js:noInline')
   static DeactivateUser_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeactivateUser_Response>(create);
-  static DeactivateUser_Response _defaultInstance;
+  static DeactivateUser_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -416,7 +416,7 @@ class DeactivateUser extends $pb.GeneratedMessage {
   static $pb.PbList<DeactivateUser> createRepeated() => $pb.PbList<DeactivateUser>();
   @$core.pragma('dart2js:noInline')
   static DeactivateUser getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeactivateUser>(create);
-  static DeactivateUser _defaultInstance;
+  static DeactivateUser? _defaultInstance;
 }
 
 class UpdateUserDetails_Request extends $pb.GeneratedMessage {
@@ -427,7 +427,7 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
 
   UpdateUserDetails_Request._() : super();
   factory UpdateUserDetails_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -454,7 +454,7 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateUserDetails_Request> createRepeated() => $pb.PbList<UpdateUserDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static UpdateUserDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserDetails_Request>(create);
-  static UpdateUserDetails_Request _defaultInstance;
+  static UpdateUserDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -474,7 +474,7 @@ class UpdateUserDetails_Response extends $pb.GeneratedMessage {
 
   UpdateUserDetails_Response._() : super();
   factory UpdateUserDetails_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -501,7 +501,7 @@ class UpdateUserDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateUserDetails_Response> createRepeated() => $pb.PbList<UpdateUserDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static UpdateUserDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserDetails_Response>(create);
-  static UpdateUserDetails_Response _defaultInstance;
+  static UpdateUserDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -539,7 +539,7 @@ class UpdateUserDetails extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateUserDetails> createRepeated() => $pb.PbList<UpdateUserDetails>();
   @$core.pragma('dart2js:noInline')
   static UpdateUserDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateUserDetails>(create);
-  static UpdateUserDetails _defaultInstance;
+  static UpdateUserDetails? _defaultInstance;
 }
 
 class FetchUserDetails_Request extends $pb.GeneratedMessage {
@@ -551,8 +551,8 @@ class FetchUserDetails_Request extends $pb.GeneratedMessage {
 
   FetchUserDetails_Request._() : super();
   factory FetchUserDetails_Request({
-    $core.String sessionKey,
-    $core.int userId,
+    $core.String? sessionKey,
+    $core.int? userId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -582,7 +582,7 @@ class FetchUserDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchUserDetails_Request> createRepeated() => $pb.PbList<FetchUserDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchUserDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchUserDetails_Request>(create);
-  static FetchUserDetails_Request _defaultInstance;
+  static FetchUserDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -616,12 +616,12 @@ class FetchUserDetails_Response extends $pb.GeneratedMessage {
 
   FetchUserDetails_Response._() : super();
   factory FetchUserDetails_Response({
-    $core.bool success,
-    $core.int id,
-    $core.String email,
-    $core.String name,
-    $core.String picture,
-    $core.List<$core.int> pictureBlob,
+    $core.bool? success,
+    $core.int? id,
+    $core.String? email,
+    $core.String? name,
+    $core.String? picture,
+    $core.List<$core.int>? pictureBlob,
   }) {
     final _result = create();
     if (success != null) {
@@ -663,7 +663,7 @@ class FetchUserDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchUserDetails_Response> createRepeated() => $pb.PbList<FetchUserDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchUserDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchUserDetails_Response>(create);
-  static FetchUserDetails_Response _defaultInstance;
+  static FetchUserDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -746,7 +746,7 @@ class FetchUserDetails extends $pb.GeneratedMessage {
   static $pb.PbList<FetchUserDetails> createRepeated() => $pb.PbList<FetchUserDetails>();
   @$core.pragma('dart2js:noInline')
   static FetchUserDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchUserDetails>(create);
-  static FetchUserDetails _defaultInstance;
+  static FetchUserDetails? _defaultInstance;
 }
 
 class CreateBusinessPage_Request extends $pb.GeneratedMessage {
@@ -759,9 +759,9 @@ class CreateBusinessPage_Request extends $pb.GeneratedMessage {
 
   CreateBusinessPage_Request._() : super();
   factory CreateBusinessPage_Request({
-    $core.String sessionKey,
-    $core.String title,
-    $core.List<$core.int> pictureBlob,
+    $core.String? sessionKey,
+    $core.String? title,
+    $core.List<$core.int>? pictureBlob,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -794,7 +794,7 @@ class CreateBusinessPage_Request extends $pb.GeneratedMessage {
   static $pb.PbList<CreateBusinessPage_Request> createRepeated() => $pb.PbList<CreateBusinessPage_Request>();
   @$core.pragma('dart2js:noInline')
   static CreateBusinessPage_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateBusinessPage_Request>(create);
-  static CreateBusinessPage_Request _defaultInstance;
+  static CreateBusinessPage_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -832,7 +832,7 @@ class CreateBusinessPage_Response extends $pb.GeneratedMessage {
 
   CreateBusinessPage_Response._() : super();
   factory CreateBusinessPage_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -859,7 +859,7 @@ class CreateBusinessPage_Response extends $pb.GeneratedMessage {
   static $pb.PbList<CreateBusinessPage_Response> createRepeated() => $pb.PbList<CreateBusinessPage_Response>();
   @$core.pragma('dart2js:noInline')
   static CreateBusinessPage_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateBusinessPage_Response>(create);
-  static CreateBusinessPage_Response _defaultInstance;
+  static CreateBusinessPage_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -897,7 +897,7 @@ class CreateBusinessPage extends $pb.GeneratedMessage {
   static $pb.PbList<CreateBusinessPage> createRepeated() => $pb.PbList<CreateBusinessPage>();
   @$core.pragma('dart2js:noInline')
   static CreateBusinessPage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateBusinessPage>(create);
-  static CreateBusinessPage _defaultInstance;
+  static CreateBusinessPage? _defaultInstance;
 }
 
 class UpdateBusinessPageDetails_Request extends $pb.GeneratedMessage {
@@ -908,7 +908,7 @@ class UpdateBusinessPageDetails_Request extends $pb.GeneratedMessage {
 
   UpdateBusinessPageDetails_Request._() : super();
   factory UpdateBusinessPageDetails_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -935,7 +935,7 @@ class UpdateBusinessPageDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateBusinessPageDetails_Request> createRepeated() => $pb.PbList<UpdateBusinessPageDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static UpdateBusinessPageDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateBusinessPageDetails_Request>(create);
-  static UpdateBusinessPageDetails_Request _defaultInstance;
+  static UpdateBusinessPageDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -955,7 +955,7 @@ class UpdateBusinessPageDetails_Response extends $pb.GeneratedMessage {
 
   UpdateBusinessPageDetails_Response._() : super();
   factory UpdateBusinessPageDetails_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -982,7 +982,7 @@ class UpdateBusinessPageDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateBusinessPageDetails_Response> createRepeated() => $pb.PbList<UpdateBusinessPageDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static UpdateBusinessPageDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateBusinessPageDetails_Response>(create);
-  static UpdateBusinessPageDetails_Response _defaultInstance;
+  static UpdateBusinessPageDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -1020,7 +1020,7 @@ class UpdateBusinessPageDetails extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateBusinessPageDetails> createRepeated() => $pb.PbList<UpdateBusinessPageDetails>();
   @$core.pragma('dart2js:noInline')
   static UpdateBusinessPageDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateBusinessPageDetails>(create);
-  static UpdateBusinessPageDetails _defaultInstance;
+  static UpdateBusinessPageDetails? _defaultInstance;
 }
 
 class UncreateBusinessPage_Request extends $pb.GeneratedMessage {
@@ -1031,7 +1031,7 @@ class UncreateBusinessPage_Request extends $pb.GeneratedMessage {
 
   UncreateBusinessPage_Request._() : super();
   factory UncreateBusinessPage_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -1058,7 +1058,7 @@ class UncreateBusinessPage_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateBusinessPage_Request> createRepeated() => $pb.PbList<UncreateBusinessPage_Request>();
   @$core.pragma('dart2js:noInline')
   static UncreateBusinessPage_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateBusinessPage_Request>(create);
-  static UncreateBusinessPage_Request _defaultInstance;
+  static UncreateBusinessPage_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -1078,7 +1078,7 @@ class UncreateBusinessPage_Response extends $pb.GeneratedMessage {
 
   UncreateBusinessPage_Response._() : super();
   factory UncreateBusinessPage_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -1105,7 +1105,7 @@ class UncreateBusinessPage_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateBusinessPage_Response> createRepeated() => $pb.PbList<UncreateBusinessPage_Response>();
   @$core.pragma('dart2js:noInline')
   static UncreateBusinessPage_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateBusinessPage_Response>(create);
-  static UncreateBusinessPage_Response _defaultInstance;
+  static UncreateBusinessPage_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -1143,7 +1143,7 @@ class UncreateBusinessPage extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateBusinessPage> createRepeated() => $pb.PbList<UncreateBusinessPage>();
   @$core.pragma('dart2js:noInline')
   static UncreateBusinessPage getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateBusinessPage>(create);
-  static UncreateBusinessPage _defaultInstance;
+  static UncreateBusinessPage? _defaultInstance;
 }
 
 class FetchMyBusinessPageIds_Request extends $pb.GeneratedMessage {
@@ -1154,7 +1154,7 @@ class FetchMyBusinessPageIds_Request extends $pb.GeneratedMessage {
 
   FetchMyBusinessPageIds_Request._() : super();
   factory FetchMyBusinessPageIds_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -1181,7 +1181,7 @@ class FetchMyBusinessPageIds_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchMyBusinessPageIds_Request> createRepeated() => $pb.PbList<FetchMyBusinessPageIds_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchMyBusinessPageIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchMyBusinessPageIds_Request>(create);
-  static FetchMyBusinessPageIds_Request _defaultInstance;
+  static FetchMyBusinessPageIds_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -1202,8 +1202,8 @@ class FetchMyBusinessPageIds_Response extends $pb.GeneratedMessage {
 
   FetchMyBusinessPageIds_Response._() : super();
   factory FetchMyBusinessPageIds_Response({
-    $core.bool success,
-    $core.Iterable<$core.int> id,
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
   }) {
     final _result = create();
     if (success != null) {
@@ -1233,7 +1233,7 @@ class FetchMyBusinessPageIds_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchMyBusinessPageIds_Response> createRepeated() => $pb.PbList<FetchMyBusinessPageIds_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchMyBusinessPageIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchMyBusinessPageIds_Response>(create);
-  static FetchMyBusinessPageIds_Response _defaultInstance;
+  static FetchMyBusinessPageIds_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -1274,7 +1274,7 @@ class FetchMyBusinessPageIds extends $pb.GeneratedMessage {
   static $pb.PbList<FetchMyBusinessPageIds> createRepeated() => $pb.PbList<FetchMyBusinessPageIds>();
   @$core.pragma('dart2js:noInline')
   static FetchMyBusinessPageIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchMyBusinessPageIds>(create);
-  static FetchMyBusinessPageIds _defaultInstance;
+  static FetchMyBusinessPageIds? _defaultInstance;
 }
 
 class FetchBusinessPageDetails_Request extends $pb.GeneratedMessage {
@@ -1286,8 +1286,8 @@ class FetchBusinessPageDetails_Request extends $pb.GeneratedMessage {
 
   FetchBusinessPageDetails_Request._() : super();
   factory FetchBusinessPageDetails_Request({
-    $core.String sessionKey,
-    $core.int businessPageId,
+    $core.String? sessionKey,
+    $core.int? businessPageId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -1317,7 +1317,7 @@ class FetchBusinessPageDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchBusinessPageDetails_Request> createRepeated() => $pb.PbList<FetchBusinessPageDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchBusinessPageDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageDetails_Request>(create);
-  static FetchBusinessPageDetails_Request _defaultInstance;
+  static FetchBusinessPageDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -1351,12 +1351,12 @@ class FetchBusinessPageDetails_Response extends $pb.GeneratedMessage {
 
   FetchBusinessPageDetails_Response._() : super();
   factory FetchBusinessPageDetails_Response({
-    $core.bool success,
-    $core.int id,
-    $core.String title,
-    $core.String type,
-    $core.List<$core.int> pictureBlob,
-    $core.String role,
+    $core.bool? success,
+    $core.int? id,
+    $core.String? title,
+    $core.String? type,
+    $core.List<$core.int>? pictureBlob,
+    $core.String? role,
   }) {
     final _result = create();
     if (success != null) {
@@ -1398,7 +1398,7 @@ class FetchBusinessPageDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchBusinessPageDetails_Response> createRepeated() => $pb.PbList<FetchBusinessPageDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchBusinessPageDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageDetails_Response>(create);
-  static FetchBusinessPageDetails_Response _defaultInstance;
+  static FetchBusinessPageDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -1481,7 +1481,7 @@ class FetchBusinessPageDetails extends $pb.GeneratedMessage {
   static $pb.PbList<FetchBusinessPageDetails> createRepeated() => $pb.PbList<FetchBusinessPageDetails>();
   @$core.pragma('dart2js:noInline')
   static FetchBusinessPageDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageDetails>(create);
-  static FetchBusinessPageDetails _defaultInstance;
+  static FetchBusinessPageDetails? _defaultInstance;
 }
 
 class CreateProduct_Request extends $pb.GeneratedMessage {
@@ -1495,22 +1495,22 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
     ..a<$core.double>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'price', $pb.PbFieldType.OF)
     ..e<Currency>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
-    ..a<$core.List<$core.int>>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content', $pb.PbFieldType.OY)
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contents')
     ..hasRequiredFields = false
   ;
 
   CreateProduct_Request._() : super();
   factory CreateProduct_Request({
-    $core.String sessionKey,
-    $core.int businessPageId,
-    $core.String name,
-    ProductDeliveryType type,
-    $core.int categoryId,
-    $core.List<$core.int> pictureBlob,
-    $core.double price,
-    Currency currency,
-    $core.String description,
-    $core.List<$core.int> content,
+    $core.String? sessionKey,
+    $core.int? businessPageId,
+    $core.String? name,
+    ProductDeliveryType? type,
+    $core.int? categoryId,
+    $core.List<$core.int>? pictureBlob,
+    $core.double? price,
+    Currency? currency,
+    $core.String? description,
+    $core.String? contents,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -1540,8 +1540,8 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
     if (description != null) {
       _result.description = description;
     }
-    if (content != null) {
-      _result.content = content;
+    if (contents != null) {
+      _result.contents = contents;
     }
     return _result;
   }
@@ -1564,7 +1564,7 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
   static $pb.PbList<CreateProduct_Request> createRepeated() => $pb.PbList<CreateProduct_Request>();
   @$core.pragma('dart2js:noInline')
   static CreateProduct_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateProduct_Request>(create);
-  static CreateProduct_Request _defaultInstance;
+  static CreateProduct_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -1648,28 +1648,33 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
   void clearDescription() => clearField(9);
 
   @$pb.TagNumber(10)
-  $core.List<$core.int> get content => $_getN(9);
+  $core.String get contents => $_getSZ(9);
   @$pb.TagNumber(10)
-  set content($core.List<$core.int> v) { $_setBytes(9, v); }
+  set contents($core.String v) { $_setString(9, v); }
   @$pb.TagNumber(10)
-  $core.bool hasContent() => $_has(9);
+  $core.bool hasContents() => $_has(9);
   @$pb.TagNumber(10)
-  void clearContent() => clearField(10);
+  void clearContents() => clearField(10);
 }
 
 class CreateProduct_Response extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateProduct.Response', createEmptyInstance: create)
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'productId', $pb.PbFieldType.O3, protoName: 'productId')
     ..hasRequiredFields = false
   ;
 
   CreateProduct_Response._() : super();
   factory CreateProduct_Response({
-    $core.bool success,
+    $core.bool? success,
+    $core.int? productId,
   }) {
     final _result = create();
     if (success != null) {
       _result.success = success;
+    }
+    if (productId != null) {
+      _result.productId = productId;
     }
     return _result;
   }
@@ -1692,7 +1697,7 @@ class CreateProduct_Response extends $pb.GeneratedMessage {
   static $pb.PbList<CreateProduct_Response> createRepeated() => $pb.PbList<CreateProduct_Response>();
   @$core.pragma('dart2js:noInline')
   static CreateProduct_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateProduct_Response>(create);
-  static CreateProduct_Response _defaultInstance;
+  static CreateProduct_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -1702,6 +1707,15 @@ class CreateProduct_Response extends $pb.GeneratedMessage {
   $core.bool hasSuccess() => $_has(0);
   @$pb.TagNumber(1)
   void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get productId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set productId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasProductId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearProductId() => clearField(2);
 }
 
 class CreateProduct extends $pb.GeneratedMessage {
@@ -1730,7 +1744,7 @@ class CreateProduct extends $pb.GeneratedMessage {
   static $pb.PbList<CreateProduct> createRepeated() => $pb.PbList<CreateProduct>();
   @$core.pragma('dart2js:noInline')
   static CreateProduct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateProduct>(create);
-  static CreateProduct _defaultInstance;
+  static CreateProduct? _defaultInstance;
 }
 
 class UpdateProductDetails_Request extends $pb.GeneratedMessage {
@@ -1745,23 +1759,23 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
     ..a<$core.double>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'price', $pb.PbFieldType.OF)
     ..e<Currency>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
-    ..a<$core.List<$core.int>>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content', $pb.PbFieldType.OY)
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contents')
     ..hasRequiredFields = false
   ;
 
   UpdateProductDetails_Request._() : super();
   factory UpdateProductDetails_Request({
-    $core.String sessionKey,
-    $core.int productId,
-    $core.int businessPageId,
-    $core.String name,
-    ProductDeliveryType type,
-    $core.int categoryId,
-    $core.List<$core.int> pictureBlob,
-    $core.double price,
-    Currency currency,
-    $core.String description,
-    $core.List<$core.int> content,
+    $core.String? sessionKey,
+    $core.int? productId,
+    $core.int? businessPageId,
+    $core.String? name,
+    ProductDeliveryType? type,
+    $core.int? categoryId,
+    $core.List<$core.int>? pictureBlob,
+    $core.double? price,
+    Currency? currency,
+    $core.String? description,
+    $core.String? contents,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -1794,8 +1808,8 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
     if (description != null) {
       _result.description = description;
     }
-    if (content != null) {
-      _result.content = content;
+    if (contents != null) {
+      _result.contents = contents;
     }
     return _result;
   }
@@ -1818,7 +1832,7 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateProductDetails_Request> createRepeated() => $pb.PbList<UpdateProductDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static UpdateProductDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateProductDetails_Request>(create);
-  static UpdateProductDetails_Request _defaultInstance;
+  static UpdateProductDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -1911,13 +1925,13 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
   void clearDescription() => clearField(10);
 
   @$pb.TagNumber(11)
-  $core.List<$core.int> get content => $_getN(10);
+  $core.String get contents => $_getSZ(10);
   @$pb.TagNumber(11)
-  set content($core.List<$core.int> v) { $_setBytes(10, v); }
+  set contents($core.String v) { $_setString(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasContent() => $_has(10);
+  $core.bool hasContents() => $_has(10);
   @$pb.TagNumber(11)
-  void clearContent() => clearField(11);
+  void clearContents() => clearField(11);
 }
 
 class UpdateProductDetails_Response extends $pb.GeneratedMessage {
@@ -1928,7 +1942,7 @@ class UpdateProductDetails_Response extends $pb.GeneratedMessage {
 
   UpdateProductDetails_Response._() : super();
   factory UpdateProductDetails_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -1955,7 +1969,7 @@ class UpdateProductDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateProductDetails_Response> createRepeated() => $pb.PbList<UpdateProductDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static UpdateProductDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateProductDetails_Response>(create);
-  static UpdateProductDetails_Response _defaultInstance;
+  static UpdateProductDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -1993,7 +2007,7 @@ class UpdateProductDetails extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateProductDetails> createRepeated() => $pb.PbList<UpdateProductDetails>();
   @$core.pragma('dart2js:noInline')
   static UpdateProductDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateProductDetails>(create);
-  static UpdateProductDetails _defaultInstance;
+  static UpdateProductDetails? _defaultInstance;
 }
 
 class UncreateProduct_Request extends $pb.GeneratedMessage {
@@ -2004,7 +2018,7 @@ class UncreateProduct_Request extends $pb.GeneratedMessage {
 
   UncreateProduct_Request._() : super();
   factory UncreateProduct_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -2031,7 +2045,7 @@ class UncreateProduct_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateProduct_Request> createRepeated() => $pb.PbList<UncreateProduct_Request>();
   @$core.pragma('dart2js:noInline')
   static UncreateProduct_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateProduct_Request>(create);
-  static UncreateProduct_Request _defaultInstance;
+  static UncreateProduct_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -2051,7 +2065,7 @@ class UncreateProduct_Response extends $pb.GeneratedMessage {
 
   UncreateProduct_Response._() : super();
   factory UncreateProduct_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -2078,7 +2092,7 @@ class UncreateProduct_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateProduct_Response> createRepeated() => $pb.PbList<UncreateProduct_Response>();
   @$core.pragma('dart2js:noInline')
   static UncreateProduct_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateProduct_Response>(create);
-  static UncreateProduct_Response _defaultInstance;
+  static UncreateProduct_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -2116,7 +2130,7 @@ class UncreateProduct extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateProduct> createRepeated() => $pb.PbList<UncreateProduct>();
   @$core.pragma('dart2js:noInline')
   static UncreateProduct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateProduct>(create);
-  static UncreateProduct _defaultInstance;
+  static UncreateProduct? _defaultInstance;
 }
 
 class FetchNextKProductIds_Request extends $pb.GeneratedMessage {
@@ -2129,9 +2143,9 @@ class FetchNextKProductIds_Request extends $pb.GeneratedMessage {
 
   FetchNextKProductIds_Request._() : super();
   factory FetchNextKProductIds_Request({
-    $core.int k,
-    $core.int previousProductId,
-    FilterDetails filterDetails,
+    $core.int? k,
+    $core.int? previousProductId,
+    FilterDetails? filterDetails,
   }) {
     final _result = create();
     if (k != null) {
@@ -2164,7 +2178,7 @@ class FetchNextKProductIds_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchNextKProductIds_Request> createRepeated() => $pb.PbList<FetchNextKProductIds_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchNextKProductIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKProductIds_Request>(create);
-  static FetchNextKProductIds_Request _defaultInstance;
+  static FetchNextKProductIds_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get k => $_getIZ(0);
@@ -2205,8 +2219,8 @@ class FetchNextKProductIds_Response extends $pb.GeneratedMessage {
 
   FetchNextKProductIds_Response._() : super();
   factory FetchNextKProductIds_Response({
-    $core.bool success,
-    $core.Iterable<$core.int> id,
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
   }) {
     final _result = create();
     if (success != null) {
@@ -2236,7 +2250,7 @@ class FetchNextKProductIds_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchNextKProductIds_Response> createRepeated() => $pb.PbList<FetchNextKProductIds_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchNextKProductIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKProductIds_Response>(create);
-  static FetchNextKProductIds_Response _defaultInstance;
+  static FetchNextKProductIds_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -2277,7 +2291,7 @@ class FetchNextKProductIds extends $pb.GeneratedMessage {
   static $pb.PbList<FetchNextKProductIds> createRepeated() => $pb.PbList<FetchNextKProductIds>();
   @$core.pragma('dart2js:noInline')
   static FetchNextKProductIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKProductIds>(create);
-  static FetchNextKProductIds _defaultInstance;
+  static FetchNextKProductIds? _defaultInstance;
 }
 
 class FetchProductDetails_Request extends $pb.GeneratedMessage {
@@ -2288,7 +2302,7 @@ class FetchProductDetails_Request extends $pb.GeneratedMessage {
 
   FetchProductDetails_Request._() : super();
   factory FetchProductDetails_Request({
-    $core.int productId,
+    $core.int? productId,
   }) {
     final _result = create();
     if (productId != null) {
@@ -2315,7 +2329,7 @@ class FetchProductDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductDetails_Request> createRepeated() => $pb.PbList<FetchProductDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchProductDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductDetails_Request>(create);
-  static FetchProductDetails_Request _defaultInstance;
+  static FetchProductDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get productId => $_getIZ(0);
@@ -2342,26 +2356,26 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
     ..a<$core.int>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'reviewsCount', $pb.PbFieldType.O3, protoName: 'reviewsCount')
     ..e<Currency>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
     ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
-    ..a<$core.List<$core.int>>(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'content', $pb.PbFieldType.OY)
+    ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contents')
     ..hasRequiredFields = false
   ;
 
   FetchProductDetails_Response._() : super();
   factory FetchProductDetails_Response({
-    $core.bool success,
-    $core.int id,
-    $core.String name,
-    ProductDeliveryType type,
-    $core.int categoryId,
-    $core.bool published,
-    $core.List<$core.int> pictureBlob,
-    $core.int businessPageId,
-    $core.double price,
-    $core.double stars,
-    $core.int reviewsCount,
-    Currency currency,
-    $core.String description,
-    $core.List<$core.int> content,
+    $core.bool? success,
+    $core.int? id,
+    $core.String? name,
+    ProductDeliveryType? type,
+    $core.int? categoryId,
+    $core.bool? published,
+    $core.List<$core.int>? pictureBlob,
+    $core.int? businessPageId,
+    $core.double? price,
+    $core.double? stars,
+    $core.int? reviewsCount,
+    Currency? currency,
+    $core.String? description,
+    $core.String? contents,
   }) {
     final _result = create();
     if (success != null) {
@@ -2403,8 +2417,8 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
     if (description != null) {
       _result.description = description;
     }
-    if (content != null) {
-      _result.content = content;
+    if (contents != null) {
+      _result.contents = contents;
     }
     return _result;
   }
@@ -2427,7 +2441,7 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductDetails_Response> createRepeated() => $pb.PbList<FetchProductDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchProductDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductDetails_Response>(create);
-  static FetchProductDetails_Response _defaultInstance;
+  static FetchProductDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -2547,13 +2561,13 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
   void clearDescription() => clearField(13);
 
   @$pb.TagNumber(14)
-  $core.List<$core.int> get content => $_getN(13);
+  $core.String get contents => $_getSZ(13);
   @$pb.TagNumber(14)
-  set content($core.List<$core.int> v) { $_setBytes(13, v); }
+  set contents($core.String v) { $_setString(13, v); }
   @$pb.TagNumber(14)
-  $core.bool hasContent() => $_has(13);
+  $core.bool hasContents() => $_has(13);
   @$pb.TagNumber(14)
-  void clearContent() => clearField(14);
+  void clearContents() => clearField(14);
 }
 
 class FetchProductDetails extends $pb.GeneratedMessage {
@@ -2582,7 +2596,7 @@ class FetchProductDetails extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductDetails> createRepeated() => $pb.PbList<FetchProductDetails>();
   @$core.pragma('dart2js:noInline')
   static FetchProductDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductDetails>(create);
-  static FetchProductDetails _defaultInstance;
+  static FetchProductDetails? _defaultInstance;
 }
 
 class PublishProduct_Request extends $pb.GeneratedMessage {
@@ -2594,8 +2608,8 @@ class PublishProduct_Request extends $pb.GeneratedMessage {
 
   PublishProduct_Request._() : super();
   factory PublishProduct_Request({
-    $core.String sessionKey,
-    $core.int productId,
+    $core.String? sessionKey,
+    $core.int? productId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -2625,7 +2639,7 @@ class PublishProduct_Request extends $pb.GeneratedMessage {
   static $pb.PbList<PublishProduct_Request> createRepeated() => $pb.PbList<PublishProduct_Request>();
   @$core.pragma('dart2js:noInline')
   static PublishProduct_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PublishProduct_Request>(create);
-  static PublishProduct_Request _defaultInstance;
+  static PublishProduct_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -2654,7 +2668,7 @@ class PublishProduct_Response extends $pb.GeneratedMessage {
 
   PublishProduct_Response._() : super();
   factory PublishProduct_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -2681,7 +2695,7 @@ class PublishProduct_Response extends $pb.GeneratedMessage {
   static $pb.PbList<PublishProduct_Response> createRepeated() => $pb.PbList<PublishProduct_Response>();
   @$core.pragma('dart2js:noInline')
   static PublishProduct_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PublishProduct_Response>(create);
-  static PublishProduct_Response _defaultInstance;
+  static PublishProduct_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -2719,7 +2733,7 @@ class PublishProduct extends $pb.GeneratedMessage {
   static $pb.PbList<PublishProduct> createRepeated() => $pb.PbList<PublishProduct>();
   @$core.pragma('dart2js:noInline')
   static PublishProduct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PublishProduct>(create);
-  static PublishProduct _defaultInstance;
+  static PublishProduct? _defaultInstance;
 }
 
 class UnpublishProduct_Request extends $pb.GeneratedMessage {
@@ -2731,8 +2745,8 @@ class UnpublishProduct_Request extends $pb.GeneratedMessage {
 
   UnpublishProduct_Request._() : super();
   factory UnpublishProduct_Request({
-    $core.String sessionKey,
-    $core.int productId,
+    $core.String? sessionKey,
+    $core.int? productId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -2762,7 +2776,7 @@ class UnpublishProduct_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UnpublishProduct_Request> createRepeated() => $pb.PbList<UnpublishProduct_Request>();
   @$core.pragma('dart2js:noInline')
   static UnpublishProduct_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnpublishProduct_Request>(create);
-  static UnpublishProduct_Request _defaultInstance;
+  static UnpublishProduct_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -2791,7 +2805,7 @@ class UnpublishProduct_Response extends $pb.GeneratedMessage {
 
   UnpublishProduct_Response._() : super();
   factory UnpublishProduct_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -2818,7 +2832,7 @@ class UnpublishProduct_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UnpublishProduct_Response> createRepeated() => $pb.PbList<UnpublishProduct_Response>();
   @$core.pragma('dart2js:noInline')
   static UnpublishProduct_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnpublishProduct_Response>(create);
-  static UnpublishProduct_Response _defaultInstance;
+  static UnpublishProduct_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -2856,7 +2870,695 @@ class UnpublishProduct extends $pb.GeneratedMessage {
   static $pb.PbList<UnpublishProduct> createRepeated() => $pb.PbList<UnpublishProduct>();
   @$core.pragma('dart2js:noInline')
   static UnpublishProduct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnpublishProduct>(create);
-  static UnpublishProduct _defaultInstance;
+  static UnpublishProduct? _defaultInstance;
+}
+
+class CreateNewContent_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateNewContent.Request', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileId', protoName: 'fileId')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'url')
+    ..hasRequiredFields = false
+  ;
+
+  CreateNewContent_Request._() : super();
+  factory CreateNewContent_Request({
+    $core.String? sessionKey,
+    $core.String? title,
+    $core.String? fileId,
+    $core.String? url,
+  }) {
+    final _result = create();
+    if (sessionKey != null) {
+      _result.sessionKey = sessionKey;
+    }
+    if (title != null) {
+      _result.title = title;
+    }
+    if (fileId != null) {
+      _result.fileId = fileId;
+    }
+    if (url != null) {
+      _result.url = url;
+    }
+    return _result;
+  }
+  factory CreateNewContent_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateNewContent_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateNewContent_Request clone() => CreateNewContent_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateNewContent_Request copyWith(void Function(CreateNewContent_Request) updates) => super.copyWith((message) => updates(message as CreateNewContent_Request)) as CreateNewContent_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateNewContent_Request create() => CreateNewContent_Request._();
+  CreateNewContent_Request createEmptyInstance() => create();
+  static $pb.PbList<CreateNewContent_Request> createRepeated() => $pb.PbList<CreateNewContent_Request>();
+  @$core.pragma('dart2js:noInline')
+  static CreateNewContent_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateNewContent_Request>(create);
+  static CreateNewContent_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get title => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set title($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasTitle() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTitle() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get fileId => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set fileId($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasFileId() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearFileId() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get url => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set url($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasUrl() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearUrl() => clearField(4);
+}
+
+class CreateNewContent_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateNewContent.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contentId', $pb.PbFieldType.O3, protoName: 'contentId')
+    ..hasRequiredFields = false
+  ;
+
+  CreateNewContent_Response._() : super();
+  factory CreateNewContent_Response({
+    $core.bool? success,
+    $core.int? contentId,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    if (contentId != null) {
+      _result.contentId = contentId;
+    }
+    return _result;
+  }
+  factory CreateNewContent_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateNewContent_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateNewContent_Response clone() => CreateNewContent_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateNewContent_Response copyWith(void Function(CreateNewContent_Response) updates) => super.copyWith((message) => updates(message as CreateNewContent_Response)) as CreateNewContent_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateNewContent_Response create() => CreateNewContent_Response._();
+  CreateNewContent_Response createEmptyInstance() => create();
+  static $pb.PbList<CreateNewContent_Response> createRepeated() => $pb.PbList<CreateNewContent_Response>();
+  @$core.pragma('dart2js:noInline')
+  static CreateNewContent_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateNewContent_Response>(create);
+  static CreateNewContent_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get contentId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set contentId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasContentId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearContentId() => clearField(2);
+}
+
+class CreateNewContent extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateNewContent', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  CreateNewContent._() : super();
+  factory CreateNewContent() => create();
+  factory CreateNewContent.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory CreateNewContent.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  CreateNewContent clone() => CreateNewContent()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  CreateNewContent copyWith(void Function(CreateNewContent) updates) => super.copyWith((message) => updates(message as CreateNewContent)) as CreateNewContent; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static CreateNewContent create() => CreateNewContent._();
+  CreateNewContent createEmptyInstance() => create();
+  static $pb.PbList<CreateNewContent> createRepeated() => $pb.PbList<CreateNewContent>();
+  @$core.pragma('dart2js:noInline')
+  static CreateNewContent getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateNewContent>(create);
+  static CreateNewContent? _defaultInstance;
+}
+
+class UpdateContent_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateContent.Request', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contentId', $pb.PbFieldType.O3, protoName: 'contentId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileId', protoName: 'fileId')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'url')
+    ..hasRequiredFields = false
+  ;
+
+  UpdateContent_Request._() : super();
+  factory UpdateContent_Request({
+    $core.String? sessionKey,
+    $core.int? contentId,
+    $core.String? title,
+    $core.String? fileId,
+    $core.String? url,
+  }) {
+    final _result = create();
+    if (sessionKey != null) {
+      _result.sessionKey = sessionKey;
+    }
+    if (contentId != null) {
+      _result.contentId = contentId;
+    }
+    if (title != null) {
+      _result.title = title;
+    }
+    if (fileId != null) {
+      _result.fileId = fileId;
+    }
+    if (url != null) {
+      _result.url = url;
+    }
+    return _result;
+  }
+  factory UpdateContent_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateContent_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdateContent_Request clone() => UpdateContent_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateContent_Request copyWith(void Function(UpdateContent_Request) updates) => super.copyWith((message) => updates(message as UpdateContent_Request)) as UpdateContent_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateContent_Request create() => UpdateContent_Request._();
+  UpdateContent_Request createEmptyInstance() => create();
+  static $pb.PbList<UpdateContent_Request> createRepeated() => $pb.PbList<UpdateContent_Request>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateContent_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateContent_Request>(create);
+  static UpdateContent_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get contentId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set contentId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasContentId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearContentId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get title => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set title($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTitle() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTitle() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get fileId => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set fileId($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFileId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFileId() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get url => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set url($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasUrl() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearUrl() => clearField(5);
+}
+
+class UpdateContent_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateContent.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..hasRequiredFields = false
+  ;
+
+  UpdateContent_Response._() : super();
+  factory UpdateContent_Response({
+    $core.bool? success,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    return _result;
+  }
+  factory UpdateContent_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateContent_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdateContent_Response clone() => UpdateContent_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateContent_Response copyWith(void Function(UpdateContent_Response) updates) => super.copyWith((message) => updates(message as UpdateContent_Response)) as UpdateContent_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateContent_Response create() => UpdateContent_Response._();
+  UpdateContent_Response createEmptyInstance() => create();
+  static $pb.PbList<UpdateContent_Response> createRepeated() => $pb.PbList<UpdateContent_Response>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateContent_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateContent_Response>(create);
+  static UpdateContent_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class UpdateContent extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateContent', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  UpdateContent._() : super();
+  factory UpdateContent() => create();
+  factory UpdateContent.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdateContent.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdateContent clone() => UpdateContent()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdateContent copyWith(void Function(UpdateContent) updates) => super.copyWith((message) => updates(message as UpdateContent)) as UpdateContent; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdateContent create() => UpdateContent._();
+  UpdateContent createEmptyInstance() => create();
+  static $pb.PbList<UpdateContent> createRepeated() => $pb.PbList<UpdateContent>();
+  @$core.pragma('dart2js:noInline')
+  static UpdateContent getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateContent>(create);
+  static UpdateContent? _defaultInstance;
+}
+
+class FetchContentDetails_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchContentDetails.Request', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contentId', $pb.PbFieldType.O3, protoName: 'contentId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchContentDetails_Request._() : super();
+  factory FetchContentDetails_Request({
+    $core.String? sessionKey,
+    $core.int? contentId,
+  }) {
+    final _result = create();
+    if (sessionKey != null) {
+      _result.sessionKey = sessionKey;
+    }
+    if (contentId != null) {
+      _result.contentId = contentId;
+    }
+    return _result;
+  }
+  factory FetchContentDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchContentDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchContentDetails_Request clone() => FetchContentDetails_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchContentDetails_Request copyWith(void Function(FetchContentDetails_Request) updates) => super.copyWith((message) => updates(message as FetchContentDetails_Request)) as FetchContentDetails_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchContentDetails_Request create() => FetchContentDetails_Request._();
+  FetchContentDetails_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchContentDetails_Request> createRepeated() => $pb.PbList<FetchContentDetails_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchContentDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchContentDetails_Request>(create);
+  static FetchContentDetails_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get contentId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set contentId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasContentId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearContentId() => clearField(2);
+}
+
+class FetchContentDetails_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchContentDetails.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'title')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fileId', protoName: 'fileId')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'url')
+    ..hasRequiredFields = false
+  ;
+
+  FetchContentDetails_Response._() : super();
+  factory FetchContentDetails_Response({
+    $core.bool? success,
+    $core.int? id,
+    $core.String? title,
+    $core.String? fileId,
+    $core.String? url,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    if (id != null) {
+      _result.id = id;
+    }
+    if (title != null) {
+      _result.title = title;
+    }
+    if (fileId != null) {
+      _result.fileId = fileId;
+    }
+    if (url != null) {
+      _result.url = url;
+    }
+    return _result;
+  }
+  factory FetchContentDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchContentDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchContentDetails_Response clone() => FetchContentDetails_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchContentDetails_Response copyWith(void Function(FetchContentDetails_Response) updates) => super.copyWith((message) => updates(message as FetchContentDetails_Response)) as FetchContentDetails_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchContentDetails_Response create() => FetchContentDetails_Response._();
+  FetchContentDetails_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchContentDetails_Response> createRepeated() => $pb.PbList<FetchContentDetails_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchContentDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchContentDetails_Response>(create);
+  static FetchContentDetails_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get id => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set id($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get title => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set title($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasTitle() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearTitle() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get fileId => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set fileId($core.String v) { $_setString(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasFileId() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearFileId() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get url => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set url($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasUrl() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearUrl() => clearField(5);
+}
+
+class FetchContentDetails extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchContentDetails', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchContentDetails._() : super();
+  factory FetchContentDetails() => create();
+  factory FetchContentDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchContentDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchContentDetails clone() => FetchContentDetails()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchContentDetails copyWith(void Function(FetchContentDetails) updates) => super.copyWith((message) => updates(message as FetchContentDetails)) as FetchContentDetails; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchContentDetails create() => FetchContentDetails._();
+  FetchContentDetails createEmptyInstance() => create();
+  static $pb.PbList<FetchContentDetails> createRepeated() => $pb.PbList<FetchContentDetails>();
+  @$core.pragma('dart2js:noInline')
+  static FetchContentDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchContentDetails>(create);
+  static FetchContentDetails? _defaultInstance;
+}
+
+class DeleteContent_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'DeleteContent.Request', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contentId', $pb.PbFieldType.O3, protoName: 'contentId')
+    ..hasRequiredFields = false
+  ;
+
+  DeleteContent_Request._() : super();
+  factory DeleteContent_Request({
+    $core.String? sessionKey,
+    $core.int? contentId,
+  }) {
+    final _result = create();
+    if (sessionKey != null) {
+      _result.sessionKey = sessionKey;
+    }
+    if (contentId != null) {
+      _result.contentId = contentId;
+    }
+    return _result;
+  }
+  factory DeleteContent_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeleteContent_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeleteContent_Request clone() => DeleteContent_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeleteContent_Request copyWith(void Function(DeleteContent_Request) updates) => super.copyWith((message) => updates(message as DeleteContent_Request)) as DeleteContent_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DeleteContent_Request create() => DeleteContent_Request._();
+  DeleteContent_Request createEmptyInstance() => create();
+  static $pb.PbList<DeleteContent_Request> createRepeated() => $pb.PbList<DeleteContent_Request>();
+  @$core.pragma('dart2js:noInline')
+  static DeleteContent_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteContent_Request>(create);
+  static DeleteContent_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get sessionKey => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set sessionKey($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSessionKey() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSessionKey() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get contentId => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set contentId($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasContentId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearContentId() => clearField(2);
+}
+
+class DeleteContent_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'DeleteContent.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..hasRequiredFields = false
+  ;
+
+  DeleteContent_Response._() : super();
+  factory DeleteContent_Response({
+    $core.bool? success,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    return _result;
+  }
+  factory DeleteContent_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeleteContent_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeleteContent_Response clone() => DeleteContent_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeleteContent_Response copyWith(void Function(DeleteContent_Response) updates) => super.copyWith((message) => updates(message as DeleteContent_Response)) as DeleteContent_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DeleteContent_Response create() => DeleteContent_Response._();
+  DeleteContent_Response createEmptyInstance() => create();
+  static $pb.PbList<DeleteContent_Response> createRepeated() => $pb.PbList<DeleteContent_Response>();
+  @$core.pragma('dart2js:noInline')
+  static DeleteContent_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteContent_Response>(create);
+  static DeleteContent_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+}
+
+class DeleteContent extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'DeleteContent', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  DeleteContent._() : super();
+  factory DeleteContent() => create();
+  factory DeleteContent.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeleteContent.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeleteContent clone() => DeleteContent()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeleteContent copyWith(void Function(DeleteContent) updates) => super.copyWith((message) => updates(message as DeleteContent)) as DeleteContent; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DeleteContent create() => DeleteContent._();
+  DeleteContent createEmptyInstance() => create();
+  static $pb.PbList<DeleteContent> createRepeated() => $pb.PbList<DeleteContent>();
+  @$core.pragma('dart2js:noInline')
+  static DeleteContent getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteContent>(create);
+  static DeleteContent? _defaultInstance;
 }
 
 class FetchProductCategoryIds_Request extends $pb.GeneratedMessage {
@@ -2885,7 +3587,7 @@ class FetchProductCategoryIds_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductCategoryIds_Request> createRepeated() => $pb.PbList<FetchProductCategoryIds_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchProductCategoryIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds_Request>(create);
-  static FetchProductCategoryIds_Request _defaultInstance;
+  static FetchProductCategoryIds_Request? _defaultInstance;
 }
 
 class FetchProductCategoryIds_Response extends $pb.GeneratedMessage {
@@ -2897,8 +3599,8 @@ class FetchProductCategoryIds_Response extends $pb.GeneratedMessage {
 
   FetchProductCategoryIds_Response._() : super();
   factory FetchProductCategoryIds_Response({
-    $core.bool success,
-    $core.Iterable<$core.int> id,
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
   }) {
     final _result = create();
     if (success != null) {
@@ -2928,7 +3630,7 @@ class FetchProductCategoryIds_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductCategoryIds_Response> createRepeated() => $pb.PbList<FetchProductCategoryIds_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchProductCategoryIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds_Response>(create);
-  static FetchProductCategoryIds_Response _defaultInstance;
+  static FetchProductCategoryIds_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -2969,7 +3671,7 @@ class FetchProductCategoryIds extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductCategoryIds> createRepeated() => $pb.PbList<FetchProductCategoryIds>();
   @$core.pragma('dart2js:noInline')
   static FetchProductCategoryIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds>(create);
-  static FetchProductCategoryIds _defaultInstance;
+  static FetchProductCategoryIds? _defaultInstance;
 }
 
 class FetchProductCategoryDetails_Request extends $pb.GeneratedMessage {
@@ -2980,7 +3682,7 @@ class FetchProductCategoryDetails_Request extends $pb.GeneratedMessage {
 
   FetchProductCategoryDetails_Request._() : super();
   factory FetchProductCategoryDetails_Request({
-    $core.int categoryId,
+    $core.int? categoryId,
   }) {
     final _result = create();
     if (categoryId != null) {
@@ -3007,7 +3709,7 @@ class FetchProductCategoryDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductCategoryDetails_Request> createRepeated() => $pb.PbList<FetchProductCategoryDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchProductCategoryDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails_Request>(create);
-  static FetchProductCategoryDetails_Request _defaultInstance;
+  static FetchProductCategoryDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.int get categoryId => $_getIZ(0);
@@ -3031,11 +3733,11 @@ class FetchProductCategoryDetails_Response extends $pb.GeneratedMessage {
 
   FetchProductCategoryDetails_Response._() : super();
   factory FetchProductCategoryDetails_Response({
-    $core.bool success,
-    $core.int id,
-    $core.String nameJsonStr,
-    $core.List<$core.int> pictureBlob,
-    $core.String examplesJsonStr,
+    $core.bool? success,
+    $core.int? id,
+    $core.String? nameJsonStr,
+    $core.List<$core.int>? pictureBlob,
+    $core.String? examplesJsonStr,
   }) {
     final _result = create();
     if (success != null) {
@@ -3074,7 +3776,7 @@ class FetchProductCategoryDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductCategoryDetails_Response> createRepeated() => $pb.PbList<FetchProductCategoryDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchProductCategoryDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails_Response>(create);
-  static FetchProductCategoryDetails_Response _defaultInstance;
+  static FetchProductCategoryDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -3148,7 +3850,7 @@ class FetchProductCategoryDetails extends $pb.GeneratedMessage {
   static $pb.PbList<FetchProductCategoryDetails> createRepeated() => $pb.PbList<FetchProductCategoryDetails>();
   @$core.pragma('dart2js:noInline')
   static FetchProductCategoryDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails>(create);
-  static FetchProductCategoryDetails _defaultInstance;
+  static FetchProductCategoryDetails? _defaultInstance;
 }
 
 class CreateVacantJob_Request extends $pb.GeneratedMessage {
@@ -3161,9 +3863,9 @@ class CreateVacantJob_Request extends $pb.GeneratedMessage {
 
   CreateVacantJob_Request._() : super();
   factory CreateVacantJob_Request({
-    $core.String sessionKey,
-    $core.int businessPageId,
-    $core.String title,
+    $core.String? sessionKey,
+    $core.int? businessPageId,
+    $core.String? title,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -3196,7 +3898,7 @@ class CreateVacantJob_Request extends $pb.GeneratedMessage {
   static $pb.PbList<CreateVacantJob_Request> createRepeated() => $pb.PbList<CreateVacantJob_Request>();
   @$core.pragma('dart2js:noInline')
   static CreateVacantJob_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob_Request>(create);
-  static CreateVacantJob_Request _defaultInstance;
+  static CreateVacantJob_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -3234,7 +3936,7 @@ class CreateVacantJob_Response extends $pb.GeneratedMessage {
 
   CreateVacantJob_Response._() : super();
   factory CreateVacantJob_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -3261,7 +3963,7 @@ class CreateVacantJob_Response extends $pb.GeneratedMessage {
   static $pb.PbList<CreateVacantJob_Response> createRepeated() => $pb.PbList<CreateVacantJob_Response>();
   @$core.pragma('dart2js:noInline')
   static CreateVacantJob_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob_Response>(create);
-  static CreateVacantJob_Response _defaultInstance;
+  static CreateVacantJob_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -3299,7 +4001,7 @@ class CreateVacantJob extends $pb.GeneratedMessage {
   static $pb.PbList<CreateVacantJob> createRepeated() => $pb.PbList<CreateVacantJob>();
   @$core.pragma('dart2js:noInline')
   static CreateVacantJob getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateVacantJob>(create);
-  static CreateVacantJob _defaultInstance;
+  static CreateVacantJob? _defaultInstance;
 }
 
 class UpdateJobDetails_Request extends $pb.GeneratedMessage {
@@ -3310,7 +4012,7 @@ class UpdateJobDetails_Request extends $pb.GeneratedMessage {
 
   UpdateJobDetails_Request._() : super();
   factory UpdateJobDetails_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -3337,7 +4039,7 @@ class UpdateJobDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateJobDetails_Request> createRepeated() => $pb.PbList<UpdateJobDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static UpdateJobDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails_Request>(create);
-  static UpdateJobDetails_Request _defaultInstance;
+  static UpdateJobDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -3357,7 +4059,7 @@ class UpdateJobDetails_Response extends $pb.GeneratedMessage {
 
   UpdateJobDetails_Response._() : super();
   factory UpdateJobDetails_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -3384,7 +4086,7 @@ class UpdateJobDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateJobDetails_Response> createRepeated() => $pb.PbList<UpdateJobDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static UpdateJobDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails_Response>(create);
-  static UpdateJobDetails_Response _defaultInstance;
+  static UpdateJobDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -3422,7 +4124,7 @@ class UpdateJobDetails extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateJobDetails> createRepeated() => $pb.PbList<UpdateJobDetails>();
   @$core.pragma('dart2js:noInline')
   static UpdateJobDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobDetails>(create);
-  static UpdateJobDetails _defaultInstance;
+  static UpdateJobDetails? _defaultInstance;
 }
 
 class UncreateJob_Request extends $pb.GeneratedMessage {
@@ -3433,7 +4135,7 @@ class UncreateJob_Request extends $pb.GeneratedMessage {
 
   UncreateJob_Request._() : super();
   factory UncreateJob_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -3460,7 +4162,7 @@ class UncreateJob_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateJob_Request> createRepeated() => $pb.PbList<UncreateJob_Request>();
   @$core.pragma('dart2js:noInline')
   static UncreateJob_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob_Request>(create);
-  static UncreateJob_Request _defaultInstance;
+  static UncreateJob_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -3480,7 +4182,7 @@ class UncreateJob_Response extends $pb.GeneratedMessage {
 
   UncreateJob_Response._() : super();
   factory UncreateJob_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -3507,7 +4209,7 @@ class UncreateJob_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateJob_Response> createRepeated() => $pb.PbList<UncreateJob_Response>();
   @$core.pragma('dart2js:noInline')
   static UncreateJob_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob_Response>(create);
-  static UncreateJob_Response _defaultInstance;
+  static UncreateJob_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -3545,7 +4247,7 @@ class UncreateJob extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateJob> createRepeated() => $pb.PbList<UncreateJob>();
   @$core.pragma('dart2js:noInline')
   static UncreateJob getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJob>(create);
-  static UncreateJob _defaultInstance;
+  static UncreateJob? _defaultInstance;
 }
 
 class FetchBusinessPageJobIds_Request extends $pb.GeneratedMessage {
@@ -3557,8 +4259,8 @@ class FetchBusinessPageJobIds_Request extends $pb.GeneratedMessage {
 
   FetchBusinessPageJobIds_Request._() : super();
   factory FetchBusinessPageJobIds_Request({
-    $core.String sessionKey,
-    $core.int businessPageId,
+    $core.String? sessionKey,
+    $core.int? businessPageId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -3588,7 +4290,7 @@ class FetchBusinessPageJobIds_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchBusinessPageJobIds_Request> createRepeated() => $pb.PbList<FetchBusinessPageJobIds_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchBusinessPageJobIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds_Request>(create);
-  static FetchBusinessPageJobIds_Request _defaultInstance;
+  static FetchBusinessPageJobIds_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -3618,8 +4320,8 @@ class FetchBusinessPageJobIds_Response extends $pb.GeneratedMessage {
 
   FetchBusinessPageJobIds_Response._() : super();
   factory FetchBusinessPageJobIds_Response({
-    $core.bool success,
-    $core.Iterable<$core.int> id,
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
   }) {
     final _result = create();
     if (success != null) {
@@ -3649,7 +4351,7 @@ class FetchBusinessPageJobIds_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchBusinessPageJobIds_Response> createRepeated() => $pb.PbList<FetchBusinessPageJobIds_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchBusinessPageJobIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds_Response>(create);
-  static FetchBusinessPageJobIds_Response _defaultInstance;
+  static FetchBusinessPageJobIds_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -3690,7 +4392,7 @@ class FetchBusinessPageJobIds extends $pb.GeneratedMessage {
   static $pb.PbList<FetchBusinessPageJobIds> createRepeated() => $pb.PbList<FetchBusinessPageJobIds>();
   @$core.pragma('dart2js:noInline')
   static FetchBusinessPageJobIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchBusinessPageJobIds>(create);
-  static FetchBusinessPageJobIds _defaultInstance;
+  static FetchBusinessPageJobIds? _defaultInstance;
 }
 
 class FetchNextKVacantJobIds_Request extends $pb.GeneratedMessage {
@@ -3704,10 +4406,10 @@ class FetchNextKVacantJobIds_Request extends $pb.GeneratedMessage {
 
   FetchNextKVacantJobIds_Request._() : super();
   factory FetchNextKVacantJobIds_Request({
-    $core.String sessionKey,
-    $core.int k,
-    $core.int previousVacantJobId,
-    FilterDetails filterDetails,
+    $core.String? sessionKey,
+    $core.int? k,
+    $core.int? previousVacantJobId,
+    FilterDetails? filterDetails,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -3743,7 +4445,7 @@ class FetchNextKVacantJobIds_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchNextKVacantJobIds_Request> createRepeated() => $pb.PbList<FetchNextKVacantJobIds_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchNextKVacantJobIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds_Request>(create);
-  static FetchNextKVacantJobIds_Request _defaultInstance;
+  static FetchNextKVacantJobIds_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -3793,8 +4495,8 @@ class FetchNextKVacantJobIds_Response extends $pb.GeneratedMessage {
 
   FetchNextKVacantJobIds_Response._() : super();
   factory FetchNextKVacantJobIds_Response({
-    $core.bool success,
-    $core.Iterable<$core.int> id,
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
   }) {
     final _result = create();
     if (success != null) {
@@ -3824,7 +4526,7 @@ class FetchNextKVacantJobIds_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchNextKVacantJobIds_Response> createRepeated() => $pb.PbList<FetchNextKVacantJobIds_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchNextKVacantJobIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds_Response>(create);
-  static FetchNextKVacantJobIds_Response _defaultInstance;
+  static FetchNextKVacantJobIds_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -3865,7 +4567,7 @@ class FetchNextKVacantJobIds extends $pb.GeneratedMessage {
   static $pb.PbList<FetchNextKVacantJobIds> createRepeated() => $pb.PbList<FetchNextKVacantJobIds>();
   @$core.pragma('dart2js:noInline')
   static FetchNextKVacantJobIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchNextKVacantJobIds>(create);
-  static FetchNextKVacantJobIds _defaultInstance;
+  static FetchNextKVacantJobIds? _defaultInstance;
 }
 
 class FetchJobDetails_Request extends $pb.GeneratedMessage {
@@ -3877,8 +4579,8 @@ class FetchJobDetails_Request extends $pb.GeneratedMessage {
 
   FetchJobDetails_Request._() : super();
   factory FetchJobDetails_Request({
-    $core.String sessionKey,
-    $core.int jobId,
+    $core.String? sessionKey,
+    $core.int? jobId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -3908,7 +4610,7 @@ class FetchJobDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobDetails_Request> createRepeated() => $pb.PbList<FetchJobDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchJobDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails_Request>(create);
-  static FetchJobDetails_Request _defaultInstance;
+  static FetchJobDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -3942,12 +4644,12 @@ class FetchJobDetails_Response extends $pb.GeneratedMessage {
 
   FetchJobDetails_Response._() : super();
   factory FetchJobDetails_Response({
-    $core.bool success,
-    $core.int id,
-    $core.int businessPageId,
-    $core.String role,
-    $core.String title,
-    $core.int hiredUserId,
+    $core.bool? success,
+    $core.int? id,
+    $core.int? businessPageId,
+    $core.String? role,
+    $core.String? title,
+    $core.int? hiredUserId,
   }) {
     final _result = create();
     if (success != null) {
@@ -3989,7 +4691,7 @@ class FetchJobDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobDetails_Response> createRepeated() => $pb.PbList<FetchJobDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchJobDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails_Response>(create);
-  static FetchJobDetails_Response _defaultInstance;
+  static FetchJobDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -4072,7 +4774,7 @@ class FetchJobDetails extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobDetails> createRepeated() => $pb.PbList<FetchJobDetails>();
   @$core.pragma('dart2js:noInline')
   static FetchJobDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobDetails>(create);
-  static FetchJobDetails _defaultInstance;
+  static FetchJobDetails? _defaultInstance;
 }
 
 class CreateJobApplication_Request extends $pb.GeneratedMessage {
@@ -4086,10 +4788,10 @@ class CreateJobApplication_Request extends $pb.GeneratedMessage {
 
   CreateJobApplication_Request._() : super();
   factory CreateJobApplication_Request({
-    $core.String sessionKey,
-    $core.int jobId,
-    $core.String message,
-    $core.List<$core.int> content,
+    $core.String? sessionKey,
+    $core.int? jobId,
+    $core.String? message,
+    $core.List<$core.int>? content,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -4125,7 +4827,7 @@ class CreateJobApplication_Request extends $pb.GeneratedMessage {
   static $pb.PbList<CreateJobApplication_Request> createRepeated() => $pb.PbList<CreateJobApplication_Request>();
   @$core.pragma('dart2js:noInline')
   static CreateJobApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateJobApplication_Request>(create);
-  static CreateJobApplication_Request _defaultInstance;
+  static CreateJobApplication_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -4172,7 +4874,7 @@ class CreateJobApplication_Response extends $pb.GeneratedMessage {
 
   CreateJobApplication_Response._() : super();
   factory CreateJobApplication_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -4199,7 +4901,7 @@ class CreateJobApplication_Response extends $pb.GeneratedMessage {
   static $pb.PbList<CreateJobApplication_Response> createRepeated() => $pb.PbList<CreateJobApplication_Response>();
   @$core.pragma('dart2js:noInline')
   static CreateJobApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateJobApplication_Response>(create);
-  static CreateJobApplication_Response _defaultInstance;
+  static CreateJobApplication_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -4237,7 +4939,7 @@ class CreateJobApplication extends $pb.GeneratedMessage {
   static $pb.PbList<CreateJobApplication> createRepeated() => $pb.PbList<CreateJobApplication>();
   @$core.pragma('dart2js:noInline')
   static CreateJobApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<CreateJobApplication>(create);
-  static CreateJobApplication _defaultInstance;
+  static CreateJobApplication? _defaultInstance;
 }
 
 class UpdateJobApplicationDetails_Request extends $pb.GeneratedMessage {
@@ -4248,7 +4950,7 @@ class UpdateJobApplicationDetails_Request extends $pb.GeneratedMessage {
 
   UpdateJobApplicationDetails_Request._() : super();
   factory UpdateJobApplicationDetails_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -4275,7 +4977,7 @@ class UpdateJobApplicationDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateJobApplicationDetails_Request> createRepeated() => $pb.PbList<UpdateJobApplicationDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static UpdateJobApplicationDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobApplicationDetails_Request>(create);
-  static UpdateJobApplicationDetails_Request _defaultInstance;
+  static UpdateJobApplicationDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -4295,7 +4997,7 @@ class UpdateJobApplicationDetails_Response extends $pb.GeneratedMessage {
 
   UpdateJobApplicationDetails_Response._() : super();
   factory UpdateJobApplicationDetails_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -4322,7 +5024,7 @@ class UpdateJobApplicationDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateJobApplicationDetails_Response> createRepeated() => $pb.PbList<UpdateJobApplicationDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static UpdateJobApplicationDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobApplicationDetails_Response>(create);
-  static UpdateJobApplicationDetails_Response _defaultInstance;
+  static UpdateJobApplicationDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -4360,7 +5062,7 @@ class UpdateJobApplicationDetails extends $pb.GeneratedMessage {
   static $pb.PbList<UpdateJobApplicationDetails> createRepeated() => $pb.PbList<UpdateJobApplicationDetails>();
   @$core.pragma('dart2js:noInline')
   static UpdateJobApplicationDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdateJobApplicationDetails>(create);
-  static UpdateJobApplicationDetails _defaultInstance;
+  static UpdateJobApplicationDetails? _defaultInstance;
 }
 
 class UncreateJobApplication_Request extends $pb.GeneratedMessage {
@@ -4371,7 +5073,7 @@ class UncreateJobApplication_Request extends $pb.GeneratedMessage {
 
   UncreateJobApplication_Request._() : super();
   factory UncreateJobApplication_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -4398,7 +5100,7 @@ class UncreateJobApplication_Request extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateJobApplication_Request> createRepeated() => $pb.PbList<UncreateJobApplication_Request>();
   @$core.pragma('dart2js:noInline')
   static UncreateJobApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJobApplication_Request>(create);
-  static UncreateJobApplication_Request _defaultInstance;
+  static UncreateJobApplication_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -4418,7 +5120,7 @@ class UncreateJobApplication_Response extends $pb.GeneratedMessage {
 
   UncreateJobApplication_Response._() : super();
   factory UncreateJobApplication_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -4445,7 +5147,7 @@ class UncreateJobApplication_Response extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateJobApplication_Response> createRepeated() => $pb.PbList<UncreateJobApplication_Response>();
   @$core.pragma('dart2js:noInline')
   static UncreateJobApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJobApplication_Response>(create);
-  static UncreateJobApplication_Response _defaultInstance;
+  static UncreateJobApplication_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -4483,7 +5185,7 @@ class UncreateJobApplication extends $pb.GeneratedMessage {
   static $pb.PbList<UncreateJobApplication> createRepeated() => $pb.PbList<UncreateJobApplication>();
   @$core.pragma('dart2js:noInline')
   static UncreateJobApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UncreateJobApplication>(create);
-  static UncreateJobApplication _defaultInstance;
+  static UncreateJobApplication? _defaultInstance;
 }
 
 class FetchJobApplicationIds_Request extends $pb.GeneratedMessage {
@@ -4495,8 +5197,8 @@ class FetchJobApplicationIds_Request extends $pb.GeneratedMessage {
 
   FetchJobApplicationIds_Request._() : super();
   factory FetchJobApplicationIds_Request({
-    $core.String sessionKey,
-    $core.int jobId,
+    $core.String? sessionKey,
+    $core.int? jobId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -4526,7 +5228,7 @@ class FetchJobApplicationIds_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobApplicationIds_Request> createRepeated() => $pb.PbList<FetchJobApplicationIds_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchJobApplicationIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationIds_Request>(create);
-  static FetchJobApplicationIds_Request _defaultInstance;
+  static FetchJobApplicationIds_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -4556,8 +5258,8 @@ class FetchJobApplicationIds_Response extends $pb.GeneratedMessage {
 
   FetchJobApplicationIds_Response._() : super();
   factory FetchJobApplicationIds_Response({
-    $core.bool success,
-    $core.Iterable<$core.int> id,
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
   }) {
     final _result = create();
     if (success != null) {
@@ -4587,7 +5289,7 @@ class FetchJobApplicationIds_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobApplicationIds_Response> createRepeated() => $pb.PbList<FetchJobApplicationIds_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchJobApplicationIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationIds_Response>(create);
-  static FetchJobApplicationIds_Response _defaultInstance;
+  static FetchJobApplicationIds_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -4628,7 +5330,7 @@ class FetchJobApplicationIds extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobApplicationIds> createRepeated() => $pb.PbList<FetchJobApplicationIds>();
   @$core.pragma('dart2js:noInline')
   static FetchJobApplicationIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationIds>(create);
-  static FetchJobApplicationIds _defaultInstance;
+  static FetchJobApplicationIds? _defaultInstance;
 }
 
 class FetchJobApplicationDetails_Request extends $pb.GeneratedMessage {
@@ -4640,8 +5342,8 @@ class FetchJobApplicationDetails_Request extends $pb.GeneratedMessage {
 
   FetchJobApplicationDetails_Request._() : super();
   factory FetchJobApplicationDetails_Request({
-    $core.String sessionKey,
-    $core.int jobApplicationId,
+    $core.String? sessionKey,
+    $core.int? jobApplicationId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -4671,7 +5373,7 @@ class FetchJobApplicationDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobApplicationDetails_Request> createRepeated() => $pb.PbList<FetchJobApplicationDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchJobApplicationDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationDetails_Request>(create);
-  static FetchJobApplicationDetails_Request _defaultInstance;
+  static FetchJobApplicationDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -4704,11 +5406,11 @@ class FetchJobApplicationDetails_Response extends $pb.GeneratedMessage {
 
   FetchJobApplicationDetails_Response._() : super();
   factory FetchJobApplicationDetails_Response({
-    $core.bool success,
-    $core.int id,
-    $core.String message,
-    $core.int applicantId,
-    $core.List<$core.int> content,
+    $core.bool? success,
+    $core.int? id,
+    $core.String? message,
+    $core.int? applicantId,
+    $core.List<$core.int>? content,
   }) {
     final _result = create();
     if (success != null) {
@@ -4747,7 +5449,7 @@ class FetchJobApplicationDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobApplicationDetails_Response> createRepeated() => $pb.PbList<FetchJobApplicationDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchJobApplicationDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationDetails_Response>(create);
-  static FetchJobApplicationDetails_Response _defaultInstance;
+  static FetchJobApplicationDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -4821,7 +5523,7 @@ class FetchJobApplicationDetails extends $pb.GeneratedMessage {
   static $pb.PbList<FetchJobApplicationDetails> createRepeated() => $pb.PbList<FetchJobApplicationDetails>();
   @$core.pragma('dart2js:noInline')
   static FetchJobApplicationDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchJobApplicationDetails>(create);
-  static FetchJobApplicationDetails _defaultInstance;
+  static FetchJobApplicationDetails? _defaultInstance;
 }
 
 class ApproveJobApplication_Request extends $pb.GeneratedMessage {
@@ -4833,8 +5535,8 @@ class ApproveJobApplication_Request extends $pb.GeneratedMessage {
 
   ApproveJobApplication_Request._() : super();
   factory ApproveJobApplication_Request({
-    $core.String sessionKey,
-    $core.int jobApplicationId,
+    $core.String? sessionKey,
+    $core.int? jobApplicationId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -4864,7 +5566,7 @@ class ApproveJobApplication_Request extends $pb.GeneratedMessage {
   static $pb.PbList<ApproveJobApplication_Request> createRepeated() => $pb.PbList<ApproveJobApplication_Request>();
   @$core.pragma('dart2js:noInline')
   static ApproveJobApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ApproveJobApplication_Request>(create);
-  static ApproveJobApplication_Request _defaultInstance;
+  static ApproveJobApplication_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -4893,7 +5595,7 @@ class ApproveJobApplication_Response extends $pb.GeneratedMessage {
 
   ApproveJobApplication_Response._() : super();
   factory ApproveJobApplication_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -4920,7 +5622,7 @@ class ApproveJobApplication_Response extends $pb.GeneratedMessage {
   static $pb.PbList<ApproveJobApplication_Response> createRepeated() => $pb.PbList<ApproveJobApplication_Response>();
   @$core.pragma('dart2js:noInline')
   static ApproveJobApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ApproveJobApplication_Response>(create);
-  static ApproveJobApplication_Response _defaultInstance;
+  static ApproveJobApplication_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -4958,7 +5660,7 @@ class ApproveJobApplication extends $pb.GeneratedMessage {
   static $pb.PbList<ApproveJobApplication> createRepeated() => $pb.PbList<ApproveJobApplication>();
   @$core.pragma('dart2js:noInline')
   static ApproveJobApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ApproveJobApplication>(create);
-  static ApproveJobApplication _defaultInstance;
+  static ApproveJobApplication? _defaultInstance;
 }
 
 class DeclineJobApplication_Request extends $pb.GeneratedMessage {
@@ -4970,8 +5672,8 @@ class DeclineJobApplication_Request extends $pb.GeneratedMessage {
 
   DeclineJobApplication_Request._() : super();
   factory DeclineJobApplication_Request({
-    $core.String sessionKey,
-    $core.int jobApplicationId,
+    $core.String? sessionKey,
+    $core.int? jobApplicationId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -5001,7 +5703,7 @@ class DeclineJobApplication_Request extends $pb.GeneratedMessage {
   static $pb.PbList<DeclineJobApplication_Request> createRepeated() => $pb.PbList<DeclineJobApplication_Request>();
   @$core.pragma('dart2js:noInline')
   static DeclineJobApplication_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeclineJobApplication_Request>(create);
-  static DeclineJobApplication_Request _defaultInstance;
+  static DeclineJobApplication_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -5030,7 +5732,7 @@ class DeclineJobApplication_Response extends $pb.GeneratedMessage {
 
   DeclineJobApplication_Response._() : super();
   factory DeclineJobApplication_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -5057,7 +5759,7 @@ class DeclineJobApplication_Response extends $pb.GeneratedMessage {
   static $pb.PbList<DeclineJobApplication_Response> createRepeated() => $pb.PbList<DeclineJobApplication_Response>();
   @$core.pragma('dart2js:noInline')
   static DeclineJobApplication_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeclineJobApplication_Response>(create);
-  static DeclineJobApplication_Response _defaultInstance;
+  static DeclineJobApplication_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -5095,7 +5797,7 @@ class DeclineJobApplication extends $pb.GeneratedMessage {
   static $pb.PbList<DeclineJobApplication> createRepeated() => $pb.PbList<DeclineJobApplication>();
   @$core.pragma('dart2js:noInline')
   static DeclineJobApplication getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeclineJobApplication>(create);
-  static DeclineJobApplication _defaultInstance;
+  static DeclineJobApplication? _defaultInstance;
 }
 
 class LogPurchase_Request extends $pb.GeneratedMessage {
@@ -5106,7 +5808,7 @@ class LogPurchase_Request extends $pb.GeneratedMessage {
 
   LogPurchase_Request._() : super();
   factory LogPurchase_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -5133,7 +5835,7 @@ class LogPurchase_Request extends $pb.GeneratedMessage {
   static $pb.PbList<LogPurchase_Request> createRepeated() => $pb.PbList<LogPurchase_Request>();
   @$core.pragma('dart2js:noInline')
   static LogPurchase_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LogPurchase_Request>(create);
-  static LogPurchase_Request _defaultInstance;
+  static LogPurchase_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -5153,7 +5855,7 @@ class LogPurchase_Response extends $pb.GeneratedMessage {
 
   LogPurchase_Response._() : super();
   factory LogPurchase_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -5180,7 +5882,7 @@ class LogPurchase_Response extends $pb.GeneratedMessage {
   static $pb.PbList<LogPurchase_Response> createRepeated() => $pb.PbList<LogPurchase_Response>();
   @$core.pragma('dart2js:noInline')
   static LogPurchase_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LogPurchase_Response>(create);
-  static LogPurchase_Response _defaultInstance;
+  static LogPurchase_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -5218,7 +5920,7 @@ class LogPurchase extends $pb.GeneratedMessage {
   static $pb.PbList<LogPurchase> createRepeated() => $pb.PbList<LogPurchase>();
   @$core.pragma('dart2js:noInline')
   static LogPurchase getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LogPurchase>(create);
-  static LogPurchase _defaultInstance;
+  static LogPurchase? _defaultInstance;
 }
 
 class FetchPurchases_Request extends $pb.GeneratedMessage {
@@ -5229,7 +5931,7 @@ class FetchPurchases_Request extends $pb.GeneratedMessage {
 
   FetchPurchases_Request._() : super();
   factory FetchPurchases_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -5256,7 +5958,7 @@ class FetchPurchases_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchPurchases_Request> createRepeated() => $pb.PbList<FetchPurchases_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchPurchases_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPurchases_Request>(create);
-  static FetchPurchases_Request _defaultInstance;
+  static FetchPurchases_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -5276,7 +5978,7 @@ class FetchPurchases_Response extends $pb.GeneratedMessage {
 
   FetchPurchases_Response._() : super();
   factory FetchPurchases_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -5303,7 +6005,7 @@ class FetchPurchases_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchPurchases_Response> createRepeated() => $pb.PbList<FetchPurchases_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchPurchases_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPurchases_Response>(create);
-  static FetchPurchases_Response _defaultInstance;
+  static FetchPurchases_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -5341,7 +6043,7 @@ class FetchPurchases extends $pb.GeneratedMessage {
   static $pb.PbList<FetchPurchases> createRepeated() => $pb.PbList<FetchPurchases>();
   @$core.pragma('dart2js:noInline')
   static FetchPurchases getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPurchases>(create);
-  static FetchPurchases _defaultInstance;
+  static FetchPurchases? _defaultInstance;
 }
 
 class FetchPurchaseDetails_Request extends $pb.GeneratedMessage {
@@ -5352,7 +6054,7 @@ class FetchPurchaseDetails_Request extends $pb.GeneratedMessage {
 
   FetchPurchaseDetails_Request._() : super();
   factory FetchPurchaseDetails_Request({
-    $core.String sessionKey,
+    $core.String? sessionKey,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -5379,7 +6081,7 @@ class FetchPurchaseDetails_Request extends $pb.GeneratedMessage {
   static $pb.PbList<FetchPurchaseDetails_Request> createRepeated() => $pb.PbList<FetchPurchaseDetails_Request>();
   @$core.pragma('dart2js:noInline')
   static FetchPurchaseDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPurchaseDetails_Request>(create);
-  static FetchPurchaseDetails_Request _defaultInstance;
+  static FetchPurchaseDetails_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -5399,7 +6101,7 @@ class FetchPurchaseDetails_Response extends $pb.GeneratedMessage {
 
   FetchPurchaseDetails_Response._() : super();
   factory FetchPurchaseDetails_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -5426,7 +6128,7 @@ class FetchPurchaseDetails_Response extends $pb.GeneratedMessage {
   static $pb.PbList<FetchPurchaseDetails_Response> createRepeated() => $pb.PbList<FetchPurchaseDetails_Response>();
   @$core.pragma('dart2js:noInline')
   static FetchPurchaseDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPurchaseDetails_Response>(create);
-  static FetchPurchaseDetails_Response _defaultInstance;
+  static FetchPurchaseDetails_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -5464,7 +6166,7 @@ class FetchPurchaseDetails extends $pb.GeneratedMessage {
   static $pb.PbList<FetchPurchaseDetails> createRepeated() => $pb.PbList<FetchPurchaseDetails>();
   @$core.pragma('dart2js:noInline')
   static FetchPurchaseDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchPurchaseDetails>(create);
-  static FetchPurchaseDetails _defaultInstance;
+  static FetchPurchaseDetails? _defaultInstance;
 }
 
 class SubmitProductReview_Request extends $pb.GeneratedMessage {
@@ -5479,11 +6181,11 @@ class SubmitProductReview_Request extends $pb.GeneratedMessage {
 
   SubmitProductReview_Request._() : super();
   factory SubmitProductReview_Request({
-    $core.String sessionKey,
-    $core.int productId,
-    $core.int stars,
-    $core.String text,
-    $fixnum.Int64 timestamp,
+    $core.String? sessionKey,
+    $core.int? productId,
+    $core.int? stars,
+    $core.String? text,
+    $fixnum.Int64? timestamp,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -5522,7 +6224,7 @@ class SubmitProductReview_Request extends $pb.GeneratedMessage {
   static $pb.PbList<SubmitProductReview_Request> createRepeated() => $pb.PbList<SubmitProductReview_Request>();
   @$core.pragma('dart2js:noInline')
   static SubmitProductReview_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SubmitProductReview_Request>(create);
-  static SubmitProductReview_Request _defaultInstance;
+  static SubmitProductReview_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -5578,7 +6280,7 @@ class SubmitProductReview_Response extends $pb.GeneratedMessage {
 
   SubmitProductReview_Response._() : super();
   factory SubmitProductReview_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -5605,7 +6307,7 @@ class SubmitProductReview_Response extends $pb.GeneratedMessage {
   static $pb.PbList<SubmitProductReview_Response> createRepeated() => $pb.PbList<SubmitProductReview_Response>();
   @$core.pragma('dart2js:noInline')
   static SubmitProductReview_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SubmitProductReview_Response>(create);
-  static SubmitProductReview_Response _defaultInstance;
+  static SubmitProductReview_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -5643,7 +6345,7 @@ class SubmitProductReview extends $pb.GeneratedMessage {
   static $pb.PbList<SubmitProductReview> createRepeated() => $pb.PbList<SubmitProductReview>();
   @$core.pragma('dart2js:noInline')
   static SubmitProductReview getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SubmitProductReview>(create);
-  static SubmitProductReview _defaultInstance;
+  static SubmitProductReview? _defaultInstance;
 }
 
 class RetrieveProductReviews_Request extends $pb.GeneratedMessage {
@@ -5655,8 +6357,8 @@ class RetrieveProductReviews_Request extends $pb.GeneratedMessage {
 
   RetrieveProductReviews_Request._() : super();
   factory RetrieveProductReviews_Request({
-    $core.String sessionKey,
-    $core.int productId,
+    $core.String? sessionKey,
+    $core.int? productId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -5686,7 +6388,7 @@ class RetrieveProductReviews_Request extends $pb.GeneratedMessage {
   static $pb.PbList<RetrieveProductReviews_Request> createRepeated() => $pb.PbList<RetrieveProductReviews_Request>();
   @$core.pragma('dart2js:noInline')
   static RetrieveProductReviews_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RetrieveProductReviews_Request>(create);
-  static RetrieveProductReviews_Request _defaultInstance;
+  static RetrieveProductReviews_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -5720,12 +6422,12 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
 
   RetrieveProductReviews_Response._() : super();
   factory RetrieveProductReviews_Response({
-    $core.bool success,
-    $core.Iterable<$core.int> id,
-    $core.Iterable<$core.bool> isMyReview,
-    $core.Iterable<$core.int> stars,
-    $core.Iterable<$core.String> text,
-    $core.Iterable<$fixnum.Int64> timestamp,
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
+    $core.Iterable<$core.bool>? isMyReview,
+    $core.Iterable<$core.int>? stars,
+    $core.Iterable<$core.String>? text,
+    $core.Iterable<$fixnum.Int64>? timestamp,
   }) {
     final _result = create();
     if (success != null) {
@@ -5767,7 +6469,7 @@ class RetrieveProductReviews_Response extends $pb.GeneratedMessage {
   static $pb.PbList<RetrieveProductReviews_Response> createRepeated() => $pb.PbList<RetrieveProductReviews_Response>();
   @$core.pragma('dart2js:noInline')
   static RetrieveProductReviews_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RetrieveProductReviews_Response>(create);
-  static RetrieveProductReviews_Response _defaultInstance;
+  static RetrieveProductReviews_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -5820,7 +6522,7 @@ class RetrieveProductReviews extends $pb.GeneratedMessage {
   static $pb.PbList<RetrieveProductReviews> createRepeated() => $pb.PbList<RetrieveProductReviews>();
   @$core.pragma('dart2js:noInline')
   static RetrieveProductReviews getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RetrieveProductReviews>(create);
-  static RetrieveProductReviews _defaultInstance;
+  static RetrieveProductReviews? _defaultInstance;
 }
 
 class EditProductReview_Request extends $pb.GeneratedMessage {
@@ -5835,11 +6537,11 @@ class EditProductReview_Request extends $pb.GeneratedMessage {
 
   EditProductReview_Request._() : super();
   factory EditProductReview_Request({
-    $core.String sessionKey,
-    $core.int reviewId,
-    $core.int stars,
-    $core.String text,
-    $fixnum.Int64 timestamp,
+    $core.String? sessionKey,
+    $core.int? reviewId,
+    $core.int? stars,
+    $core.String? text,
+    $fixnum.Int64? timestamp,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -5878,7 +6580,7 @@ class EditProductReview_Request extends $pb.GeneratedMessage {
   static $pb.PbList<EditProductReview_Request> createRepeated() => $pb.PbList<EditProductReview_Request>();
   @$core.pragma('dart2js:noInline')
   static EditProductReview_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditProductReview_Request>(create);
-  static EditProductReview_Request _defaultInstance;
+  static EditProductReview_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -5934,7 +6636,7 @@ class EditProductReview_Response extends $pb.GeneratedMessage {
 
   EditProductReview_Response._() : super();
   factory EditProductReview_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -5961,7 +6663,7 @@ class EditProductReview_Response extends $pb.GeneratedMessage {
   static $pb.PbList<EditProductReview_Response> createRepeated() => $pb.PbList<EditProductReview_Response>();
   @$core.pragma('dart2js:noInline')
   static EditProductReview_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditProductReview_Response>(create);
-  static EditProductReview_Response _defaultInstance;
+  static EditProductReview_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -5999,7 +6701,7 @@ class EditProductReview extends $pb.GeneratedMessage {
   static $pb.PbList<EditProductReview> createRepeated() => $pb.PbList<EditProductReview>();
   @$core.pragma('dart2js:noInline')
   static EditProductReview getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditProductReview>(create);
-  static EditProductReview _defaultInstance;
+  static EditProductReview? _defaultInstance;
 }
 
 class DeleteProductReview_Request extends $pb.GeneratedMessage {
@@ -6011,8 +6713,8 @@ class DeleteProductReview_Request extends $pb.GeneratedMessage {
 
   DeleteProductReview_Request._() : super();
   factory DeleteProductReview_Request({
-    $core.String sessionKey,
-    $core.int reviewId,
+    $core.String? sessionKey,
+    $core.int? reviewId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -6042,7 +6744,7 @@ class DeleteProductReview_Request extends $pb.GeneratedMessage {
   static $pb.PbList<DeleteProductReview_Request> createRepeated() => $pb.PbList<DeleteProductReview_Request>();
   @$core.pragma('dart2js:noInline')
   static DeleteProductReview_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteProductReview_Request>(create);
-  static DeleteProductReview_Request _defaultInstance;
+  static DeleteProductReview_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -6071,7 +6773,7 @@ class DeleteProductReview_Response extends $pb.GeneratedMessage {
 
   DeleteProductReview_Response._() : super();
   factory DeleteProductReview_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -6098,7 +6800,7 @@ class DeleteProductReview_Response extends $pb.GeneratedMessage {
   static $pb.PbList<DeleteProductReview_Response> createRepeated() => $pb.PbList<DeleteProductReview_Response>();
   @$core.pragma('dart2js:noInline')
   static DeleteProductReview_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteProductReview_Response>(create);
-  static DeleteProductReview_Response _defaultInstance;
+  static DeleteProductReview_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -6136,7 +6838,7 @@ class DeleteProductReview extends $pb.GeneratedMessage {
   static $pb.PbList<DeleteProductReview> createRepeated() => $pb.PbList<DeleteProductReview>();
   @$core.pragma('dart2js:noInline')
   static DeleteProductReview getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteProductReview>(create);
-  static DeleteProductReview _defaultInstance;
+  static DeleteProductReview? _defaultInstance;
 }
 
 class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
@@ -6151,11 +6853,11 @@ class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
 
   SubmitEmployeeReview_Request._() : super();
   factory SubmitEmployeeReview_Request({
-    $core.String sessionKey,
-    $core.int employeeUserId,
-    $core.int businessPageId,
-    $core.String text,
-    $fixnum.Int64 timestamp,
+    $core.String? sessionKey,
+    $core.int? employeeUserId,
+    $core.int? businessPageId,
+    $core.String? text,
+    $fixnum.Int64? timestamp,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -6194,7 +6896,7 @@ class SubmitEmployeeReview_Request extends $pb.GeneratedMessage {
   static $pb.PbList<SubmitEmployeeReview_Request> createRepeated() => $pb.PbList<SubmitEmployeeReview_Request>();
   @$core.pragma('dart2js:noInline')
   static SubmitEmployeeReview_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SubmitEmployeeReview_Request>(create);
-  static SubmitEmployeeReview_Request _defaultInstance;
+  static SubmitEmployeeReview_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -6250,7 +6952,7 @@ class SubmitEmployeeReview_Response extends $pb.GeneratedMessage {
 
   SubmitEmployeeReview_Response._() : super();
   factory SubmitEmployeeReview_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -6277,7 +6979,7 @@ class SubmitEmployeeReview_Response extends $pb.GeneratedMessage {
   static $pb.PbList<SubmitEmployeeReview_Response> createRepeated() => $pb.PbList<SubmitEmployeeReview_Response>();
   @$core.pragma('dart2js:noInline')
   static SubmitEmployeeReview_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SubmitEmployeeReview_Response>(create);
-  static SubmitEmployeeReview_Response _defaultInstance;
+  static SubmitEmployeeReview_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -6315,7 +7017,7 @@ class SubmitEmployeeReview extends $pb.GeneratedMessage {
   static $pb.PbList<SubmitEmployeeReview> createRepeated() => $pb.PbList<SubmitEmployeeReview>();
   @$core.pragma('dart2js:noInline')
   static SubmitEmployeeReview getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SubmitEmployeeReview>(create);
-  static SubmitEmployeeReview _defaultInstance;
+  static SubmitEmployeeReview? _defaultInstance;
 }
 
 class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
@@ -6328,9 +7030,9 @@ class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
 
   RetrieveEmployeeReviews_Request._() : super();
   factory RetrieveEmployeeReviews_Request({
-    $core.String sessionKey,
-    $core.int employeeUserId,
-    $core.int businessPageId,
+    $core.String? sessionKey,
+    $core.int? employeeUserId,
+    $core.int? businessPageId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -6363,7 +7065,7 @@ class RetrieveEmployeeReviews_Request extends $pb.GeneratedMessage {
   static $pb.PbList<RetrieveEmployeeReviews_Request> createRepeated() => $pb.PbList<RetrieveEmployeeReviews_Request>();
   @$core.pragma('dart2js:noInline')
   static RetrieveEmployeeReviews_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RetrieveEmployeeReviews_Request>(create);
-  static RetrieveEmployeeReviews_Request _defaultInstance;
+  static RetrieveEmployeeReviews_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -6404,10 +7106,10 @@ class RetrieveEmployeeReviews_Response extends $pb.GeneratedMessage {
 
   RetrieveEmployeeReviews_Response._() : super();
   factory RetrieveEmployeeReviews_Response({
-    $core.bool success,
-    $core.Iterable<$core.int> id,
-    $core.Iterable<$core.String> text,
-    $core.Iterable<$fixnum.Int64> timestamp,
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
+    $core.Iterable<$core.String>? text,
+    $core.Iterable<$fixnum.Int64>? timestamp,
   }) {
     final _result = create();
     if (success != null) {
@@ -6443,7 +7145,7 @@ class RetrieveEmployeeReviews_Response extends $pb.GeneratedMessage {
   static $pb.PbList<RetrieveEmployeeReviews_Response> createRepeated() => $pb.PbList<RetrieveEmployeeReviews_Response>();
   @$core.pragma('dart2js:noInline')
   static RetrieveEmployeeReviews_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RetrieveEmployeeReviews_Response>(create);
-  static RetrieveEmployeeReviews_Response _defaultInstance;
+  static RetrieveEmployeeReviews_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -6490,7 +7192,7 @@ class RetrieveEmployeeReviews extends $pb.GeneratedMessage {
   static $pb.PbList<RetrieveEmployeeReviews> createRepeated() => $pb.PbList<RetrieveEmployeeReviews>();
   @$core.pragma('dart2js:noInline')
   static RetrieveEmployeeReviews getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<RetrieveEmployeeReviews>(create);
-  static RetrieveEmployeeReviews _defaultInstance;
+  static RetrieveEmployeeReviews? _defaultInstance;
 }
 
 class EditEmployeeReview_Request extends $pb.GeneratedMessage {
@@ -6504,10 +7206,10 @@ class EditEmployeeReview_Request extends $pb.GeneratedMessage {
 
   EditEmployeeReview_Request._() : super();
   factory EditEmployeeReview_Request({
-    $core.String sessionKey,
-    $core.int reviewId,
-    $core.String text,
-    $fixnum.Int64 timestamp,
+    $core.String? sessionKey,
+    $core.int? reviewId,
+    $core.String? text,
+    $fixnum.Int64? timestamp,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -6543,7 +7245,7 @@ class EditEmployeeReview_Request extends $pb.GeneratedMessage {
   static $pb.PbList<EditEmployeeReview_Request> createRepeated() => $pb.PbList<EditEmployeeReview_Request>();
   @$core.pragma('dart2js:noInline')
   static EditEmployeeReview_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEmployeeReview_Request>(create);
-  static EditEmployeeReview_Request _defaultInstance;
+  static EditEmployeeReview_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -6590,7 +7292,7 @@ class EditEmployeeReview_Response extends $pb.GeneratedMessage {
 
   EditEmployeeReview_Response._() : super();
   factory EditEmployeeReview_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -6617,7 +7319,7 @@ class EditEmployeeReview_Response extends $pb.GeneratedMessage {
   static $pb.PbList<EditEmployeeReview_Response> createRepeated() => $pb.PbList<EditEmployeeReview_Response>();
   @$core.pragma('dart2js:noInline')
   static EditEmployeeReview_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEmployeeReview_Response>(create);
-  static EditEmployeeReview_Response _defaultInstance;
+  static EditEmployeeReview_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -6655,7 +7357,7 @@ class EditEmployeeReview extends $pb.GeneratedMessage {
   static $pb.PbList<EditEmployeeReview> createRepeated() => $pb.PbList<EditEmployeeReview>();
   @$core.pragma('dart2js:noInline')
   static EditEmployeeReview getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<EditEmployeeReview>(create);
-  static EditEmployeeReview _defaultInstance;
+  static EditEmployeeReview? _defaultInstance;
 }
 
 class DeleteEmployeeReview_Request extends $pb.GeneratedMessage {
@@ -6667,8 +7369,8 @@ class DeleteEmployeeReview_Request extends $pb.GeneratedMessage {
 
   DeleteEmployeeReview_Request._() : super();
   factory DeleteEmployeeReview_Request({
-    $core.String sessionKey,
-    $core.int reviewId,
+    $core.String? sessionKey,
+    $core.int? reviewId,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -6698,7 +7400,7 @@ class DeleteEmployeeReview_Request extends $pb.GeneratedMessage {
   static $pb.PbList<DeleteEmployeeReview_Request> createRepeated() => $pb.PbList<DeleteEmployeeReview_Request>();
   @$core.pragma('dart2js:noInline')
   static DeleteEmployeeReview_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteEmployeeReview_Request>(create);
-  static DeleteEmployeeReview_Request _defaultInstance;
+  static DeleteEmployeeReview_Request? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get sessionKey => $_getSZ(0);
@@ -6727,7 +7429,7 @@ class DeleteEmployeeReview_Response extends $pb.GeneratedMessage {
 
   DeleteEmployeeReview_Response._() : super();
   factory DeleteEmployeeReview_Response({
-    $core.bool success,
+    $core.bool? success,
   }) {
     final _result = create();
     if (success != null) {
@@ -6754,7 +7456,7 @@ class DeleteEmployeeReview_Response extends $pb.GeneratedMessage {
   static $pb.PbList<DeleteEmployeeReview_Response> createRepeated() => $pb.PbList<DeleteEmployeeReview_Response>();
   @$core.pragma('dart2js:noInline')
   static DeleteEmployeeReview_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteEmployeeReview_Response>(create);
-  static DeleteEmployeeReview_Response _defaultInstance;
+  static DeleteEmployeeReview_Response? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.bool get success => $_getBF(0);
@@ -6792,6 +7494,6 @@ class DeleteEmployeeReview extends $pb.GeneratedMessage {
   static $pb.PbList<DeleteEmployeeReview> createRepeated() => $pb.PbList<DeleteEmployeeReview>();
   @$core.pragma('dart2js:noInline')
   static DeleteEmployeeReview getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteEmployeeReview>(create);
-  static DeleteEmployeeReview _defaultInstance;
+  static DeleteEmployeeReview? _defaultInstance;
 }
 
