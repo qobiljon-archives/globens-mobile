@@ -14,7 +14,7 @@ class ViewProductContentScreen extends StatefulWidget {
 }
 
 class _ViewProductContentScreenState extends State<ViewProductContentScreen> {
-  var _contents = Map<int, Content>();
+  var _contents = <Content>[];
 
   @override
   void initState() {
@@ -25,7 +25,20 @@ class _ViewProductContentScreenState extends State<ViewProductContentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: new ListView(children: []));
+    return Scaffold(body: ListView.builder(
+        padding: EdgeInsets.all(16.0),
+        itemBuilder: (context, i){
+          return _buildRow(_contents[i]);
+        }));
+  }
+
+  Widget _buildRow(Content content) {
+    return ListTile(
+      title: Text(
+        content.title,
+      ),
+      onTap: () => _onContentPressed(content.title),
+    );
   }
 
   Future<void> loadContents() async {
@@ -34,7 +47,7 @@ class _ViewProductContentScreenState extends State<ViewProductContentScreen> {
     for (var contentId in widget._product.contents['ids']) {
       final res = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
       if (res.item1) {
-        _contents.putIfAbsent(contentId, () => res.item2);
+        _contents.add(res.item2);
       }
     }
     setState(() {});
