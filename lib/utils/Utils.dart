@@ -261,6 +261,7 @@ Future<bool> grpcUpdateContent(String sessionKey, Content content) async {
   try {
     final response = await stub.updateContent(UpdateContent_Request()
       ..sessionKey = sessionKey
+      ..contentId=content.id
       ..title = content.title
       ..fileId = content.fileId
       ..url = content.url);

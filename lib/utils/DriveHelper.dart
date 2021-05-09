@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:googleapis/drive/v3.dart' as ga;
 import 'package:googleapis_auth/auth_io.dart' as ga;
+import 'package:tuple/tuple.dart';
 
 class DriveHelper {
   static final _credentials = ga.ServiceAccountCredentials.fromJson({
@@ -54,20 +55,24 @@ class DriveHelper {
     }
   }
 
-  static Future<ga.File> uploadFile(String fileName, File file) async {
+  static Future<Tuple2<String, String>> uploadFile(String fileName, File file) async {
     final httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
     try {
       final api = ga.DriveApi(httpClient);
-      final newFile = await api.files.create(
+      var newFile = await api.files.create(
         ga.File()
           ..name = fileName
           ..writersCanShare = false
-          ..viewersCanCopyContent = false
-          ..shared = true,
+          ..viewersCanCopyContent = false,
         uploadMedia: ga.Media(file.openRead(), file.lengthSync()),
       );
       _shareFileWithGlobens(newFile.id);
-      return newFile;
+      newFile = await api.files.get(
+        newFile.id,
+        $fields: 'id, webViewLink',
+      );
+
+      return Tuple2(newFile.id, newFile.webViewLink);
     } catch (e) {
       print(e.toString());
     } finally {

@@ -238,7 +238,9 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
               getSectionSplitter(Locale.get(calendarSchedule ? "Schedule" : "Product content")),
               if (uploadFile && _productContentFiles.length > 0)
                 Column(
-                    children: _productContentFiles.map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Image.file(file, width: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))])))).toList()),
+                    children: _productContentFiles
+                        .map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5), child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0), Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2)), IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))]))))
+                        .toList()),
               if (uploadFile) RaisedButton.icon(onPressed: _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               if (calendarSchedule)
                 GestureDetector(
@@ -286,6 +288,25 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
             ],
           ),
         ));
+  }
+
+  IconData getFileTypeIcon(String path) {
+    var format = RegExp(r'^(.+/)(.+)$').firstMatch(path).group(2);
+    if (format.contains('.')) {
+      format = format.substring(format.lastIndexOf(".") + 1).toLowerCase();
+
+      if (["mp4", "mov", "avi", "mkv"].contains(format)) {
+        return Icons.ondemand_video;
+      } else if (["doc", "docx", "pdf", "xls", "xlsx", "pptx", "ppt", "txt"].contains(format)) {
+        return Icons.insert_drive_file_outlined;
+      } else if (["jpg", "jpeg", "png", "bmp", "heic"].contains(format)) {
+        return Icons.image;
+      } else {
+        return Icons.attach_file;
+      }
+    } else {
+      return Icons.attach_file;
+    }
   }
 
   void _categorySelected(int newCategoryId) {
@@ -405,10 +426,10 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     }
 
     Map<String, dynamic> contents;
-    bool success;
+    bool success = true;
     if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file')) {
       // todo add upload progressbar
-      contents = {'ids': <String>[]};
+      contents = {'ids': <int>[]};
       for (File localFile in _productContentFiles) {
         var fileName = path.basename(localFile.path);
         var tp = await grpcCreateNewContent(AppUser.sessionKey, Content.create(fileName, "", ""));
@@ -418,7 +439,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
           var uploadedFile = await DriveHelper.uploadFile(fileName, localFile);
           success &= uploadedFile != null;
           if (success) {
-            grpcUpdateContent(AppUser.sessionKey, Content.create(fileName, uploadedFile.id, uploadedFile.webViewLink, id: id));
+            grpcUpdateContent(AppUser.sessionKey, Content.create(fileName, uploadedFile.item1, uploadedFile.item2, id: id));
             contents['ids'].add(id);
           }
         }
@@ -445,14 +466,18 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   }
 
   void _uploadFilePressed() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    try {
+      FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
 
-    if (result != null) {
-      setState(() {
-        _productContentFiles = result.paths.map((path) => File(path)).toList();
-      });
-    } else {
-      toast(Locale.get("Selection cancelled!"));
+      if (result != null) {
+        setState(() {
+          _productContentFiles = result.paths.map((path) => File(path)).toList();
+        });
+      } else {
+        toast(Locale.get("Selection cancelled!"));
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
