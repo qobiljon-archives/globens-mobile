@@ -124,6 +124,24 @@ IconData getFileTypeIcon(String path) {
   }
 }
 
+IconData getFileTypeIconForFilename(String filename) {
+  if (filename.contains('.')) {
+    final extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+
+    if (["mp4", "mov", "avi", "mkv"].contains(extension)) {
+      return Icons.ondemand_video;
+    } else if (["doc", "docx", "pdf", "xls", "xlsx", "pptx", "ppt", "txt"].contains(extension)) {
+      return Icons.insert_drive_file_outlined;
+    } else if (["jpg", "jpeg", "png", "bmp", "heic"].contains(extension)) {
+      return Icons.image;
+    } else {
+      return Icons.attach_file;
+    }
+  } else {
+    return Icons.attach_file;
+  }
+}
+
 enum Types { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
 enum TimeSlotSize { THIRTY_MINUTES, SIXTY_MINUTES }
 

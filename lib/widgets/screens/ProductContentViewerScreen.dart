@@ -3,7 +3,7 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:globens_flutter_client/widgets/screens/DriveContentViewer.dart';
-import 'package:video_player/video_player.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -22,28 +22,48 @@ class _ProductContentViewerScreenState extends State<ProductContentViewerScreen>
   @override
   void initState() {
     super.initState();
-
     loadContents();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView.builder(
-            padding: EdgeInsets.all(16.0),
-            itemCount: _contents.length,
-            itemBuilder: (context, i) {
-              return _buildRow(_contents[i]);
-            }));
+        appBar: AppBar(
+          title: Text(Locale.get("Product content")),
+        ),
+        body: Scaffold(
+            backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+            body: Container(
+              child: ListView(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+                shrinkWrap: true,
+                children: [
+                  for (var content in _contents) _buildContentWidget(content),
+                ],
+              ),
+        )));
   }
 
-  Widget _buildRow(Content content) {
-    return ListTile(
-      title: TextButton(
-        child: Text(content.title),
-      ),
-      onTap: () => _onContentPressed(content),
-    );
+  Widget _buildContentWidget(Content content) {
+    return GestureDetector(
+        onTap: () => _onContentPressed(content),
+        child: Card(
+            margin: EdgeInsets.only(top: 10.0),
+            child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Icon(getFileTypeIconForFilename(content.title), color: Colors.black87, size: 30.0),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        content.title,
+                        maxLines: 10,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                      ),
+                    ),
+                  ],
+                ))));
   }
 
   Future<void> loadContents() async {

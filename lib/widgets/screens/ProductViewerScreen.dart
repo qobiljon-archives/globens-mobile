@@ -5,6 +5,8 @@ import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dar
 import 'package:globens_flutter_client/widgets/screens/ProductReviewScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/widgets/screens/ReviewsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/DriveContentViewer.dart';
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
@@ -22,12 +24,14 @@ class ProductViewerScreen extends StatefulWidget {
 
 class _ProductViewerScreenState extends State<ProductViewerScreen> {
   Product _product;
+  var _contents = <Content>[];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
     _product = ModalRoute.of(context).settings.arguments as Product;
+
+    loadContents();
   }
 
   @override
@@ -132,10 +136,22 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                         RaisedButton.icon(onPressed: _openSignUpTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.app_registration, color: Colors.white), label: Text(Locale.get("Sign up"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                       ],
                     )),
-              if (isFile) Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _purchaseProduct, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag, color: Colors.white), label: Text(Locale.get("Purchase"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
-              if (isFile) Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _viewProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.play_circle_fill, color: Colors.white), label: Text("VIEW/DOWNLOAD  PRODUCT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
-              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _openProductReview, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.rate_review, color: Colors.white), label: Text(Locale.get("Review"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
-              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _openProductReviews, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.rate_review, color: Colors.white), label: Text(Locale.get("Ratings and Reviews"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              if (_contents.isNotEmpty)
+                for (var content in _contents) _buildContentWidget(content),
+              if (isFile)
+                Container(
+                    margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                    child: RaisedButton.icon(onPressed: _purchaseProduct, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag, color: Colors.white), label: Text(Locale.get("Purchase"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              if (isFile)
+                Container(
+                    margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                    child: RaisedButton.icon(onPressed: _viewProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.play_circle_fill, color: Colors.white), label: Text("VIEW/DOWNLOAD  PRODUCT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              Container(
+                  margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                  child: RaisedButton.icon(onPressed: _openProductReview, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.rate_review, color: Colors.white), label: Text(Locale.get("Review"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+              Container(
+                  margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                  child: RaisedButton.icon(onPressed: _openProductReviews, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.rate_review, color: Colors.white), label: Text(Locale.get("Ratings and Reviews"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
             ],
           ),
         ));
@@ -161,7 +177,6 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _viewProductPressed() async {
-    // todo show product.contents
     Navigator.push(context, MaterialPageRoute(builder: (context) => ProductContentViewerScreen(_product)));
   }
 
@@ -171,5 +186,43 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
 
   void _openProductReviews() async {
     await Navigator.of(context).pushNamed(ReviewsScreen.route_name, arguments: {'product_id': _product.id});
+  }
+
+  void _onContentPressed(Content content) async {
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => ProductContentViewerScreen(fileName)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => DriveContentViewer(content)));
+  }
+
+  Widget _buildContentWidget(Content content) {
+    return GestureDetector(
+        onTap: () => _onContentPressed(content),
+        child: Card(
+            margin: EdgeInsets.only(top: 10.0),
+            child: Container(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Icon(getFileTypeIconForFilename(content.title), color: Colors.black87, size: 30.0),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        content.title,
+                        maxLines: 10,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                      ),
+                    ),
+                  ],
+                ))));
+  }
+
+  Future<void> loadContents() async {
+    _contents.clear();
+    for (var contentId in _product.contents['ids']) {
+      final res = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
+      if (res.item1) {
+        _contents.add(res.item2);
+      }
+    }
+    setState(() {});
   }
 }
