@@ -290,25 +290,6 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
         ));
   }
 
-  IconData getFileTypeIcon(String path) {
-    var format = RegExp(r'^(.+/)(.+)$').firstMatch(path).group(2);
-    if (format.contains('.')) {
-      format = format.substring(format.lastIndexOf(".") + 1).toLowerCase();
-
-      if (["mp4", "mov", "avi", "mkv"].contains(format)) {
-        return Icons.ondemand_video;
-      } else if (["doc", "docx", "pdf", "xls", "xlsx", "pptx", "ppt", "txt"].contains(format)) {
-        return Icons.insert_drive_file_outlined;
-      } else if (["jpg", "jpeg", "png", "bmp", "heic"].contains(format)) {
-        return Icons.image;
-      } else {
-        return Icons.attach_file;
-      }
-    } else {
-      return Icons.attach_file;
-    }
-  }
-
   void _categorySelected(int newCategoryId) {
     setState(() {
       _selectedCategoryId = newCategoryId;
