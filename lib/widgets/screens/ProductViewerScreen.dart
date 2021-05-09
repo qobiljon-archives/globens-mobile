@@ -1,5 +1,6 @@
 import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductContentViewerScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductReviewScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
@@ -9,7 +10,6 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/widgets/screens/ViewProductContentScreen.dart';
 
 class ProductViewerScreen extends StatefulWidget {
   static const String route_name = '/product_viewer_screen';
@@ -162,7 +162,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
 
   void _viewProductPressed() async {
     // todo show product.contents
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ViewProductContentScreen(_product)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ProductContentViewerScreen(_product)));
   }
 
   void _openProductReview() async {
