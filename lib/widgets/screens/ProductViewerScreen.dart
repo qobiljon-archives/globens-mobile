@@ -136,8 +136,6 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                         RaisedButton.icon(onPressed: _openSignUpTimeSlotSelector, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.app_registration, color: Colors.white), label: Text(Locale.get("Sign up"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
                       ],
                     )),
-              if (_contents.isNotEmpty)
-                for (var content in _contents) _buildContentWidget(content),
               if (isFile)
                 Container(
                     margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
@@ -145,7 +143,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
               if (isFile)
                 Container(
                     margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
-                    child: RaisedButton.icon(onPressed: _viewProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.play_circle_fill, color: Colors.white), label: Text("VIEW/DOWNLOAD  PRODUCT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
+                    child: RaisedButton.icon(onPressed: _viewProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.play_circle_fill, color: Colors.white), label: Text("PRODUCT CONTENT", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
               Container(
                   margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
                   child: RaisedButton.icon(onPressed: _openProductReview, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.rate_review, color: Colors.white), label: Text(Locale.get("Review"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
@@ -191,28 +189,6 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   void _onContentPressed(Content content) async {
     // Navigator.push(context, MaterialPageRoute(builder: (context) => ProductContentViewerScreen(fileName)));
     Navigator.push(context, MaterialPageRoute(builder: (context) => DriveContentViewer(content)));
-  }
-
-  Widget _buildContentWidget(Content content) {
-    return GestureDetector(
-        onTap: () => _onContentPressed(content),
-        child: Card(
-            margin: EdgeInsets.only(top: 10.0),
-            child: Container(
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    Icon(getFileTypeIconForFilename(content.title), color: Colors.black87, size: 30.0),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        content.title,
-                        maxLines: 10,
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
-                      ),
-                    ),
-                  ],
-                ))));
   }
 
   Future<void> loadContents() async {

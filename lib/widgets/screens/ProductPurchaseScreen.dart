@@ -41,7 +41,7 @@ class _ProductPurchaseScreenState extends State<ProductPurchaseScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset('assets/globens_icon.png'),
+                Image.asset('assets/globens_icon.png', width: 200,),
                 Container(
                   padding: EdgeInsets.fromLTRB(0.0, 30.0, 0.0, 0.0),
                   child: Text('Please wait...', style: TextStyle(fontSize: 20.0)),

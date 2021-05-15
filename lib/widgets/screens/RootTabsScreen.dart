@@ -51,7 +51,7 @@ class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObser
           BottomNavigationBarItem(
             label: 'Globens',
             icon: Image.asset(
-              'assets/globens_icon.png',
+              'assets/globens_icon_transparent_bg.png',
               width: 25,
             ),
           ),

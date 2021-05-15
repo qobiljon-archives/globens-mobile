@@ -45,7 +45,7 @@ dependencies:
 
 
   path_provider: ^1.6.27
-  camera: ^0.8.1
+  camera: ^0.6.4+5
   #endregion
   #region others
   image_picker: ^0.6.7+21
@@ -89,6 +89,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/globens_icon.png
+    - assets/globens_icon_transparent_bg.png
     - assets/auth_facebook.png
     - assets/auth_google.png
     - assets/auth_kakaotalk.png
