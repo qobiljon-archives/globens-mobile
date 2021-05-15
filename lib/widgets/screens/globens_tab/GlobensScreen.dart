@@ -1,14 +1,15 @@
-import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
-import 'package:globens_flutter_client/widgets/screens/globens/CategoryProductsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/globens_tab/CategoryProductsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:tuple/tuple.dart';
 import 'dart:math';
 
@@ -44,8 +45,8 @@ class _GlobensScreenState extends State<GlobensScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int categoryRows = (_categories.length / 2).ceil();
-    int productRows = (_products.length / 2).ceil();
+    int categoryRows = max((_categories.length / 2).ceil(), 1);
+    int productRows = max((_products.length / 2).ceil(), 1);
 
     return ListView.builder(
       itemCount: 3 + categoryRows + 1 + productRows,
@@ -57,7 +58,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
     final Tuple2<bool, List<ProductCategory>> tp1 = await grpcFetchProductCategories();
     bool success = tp1.item1;
     List<ProductCategory> categories = tp1.item2;
-    if (success) {
+    if (success && mounted) {
       setState(() {
         _categories = categories;
       });
@@ -72,7 +73,7 @@ class _GlobensScreenState extends State<GlobensScreen> {
     success = tp2.item1;
     List<Product> products = tp2.item2;
 
-    if (success) {
+    if (success && mounted) {
       setState(() {
         _products = products;
       });
@@ -80,20 +81,32 @@ class _GlobensScreenState extends State<GlobensScreen> {
   }
 
   Widget _getListViewItem(int index) {
-    int categoryRows = (_categories.length / 2).ceil();
+    int categoryRows = max((_categories.length / 2).ceil(), 1);
     Size screenSize = MediaQuery.of(context).size;
 
     if (index >= 3 + categoryRows + 1) {
       // products section
       index -= 3 + categoryRows + 1;
-      return _buildProductRow(context, index, screenSize);
+      if (_products.length == 0)
+        return SpinKitFoldingCube(
+          color: Colors.blue,
+          size: 50.0,
+        );
+      else
+        return _buildProductRow(context, index, screenSize);
     } else if (index == 3 + categoryRows) {
       // mid splitter part
       return getSectionSplitter(Locale.get("Top hit products"));
     } else if (index >= 3) {
       // categories section
       index -= 3;
-      return _buildCategoryRow(context, index, screenSize);
+      if (_categories.length == 0)
+        return SpinKitFoldingCube(
+          color: Colors.blue,
+          size: 50.0,
+        );
+      else
+        return _buildCategoryRow(context, index, screenSize);
     } else if (index == 2) {
       // top splitter part
       return getSectionSplitter(Locale.get("Product categories"));

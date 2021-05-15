@@ -1,11 +1,11 @@
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
-import 'pages/MyBusinessPagesScreen.dart';
+import 'pages_tab/MyBusinessPagesScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'globens/GlobensScreen.dart';
-import 'menu/MenuScreen.dart';
+import 'globens_tab/GlobensScreen.dart';
+import 'menu_tab/MenuScreen.dart';
 
 class RootTabsScreen extends StatefulWidget {
   static const String route_name = '/';

@@ -64,6 +64,7 @@ dependencies:
   google_sign_in: ^4.5.9
   webview_flutter: ^2.0.4
   flutter_inappwebview: ^5.3.2
+  flutter_spinkit: ^5.0.0
 
 
 dev_dependencies:

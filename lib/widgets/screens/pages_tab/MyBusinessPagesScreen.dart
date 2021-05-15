@@ -1,5 +1,8 @@
+import 'dart:math';
+
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/modal_views/BusinessPageCreatorModalView.dart';
-import 'package:globens_flutter_client/widgets/screens/pages/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
@@ -54,8 +57,10 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
 
   @override
   Widget build(context) {
+    int pagesRows = max(_businessPages.length, 1);
+
     return ListView.builder(
-      itemCount: _header.length + _businessPages.length + _footer.length,
+      itemCount: _header.length + pagesRows + _footer.length,
       itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
     );
   }
@@ -93,14 +98,22 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   }
 
   Widget _getListViewItem(BuildContext context, int index) {
-    if (index >= _header.length + _businessPages.length) {
+    int pagesRows = max(_businessPages.length, 1);
+
+    if (index >= _header.length + pagesRows) {
       // footer section
-      index -= _header.length + _businessPages.length;
+      index -= _header.length + pagesRows;
       return _footer[index];
     } else if (index >= _header.length) {
       // business pages section
       index -= _header.length;
-      return _buildBusinessPageItem(context, _businessPages[index]);
+      if (_businessPages.length == 0)
+        return SpinKitFoldingCube(
+          color: Colors.blue,
+          size: 50.0,
+        );
+      else
+        return _buildBusinessPageItem(context, _businessPages[index]);
     } else {
       // header section
       return _header[index];
