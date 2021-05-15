@@ -177,7 +177,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _viewProductPressed() async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ProductContentViewerScreen(_product)));
+    await Navigator.push(context, MaterialPageRoute(builder: (context) => ProductContentViewerScreen(_product)));
   }
 
   void _openProductReview() async {

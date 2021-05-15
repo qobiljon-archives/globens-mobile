@@ -24,7 +24,7 @@ void main() {
       appBarTheme: AppBarTheme(brightness: Brightness.light),
       textTheme: GoogleFonts.latoTextTheme(),
     ),
-    debugShowCheckedModeBanner: false,
+    // debugShowCheckedModeBanner: false,
     title: "Globens",
     initialRoute: '/',
     routes: {
