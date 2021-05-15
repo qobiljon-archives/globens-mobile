@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
@@ -91,7 +94,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int productRows = (_products.length / 2).ceil();
+    int productRows = max((_products.length / 2).ceil(), 1);
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
@@ -105,10 +108,11 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   Widget _getListViewItem(BuildContext context, int index) {
-    int productRows = (_products.length / 2).ceil();
+    int productRows = max((_products.length / 2).ceil(), 1);
+    int jobRows = max(_jobs.length, 1);
     Size screenSize = MediaQuery.of(context).size;
 
-    if (index == 2 + productRows + 2 + _jobs.length) {
+    if (index == 2 + productRows + 2 + jobRows) {
       // create new vacancy button
       return _createVacancyButton;
     } else if (index >= 2 + productRows + 2) {
@@ -124,7 +128,13 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     } else if (index >= 2) {
       // products section
       index -= 2;
-      return _buildProductRow(context, index, screenSize);
+      if (_products.length == 0)
+        return SpinKitFoldingCube(
+          color: Colors.blue,
+          size: 50.0,
+        );
+      else
+        return _buildProductRow(context, index, screenSize);
     } else if (index == 1) {
       // splitter
       return getSectionSplitter(Locale.get("Products"));
