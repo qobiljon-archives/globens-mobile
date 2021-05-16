@@ -24,8 +24,8 @@ class GlobensScreen extends StatefulWidget {
 
 class _GlobensScreenState extends State<GlobensScreen> {
   Widget _header;
-  List<ProductCategory> _categories = [];
-  List<Product> _products = [];
+  List<ProductCategory> _categories;
+  List<Product> _products;
 
   @override
   void initState() {
@@ -45,8 +45,8 @@ class _GlobensScreenState extends State<GlobensScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int categoryRows = max((_categories.length / 2).ceil(), 1);
-    int productRows = max((_products.length / 2).ceil(), 1);
+    int categoryRows = _categories == null ? 1 : (_categories.length / 2).ceil();
+    int productRows = _products == null ? 1 : (_products.length / 2).ceil();
 
     return ListView.builder(
       itemCount: 3 + categoryRows + 1 + productRows,
@@ -81,32 +81,31 @@ class _GlobensScreenState extends State<GlobensScreen> {
   }
 
   Widget _getListViewItem(int index) {
-    int categoryRows = max((_categories.length / 2).ceil(), 1);
+    int categoryRows = _categories == null ? 1 : (_categories.length / 2).ceil();
+    // int productRows = _products == null ? 1 : (_products.length / 2).ceil();
     Size screenSize = MediaQuery.of(context).size;
 
     if (index >= 3 + categoryRows + 1) {
       // products section
       index -= 3 + categoryRows + 1;
-      if (_products.length == 0)
-        return SpinKitFoldingCube(
-          color: Colors.blue,
-          size: 50.0,
-        );
-      else
+      if (_products == null)
+        return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
+      else if (_products.length > 0)
         return _buildProductRow(context, index, screenSize);
+      else
+        return Container(); // empty products
     } else if (index == 3 + categoryRows) {
       // mid splitter part
       return getSectionSplitter(Locale.get("Top hit products"));
     } else if (index >= 3) {
       // categories section
       index -= 3;
-      if (_categories.length == 0)
-        return SpinKitFoldingCube(
-          color: Colors.blue,
-          size: 50.0,
-        );
-      else
+      if (_categories == null)
+        return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
+      else if (_categories.length > 0)
         return _buildCategoryRow(context, index, screenSize);
+      else
+        return Container(); // empty categoriesa
     } else if (index == 2) {
       // top splitter part
       return getSectionSplitter(Locale.get("Product categories"));

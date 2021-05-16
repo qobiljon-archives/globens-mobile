@@ -1,4 +1,5 @@
-import 'package:globens_flutter_client/widgets/modal_views/JobApplicationCreatorModalView.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
@@ -6,7 +7,6 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/widgets/modal_views/JobApplicationViewerModalView.dart';
 
 class JobApplicationsListScreen extends StatefulWidget {
   static const String route_name = '/business_page_details/job_applications_list';
@@ -19,7 +19,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   List<Widget> _header;
   BusinessPage _businessPage;
   Job _job;
-  var _jobApplications = List<JobApplication>();
+  List<JobApplication> _jobApplications;
 
   @override
   void didChangeDependencies() {
@@ -54,8 +54,15 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   Widget _getListViewItems(BuildContext context, int index) {
     if (index < _header.length)
       return _header[index];
-    else
-      return _buildVacancyApplicationItem(context, index - _header.length == 0, _jobApplications[index - _header.length]);
+    else {
+      // job applications section
+      if (_jobApplications == null)
+        return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
+      else if (_jobApplications.length > 0)
+        return _buildVacancyApplicationItem(context, index - _header.length == 0, _jobApplications[index - _header.length]);
+      else
+        return Container(); // empty job applications
+    }
   }
 
   Widget _buildVacancyApplicationItem(BuildContext context, bool firstElement, JobApplication jobApplication) {

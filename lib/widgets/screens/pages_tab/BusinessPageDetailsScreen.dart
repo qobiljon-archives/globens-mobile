@@ -25,8 +25,8 @@ class BusinessPageDetailsScreen extends StatefulWidget {
 
 class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   Row _header;
-  List<Product> _products = [];
-  List<Job> _jobs = [];
+  List<Product> _products;
+  List<Job> _jobs;
   Container _createProductButton;
   Container _createVacancyButton;
   BusinessPage _businessPage;
@@ -94,13 +94,14 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int productRows = max((_products.length / 2).ceil(), 1);
+    int productRows = _products == null ? 1 : (_products.length / 2).ceil();
+    int jobRows = _jobs == null ? 1 : _jobs.length;
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
       body: Container(
         child: ListView.builder(
-          itemCount: 2 + productRows + 2 + _jobs.length + (_businessPage.role == Job.BUSINESS_OWNER_ROLE ? 1 : 0),
+          itemCount: 2 + productRows + 2 + jobRows + (_businessPage.role == Job.BUSINESS_OWNER_ROLE ? 1 : 0),
           itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
         ),
       ),
@@ -108,8 +109,8 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   Widget _getListViewItem(BuildContext context, int index) {
-    int productRows = max((_products.length / 2).ceil(), 1);
-    int jobRows = max(_jobs.length, 1);
+    int productRows = _products == null ? 1 : (_products.length / 2).ceil();
+    int jobRows = _jobs == null ? 1 : max(_jobs.length, 1);
     Size screenSize = MediaQuery.of(context).size;
 
     if (index == 2 + productRows + 2 + jobRows) {
@@ -118,7 +119,15 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     } else if (index >= 2 + productRows + 2) {
       // vacancies section
       index -= 2 + productRows + 2;
-      return _buildJobItem(context, _jobs[index]);
+      if (_jobs == null)
+        return SpinKitFoldingCube(
+          color: Colors.blue,
+          size: 50.0,
+        );
+      else if (_jobs.length > 0)
+        return _buildJobItem(context, _jobs[index]);
+      else
+        return Container(); // empty jobs
     } else if (index == 2 + productRows + 1) {
       // splitter
       return getSectionSplitter(Locale.get("Employees and vacancies"));
@@ -128,13 +137,15 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     } else if (index >= 2) {
       // products section
       index -= 2;
-      if (_products.length == 0)
+      if (_products == null)
         return SpinKitFoldingCube(
           color: Colors.blue,
           size: 50.0,
         );
-      else
+      else if (_products.length > 0)
         return _buildProductRow(context, index, screenSize);
+      else
+        return Container(); // empty products
     } else if (index == 1) {
       // splitter
       return getSectionSplitter(Locale.get("Products"));

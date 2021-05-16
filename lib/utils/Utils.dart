@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:fixnum/fixnum.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/Review.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
@@ -16,8 +13,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fixnum/fixnum.dart';
 import 'package:tuple/tuple.dart';
 import 'package:grpc/grpc.dart';
+import 'dart:convert';
+import 'dart:io';
 
 Container getTitleWidget(String text, {TextStyle textStyle, Color textColor = Colors.blue, EdgeInsets margin}) {
   return Container(
@@ -298,7 +298,7 @@ Future<bool> grpcUpdateContent(String sessionKey, Content content) async {
   try {
     final response = await stub.updateContent(UpdateContent_Request()
       ..sessionKey = sessionKey
-      ..contentId=content.id
+      ..contentId = content.id
       ..title = content.title
       ..fileId = content.fileId
       ..url = content.url);

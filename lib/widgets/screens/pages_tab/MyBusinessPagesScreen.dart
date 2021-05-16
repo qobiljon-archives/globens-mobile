@@ -22,7 +22,7 @@ class MyBusinessPagesScreen extends StatefulWidget {
 
 class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   List<Widget> _header = [];
-  List<BusinessPage> _businessPages = [];
+  List<BusinessPage> _businessPages;
   List<Widget> _footer = [];
   bool timeout = false;
 
@@ -57,7 +57,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
 
   @override
   Widget build(context) {
-    int pagesRows = max(_businessPages.length, 1);
+    int pagesRows = _businessPages == null ? 1 : _businessPages.length;
 
     return ListView.builder(
       itemCount: _header.length + pagesRows + _footer.length,
@@ -98,7 +98,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   }
 
   Widget _getListViewItem(BuildContext context, int index) {
-    int pagesRows = max(_businessPages.length, 1);
+    int pagesRows = _businessPages == null ? 1 : _businessPages.length;
 
     if (index >= _header.length + pagesRows) {
       // footer section
@@ -107,13 +107,15 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     } else if (index >= _header.length) {
       // business pages section
       index -= _header.length;
-      if (_businessPages.length == 0)
+      if (_businessPages == null)
         return SpinKitFoldingCube(
           color: Colors.blue,
           size: 50.0,
         );
-      else
+      else if (_businessPages.length > 0)
         return _buildBusinessPageItem(context, _businessPages[index]);
+      else
+        return Container(); // empty business pages
     } else {
       // header section
       return _header[index];

@@ -25,8 +25,8 @@ class CategoryProductsScreen extends StatefulWidget {
 class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   Widget _header;
   ProductCategory _category;
-  List<Product> _products = [];
-  List<Job> _vacantJobs = [];
+  List<Product> _products;
+  List<Job> _vacantJobs;
 
   @override
   void initState() {
@@ -89,9 +89,9 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int productRows = (_products.length / 2).ceil();
-    int jobRows = _vacantJobs.length;
-    int rows = max(_category.isVacancyCategory ? jobRows : productRows, 1);
+    int productRows = _products == null ? 1 : (_products.length / 2).ceil();
+    int jobRows = _vacantJobs == null ? 1 : _vacantJobs.length;
+    int rows = _category.isVacancyCategory ? jobRows : productRows;
 
     return Scaffold(
       body: ListView.builder(
@@ -103,19 +103,30 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
 
   Widget _getListViewItem(BuildContext context, int index) {
     Size screenSize = MediaQuery.of(context).size;
+    int productRows = _products == null ? 1 : (_products.length / 2).ceil();
+    int jobRows = _vacantJobs == null ? 1 : _vacantJobs.length;
+    int rows = _category.isVacancyCategory ? jobRows : productRows;
 
     if (index >= 2) {
       // products section
       index -= 2;
-      if (_category.isVacancyCategory && _vacantJobs.length > 0)
-        return _buildVacancyRow(context, _vacantJobs[index], screenSize);
-      else if (_products.length > 0)
-        return _buildProductRow(context, index, screenSize);
-      else
-        return SpinKitFoldingCube(
-          color: Colors.blue,
-          size: 50.0,
-        );
+      if (_category.isVacancyCategory) {
+        // products = vacancies
+        if (_vacantJobs == null)
+          return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
+        else if (_vacantJobs.length > 0)
+          return _buildVacancyRow(context, _vacantJobs[index], screenSize);
+        else
+          return Container(); // empty vacancies
+      } else {
+        // products == products
+        if (_products == null)
+          return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
+        else if (_products.length > 0)
+          return _buildProductRow(context, index, screenSize);
+        else
+          return Container(); // empty products
+      }
     } else if (index == 1) {
       // divider
       return getSectionSplitter(Locale.get("Related items"));
