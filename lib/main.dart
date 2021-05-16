@@ -2,12 +2,11 @@ import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDet
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens_tab/CategoryProductsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductReviewsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/EmployeeReviewScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/ProductReviewScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/ReviewsScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -35,9 +34,8 @@ void main() {
       JobApplicationsListScreen.route_name: (context) => JobApplicationsListScreen(),
       ProductViewerScreen.route_name: (context) => ProductViewerScreen(),
       ProductCreatorScreen.route_name: (context) => ProductCreatorScreen(),
-      ProductReviewScreen.route_name: (context) => ProductReviewScreen(),
       EmployeeReviewScreen.route_name: (context) => EmployeeReviewScreen(),
-      ReviewsScreen.route_name: (context) => ReviewsScreen(),
+      ProductReviewsScreen.route_name: (context) => ProductReviewsScreen(),
     },
   ));
 }
