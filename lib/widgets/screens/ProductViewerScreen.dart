@@ -35,7 +35,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   @override
   Widget build(BuildContext context) {
     bool isFile = _product.productType == ProductDeliveryType.FILE_DOWNLOADABLE || _product.productType == ProductDeliveryType.FILE_STREAMED;
-    bool isSchedule = _product.productType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _product.productType == ProductDeliveryType.SCHEDULED_ONLINE_CALL;
+    bool isSchedule = !isFile && (_product.productType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _product.productType == ProductDeliveryType.SCHEDULED_ONLINE_CALL);
 
     return Scaffold(
         backgroundColor: Color.fromRGBO(240, 242, 245, 1),
@@ -139,11 +139,10 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                   child: Container(
                     height: 100,
                     padding: EdgeInsets.all(5),
-                    child: ListView(
+                    child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      children: List<Widget>.generate(_product.contents['ids'].length, (index) {
-                        return RaisedButton.icon(onPressed: null, icon: Icon(Icons.ac_unit), label: Text("${_product.contents['ids'][index]}"));
-                      }),
+                      itemCount: _product.contents['ids'].length,
+                      itemBuilder: _getFileContentWidget
                     ),
                   ),
                 ),
@@ -179,8 +178,16 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
     // todo purchase here
   }
 
-  Widget _getFileWidget(BuildContext context, int index) {
+  Widget _getFileContentWidget(BuildContext context, int index) {
     _product.contents;
+    return GestureDetector(
+      onTap: () => _onContentPressed(index),
+      child: RaisedButton.icon(onPressed: null, icon: Icon(Icons.ac_unit), label: Text("${_product.contents['ids'][index]}")),
+    );
+  }
+
+  void _onContentPressed(int index) async {
+    // Navigator.push(context, MaterialPageRoute(builder: (context) => DriveContentViewer(content)));
   }
 
   void _purchaseProduct() async {
@@ -189,11 +196,6 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
 
   void _openProductReviews() async {
     await Navigator.of(context).pushNamed(ProductReviewsScreen.route_name, arguments: _product);
-  }
-
-  void _onContentPressed(Content content) async {
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => ProductContentViewerScreen(fileName)));
-    Navigator.push(context, MaterialPageRoute(builder: (context) => DriveContentViewer(content)));
   }
 
   Future<void> loadContents() async {
