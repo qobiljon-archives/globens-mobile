@@ -2,7 +2,7 @@
 //  Generated code. Do not modify.
 //  source: gb_service.proto
 //
-// @dart = 2.7
+// @dart = 2.12
 // ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
 
 import 'dart:core' as $core;
@@ -53,14 +53,12 @@ final $typed_data.Uint8List filterDetailsDescriptor = $convert.base64Decode('Cg1
 const AuthenticateUser$json = const {
   '1': 'AuthenticateUser',
   '3': const [AuthenticateUser_Request$json, AuthenticateUser_Response$json],
-  '4': const [AuthenticateUser_AuthMethod$json],
 };
 
 @$core.Deprecated('Use authenticateUserDescriptor instead')
 const AuthenticateUser_Request$json = const {
   '1': 'Request',
   '2': const [
-    const {'1': 'method', '3': 1, '4': 1, '5': 14, '6': '.AuthenticateUser.AuthMethod', '10': 'method'},
     const {'1': 'tokensJson', '3': 2, '4': 1, '5': 9, '10': 'tokensJson'},
   ],
 };
@@ -75,20 +73,8 @@ const AuthenticateUser_Response$json = const {
   ],
 };
 
-@$core.Deprecated('Use authenticateUserDescriptor instead')
-const AuthenticateUser_AuthMethod$json = const {
-  '1': 'AuthMethod',
-  '2': const [
-    const {'1': 'GOOGLE', '2': 0},
-    const {'1': 'FACEBOOK', '2': 1},
-    const {'1': 'KAKAOTALK', '2': 3},
-    const {'1': 'PHONE', '2': 4},
-    const {'1': 'APPLE', '2': 5},
-  ],
-};
-
 /// Descriptor for `AuthenticateUser`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List authenticateUserDescriptor = $convert.base64Decode('ChBBdXRoZW50aWNhdGVVc2VyGl8KB1JlcXVlc3QSNAoGbWV0aG9kGAEgASgOMhwuQXV0aGVudGljYXRlVXNlci5BdXRoTWV0aG9kUgZtZXRob2QSHgoKdG9rZW5zSnNvbhgCIAEoCVIKdG9rZW5zSnNvbhpcCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEhYKBnVzZXJJZBgCIAEoBVIGdXNlcklkEh4KCnNlc3Npb25LZXkYAyABKAlSCnNlc3Npb25LZXkiSwoKQXV0aE1ldGhvZBIKCgZHT09HTEUQABIMCghGQUNFQk9PSxABEg0KCUtBS0FPVEFMSxADEgkKBVBIT05FEAQSCQoFQVBQTEUQBQ==');
+final $typed_data.Uint8List authenticateUserDescriptor = $convert.base64Decode('ChBBdXRoZW50aWNhdGVVc2VyGikKB1JlcXVlc3QSHgoKdG9rZW5zSnNvbhgCIAEoCVIKdG9rZW5zSnNvbhpcCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEhYKBnVzZXJJZBgCIAEoBVIGdXNlcklkEh4KCnNlc3Npb25LZXkYAyABKAlSCnNlc3Npb25LZXk=');
 @$core.Deprecated('Use deactivateUserDescriptor instead')
 const DeactivateUser$json = const {
   '1': 'DeactivateUser',
@@ -124,6 +110,7 @@ const UpdateUserDetails_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'countryCode', '3': 2, '4': 1, '5': 9, '10': 'countryCode'},
   ],
 };
 
@@ -136,7 +123,7 @@ const UpdateUserDetails_Response$json = const {
 };
 
 /// Descriptor for `UpdateUserDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateUserDetailsDescriptor = $convert.base64Decode('ChFVcGRhdGVVc2VyRGV0YWlscxopCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
+final $typed_data.Uint8List updateUserDetailsDescriptor = $convert.base64Decode('ChFVcGRhdGVVc2VyRGV0YWlscxpLCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSIAoLY291bnRyeUNvZGUYAiABKAlSC2NvdW50cnlDb2RlGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
 @$core.Deprecated('Use fetchUserDetailsDescriptor instead')
 const FetchUserDetails$json = const {
   '1': 'FetchUserDetails',
@@ -162,11 +149,12 @@ const FetchUserDetails_Response$json = const {
     const {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
     const {'1': 'picture', '3': 5, '4': 1, '5': 9, '10': 'picture'},
     const {'1': 'pictureBlob', '3': 6, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'countryCode', '3': 7, '4': 1, '5': 9, '10': 'countryCode'},
   ],
 };
 
 /// Descriptor for `FetchUserDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchUserDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFVzZXJEZXRhaWxzGkEKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIWCgZ1c2VySWQYAiABKAVSBnVzZXJJZBqaAQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAEoBVICaWQSFAoFZW1haWwYAyABKAlSBWVtYWlsEhIKBG5hbWUYBCABKAlSBG5hbWUSGAoHcGljdHVyZRgFIAEoCVIHcGljdHVyZRIgCgtwaWN0dXJlQmxvYhgGIAEoDFILcGljdHVyZUJsb2I=');
+final $typed_data.Uint8List fetchUserDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFVzZXJEZXRhaWxzGkEKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIWCgZ1c2VySWQYAiABKAVSBnVzZXJJZBq8AQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAEoBVICaWQSFAoFZW1haWwYAyABKAlSBWVtYWlsEhIKBG5hbWUYBCABKAlSBG5hbWUSGAoHcGljdHVyZRgFIAEoCVIHcGljdHVyZRIgCgtwaWN0dXJlQmxvYhgGIAEoDFILcGljdHVyZUJsb2ISIAoLY291bnRyeUNvZGUYByABKAlSC2NvdW50cnlDb2Rl');
 @$core.Deprecated('Use createBusinessPageDescriptor instead')
 const CreateBusinessPage$json = const {
   '1': 'CreateBusinessPage',
@@ -180,6 +168,7 @@ const CreateBusinessPage_Request$json = const {
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
     const {'1': 'title', '3': 2, '4': 1, '5': 9, '10': 'title'},
     const {'1': 'pictureBlob', '3': 3, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'countryCode', '3': 4, '4': 1, '5': 9, '10': 'countryCode'},
   ],
 };
 
@@ -192,7 +181,7 @@ const CreateBusinessPage_Response$json = const {
 };
 
 /// Descriptor for `CreateBusinessPage`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createBusinessPageDescriptor = $convert.base64Decode('ChJDcmVhdGVCdXNpbmVzc1BhZ2UaYQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EhQKBXRpdGxlGAIgASgJUgV0aXRsZRIgCgtwaWN0dXJlQmxvYhgDIAEoDFILcGljdHVyZUJsb2IaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
+final $typed_data.Uint8List createBusinessPageDescriptor = $convert.base64Decode('ChJDcmVhdGVCdXNpbmVzc1BhZ2UagwEKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIUCgV0aXRsZRgCIAEoCVIFdGl0bGUSIAoLcGljdHVyZUJsb2IYAyABKAxSC3BpY3R1cmVCbG9iEiAKC2NvdW50cnlDb2RlGAQgASgJUgtjb3VudHJ5Q29kZRokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
 @$core.Deprecated('Use updateBusinessPageDetailsDescriptor instead')
 const UpdateBusinessPageDetails$json = const {
   '1': 'UpdateBusinessPageDetails',
@@ -204,6 +193,10 @@ const UpdateBusinessPageDetails_Request$json = const {
   '1': 'Request',
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
+    const {'1': 'businessPageId', '3': 2, '4': 1, '5': 5, '10': 'businessPageId'},
+    const {'1': 'title', '3': 3, '4': 1, '5': 9, '10': 'title'},
+    const {'1': 'pictureBlob', '3': 4, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'countryCode', '3': 5, '4': 1, '5': 9, '10': 'countryCode'},
   ],
 };
 
@@ -216,7 +209,7 @@ const UpdateBusinessPageDetails_Response$json = const {
 };
 
 /// Descriptor for `UpdateBusinessPageDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateBusinessPageDetailsDescriptor = $convert.base64Decode('ChlVcGRhdGVCdXNpbmVzc1BhZ2VEZXRhaWxzGikKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
+final $typed_data.Uint8List updateBusinessPageDetailsDescriptor = $convert.base64Decode('ChlVcGRhdGVCdXNpbmVzc1BhZ2VEZXRhaWxzGqsBCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSJgoOYnVzaW5lc3NQYWdlSWQYAiABKAVSDmJ1c2luZXNzUGFnZUlkEhQKBXRpdGxlGAMgASgJUgV0aXRsZRIgCgtwaWN0dXJlQmxvYhgEIAEoDFILcGljdHVyZUJsb2ISIAoLY291bnRyeUNvZGUYBSABKAlSC2NvdW50cnlDb2RlGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
 @$core.Deprecated('Use uncreateBusinessPageDescriptor instead')
 const UncreateBusinessPage$json = const {
   '1': 'UncreateBusinessPage',
@@ -290,12 +283,13 @@ const FetchBusinessPageDetails_Response$json = const {
     const {'1': 'title', '3': 3, '4': 1, '5': 9, '10': 'title'},
     const {'1': 'type', '3': 4, '4': 1, '5': 9, '10': 'type'},
     const {'1': 'pictureBlob', '3': 5, '4': 1, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'role', '3': 6, '4': 1, '5': 9, '10': 'role'},
+    const {'1': 'countryCode', '3': 6, '4': 1, '5': 9, '10': 'countryCode'},
+    const {'1': 'role', '3': 7, '4': 1, '5': 9, '10': 'role'},
   ],
 };
 
 /// Descriptor for `FetchBusinessPageDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchBusinessPageDetailsDescriptor = $convert.base64Decode('ChhGZXRjaEJ1c2luZXNzUGFnZURldGFpbHMaUQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EiYKDmJ1c2luZXNzUGFnZUlkGAIgASgFUg5idXNpbmVzc1BhZ2VJZBqUAQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAEoBVICaWQSFAoFdGl0bGUYAyABKAlSBXRpdGxlEhIKBHR5cGUYBCABKAlSBHR5cGUSIAoLcGljdHVyZUJsb2IYBSABKAxSC3BpY3R1cmVCbG9iEhIKBHJvbGUYBiABKAlSBHJvbGU=');
+final $typed_data.Uint8List fetchBusinessPageDetailsDescriptor = $convert.base64Decode('ChhGZXRjaEJ1c2luZXNzUGFnZURldGFpbHMaUQoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EiYKDmJ1c2luZXNzUGFnZUlkGAIgASgFUg5idXNpbmVzc1BhZ2VJZBq2AQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAEoBVICaWQSFAoFdGl0bGUYAyABKAlSBXRpdGxlEhIKBHR5cGUYBCABKAlSBHR5cGUSIAoLcGljdHVyZUJsb2IYBSABKAxSC3BpY3R1cmVCbG9iEiAKC2NvdW50cnlDb2RlGAYgASgJUgtjb3VudHJ5Q29kZRISCgRyb2xlGAcgASgJUgRyb2xl');
 @$core.Deprecated('Use createProductDescriptor instead')
 const CreateProduct$json = const {
   '1': 'CreateProduct',
