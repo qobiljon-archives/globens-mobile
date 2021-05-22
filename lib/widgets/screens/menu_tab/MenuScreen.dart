@@ -1,5 +1,7 @@
-import 'package:globens_flutter_client/widgets/modal_views/LanguageModalView.dart';
+import 'dart:ui';
+
 import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/LanguageSelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
@@ -91,6 +93,10 @@ class _MenuScreenState extends State<MenuScreen> {
                 ],
               ),
             )),
+        Divider(
+          height: 1,
+          color: Colors.black12,
+        ),
         InkWell(
             onTap: _setLanguagePressed,
             child: Container(
@@ -140,7 +146,7 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _setLanguagePressed() async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => LanguageModalView.getModalView(context));
+    await Navigator.of(context).pushNamed(LanguageSelectionScreen.route_name);
     setState(() {});
   }
 

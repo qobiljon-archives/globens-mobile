@@ -45,6 +45,20 @@ class Language {
     }
     return null;
   }
+
+  static String languageFlag(int languageCode) {
+    switch (languageCode) {
+      case Language.ENGLISH:
+        return "icons/flags/png/us.png";
+      case Language.RUSSIAN:
+        return "icons/flags/png/ru.png";
+      case Language.KOREAN:
+        return "icons/flags/png/kr.png";
+      case Language.UZBEK:
+        return "icons/flags/png/uz.png";
+    }
+    return null;
+  }
 }
 
 class Locale {
