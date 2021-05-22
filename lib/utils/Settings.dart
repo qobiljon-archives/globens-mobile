@@ -1,7 +1,7 @@
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
 import 'package:grpc/grpc.dart';
 
-const String GRPC_HOST = '165.246.42.172';
+const String GRPC_HOST = '54.180.83.68';
 const int GRPC_PORT = 50051;
 
 ClientChannel _channel;
