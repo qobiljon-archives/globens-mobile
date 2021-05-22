@@ -15,6 +15,7 @@ class BusinessPageCreatorModalView extends StatefulWidget {
 class _BusinessPageCreatorModalViewState extends State<BusinessPageCreatorModalView> {
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
+  String _countryCode = AppUser.countryCode;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +104,7 @@ class _BusinessPageCreatorModalViewState extends State<BusinessPageCreatorModalV
       return;
     }
 
-    bool success = await grpcCreateBusinessPage(AppUser.sessionKey, BusinessPage.create(_titleTextController.text, _businessPageImageBytes));
+    bool success = await grpcCreateBusinessPage(AppUser.sessionKey, BusinessPage.create(_titleTextController.text, _businessPageImageBytes, _countryCode));
 
     if (success)
       Navigator.of(context).pop();

@@ -154,8 +154,7 @@ Future<Tuple3<bool, int, String>> gprcAuthenticateUser(String tokensJson) async 
   String sessionKey;
   int userId;
   try {
-    final response = await stub.authenticateUser(AuthenticateUser_Request()
-      ..tokensJson = tokensJson);
+    final response = await stub.authenticateUser(AuthenticateUser_Request()..tokensJson = tokensJson);
     success = response.success;
 
     userId = response.userId;
@@ -170,6 +169,27 @@ Future<Tuple3<bool, int, String>> gprcAuthenticateUser(String tokensJson) async 
   return Tuple3(success, userId, sessionKey);
 }
 
+Future<bool> gprcUpdateUserDetails(String sessionKey, GlobensUser user) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  bool success = false;
+  String sessionKey;
+  int userId;
+  try {
+    final response = await stub.updateUserDetails(UpdateUserDetails_Request()
+      ..sessionKey = sessionKey
+      ..countryCode = user.countryCode);
+    success = response.success;
+  } catch (e) {
+    print(e);
+    return false;
+  } finally {
+    await channel.shutdown();
+  }
+  return true;
+}
+
 Future<Tuple2<bool, GlobensUser>> grpcFetchUserDetails(String sessionKey, int userId) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
@@ -182,7 +202,7 @@ Future<Tuple2<bool, GlobensUser>> grpcFetchUserDetails(String sessionKey, int us
       ..sessionKey = sessionKey
       ..userId = userId);
     success = fetchUserDetailsRes.success;
-    if (success) user = GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob);
+    if (success) user = GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode);
   } catch (e) {
     print(e);
   } finally {
@@ -210,7 +230,8 @@ Future<Tuple2<bool, List<BusinessPage>>> grpcFetchMyBusinessPages(String session
           ..sessionKey = sessionKey
           ..businessPageId = businessPageId);
         success &= businessPageDetailsRes.success;
-        if (success) businessPages.add(BusinessPage.create(businessPageDetailsRes.title, businessPageDetailsRes.pictureBlob, id: businessPageDetailsRes.id, type: businessPageDetailsRes.type, role: businessPageDetailsRes.role));
+        if (success) businessPages.add(BusinessPage.create(businessPageDetailsRes.title,
+            businessPageDetailsRes.pictureBlob, businessPageDetailsRes.countryCode, id: businessPageDetailsRes.id, type: businessPageDetailsRes.type, role: businessPageDetailsRes.role));
       }
     }
   } catch (e) {
@@ -230,7 +251,8 @@ Future<bool> grpcCreateBusinessPage(String sessionKey, BusinessPage businessPage
     final response = await stub.createBusinessPage(CreateBusinessPage_Request()
       ..sessionKey = sessionKey
       ..title = businessPage.title
-      ..pictureBlob = businessPage.pictureBlob);
+      ..pictureBlob = businessPage.pictureBlob
+      ..countryCode = businessPage.countryCode);
     success = response.success;
   } catch (e) {
     print(e);
@@ -401,7 +423,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, i
               ..sessionKey = sessionKey
               ..businessPageId = productDetails.businessPageId);
           success &= businessPageDetails.success;
-          if (success) businessPages[productDetails.businessPageId] = BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob, id: businessPageDetails.id, type: businessPageDetails.type, role: businessPageDetails.role);
+          if (success) businessPages[productDetails.businessPageId] = BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob, businessPageDetails.countryCode, id: businessPageDetails.id, type: businessPageDetails.type, role: businessPageDetails.role);
         }
 
         if (!categories.containsKey(productDetails.categoryId)) {
@@ -411,7 +433,8 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, i
         }
 
         if (success)
-          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents), id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
+          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents),
+              id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
         else
           print('error on gb_product $productDetails');
       }
@@ -484,7 +507,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, Bus
               ..userId = jobDetailsRes.hiredUserId);
 
             if (hiredUserDetailsRes.success) {
-              users[jobDetailsRes.hiredUserId] = GlobensUser.create(hiredUserDetailsRes.id, hiredUserDetailsRes.email, hiredUserDetailsRes.name, hiredUserDetailsRes.picture, hiredUserDetailsRes.pictureBlob);
+              users[jobDetailsRes.hiredUserId] = GlobensUser.create(hiredUserDetailsRes.id, hiredUserDetailsRes.email, hiredUserDetailsRes.name, hiredUserDetailsRes.picture, hiredUserDetailsRes.pictureBlob, hiredUserDetailsRes.countryCode);
               jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPage, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId]));
             } else
               jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPage, role: jobDetailsRes.role));
@@ -550,7 +573,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchVacantPositions(String sessionKey) asyn
             success &= businessPageDetailsRes.success;
 
             if (success) {
-              businessPages.putIfAbsent(jobDetailsRes.businessPageId, () => BusinessPage.create(businessPageDetailsRes.title, businessPageDetailsRes.pictureBlob, id: businessPageDetailsRes.id, type: businessPageDetailsRes.type, role: businessPageDetailsRes.role));
+              businessPages.putIfAbsent(jobDetailsRes.businessPageId, () => BusinessPage.create(businessPageDetailsRes.title, businessPageDetailsRes.pictureBlob, businessPageDetailsRes.countryCode, id: businessPageDetailsRes.id, type: businessPageDetailsRes.type, role: businessPageDetailsRes.role));
               jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPages[jobDetailsRes.businessPageId], role: jobDetailsRes.role));
             }
           }
@@ -598,7 +621,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
             success &= fetchUserDetailsRes.success;
 
             if (success) {
-              applicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob));
+              applicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode));
               vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, fetchJobApplicationDetailsRes.content, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchUserDetailsRes.id]));
             }
           }

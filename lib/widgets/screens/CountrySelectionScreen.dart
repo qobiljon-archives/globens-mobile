@@ -1,15 +1,14 @@
+import 'package:globens_flutter_client/utils/CountryHelper.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:globens_flutter_client/entities/AppUser.dart';
-import 'package:globens_flutter_client/utils/Locale.dart';
 
 class CountrySelectionScreen extends StatefulWidget {
-
   static const String route_name = '/country_selection_screen';
+  static String resultCountryCode;
 
   @override
   State<StatefulWidget> createState() => _CountrySelectionState();
-
 }
 
 class _CountrySelectionState extends State<CountrySelectionScreen>{
@@ -18,8 +17,10 @@ class _CountrySelectionState extends State<CountrySelectionScreen>{
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final prefCountry = AppUser.userPrefs.getString("country");
-    selectedCountry = prefCountry == null ? "Korea" : prefCountry;
+
+    setState(() {
+      selectedCountry = ModalRoute.of(context).settings.arguments as String;
+    });
   }
 
   @override
@@ -28,7 +29,7 @@ class _CountrySelectionState extends State<CountrySelectionScreen>{
       appBar: AppBar(
         title: Text(Locale.get("Country")),
       ),
-      body: _buildCountriesList(["Russia","Uzbekistan","Kazakhstan","Korea", "China", "Malaysia", "Japan", "Germany","Turkey", "Italy", "USA", "Canada", "Australia"]),
+      body: _buildCountriesList(CountryHelper.countries.keys.toList()),
     );
   }
 
@@ -48,11 +49,11 @@ class _CountrySelectionState extends State<CountrySelectionScreen>{
     );
   }
 
-  Widget _buildCountryRow(String country) {
-    final alreadySelected = country == selectedCountry;
+  Widget _buildCountryRow(String countryCode) {
+    final alreadySelected = countryCode == selectedCountry;
     return ListTile(
-      onTap: () => _onCountryPressed(country),
-      title: Text(country,
+      onTap: () => _onCountryPressed(countryCode),
+      title: Text(CountryHelper.countryName(countryCode),
           style: TextStyle(fontSize: 18.0)
       ),
       trailing: Icon(
@@ -63,7 +64,8 @@ class _CountrySelectionState extends State<CountrySelectionScreen>{
   }
 
   void _onCountryPressed(String country) async {
-    await AppUser.userPrefs.setString("country", country);
+    // await AppUser.userPrefs.setString("country", country);
+    CountrySelectionScreen.resultCountryCode = country;
     Navigator.of(context).pop();
   }
 }

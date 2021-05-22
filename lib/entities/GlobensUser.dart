@@ -7,15 +7,17 @@ class GlobensUser {
   String _name;
   String _picture;
   List<int> _pictureBlob;
+  String _countryCode;
 
   // endregion
 
-  GlobensUser.create(int id, String email, String name, String picture, List<int> pictureBlob) {
+  GlobensUser.create(int id, String email, String name, String picture, List<int> pictureBlob, String countryCode) {
     this._id = id;
     this._email = email;
     this._name = name;
     this._picture = picture;
     this._pictureBlob = pictureBlob;
+    this._countryCode = countryCode;
   }
 
   // region Getters
@@ -43,5 +45,6 @@ class GlobensUser {
     return _id == AppUser.id;
   }
 
+  String get countryCode => _countryCode;
 // endregion
 }

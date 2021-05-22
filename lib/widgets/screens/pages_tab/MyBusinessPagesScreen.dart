@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globens_flutter_client/widgets/screens/CreateBusinessPageScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/modal_views/BusinessPageCreatorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
@@ -137,7 +138,7 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   }
 
   void _onCreateBusinessPagePressed(BuildContext context) async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => BusinessPageCreatorModalView());
+    await Navigator.of(context).pushNamed(CreateBusinessPageScreen.route_name);
     grpcFetchMyBusinessPages(AppUser.sessionKey).then((tuple) async {
       bool success = tuple.item1;
       List<BusinessPage> businessPages = tuple.item2;

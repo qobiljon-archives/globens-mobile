@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:globens_flutter_client/utils/CountryHelper.dart';
 import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/LanguageSelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
@@ -20,6 +21,13 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -67,32 +75,33 @@ class _MenuScreenState extends State<MenuScreen> {
           height: 16,
           decoration: BoxDecoration(color: Colors.black12),
         ),
-        InkWell(
-            onTap: _setCountryPressed,
-            child: Container(
-              padding: EdgeInsets.all(16),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.flag_outlined,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    Locale.get("Country"),
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  Spacer(),
-                  Text(
-                    AppUser.userPrefs.getString("country") != null ? AppUser.userPrefs.getString("country") : "Korea",
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
-                  ),
-                  Icon(
-                    Icons.chevron_right_sharp,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
-            )),
+        if (AppUser.isAuthenticated())
+          InkWell(
+              onTap: _setCountryPressed,
+              child: Container(
+                padding: EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.flag_outlined,
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      Locale.get("Country"),
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                    Spacer(),
+                    Text(
+                      CountryHelper.countryName(AppUser.countryCode),
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
+                    ),
+                    Icon(
+                      Icons.chevron_right_sharp,
+                      color: Colors.black,
+                    ),
+                  ],
+                ),
+              )),
         Divider(
           height: 1,
           color: Colors.black12,
@@ -151,7 +160,10 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _setCountryPressed() async {
-    await Navigator.of(context).pushNamed(CountrySelectionScreen.route_name);
-    setState(() {});
+    await Navigator.of(context).pushNamed(CountrySelectionScreen.route_name, arguments: AppUser.userPrefs.getString("country"));
+    if (CountrySelectionScreen.resultCountryCode != null) {
+      AppUser.userPrefs.setString("country", CountrySelectionScreen.resultCountryCode);
+      setState(() {});
+    }
   }
 }

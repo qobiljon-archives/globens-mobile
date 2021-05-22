@@ -14,13 +14,15 @@ class BusinessPage {
   String _type;
   Uint8List _pictureBlob;
   String _role;
+  String _countryCode;
 
   // endregion
 
-  BusinessPage.create(String title, Uint8List pictureBlob, {int id, String type, String role}) {
+  BusinessPage.create(String title, Uint8List pictureBlob, String countryCode, {int id, String type, String role}) {
     this._id = id;
     this._title = title;
     this._pictureBlob = pictureBlob;
+    this._countryCode = countryCode;
     this._type = type;
     this._role = role;
   }
@@ -49,5 +51,7 @@ class BusinessPage {
   bool get isNewBusinessPage {
     return _id == null;
   }
+
+  String get countryCode => _countryCode;
 // endregion
 }

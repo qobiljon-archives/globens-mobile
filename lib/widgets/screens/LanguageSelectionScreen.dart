@@ -64,6 +64,7 @@ class _LanguageSelectionState extends State<LanguageSelectionScreen> {
   }
 
   void _onLanguagePressed(int languageCode) async {
+    Locale.languageCode = languageCode;
     await AppUser.userPrefs.setInt("language", languageCode);
     Navigator.of(context).pop();
   }
