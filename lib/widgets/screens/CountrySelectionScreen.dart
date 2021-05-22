@@ -28,7 +28,7 @@ class _CountrySelectionState extends State<CountrySelectionScreen>{
       appBar: AppBar(
         title: Text(Locale.get("Country")),
       ),
-      body: _buildCountriesList(["Russia", "Uzbekistan", "Korea"]),
+      body: _buildCountriesList(["Russia","Uzbekistan","Kazakhstan","Korea", "China", "Malaysia", "Japan", "Germany","Turkey", "Italy", "USA", "Canada", "Australia"]),
     );
   }
 
@@ -38,12 +38,13 @@ class _CountrySelectionState extends State<CountrySelectionScreen>{
   }
 
   Widget _buildCountriesList(List<String> countryList) {
-    List<Widget> countryWidgets = [];
-    for(var country in countryList){
-      countryWidgets.add(_buildCountryRow(country));
-    }
-    return ListView(
-        children: countryWidgets,
+    return ListView.separated(
+        separatorBuilder: (context, index) => Divider(
+          height: 1,
+          color: Colors.black12,
+        ),
+        itemCount: countryList.length,
+        itemBuilder: (context, index) => _buildCountryRow(countryList[index]),
     );
   }
 
@@ -55,8 +56,8 @@ class _CountrySelectionState extends State<CountrySelectionScreen>{
           style: TextStyle(fontSize: 18.0)
       ),
       trailing: Icon(
-        alreadySelected ? Icons.radio_button_checked : Icons.radio_button_unchecked,
-        color: alreadySelected ? Colors.red : null,
+        alreadySelected ? Icons.check : null,
+        color: alreadySelected ? Colors.black : null,
       ),
     );
   }
