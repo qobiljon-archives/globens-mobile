@@ -243,9 +243,12 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                         .map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                SizedBox(width: 10.0, height: 10.0),
                                 if(_uploadingFiles.contains(file.path))
-                                  SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0,),
-                                Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
+                                  SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
+                                if(!_uploadingFiles.contains(file.path))
+                                  Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
+                                SizedBox(width: 10.0, height: 10.0),
                                 Expanded(
                                     child:Text(
                                       RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2),

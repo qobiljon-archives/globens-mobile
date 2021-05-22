@@ -31,6 +31,20 @@ class Language {
     }
     return null;
   }
+
+  static String languagePrettyStringFromInt(int languageCode) {
+    switch (languageCode) {
+      case Language.ENGLISH:
+        return "English";
+      case Language.RUSSIAN:
+        return "Pусский";
+      case Language.KOREAN:
+        return "한국어";
+      case Language.UZBEK:
+        return "O'zbekcha";
+    }
+    return null;
+  }
 }
 
 class Locale {
@@ -164,6 +178,7 @@ class Locale {
     "Ratings and Reviews": ["Рейтинги и обзоры","평가 및 리뷰","Reytinglar va sharhlar"],
     "Send": ["Oтправлять", "보내다", "Topshirish"],
     "Try again later": ["Попробуйте позже","나중에 다시 시도","Keyinroq sinab ko'ring"],
-    "Anonymous user": ["Анонимный пользователь","익명 사용자","Anonim foydalanuvchi"]
+    "Anonymous user": ["Анонимный пользователь","익명 사용자","Anonim foydalanuvchi"],
+    "Country": ["Страна","국가","Davlat"]
   };
 }

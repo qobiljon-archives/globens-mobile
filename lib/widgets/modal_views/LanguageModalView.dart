@@ -23,7 +23,7 @@ class LanguageModalView {
             margin: EdgeInsets.only(left: 10, top: 10, right: 10),
             child: RaisedButton.icon(
               label: Text(
-                'Uzbek',
+                Language.languagePrettyStringFromInt(Language.UZBEK),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               icon: Image.asset(
@@ -42,7 +42,7 @@ class LanguageModalView {
             margin: EdgeInsets.only(left: 10, top: 10, right: 10),
             child: RaisedButton.icon(
               label: Text(
-                'Russian',
+                Language.languagePrettyStringFromInt(Language.RUSSIAN),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               icon: Image.asset(
@@ -61,7 +61,7 @@ class LanguageModalView {
             margin: EdgeInsets.only(left: 10, top: 10, right: 10),
             child: RaisedButton.icon(
               label: Text(
-                'English',
+                Language.languagePrettyStringFromInt(Language.ENGLISH),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               icon: Image.asset(
@@ -80,7 +80,7 @@ class LanguageModalView {
             margin: EdgeInsets.only(left: 10, top: 10, right: 10),
             child: RaisedButton.icon(
               label: Text(
-                'Korean',
+                Language.languagePrettyStringFromInt(Language.KOREAN),
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               icon: Image.asset(
