@@ -14,16 +14,8 @@ message FilterDetails{
 
 // user management requests/responses
 message AuthenticateUser {
-  enum AuthMethod {
-    GOOGLE = 0;
-    FACEBOOK = 1;
-    KAKAOTALK = 3;
-    PHONE = 4;
-    APPLE = 5;
-  }
   message Request{
-    AuthMethod method = 1;
-    string tokensJson = 2; // could be : auth token, phone number, etc.
+    string tokensJson = 2;
   }
   message Response{
     bool success = 1;
@@ -42,6 +34,7 @@ message DeactivateUser{
 message UpdateUserDetails{
   message Request{
     string sessionKey = 1;
+    string countryCode = 2;
   }
   message Response{
     bool success = 1;
@@ -59,6 +52,7 @@ message FetchUserDetails{
     string name = 4;
     string picture = 5;
     bytes pictureBlob = 6;
+    string countryCode = 7;
   }
 }
 
@@ -68,6 +62,7 @@ message CreateBusinessPage{
     string sessionKey = 1;
     string title = 2;
     bytes pictureBlob = 3;
+    string countryCode = 4;
   }
   message Response{
     bool success = 1;
@@ -76,6 +71,10 @@ message CreateBusinessPage{
 message UpdateBusinessPageDetails{
   message Request{
     string sessionKey = 1;
+    int32 businessPageId = 2;
+    string title = 3;
+    bytes pictureBlob = 4;
+    string countryCode = 5;
   }
   message Response{
     bool success = 1;
@@ -109,7 +108,8 @@ message FetchBusinessPageDetails{
     string title = 3;
     string type = 4;
     bytes pictureBlob = 5;
-    string role = 6;
+    string countryCode = 6;
+    string role = 7;
   }
 }
 

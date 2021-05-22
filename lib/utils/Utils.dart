@@ -146,7 +146,7 @@ enum Types { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
 enum TimeSlotSize { THIRTY_MINUTES, SIXTY_MINUTES }
 
 // region user management RPCs
-Future<Tuple3<bool, int, String>> gprcAuthenticateUser(AuthenticateUser_AuthMethod method, String tokensJson) async {
+Future<Tuple3<bool, int, String>> gprcAuthenticateUser(String tokensJson) async {
   final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
   final stub = GlobensServiceClient(channel);
 
@@ -155,7 +155,6 @@ Future<Tuple3<bool, int, String>> gprcAuthenticateUser(AuthenticateUser_AuthMeth
   int userId;
   try {
     final response = await stub.authenticateUser(AuthenticateUser_Request()
-      ..method = method
       ..tokensJson = tokensJson);
     success = response.success;
 

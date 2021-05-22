@@ -93,7 +93,7 @@ class AppUser {
     if (tp != null) {
       GoogleSignInAccount user = tp.item1;
       Map tokens = tp.item2;
-      Tuple3<bool, int, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
+      Tuple3<bool, int, String> res = await gprcAuthenticateUser(JSON.jsonEncode(tokens));
 
       bool success = res.item1;
       int userId = res.item2;
