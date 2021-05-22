@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:globens_flutter_client/widgets/modal_views/LanguageModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
@@ -8,7 +6,7 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:ui';
 
 class MenuScreen extends StatefulWidget {
   final RootTabsScreenState rootTabsScreenState;
@@ -133,7 +131,7 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _signInPressed() async {
-    if (await AppUser.signIn(AuthMethod.GOOGLE))
+    if (await AppUser.signIn())
       await toast(Locale.get("Signed in with Google."));
     else
       await toast(Locale.get("Failed to login with Google.\nPlease try again later!"));

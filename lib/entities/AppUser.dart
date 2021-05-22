@@ -15,17 +15,12 @@ class AppUser {
   static GoogleSignIn googleSignIn;
   static SharedPreferences userPrefs;
 
-  static AuthMethod _authMethod = AuthMethod.NONE;
-  static int _id;
+  static int _id = -1;
   static String _email;
   static String _displayName;
   static String _profileImageUrl;
   static String _sessionKey;
   static bool _initialized = false;
-
-  static AuthMethod get authMethod {
-    return _authMethod;
-  }
 
   static int get id {
     return _id;
@@ -63,25 +58,18 @@ class AppUser {
   static Future<void> init() async {
     AppUser._singleton = AppUser._internalConstructor();
     AppUser.userPrefs = await SharedPreferences.getInstance();
-    if (AppUser.userPrefs.containsKey("authMethod")) AppUser.setProfileInfo(AuthMethod.values[AppUser.userPrefs.getInt("authMethod")], AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
+    if (AppUser.userPrefs.containsKey("id")) AppUser.setProfileInfo(AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"));
 
-    // setup app language
     final languageCode = AppUser.userPrefs.getInt("language");
     Locale.languageCode = languageCode != null ? languageCode : Language.ENGLISH;
-
-    // setup kakao, google, and facebook auth
-    // todo KakaoContext.clientId = "25bf75f9c559f5f1f78da11571eb818a"; // KakaoContext.javascriptClientId = "678dcd86c1cfc8f0c83d6df0d96d2366"
     AppUser.googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
-    // todo setup phone, apple
-
     AppUser._initialized = true;
   }
 
   // endregion
 
   // region Setters & getters
-  static void setProfileInfo(AuthMethod authMethod, int id, String email, String displayName, String profileImageUrl, String sessionKey) {
-    AppUser._authMethod = authMethod;
+  static void setProfileInfo(int id, String email, String displayName, String profileImageUrl, String sessionKey) {
     AppUser._id = id;
     AppUser._email = email;
     AppUser._displayName = displayName;
@@ -90,7 +78,6 @@ class AppUser {
   }
 
   static void clearProfileInfo() {
-    AppUser._authMethod = AuthMethod.NONE;
     AppUser._id = null;
     AppUser._email = null;
     AppUser._displayName = null;
@@ -100,81 +87,33 @@ class AppUser {
   // endregion
 
   // region Utility functions
-  static Future<bool> signIn(AuthMethod authMethod) async {
-    switch (authMethod) {
-      case AuthMethod.KAKAO:
-        /*
-        todo kakao
-        Tuple2<User, Map> tp = await AppUser._kakaoAuth();
-        if (tp != null) {
-          User user = tp.item1;
-          Map tokens = tp.item2;
-          Tuple3<bool, int, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.KAKAOTALK, JSON.jsonEncode(tokens));
+  static Future<bool> signIn() async {
+    if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
+    Tuple2<GoogleSignInAccount, Map> tp = await AppUser._googleAuth();
+    if (tp != null) {
+      GoogleSignInAccount user = tp.item1;
+      Map tokens = tp.item2;
+      Tuple3<bool, int, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
 
-          bool success = res.item1;
-          print(success);
-          int userId = res.item2;
-          String sessionKey = res.item3;
-          if (success) {
-            AppUser.setProfileInfo(AuthMethod.KAKAO, userId, user.kakaoAccount.email, user.kakaoAccount.profile.nickname, user.kakaoAccount.profile.profileImageUrl.toString(), sessionKey);
-            AppUser.updateUserPrefsData();
-          }
-
-        }*/
-        return false;
-
-      case AuthMethod.GOOGLE:
-        if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
-        Tuple2<GoogleSignInAccount, Map> tp = await AppUser._googleAuth();
-        if (tp != null) {
-          GoogleSignInAccount user = tp.item1;
-          Map tokens = tp.item2;
-          Tuple3<bool, int, String> res = await gprcAuthenticateUser(AuthenticateUser_AuthMethod.GOOGLE, JSON.jsonEncode(tokens));
-
-          bool success = res.item1;
-          int userId = res.item2;
-          String sessionKey = res.item3;
-          if (success) {
-            AppUser.setProfileInfo(AuthMethod.GOOGLE, userId, user.email, user.displayName, user.photoUrl, sessionKey);
-            AppUser.updateUserPrefsData();
-            return true;
-          }
-        }
-        return false;
-
-      case AuthMethod.FACEBOOK:
-        return false;
-
-      default:
-        return false;
+      bool success = res.item1;
+      int userId = res.item2;
+      String sessionKey = res.item3;
+      if (success) {
+        AppUser.setProfileInfo(userId, user.email, user.displayName, user.photoUrl, sessionKey);
+        AppUser.updateUserPrefsData();
+        return true;
+      }
     }
+    return false;
   }
 
   static Future<void> signOut() async {
-    if (AppUser.isAuthenticated()) {
-      switch (AppUser._authMethod) {
-        case AuthMethod.PHONE:
-          break;
-        case AuthMethod.KAKAO:
-          break;
-        case AuthMethod.GOOGLE:
-          await googleSignIn.signOut();
-          await userPrefs.clear();
-          AppUser.clearProfileInfo();
-          break;
-        case AuthMethod.FACEBOOK:
-          break;
-        case AuthMethod.APPLE:
-          break;
-        default:
-          break;
-      }
-    }
-    return null;
+    await googleSignIn.signOut();
+    await userPrefs.clear();
+    AppUser.clearProfileInfo();
   }
 
   static void updateUserPrefsData() {
-    userPrefs.setInt("authMethod", AppUser._authMethod.index);
     userPrefs.setInt("id", AppUser._id);
     userPrefs.setString("email", AppUser._email);
     userPrefs.setString("displayName", AppUser._displayName);
@@ -183,7 +122,7 @@ class AppUser {
   }
 
   static bool isAuthenticated() {
-    return _authMethod != AuthMethod.NONE;
+    return id > -1;
   }
 
   static Future<GlobensUser> getMyGlobensUser() async {
@@ -193,74 +132,6 @@ class AppUser {
   }
 
   // endregion
-
-  // region 3rd-party auth methods
-  /*
-  // todo kakao
-  static Future<AccessTokenResponse> _getKakaoAccessToken() async {
-    String authCode;
-    if (await isKakaoTalkInstalled())
-      authCode = await AuthCodeClient.instance.requestWithTalk(); // app
-    else
-      authCode = await AuthCodeClient.instance.request(); // web
-
-    if (authCode != null)
-      return await AuthApi.instance.issueAccessToken(authCode); // get token
-    else
-      return null;
-  }
-
-  static Future<Tuple2<User, Map>> _kakaoAuth() async {
-    Map<String, dynamic> tokens = {};
-
-    AccessToken token = await AccessTokenStore.instance.fromStore();
-
-    if (token.accessToken == null) {
-      // token locally unavailable
-      try {
-        var token = await _getKakaoAccessToken();
-        AccessTokenStore.instance.toStore(token);
-
-        tokens.putIfAbsent("accessToken", () => token.accessToken);
-        tokens.putIfAbsent("expiresIn", () => token.expiresIn);
-        tokens.putIfAbsent("refreshToken", () => token.refreshToken);
-        tokens.putIfAbsent("refreshTokenExpiresIn", () => token.refreshTokenExpiresIn);
-        tokens.putIfAbsent("scopes", () => token.scopes);
-        tokens.putIfAbsent("tokenType", () => token.tokenType);
-
-        return Tuple2(await UserApi.instance.me(), tokens);
-      } catch (e) {
-        print(e);
-      }
-    } else {
-      // token locally available
-      final now = DateTime.now().millisecondsSinceEpoch;
-      final accessTokenExpiresIn = (token.accessTokenExpiresAt.millisecondsSinceEpoch - now) ~/ 1000;
-      final refreshTokenExpiresIn = (token.refreshTokenExpiresAt.millisecondsSinceEpoch - now) ~/ 1000;
-
-      if (accessTokenExpiresIn < 0 || refreshTokenExpiresIn < 0) {
-        // the token is old (expired)
-        var token = await _getKakaoAccessToken();
-        AccessTokenStore.instance.toStore(token);
-
-        tokens.putIfAbsent("accessToken", () => token.accessToken);
-        tokens.putIfAbsent("expiresIn", () => token.expiresIn);
-        tokens.putIfAbsent("refreshToken", () => token.refreshToken);
-        tokens.putIfAbsent("refreshTokenExpiresIn", () => token.refreshTokenExpiresIn);
-        tokens.putIfAbsent("scopes", () => token.scopes);
-      } else {
-        // the token is active
-        tokens.putIfAbsent("accessToken", () => token.accessToken);
-        tokens.putIfAbsent("expiresIn", () => accessTokenExpiresIn);
-        tokens.putIfAbsent("refreshToken", () => token.refreshToken);
-        tokens.putIfAbsent("refreshTokenExpiresIn", () => refreshTokenExpiresIn);
-        tokens.putIfAbsent("scopes", () => token.scopes);
-      }
-
-      return Tuple2(await UserApi.instance.me(), tokens);
-    }
-    return null; // todo when token is locally available, return it
-  }*/
 
   static Future<Tuple2<GoogleSignInAccount, Map>> _googleAuth() async {
     Map<String, dynamic> tokens = {};
@@ -278,7 +149,4 @@ class AppUser {
 
     return null;
   }
-// endregion
 }
-
-enum AuthMethod { NONE, PHONE, KAKAO, GOOGLE, FACEBOOK, APPLE }
