@@ -1,5 +1,6 @@
 import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/CreateBusinessPageScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/CreateVacancyScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/LanguageSelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
@@ -42,6 +43,7 @@ void main() {
       CountrySelectionScreen.route_name: (context) => CountrySelectionScreen(),
       LanguageSelectionScreen.route_name: (context) => LanguageSelectionScreen(),
       CreateBusinessPageScreen.route_name: (context) => CreateBusinessPageScreen(),
+      CreateVacancyScreen.route_name: (context) => CreateVacancyScreen(),
     },
   ));
 }

@@ -613,7 +613,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
 
         if (success) {
           if (applicantUsers.containsKey(fetchJobApplicationDetailsRes.applicantId))
-            vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, fetchJobApplicationDetailsRes.content, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchJobApplicationDetailsRes.applicantId]));
+            vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, {} /*fetchJobApplicationDetailsRes.content*/, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchJobApplicationDetailsRes.applicantId]));
           else {
             final fetchUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
               ..sessionKey = sessionKey
@@ -622,7 +622,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
 
             if (success) {
               applicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode));
-              vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, fetchJobApplicationDetailsRes.content, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchUserDetailsRes.id]));
+              vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, {} /*fetchJobApplicationDetailsRes.content*/, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchUserDetailsRes.id]));
             }
           }
         }
@@ -646,7 +646,7 @@ Future<bool> grpcCreateJobApplication(String sessionKey, Job job, JobApplication
     final response = await stub.createJobApplication(CreateJobApplication_Request()
       ..sessionKey = sessionKey
       ..jobId = job.id
-      ..content = jobApplication.content
+      // ..content = jobApplication.contents
       ..message = jobApplication.message);
     success = response.success;
   } catch (e) {

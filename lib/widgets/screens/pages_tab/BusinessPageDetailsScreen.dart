@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:globens_flutter_client/widgets/screens/CreateVacancyScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
-import 'package:globens_flutter_client/widgets/modal_views/VacancyCreatorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
@@ -333,7 +333,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateVacancyPressed() async {
-    await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => VacancyCreatorModalView(businessPage: _businessPage));
+    await Navigator.of(context).pushNamed(CreateVacancyScreen.route_name, arguments: _businessPage);
     Tuple2<bool, List<Job>> res = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage);
 
     bool success = res.item1;
