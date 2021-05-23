@@ -8,6 +8,7 @@ class Review {
   String _review;
   GlobensUser _reviewer;
   bool _isMyReview;
+
   // endregion
 
   Review.create(String review, {int id, int productId, int stars, GlobensUser reviewer, bool isMyReview}) {
@@ -16,7 +17,7 @@ class Review {
     this._productId = productId;
     this._stars = stars;
     this._reviewer = reviewer;
-    this._isMyReview;
+    this._isMyReview = isMyReview;
   }
 
   //region Getters

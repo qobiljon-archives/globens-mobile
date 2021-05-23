@@ -49,65 +49,35 @@ class Product {
 
   // region Getters
 
-  int get id {
-    return this._id;
-  }
+  int get id => _id;
 
-  String get name {
-    return this._name;
-  }
+  String get name => _name;
 
-  ProductDeliveryType get productType {
-    return this._productType;
-  }
+  ProductDeliveryType get productType => _productType;
 
-  ProductCategory get category {
-    return this._category;
-  }
+  ProductCategory get category => _category;
 
-  List<int> get pictureBlob {
-    return this._pictureBlob;
-  }
+  List<int> get pictureBlob => _pictureBlob;
 
-  bool get isNewProduct {
-    return _id == null;
-  }
+  bool get isNewProduct => _id == null;
 
-  BusinessPage get businessPage {
-    return this._businessPage;
-  }
+  BusinessPage get businessPage => _businessPage;
 
-  double get price {
-    return this._price;
-  }
+  double get price => _price;
 
-  double get stars {
-    return this._stars;
-  }
+  double get stars => _stars;
 
-  int get reviewsCount {
-    return this._reviewsCount;
-  }
+  int get reviewsCount => _reviewsCount;
 
-  Currency get currency {
-    return this._currency;
-  }
+  Currency get currency => _currency;
 
-  String get description {
-    return this._description;
-  }
+  String get description => _description;
 
-  String get priceStr {
-    return price2string(price, currency);
-  }
+  String get priceStr => price2string(price, currency);
 
-  Map<String, dynamic> get contents {
-    return this._contents;
-  }
+  Map<String, dynamic> get contents => _contents;
 
-  String get contentsJson {
-    return jsonEncode(this._contents);
-  }
+  String get contentsJson => jsonEncode(this._contents);
 
   bool get published => _published;
 
@@ -150,20 +120,12 @@ class Content {
 
   // region Getters
 
-  int get id {
-    return this._id;
-  }
+  int get id => _id;
 
-  String get title {
-    return this._title;
-  }
+  String get title => _title;
 
-  String get fileId {
-    return this._fileId;
-  }
+  String get fileId => _fileId;
 
-  String get url {
-    return this._url;
-  }
+  String get url => _url;
 // endregion
 }

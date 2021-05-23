@@ -21,26 +21,16 @@ class JobApplication {
   }
 
   // region Getters
-  int get id {
-    return _id;
-  }
+  int get id => _id;
 
-  Job get job {
-    return _job;
-  }
+  Job get job => _job;
 
-  GlobensUser get applicant {
-    return _applicant;
-  }
+  GlobensUser get applicant => _applicant;
 
-  String get message {
-    return _message;
-  }
+  String get message => _message;
 
   Map<String, dynamic> get contents => _contents;
 
-  bool get isNewJobApplication {
-    return _id == null;
-  }
+  bool get isNewJobApplication => _id == null;
 // endregion
 }

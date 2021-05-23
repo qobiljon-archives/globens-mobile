@@ -28,29 +28,17 @@ class BusinessPage {
   }
 
   // region getters
-  int get id {
-    return _id;
-  }
+  int get id => _id;
 
-  String get title {
-    return _title;
-  }
+  String get title => _title;
 
-  String get type {
-    return _type;
-  }
+  String get type => _type;
 
-  Uint8List get pictureBlob {
-    return _pictureBlob;
-  }
+  Uint8List get pictureBlob => _pictureBlob;
 
-  String get role {
-    return _role;
-  }
+  String get role => _role;
 
-  bool get isNewBusinessPage {
-    return _id == null;
-  }
+  bool get isNewBusinessPage => _id == null;
 
   String get countryCode => _countryCode;
 // endregion

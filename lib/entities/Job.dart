@@ -30,33 +30,19 @@ class Job {
   }
 
   // region Getters
-  int get id {
-    return _id;
-  }
+  int get id => _id;
 
-  String get title {
-    return _title;
-  }
+  String get title => _title;
 
-  BusinessPage get businessPage {
-    return _businessPage;
-  }
+  BusinessPage get businessPage => _businessPage;
 
-  String get role {
-    return _role;
-  }
+  String get role => _role;
 
-  GlobensUser get hiredUser {
-    return _hiredUser;
-  }
+  GlobensUser get hiredUser => _hiredUser;
 
-  bool get newlyCreated {
-    return _id == null;
-  }
+  bool get newlyCreated => _id == null;
 
-  bool get isVacant {
-    return _hiredUser == null;
-  }
+  bool get isVacant => _hiredUser == null;
 
 // endregion
 }

@@ -21,29 +21,17 @@ class GlobensUser {
   }
 
   // region Getters
-  int get id {
-    return _id;
-  }
+  int get id => _id;
 
-  String get email {
-    return _email;
-  }
+  String get email => _email;
 
-  String get name {
-    return _name;
-  }
+  String get name => _name;
 
-  String get picture {
-    return _picture;
-  }
+  String get picture => _picture;
 
-  List<int> get pictureBlob {
-    return _pictureBlob;
-  }
+  List<int> get pictureBlob => _pictureBlob;
 
-  bool get isMe {
-    return _id == AppUser.id;
-  }
+  bool get isMe => _id == AppUser.id;
 
   String get countryCode => _countryCode;
 // endregion
