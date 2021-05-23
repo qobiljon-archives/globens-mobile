@@ -88,12 +88,13 @@ class _CreateBusinessPageState extends State<BusinessPageCreatorScreen> {
               padding: EdgeInsets.all(26),
               child: Flexible(
                   child: TextField(
-                    controller: _titleTextController,
-                    decoration: InputDecoration(
-                      labelText: Locale.get("Name of business"),
-                      hintText: Locale.get("e.g., SpaceX"),
-                    ),
-                  )),
+                controller: _titleTextController,
+                decoration: InputDecoration(
+                  labelText: Locale.get("Name of business"),
+                  labelStyle: TextStyle(color: Colors.blueAccent),
+                  hintText: Locale.get("e.g., SpaceX"),
+                ),
+              )),
             ),
             Container(
                 margin: EdgeInsets.only(top: 20.0),

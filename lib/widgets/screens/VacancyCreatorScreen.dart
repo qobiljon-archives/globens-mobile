@@ -5,15 +5,14 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
 
-class CreateVacancyScreen extends StatefulWidget{
+class VacancyCreatorScreen extends StatefulWidget {
   static const String route_name = '/create_vacancy_screen';
 
   @override
   State<StatefulWidget> createState() => _CreateVacancyState();
 }
 
-class _CreateVacancyState extends State<CreateVacancyScreen>{
-
+class _CreateVacancyState extends State<VacancyCreatorScreen> {
   final TextEditingController _titleTextController = TextEditingController();
   BusinessPage _businessPage;
 
@@ -29,32 +28,39 @@ class _CreateVacancyState extends State<CreateVacancyScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Locale.get("Create new vacancy")),
-      ),
+      appBar: AppBar(title: Text(Locale.get("Vacancy details"))),
       body: Container(
         margin: EdgeInsets.only(top: 10.0),
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          Row(
-            children: [
-              Container(
-                margin: EdgeInsets.all(10.0),
-                child: CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: AssetImage('assets/placeholder_vacancy.png'),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              margin: EdgeInsets.all(10.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: Image(
+                  image: AssetImage('assets/placeholder_vacancy.png'),
+                  width: 100,
                 ),
               ),
-              Flexible(
+            ),
+            Divider(
+              height: 1,
+              color: Colors.black12,
+            ),
+            Container(
+              padding: EdgeInsets.all(26),
+              child: Flexible(
                   child: TextField(
-                    controller: _titleTextController,
-                    decoration: InputDecoration(
-                      labelText: Locale.get("Vacancy name"),
-                      hintText: Locale.get("e.g., Assistant sales manager"),
-                    ),
-                  )),
-            ],
-          ),
-          Container(
+                controller: _titleTextController,
+                decoration: InputDecoration(
+                  labelText: Locale.get("Vacancy name"),
+                  labelStyle: TextStyle(color: Colors.blueAccent),
+                  hintText: Locale.get("e.g., Assistant sales manager"),
+                ),
+              )),
+            ),
+            Container(
               margin: EdgeInsets.only(top: 20.0),
               child: RaisedButton.icon(
                 onPressed: () => _createVacancyPressed(context),
@@ -68,8 +74,10 @@ class _CreateVacancyState extends State<CreateVacancyScreen>{
                   Locale.get("Create"),
                   style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
-              )),
-        ]),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -93,17 +101,4 @@ class _CreateVacancyState extends State<CreateVacancyScreen>{
       await Navigator.of(context).pushReplacementNamed('/');
     }
   }
-
-  void _applyForVacancyPressed(BuildContext context) async {
-    // todo applying to vacancy part
-    // await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationViewerModalView(job: widget.job));
-    // Navigator.of(context).pop();
-  }
-
-  void _viewJobApplicationsPressed(BuildContext context) async {
-    // todo show applications part - only business owner must be able to see the following screen
-    // await Navigator.of(context).pushNamed('/business_page_details/job_applications_list', arguments: {'job': widget.job, 'businessPage': widget.businessPage});
-    // Navigator.of(context).pop();
-  }
-
 }

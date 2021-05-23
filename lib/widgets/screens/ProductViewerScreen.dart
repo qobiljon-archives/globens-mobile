@@ -1,8 +1,7 @@
-import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
+import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductReviewsScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/DriveContentViewer.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';

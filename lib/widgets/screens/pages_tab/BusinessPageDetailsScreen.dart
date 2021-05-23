@@ -1,9 +1,8 @@
 import 'dart:math';
 
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:globens_flutter_client/widgets/screens/CreateVacancyScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/VacancyCreatorScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:tuple/tuple.dart';
@@ -333,7 +333,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   }
 
   void _onCreateVacancyPressed() async {
-    await Navigator.of(context).pushNamed(CreateVacancyScreen.route_name, arguments: _businessPage);
+    await Navigator.of(context).pushNamed(VacancyCreatorScreen.route_name, arguments: _businessPage);
     Tuple2<bool, List<Job>> res = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage);
 
     bool success = res.item1;

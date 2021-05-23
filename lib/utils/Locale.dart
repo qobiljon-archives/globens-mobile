@@ -123,7 +123,6 @@ class Locale {
     "Gallery": ["Галерея", "갤러리", "Galereya"],
     "Select date": ["Выберите дату", "날짜 선택", "Sanani tanlang"],
     "Select hour": ["Выберите час", "시간 선택", "Soatni tanlang"],
-    "Vacancy details": ["Детали вакансии", "공석 세부 정보", "Vakansiya tafsilotlari"],
     "Vacancy name": ["Название вакансии", "공석 이름", "Vakansiya nomi"],
     "e.g., Assistant sales manager": ["например, менеджер", "예 : 관리자", "masalan, menejer"],
     "Vacancy title cannot be less than two characters": ["Название вакансии не может быть короче двух символов.", "공석 제목은 2 자 이상이어야합니다.", "Vakansiyaning nomi ikki belgidan kam bo'lmasligi kerak."],
@@ -137,7 +136,7 @@ class Locale {
     "You have already applied for this position!": ["Вы уже подали заявку на эту должность!", "이 직책에 이미 지원했습니다!", "Siz allaqachon ushbu lavozimga murojaat qilgansiz!"],
     'Business page': ["Бизнес-страница", "비즈니스 페이지", "Biznes sahifasi"],
     "Create new product": ["Создать новый продукт", "새 제품 만들기", "Yangi mahsulot yarating"],
-    "Create new vacancy": ["Создать новую вакансию", "새 공석 생성", "Yangi vakansiya yaratish"],
+    "Vacancy details": ["Детали ваканции", "공석 세부 정보", "Vakansiya ma'lumotlari"],
     "Employees and vacancies": ["Сотрудники и вакансии", "직원 및 공석", "Xodimlar va vakansiyalar"],
     "Products": ["Продукты", "제품", "Mahsulotlar"],
     "Job applications": ["Заявления о приеме на работу", "입사 지원서", "Ish uchun arizalar"],
@@ -185,14 +184,14 @@ class Locale {
     "Try": ["Пробная версия", "평가판", "Sinab ko'rmoq"],
     "Sign up": ["Зарегистрироваться", "가입하기", "Ro'yxatdan o'tish"],
     "Duration (months)": ["Продолжительность (мес.)", "기간 (개월)", "Muddati (oylar)"],
-    "Review": ["Отзывы","리뷰","Fikr-mulohaza"],
+    "Review": ["Отзывы", "리뷰", "Fikr-mulohaza"],
     "Write a review": ["Оставить отзыв", "리뷰 쓰기", "Fikr-mulohaza qoldirish"],
     "Review title": ["Тема отзыва", "리뷰 제목", "Habar mavzusi"],
     "Review message (optional)": ["Сообщение (выборочно)", "리뷰 메시지 (선택)", "Habar (majburiy emas)"],
-    "Ratings and Reviews": ["Рейтинги и обзоры","평가 및 리뷰","Reytinglar va sharhlar"],
+    "Ratings and Reviews": ["Рейтинги и обзоры", "평가 및 리뷰", "Reytinglar va sharhlar"],
     "Send": ["Oтправлять", "보내다", "Topshirish"],
-    "Try again later": ["Попробуйте позже","나중에 다시 시도","Keyinroq sinab ko'ring"],
-    "Anonymous user": ["Анонимный пользователь","익명 사용자","Anonim foydalanuvchi"],
-    "Country": ["Страна","국가","Davlat"]
+    "Try again later": ["Попробуйте позже", "나중에 다시 시도", "Keyinroq sinab ko'ring"],
+    "Anonymous user": ["Анонимный пользователь", "익명 사용자", "Anonim foydalanuvchi"],
+    "Country": ["Страна", "국가", "Davlat"]
   };
 }

@@ -1,9 +1,9 @@
 import 'dart:ui';
 
-import 'package:globens_flutter_client/utils/CountryHelper.dart';
 import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/LanguageSelectionScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/LanguageSelectorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
+import 'package:globens_flutter_client/utils/CountryHelper.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
@@ -21,7 +21,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -155,7 +154,7 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _setLanguagePressed() async {
-    await Navigator.of(context).pushNamed(LanguageSelectionScreen.route_name);
+    await Navigator.of(context).pushNamed(LanguageSelectorScreen.route_name);
     setState(() {});
   }
 
