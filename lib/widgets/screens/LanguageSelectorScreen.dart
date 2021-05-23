@@ -23,9 +23,7 @@ class _LanguageSelectionState extends State<LanguageSelectorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Locale.get("Select language")),
-      ),
+      appBar: AppBar(title: Text(Locale.get("Select language"))),
       body: _buildLanguagesList(),
     );
   }

@@ -19,7 +19,7 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   List<Widget> _header;
   BusinessPage _businessPage;
   Job _job;
-  List<JobApplication> _jobApplications;
+  List<JobApplication> _jobApplications = [];
 
   @override
   void didChangeDependencies() {

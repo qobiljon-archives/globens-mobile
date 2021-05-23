@@ -1,17 +1,15 @@
-import 'dart:math';
-
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:globens_flutter_client/widgets/modal_views/JobApplicationCreatorModalView.dart';
+import 'package:globens_flutter_client/widgets/screens/JobApplicationCreatorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -274,7 +272,7 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
       if (alreadyApplied)
         toast(Locale.get("You have already applied for this position!"));
       else {
-        await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => JobApplicationCreatorModalView(job));
+        await Navigator.of(context).pushNamed(JobApplicationCreatorScreen.route_name, arguments: job);
         _updateDynamicPart();
       }
     } else {

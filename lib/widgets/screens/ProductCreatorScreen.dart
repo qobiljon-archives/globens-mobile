@@ -240,33 +240,25 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
               if (uploadFile && _productContentFiles.length > 0)
                 Column(
                     children: _productContentFiles
-                        .map((file) => Card(margin: EdgeInsets.only(top: 10.0), child: Container(padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
-                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                SizedBox(width: 10.0, height: 10.0),
-                                if(_uploadingFiles.contains(file.path))
-                                  SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
-                                if(!_uploadingFiles.contains(file.path))
-                                  Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
-                                SizedBox(width: 10.0, height: 10.0),
-                                Expanded(
-                                    child:Text(
+                        .map((file) => Card(
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: Container(
+                                padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                  SizedBox(width: 10.0, height: 10.0),
+                                  if (_uploadingFiles.contains(file.path)) SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
+                                  if (!_uploadingFiles.contains(file.path)) Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
+                                  SizedBox(width: 10.0, height: 10.0),
+                                  Expanded(
+                                    child: Text(
                                       RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2),
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                ),
-                                IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
-                              ]))))
+                                  ),
+                                  IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
+                                ]))))
                         .toList()),
-              if (uploadFile) RaisedButton.icon(
-                  onPressed: _uploadingFiles.isNotEmpty ? null : _uploadFilePressed,
-                  color: Colors.blueAccent,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                  icon: Icon(Icons.attachment_outlined, color: Colors.white),
-                  label: Text(
-                      _productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"),
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
-                  )),
+              if (uploadFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
               if (calendarSchedule)
                 GestureDetector(
                   onTap: () => _selectDateTime('from'),
@@ -431,15 +423,12 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       return;
     }
 
-    Map<String, dynamic> contents;
+    Map<String, dynamic> contents = {'ids': <int>[]};
     bool success = true;
-    contents = {'ids': <int>[]};
 
     setState(() {
-      for (File localFile in _productContentFiles)
-        _uploadingFiles.add(localFile.path);
+      for (File localFile in _productContentFiles) _uploadingFiles.add(localFile.path);
     });
-
 
     if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file')) {
       // todo add upload progressbar
@@ -497,7 +486,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     }
   }
 
-  void _removeFileContent(File file) {
+  void _removeFileContent(File file) async {
     setState(() {
       _productContentFiles.remove(file);
     });

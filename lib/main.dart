@@ -1,6 +1,7 @@
 import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens_tab/CategoryProductsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/JobApplicationCreatorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/BusinessPageCreatorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/LanguageSelectorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
@@ -44,6 +45,7 @@ void main() {
       LanguageSelectorScreen.route_name: (context) => LanguageSelectorScreen(),
       BusinessPageCreatorScreen.route_name: (context) => BusinessPageCreatorScreen(),
       VacancyCreatorScreen.route_name: (context) => VacancyCreatorScreen(),
+      JobApplicationCreatorScreen.route_name: (context) => JobApplicationCreatorScreen(),
     },
   ));
 }

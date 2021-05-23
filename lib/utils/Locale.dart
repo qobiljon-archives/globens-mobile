@@ -100,6 +100,7 @@ class Locale {
     'Application form': ['Форма заявки', '신청서', 'Ish ariza formasi'],
     'Apply to "$REPLACE"': ['Подать заявку на "$REPLACE"', '신청서 "$REPLACE"', '"$REPLACE" uchun ariza to\'ldirish'],
     "Your message goes here": ["Ваше сообщение", "메시지", "Habar matni"],
+    "Job application form": ["Заявка на работу", "입사 지원서", "Ish ariza formasi"],
     "Submit application form": ["Подать заявку", "신청서 제출", "Ariza formasini yuboring"],
     'Submitted by : $REPLACE': ["Отправлено $REPLACE", "에 의해 제출 된 $REPLACE", "$REPLACE tomonidan yuborilgan"],
     "Loading": ["Загружается ..", "로딩 중 ..", "Yuklanmoqda .."],

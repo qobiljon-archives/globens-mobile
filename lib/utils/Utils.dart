@@ -17,7 +17,6 @@ import 'package:fixnum/fixnum.dart';
 import 'package:tuple/tuple.dart';
 import 'package:grpc/grpc.dart';
 import 'dart:convert';
-import 'dart:io';
 
 Container getTitleWidget(String text, {TextStyle textStyle, Color textColor = Colors.blue, EdgeInsets margin}) {
   return Container(
@@ -230,8 +229,7 @@ Future<Tuple2<bool, List<BusinessPage>>> grpcFetchMyBusinessPages(String session
           ..sessionKey = sessionKey
           ..businessPageId = businessPageId);
         success &= businessPageDetailsRes.success;
-        if (success) businessPages.add(BusinessPage.create(businessPageDetailsRes.title,
-            businessPageDetailsRes.pictureBlob, businessPageDetailsRes.countryCode, id: businessPageDetailsRes.id, type: businessPageDetailsRes.type, role: businessPageDetailsRes.role));
+        if (success) businessPages.add(BusinessPage.create(businessPageDetailsRes.title, businessPageDetailsRes.pictureBlob, businessPageDetailsRes.countryCode, id: businessPageDetailsRes.id, type: businessPageDetailsRes.type, role: businessPageDetailsRes.role));
       }
     }
   } catch (e) {
@@ -309,6 +307,21 @@ Future<Tuple2<bool, int>> grpcCreateNewContent(String sessionKey, Content conten
   }
 
   return Tuple2(success, contentId);
+}
+
+Future<bool> grpcRemoveContent(String sessionKey, Content content) async {
+  final channel = ClientChannel(GRPC_HOST, port: GRPC_PORT, options: const ChannelOptions(credentials: ChannelCredentials.insecure()));
+  final stub = GlobensServiceClient(channel);
+
+  try {
+    final response = await stub.deleteContent(DeleteContent_Request()
+      ..sessionKey = sessionKey
+      ..contentId = content.id);
+    return response.success;
+  } catch (e) {
+    print(e);
+    return false;
+  }
 }
 
 Future<bool> grpcUpdateContent(String sessionKey, Content content) async {
@@ -433,8 +446,7 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, i
         }
 
         if (success)
-          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents),
-              id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
+          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents), id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
         else
           print('error on gb_product $productDetails');
       }
@@ -613,7 +625,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
 
         if (success) {
           if (applicantUsers.containsKey(fetchJobApplicationDetailsRes.applicantId))
-            vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, {} /*fetchJobApplicationDetailsRes.content*/, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchJobApplicationDetailsRes.applicantId]));
+            vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, jsonDecode(fetchJobApplicationDetailsRes.contents), job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchJobApplicationDetailsRes.applicantId]));
           else {
             final fetchUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
               ..sessionKey = sessionKey
@@ -622,7 +634,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
 
             if (success) {
               applicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode));
-              vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, {} /*fetchJobApplicationDetailsRes.content*/, job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchUserDetailsRes.id]));
+              vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, jsonDecode(fetchJobApplicationDetailsRes.contents), job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchUserDetailsRes.id]));
             }
           }
         }
@@ -646,7 +658,7 @@ Future<bool> grpcCreateJobApplication(String sessionKey, Job job, JobApplication
     final response = await stub.createJobApplication(CreateJobApplication_Request()
       ..sessionKey = sessionKey
       ..jobId = job.id
-      // ..content = jobApplication.contents
+      ..contents = jobApplication.contentsJson
       ..message = jobApplication.message);
     success = response.success;
   } catch (e) {
