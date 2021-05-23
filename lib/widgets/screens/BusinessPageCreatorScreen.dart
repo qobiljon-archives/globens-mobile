@@ -10,18 +10,24 @@ import 'dart:typed_data';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
 
-class CreateBusinessPageScreen extends StatefulWidget{
-
+class BusinessPageCreatorScreen extends StatefulWidget {
   static const String route_name = '/create_business_page_screen';
 
   @override
   State<StatefulWidget> createState() => _CreateBusinessPageState();
 }
 
-class _CreateBusinessPageState extends State<CreateBusinessPageScreen>{
+class _CreateBusinessPageState extends State<BusinessPageCreatorScreen> {
   TextEditingController _titleTextController = TextEditingController();
   Uint8List _businessPageImageBytes;
-  String _countryCode = AppUser.countryCode;
+  String _countryCode;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _countryCode = AppUser.countryCode;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +43,16 @@ class _CreateBusinessPageState extends State<CreateBusinessPageScreen>{
             Container(
               margin: EdgeInsets.all(10.0),
               child: GestureDetector(
-                onTap: () {
-                  _selectImagePressed(context);
-                },
-                child: CircleAvatar(
-                  radius: 40.0,
-                  backgroundImage: _businessPageImageBytes == null ? AssetImage('assets/placeholder_image.png') : MemoryImage(_businessPageImageBytes),
-                ),
-              ),
+                  onTap: () {
+                    _selectImagePressed(context);
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image(
+                      image: _businessPageImageBytes == null ? AssetImage('assets/placeholder_business_page.png') : MemoryImage(_businessPageImageBytes),
+                      width: 100,
+                    ),
+                  )),
             ),
             InkWell(
                 onTap: _setCountryPressed,
@@ -62,7 +70,7 @@ class _CreateBusinessPageState extends State<CreateBusinessPageScreen>{
                       ),
                       Spacer(),
                       Text(
-                        AppUser.userPrefs.getString("country") != null ? CountryHelper.countryName(_countryCode) : "Korea",
+                        CountryHelper.countryName(_countryCode),
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
                       ),
                       Icon(
@@ -79,13 +87,13 @@ class _CreateBusinessPageState extends State<CreateBusinessPageScreen>{
             Container(
               padding: EdgeInsets.all(26),
               child: Flexible(
-                    child: TextField(
-                      controller: _titleTextController,
-                      decoration: InputDecoration(
-                        labelText: Locale.get("Name of business"),
-                        hintText: Locale.get("e.g., SpaceX"),
-                      ),
-                    )),
+                  child: TextField(
+                    controller: _titleTextController,
+                    decoration: InputDecoration(
+                      labelText: Locale.get("Name of business"),
+                      hintText: Locale.get("e.g., SpaceX"),
+                    ),
+                  )),
             ),
             Container(
                 margin: EdgeInsets.only(top: 20.0),
@@ -141,9 +149,10 @@ class _CreateBusinessPageState extends State<CreateBusinessPageScreen>{
   void _setCountryPressed() async {
     await Navigator.of(context).pushNamed(CountrySelectionScreen.route_name, arguments: _countryCode);
 
-    if(CountrySelectionScreen.resultCountryCode != null){
-      _countryCode = CountrySelectionScreen.resultCountryCode;
-      setState(() {});
+    if (CountrySelectionScreen.resultCountryCode != null) {
+      setState(() {
+        _countryCode = CountrySelectionScreen.resultCountryCode;
+      });
     }
   }
 }

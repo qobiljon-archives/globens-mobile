@@ -1,11 +1,11 @@
-import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/CreateBusinessPageScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/CreateVacancyScreen.dart';
-import 'package:globens_flutter_client/widgets/screens/LanguageSelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens_tab/CategoryProductsScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/BusinessPageCreatorScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/LanguageSelectionScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/CreateVacancyScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductReviewsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/EmployeeReviewScreen.dart';
@@ -42,7 +42,7 @@ void main() {
       ProductReviewsScreen.route_name: (context) => ProductReviewsScreen(),
       CountrySelectionScreen.route_name: (context) => CountrySelectionScreen(),
       LanguageSelectionScreen.route_name: (context) => LanguageSelectionScreen(),
-      CreateBusinessPageScreen.route_name: (context) => CreateBusinessPageScreen(),
+      BusinessPageCreatorScreen.route_name: (context) => BusinessPageCreatorScreen(),
       CreateVacancyScreen.route_name: (context) => CreateVacancyScreen(),
     },
   ));

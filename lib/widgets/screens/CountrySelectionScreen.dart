@@ -11,8 +11,9 @@ class CountrySelectionScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _CountrySelectionState();
 }
 
-class _CountrySelectionState extends State<CountrySelectionScreen>{
-  var selectedCountry = "";
+class _CountrySelectionState extends State<CountrySelectionScreen> {
+  var selectedCountry;
+  var countries = CountryHelper.countries.keys.toList();
 
   @override
   void didChangeDependencies() {
@@ -26,45 +27,32 @@ class _CountrySelectionState extends State<CountrySelectionScreen>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Locale.get("Country")),
-      ),
-      body: _buildCountriesList(CountryHelper.countries.keys.toList()),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Widget _buildCountriesList(List<String> countryList) {
-    return ListView.separated(
-        separatorBuilder: (context, index) => Divider(
-          height: 1,
-          color: Colors.black12,
+        appBar: AppBar(
+          title: Text(Locale.get("Country")),
         ),
-        itemCount: countryList.length,
-        itemBuilder: (context, index) => _buildCountryRow(countryList[index]),
-    );
+        body: ListView.separated(
+          separatorBuilder: (context, index) => Divider(
+            height: 1,
+            color: Colors.black12,
+          ),
+          itemCount: countries.length,
+          itemBuilder: (context, index) => _buildCountryRow(countries[index]),
+        ));
   }
 
   Widget _buildCountryRow(String countryCode) {
-    final alreadySelected = countryCode == selectedCountry;
+    final isSelected = countryCode == selectedCountry;
     return ListTile(
       onTap: () => _onCountryPressed(countryCode),
-      title: Text(CountryHelper.countryName(countryCode),
-          style: TextStyle(fontSize: 18.0)
-      ),
+      title: Text(CountryHelper.countryName(countryCode), style: TextStyle(fontSize: 18.0)),
       trailing: Icon(
-        alreadySelected ? Icons.check : null,
-        color: alreadySelected ? Colors.black : null,
+        isSelected ? Icons.check : null,
+        color: isSelected ? Colors.black : null,
       ),
     );
   }
 
   void _onCountryPressed(String country) async {
-    // await AppUser.userPrefs.setString("country", country);
     CountrySelectionScreen.resultCountryCode = country;
     Navigator.of(context).pop();
   }

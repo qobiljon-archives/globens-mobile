@@ -160,9 +160,10 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   void _setCountryPressed() async {
-    await Navigator.of(context).pushNamed(CountrySelectionScreen.route_name, arguments: AppUser.userPrefs.getString("country"));
+    await Navigator.of(context).pushNamed(CountrySelectionScreen.route_name, arguments: AppUser.countryCode);
     if (CountrySelectionScreen.resultCountryCode != null) {
-      AppUser.userPrefs.setString("country", CountrySelectionScreen.resultCountryCode);
+      AppUser.setProfileInfo(countryCode: CountrySelectionScreen.resultCountryCode);
+      AppUser.updateUserPrefsData();
       setState(() {});
     }
   }

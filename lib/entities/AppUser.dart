@@ -59,7 +59,16 @@ class AppUser {
   static Future<void> init() async {
     AppUser._singleton = AppUser._internalConstructor();
     AppUser.userPrefs = await SharedPreferences.getInstance();
-    if (AppUser.userPrefs.containsKey("id")) AppUser.setProfileInfo(AppUser.userPrefs.getInt("id"), AppUser.userPrefs.getString("email"), AppUser.userPrefs.getString("displayName"), AppUser.userPrefs.getString("profileImageUrl"), AppUser.userPrefs.getString("sessionKey"), AppUser.userPrefs.getString("country"));
+    if (AppUser.userPrefs.containsKey("id")) {
+      AppUser.setProfileInfo(
+        id: AppUser.userPrefs.getInt("id"),
+        email: AppUser.userPrefs.getString("email"),
+        displayName: AppUser.userPrefs.getString("displayName"),
+        profileImageUrl: AppUser.userPrefs.getString("profileImageUrl"),
+        sessionKey: AppUser.userPrefs.getString("sessionKey"),
+        countryCode: AppUser.userPrefs.getString("countryCode"),
+      );
+    }
 
     final languageCode = AppUser.userPrefs.getInt("language");
     Locale.languageCode = languageCode != null ? languageCode : Language.ENGLISH;
@@ -70,13 +79,13 @@ class AppUser {
   // endregion
 
   // region Setters & getters
-  static void setProfileInfo(int id, String email, String displayName, String profileImageUrl, String sessionKey, String countryCode) {
-    AppUser._id = id;
-    AppUser._email = email;
-    AppUser._displayName = displayName;
-    AppUser._profileImageUrl = profileImageUrl;
-    AppUser._sessionKey = sessionKey;
-    AppUser._countryCode = countryCode;
+  static void setProfileInfo({int id, String email, String displayName, String profileImageUrl, String sessionKey, String countryCode}) {
+    if (id != null) AppUser._id = id;
+    if (email != null) AppUser._email = email;
+    if (displayName != null) AppUser._displayName = displayName;
+    if (profileImageUrl != null) AppUser._profileImageUrl = profileImageUrl;
+    if (sessionKey != null) AppUser._sessionKey = sessionKey;
+    if (countryCode != null) AppUser._countryCode = countryCode;
   }
 
   static void clearProfileInfo() {
@@ -102,7 +111,14 @@ class AppUser {
       int userId = res.item2;
       String sessionKey = res.item3;
       if (success) {
-        AppUser.setProfileInfo(userId, user.email, user.displayName, user.photoUrl, sessionKey, _countryCode);
+        AppUser.setProfileInfo(
+          id: userId,
+          email: user.email,
+          displayName: user.displayName,
+          profileImageUrl: user.photoUrl,
+          sessionKey: sessionKey,
+          countryCode: "KOR",
+        );
         AppUser.updateUserPrefsData();
         return true;
       }
@@ -122,7 +138,7 @@ class AppUser {
     userPrefs.setString("displayName", AppUser._displayName);
     userPrefs.setString("profileImageUrl", AppUser._profileImageUrl);
     userPrefs.setString("sessionKey", AppUser._sessionKey);
-    userPrefs.setString("country", AppUser._countryCode);
+    userPrefs.setString("countryCode", AppUser._countryCode);
   }
 
   static bool isAuthenticated() {
