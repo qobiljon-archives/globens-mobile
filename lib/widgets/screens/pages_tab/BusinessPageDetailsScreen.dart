@@ -88,39 +88,40 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     int jobRows = _jobs == null ? 1 : _jobs.length;
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get('${Locale.REPLACE} (business page)', _businessPage.title), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
-      body: SmartRefresher(
-        enablePullDown: true,
-        enablePullUp: true,
-        header: MaterialClassicHeader(color: Colors.blue,),
-        footer: CustomFooter(
-          builder: (BuildContext context, LoadStatus mode) {
-            Widget body;
-            if (mode == LoadStatus.idle)
-              body = Text("Pull up to load more");
-            else if (mode == LoadStatus.loading)
-              body = Text("Loading");
-            else if (mode == LoadStatus.failed)
-              body = Text("Load Failed! Click retry!");
-            else if (mode == LoadStatus.canLoading)
-              body = Text("release to load more");
-            else
-              body = Text("No more Data");
-            return Container(
-              height: 55.0,
-              child: Center(child: body),
-            );
-          },
-        ),
-        controller: _refreshController,
-        onRefresh: _onRefresh,
-        child: ListView.builder(
-          itemCount: 1 + productRows + 2 + jobRows + (_businessPage.role == Job.BUSINESS_OWNER_ROLE ? 1 : 0),
-          itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
-        ),
-      )
-    );
+        backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+        appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get('${Locale.REPLACE} (business page)', _businessPage.title), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
+        body: SmartRefresher(
+          enablePullDown: true,
+          enablePullUp: true,
+          header: MaterialClassicHeader(
+            color: Colors.blue,
+          ),
+          footer: CustomFooter(
+            builder: (BuildContext context, LoadStatus mode) {
+              Widget body;
+              if (mode == LoadStatus.idle)
+                body = Text("Pull up to load more");
+              else if (mode == LoadStatus.loading)
+                body = Text("Loading");
+              else if (mode == LoadStatus.failed)
+                body = Text("Load Failed! Click retry!");
+              else if (mode == LoadStatus.canLoading)
+                body = Text("release to load more");
+              else
+                body = Text("No more Data");
+              return Container(
+                height: 55.0,
+                child: Center(child: body),
+              );
+            },
+          ),
+          controller: _refreshController,
+          onRefresh: _onRefresh,
+          child: ListView.builder(
+            itemCount: 1 + productRows + 2 + jobRows + (_businessPage.role == Job.BUSINESS_OWNER_ROLE ? 1 : 0),
+            itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+          ),
+        ));
   }
 
   void _onRefresh() async {
@@ -357,11 +358,11 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   void _onProductTap(BuildContext context, Product product) async {
     await Navigator.of(context).pushNamed(ProductCreatorScreen.route_name, arguments: product);
-    await _fetchBusinessPageContent();
+    _refreshController.requestRefresh();
   }
 
   void _onVacancyClickPressed(BuildContext context, Job job, BusinessPage businessPage) async {
     await Navigator.of(context).pushNamed(JobApplicationsListScreen.route_name, arguments: {'job': job, 'businessPage': businessPage});
-    await _fetchBusinessPageContent();
+    _refreshController.requestRefresh();
   }
 }

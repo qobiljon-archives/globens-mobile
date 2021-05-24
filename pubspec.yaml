@@ -21,42 +21,32 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  # region default
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.0
   flutter_launcher_icons: ^0.8.1
   tuple: ^1.0.3
-
   async: ^2.4.2
   grpc: ^2.8.0
   protobuf: ^1.1.0
   protoc_plugin: ^19.3.0
-
   modal_bottom_sheet: ^1.0.0+1
   fluttertoast: ^7.1.6
   shared_preferences: ^0.5.12+4
-  # endregion
-  #region http
   http: ^0.12.2
-  #endregion
-  #region camera
   path: ^1.7.0
-
-
   path_provider: ^1.6.27
   camera: ^0.6.4+5
-  #endregion
-  #region others
   image_picker: ^0.6.7+21
   connectivity: ^2.0.2
   google_fonts: ^1.1.1
-  #endregion
   iamport_flutter: ^0.9.13
   file_picker: ^2.1.5+1
   country_icons: ^1.1.1
+  chewie: ^1.0.0
   video_player: ^2.1.1
   share: ^2.0.1
+  open_file: ^3.2.1
   flutter_filereader: ^1.0.0
   cupertino_radio_choice: ^1.0.1+1
   flutter_rating_bar: ^3.2.0+1
