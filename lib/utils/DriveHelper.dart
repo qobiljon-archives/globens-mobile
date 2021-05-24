@@ -1,8 +1,8 @@
-import 'dart:io';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:googleapis/drive/v3.dart' as ga;
 import 'package:googleapis_auth/auth_io.dart' as ga;
 import 'package:tuple/tuple.dart';
+import 'dart:io';
 
 class DriveHelper {
   static final _credentials = ga.ServiceAccountCredentials.fromJson({
@@ -33,25 +33,35 @@ class DriveHelper {
     return null;
   }
 
-  static Future<void> downloadFile(String fileId) async {
-    final httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
+  static Future<void> downloadFile(String fileId, String filePath, Function onDone) async {
+    var httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
     try {
       final api = ga.DriveApi(httpClient);
-      var response = await api.files.get(fileId, downloadOptions: ga.DownloadOptions.FullMedia) as ga.Media;
+      var media = await api.files.get(fileId, downloadOptions: ga.DownloadOptions.FullMedia) as ga.Media;
       List<int> dataStore = [];
-      response.stream.listen((data) {
-        print("DataReceived: ${data.length}");
-        dataStore.insertAll(dataStore.length, data);
-      }, onDone: () async {
-        print(dataStore);
-        print("Task Done");
-      }, onError: (error) {
-        print("Some Error");
-      });
+      await for (var part in media.stream) {
+        dataStore.insertAll(dataStore.length, part);
+      }
+      var file = new File(filePath);
+      await file.writeAsBytes(dataStore);
+      assert(media.length == file.lengthSync());
+      onDone.call();
+
+      // var dataStore = <int>[];
+      // response.stream.listen((data) {
+      //   dataStore.insertAll(dataStore.length, data);
+      // }, onDone: () async {
+      //   var file = File(filePath);
+      //   file.writeAsBytes(dataStore, mode: FileMode.append, flush: true);
+      //   httpClient.close();
+      //   onDone.call();
+      //   print("content downloaded");
+      // }, onError: (e) {
+      //   httpClient.close();
+      //   print("error downloading content : $e");
+      // });
     } catch (e) {
-      print(e.toString());
-    } finally {
-      httpClient.close();
+      print(e);
     }
   }
 

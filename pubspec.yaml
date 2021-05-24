@@ -55,7 +55,8 @@ dependencies:
   iamport_flutter: ^0.9.13
   file_picker: ^2.1.5+1
   country_icons: ^1.1.1
-  video_player: ^1.0.1
+  video_player: ^2.1.1
+  share: ^2.0.1
   flutter_filereader: ^1.0.0
   cupertino_radio_choice: ^1.0.1+1
   flutter_rating_bar: ^3.2.0+1

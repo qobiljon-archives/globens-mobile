@@ -1,17 +1,15 @@
-import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
-import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductReviewsScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
+import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
-
-import 'DriveContentViewerScreen.dart';
+import 'ProductContentViewer.dart';
 
 class ProductViewerScreen extends StatefulWidget {
   static const String route_name = '/product_viewer_screen';
@@ -191,7 +189,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _onContentPressed(Content content) async {
-    await Navigator.push(context, MaterialPageRoute(builder: (context) => DriveContentViewer(content)));
+    await Navigator.pushNamed(context, ProductContentViewer.route_name, arguments: content);
   }
 
   void _purchaseProduct() async {

@@ -80,7 +80,7 @@
 	<key>NSAppTransportSecurity</key>
 	<dict>
 	    <key>NSAllowsArbitraryLoadsInWebContent</key>
-      <true/>
+        <true/>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
