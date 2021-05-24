@@ -1,11 +1,11 @@
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
+import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
+import 'package:globens_flutter_client/entities/Content.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
-import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
-import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
@@ -76,7 +76,7 @@ class _JobApplicationCreatorScreenState extends State<JobApplicationCreatorScree
             Container(
               margin: EdgeInsets.only(top: 25.0, left: 30.0, right: 30.0),
               child: RaisedButton.icon(
-                onPressed: _uploadingFiles.isNotEmpty ? null : _uploadFilePressed,
+                onPressed: _uploadingFiles.isNotEmpty ? null : _addUploadFilePressed,
                 color: Colors.blueAccent,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 icon: Icon(Icons.attachment_outlined, color: Colors.white),
@@ -99,12 +99,13 @@ class _JobApplicationCreatorScreenState extends State<JobApplicationCreatorScree
     );
   }
 
-  void _uploadFilePressed() async {
+  void _addUploadFilePressed() async {
     FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
-
     if (result != null) {
+      var selectedSupportedFiles = <File>[];
+      for (var path in result.paths) if (getContentType(path) == ContentType.DOCUMENT) selectedSupportedFiles.add(new File(path));
       setState(() {
-        _applicationAttachmentFiles = result.paths.map((path) => File(path)).toList();
+        _applicationAttachmentFiles = selectedSupportedFiles;
       });
     } else {
       toast(Locale.get("Selection cancelled!"));
@@ -123,7 +124,7 @@ class _JobApplicationCreatorScreenState extends State<JobApplicationCreatorScree
       return;
     }
 
-    Map<String, dynamic> contents = {'ids': <int>[]};
+    var contents = <Content>[];
     bool success = true;
 
     setState(() {
@@ -143,8 +144,9 @@ class _JobApplicationCreatorScreenState extends State<JobApplicationCreatorScree
           var uploadedFile = await DriveHelper.uploadFile(fileName, localFile);
           success &= uploadedFile != null;
           if (success) {
-            grpcUpdateContent(AppUser.sessionKey, Content.create(fileName, uploadedFile.item1, uploadedFile.item2, id: id));
-            contents['ids'].add(id);
+            var content = Content.create(fileName, uploadedFile.item1, uploadedFile.item2, id: id);
+            await grpcUpdateContent(AppUser.sessionKey, content);
+            contents.add(content);
             setState(() {
               _uploadingFiles.remove(localFile.path);
             });

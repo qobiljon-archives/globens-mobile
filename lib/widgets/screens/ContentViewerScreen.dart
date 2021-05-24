@@ -1,5 +1,5 @@
 import 'package:globens_flutter_client/utils/DriveHelper.dart';
-import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/entities/Content.dart';
 import 'package:flutter_filereader/flutter_filereader.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -10,14 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'dart:io';
 
-class ProductContentViewer extends StatefulWidget {
+class ContentViewerScreen extends StatefulWidget {
   static const String route_name = '/product_content_viewer';
 
   @override
-  ProductContentViewerState createState() => ProductContentViewerState();
+  ContentViewerScreenState createState() => ContentViewerScreenState();
 }
 
-class ProductContentViewerState extends State<ProductContentViewer> {
+class ContentViewerScreenState extends State<ContentViewerScreen> {
   Content _content;
   ContentType _contentType;
 

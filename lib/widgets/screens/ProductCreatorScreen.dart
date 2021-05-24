@@ -1,12 +1,13 @@
 import 'package:globens_flutter_client/widgets/modal_views/AvailableTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
-import 'package:globens_flutter_client/widgets/screens/ProductContentViewer.dart';
+import 'package:globens_flutter_client/widgets/screens/ContentViewerScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/entities/Content.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
@@ -418,7 +419,6 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   void _addUploadFilePressed() async {
     try {
       FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
-
       if (result != null) {
         var selectedSupportedFiles = <File>[];
         for (var path in result.paths) if (getContentType(path) != ContentType.NONE) selectedSupportedFiles.add(new File(path));
@@ -449,7 +449,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
   void _onExistingContentClick(Content content) async {
     // view from google drive
-    await Navigator.pushNamed(context, ProductContentViewer.route_name, arguments: content);
+    await Navigator.pushNamed(context, ContentViewerScreen.route_name, arguments: content);
   }
 
   void _onNewUploadFileClick(File file) async {

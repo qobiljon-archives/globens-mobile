@@ -5,11 +5,12 @@ import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
+import 'package:globens_flutter_client/entities/Content.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
-import 'ProductContentViewer.dart';
+import 'ContentViewerScreen.dart';
 
 class ProductViewerScreen extends StatefulWidget {
   static const String route_name = '/product_viewer_screen';
@@ -132,26 +133,21 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
           getSectionSplitter(Locale.get("Product content")),
           if (isFile && _contents != null)
             Column(
-                children: _contents
-                    .map((content) => GestureDetector(
-                          onTap: () => _onContentPressed(content),
-                          child: Card(
-                              margin: EdgeInsets.only(top: 10.0),
-                              child: Container(
-                                  padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 10, bottom: 10),
-                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                    SizedBox(width: 10.0, height: 10.0),
-                                    Icon(getFileTypeIcon(content.title), color: Colors.black87, size: 30.0),
-                                    SizedBox(width: 10.0, height: 10.0),
-                                    Expanded(
-                                      child: Text(
-                                        RegExp(r'^(.+/)?(.+)$').firstMatch(content.title).group(2),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    )
-                                  ]))),
-                        ))
-                    .toList()),
+              children: _contents
+                  .map((content) => GestureDetector(
+                      onTap: () => _onContentPressed(content),
+                      child: Card(
+                          margin: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                              padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 10, bottom: 10),
+                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                SizedBox(width: 10.0, height: 10.0),
+                                Icon(getFileTypeIcon(content.title), color: Colors.black87, size: 30.0),
+                                SizedBox(width: 10.0, height: 10.0),
+                                Expanded(child: Text(RegExp(r'^(.+/)?(.+)$').firstMatch(content.title).group(2), overflow: TextOverflow.ellipsis)),
+                              ])))))
+                  .toList(),
+            ),
           if (isSchedule)
             Container(
                 margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
@@ -181,7 +177,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _onContentPressed(Content content) async {
-    await Navigator.pushNamed(context, ProductContentViewer.route_name, arguments: content);
+    await Navigator.pushNamed(context, ContentViewerScreen.route_name, arguments: content);
   }
 
   void _purchaseProduct() async {

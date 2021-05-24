@@ -1,6 +1,3 @@
-import 'dart:io';
-
-import 'package:globens_flutter_client/widgets/screens/ProductContentViewer.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/globens_tab/CategoryProductsScreen.dart';
@@ -14,10 +11,12 @@ import 'package:globens_flutter_client/widgets/screens/ProductReviewsScreen.dart
 import 'package:globens_flutter_client/widgets/screens/ProductCreatorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/EmployeeReviewScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart';
+import 'package:globens_flutter_client/widgets/screens/ContentViewerScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +49,7 @@ void main() {
       JobApplicationsListScreen.route_name: (context) => JobApplicationsListScreen(),
       ProductViewerScreen.route_name: (context) => ProductViewerScreen(),
       ProductCreatorScreen.route_name: (context) => ProductCreatorScreen(),
-      ProductContentViewer.route_name: (context) => ProductContentViewer(),
+      ContentViewerScreen.route_name: (context) => ContentViewerScreen(),
       EmployeeReviewScreen.route_name: (context) => EmployeeReviewScreen(),
       ProductReviewsScreen.route_name: (context) => ProductReviewsScreen(),
       CountrySelectionScreen.route_name: (context) => CountrySelectionScreen(),

@@ -28,7 +28,9 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   void initState() {
     super.initState();
-    _calculateGlobensCacheSize().then((value) => setState(() {}));
+    _calculateGlobensCacheSize().then((value) {
+      if (mounted) setState(() {});
+    });
   }
 
   @override

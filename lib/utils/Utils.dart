@@ -1,14 +1,15 @@
-import 'package:globens_flutter_client/entities/ProductCategory.dart';
-import 'package:globens_flutter_client/entities/Review.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pbgrpc.dart';
+import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/JobApplication.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
-import 'package:globens_flutter_client/utils/Locale.dart';
+import 'package:globens_flutter_client/entities/Content.dart';
+import 'package:globens_flutter_client/entities/Review.dart';
 import 'package:globens_flutter_client/utils/Settings.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
@@ -108,7 +109,7 @@ IconData getFileTypeIcon(String filename) {
   var contentType = getContentType(filename);
   if (contentType == ContentType.MEDIA)
     return Icons.play_circle_fill;
-  else if(contentType == ContentType.DOCUMENT)
+  else if (contentType == ContentType.DOCUMENT)
     return Icons.insert_drive_file_outlined;
   else
     return Icons.error;
@@ -117,17 +118,16 @@ IconData getFileTypeIcon(String filename) {
 ContentType getContentType(String filename) {
   // ['docx','doc','xlsx','xls','pptx','ppt','pdf','txt']
   if (filename.length > 4) {
-    var extension = filename.substring(filename.length-3).toLowerCase();
-    if (['docx','doc','xlsx','xls','pptx','ppt','pdf','txt'].contains(extension))
+    var extension = filename.substring(filename.length - 3).toLowerCase();
+    if (['docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt', 'pdf', 'txt'].contains(extension))
       return ContentType.DOCUMENT;
-    else if (['mp3', 'mp4'].contains(extension))
-      return ContentType.MEDIA;
+    else if (['mp3', 'mp4'].contains(extension)) return ContentType.MEDIA;
   }
   return ContentType.NONE;
 }
 
 String getSupportedFormatsStr() {
-  return ['mp3', 'mp4', 'txt', 'docx','doc','xlsx','xls','pptx','ppt','pdf','txt'].join(', ');
+  return ['mp3', 'mp4', 'txt', 'docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt', 'pdf', 'txt'].join(', ');
 }
 
 String getProductTypeStr(ProductType type) {
@@ -177,7 +177,6 @@ Future<bool> gprcUpdateUserDetails(String sessionKey, GlobensUser user) async {
 
   bool success = false;
   String sessionKey;
-  int userId;
   try {
     final response = await stub.updateUserDetails(UpdateUserDetails_Request()
       ..sessionKey = sessionKey
@@ -189,7 +188,7 @@ Future<bool> gprcUpdateUserDetails(String sessionKey, GlobensUser user) async {
   } finally {
     await channel.shutdown();
   }
-  return true;
+  return success;
 }
 
 Future<Tuple2<bool, GlobensUser>> grpcFetchUserDetails(String sessionKey, int userId) async {
@@ -611,7 +610,8 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
 
   bool success = false;
   var vacancyApplications = <JobApplication>[];
-  var applicantUsers = Map<int, GlobensUser>();
+  var allApplicantUsers = Map<int, GlobensUser>();
+  var allContents = Map<int, Content>();
 
   try {
     final fetchJobApplicationIdsRes = await stub.fetchJobApplicationIds(FetchJobApplicationIds_Request()
@@ -621,24 +621,35 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
     success = fetchJobApplicationIdsRes.success;
     if (success) {
       for (int applicationId in fetchJobApplicationIdsRes.id) {
-        final fetchJobApplicationDetailsRes = await stub.fetchJobApplicationDetails(FetchJobApplicationDetails_Request()
+        var fetchJobApplicationDetailsRes = await stub.fetchJobApplicationDetails(FetchJobApplicationDetails_Request()
           ..sessionKey = sessionKey
           ..jobApplicationId = applicationId);
         success &= fetchJobApplicationDetailsRes.success;
 
         if (success) {
-          if (applicantUsers.containsKey(fetchJobApplicationDetailsRes.applicantId))
-            vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, jsonDecode(fetchJobApplicationDetailsRes.contents), job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchJobApplicationDetailsRes.applicantId]));
-          else {
-            final fetchUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
+          if (!allApplicantUsers.containsKey(fetchJobApplicationDetailsRes.applicantId)) {
+            var fetchUserDetailsRes = await stub.fetchUserDetails(FetchUserDetails_Request()
               ..sessionKey = sessionKey
               ..userId = fetchJobApplicationDetailsRes.applicantId);
             success &= fetchUserDetailsRes.success;
+            if (success) allApplicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode));
+          }
 
-            if (success) {
-              applicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode));
-              vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, jsonDecode(fetchJobApplicationDetailsRes.contents), job, id: fetchJobApplicationDetailsRes.id, applicant: applicantUsers[fetchUserDetailsRes.id]));
+          if (success) {
+            var contents = <Content>[];
+            for (int contentId in jsonDecode(fetchJobApplicationDetailsRes.contents)['ids']) {
+              if (!allContents.containsKey(contentId)) {
+                var fetchContentDetailsRes = await stub.fetchContentDetails(FetchContentDetails_Request()
+                  ..sessionKey = sessionKey
+                  ..contentId = contentId);
+                success &= fetchContentDetailsRes.success;
+                if (success) allContents.putIfAbsent(contentId, () => Content.create(fetchContentDetailsRes.title, fetchContentDetailsRes.fileId, fetchContentDetailsRes.url));
+              }
+
+              if (allContents.containsKey(contentId)) contents.add(allContents[contentId]);
             }
+
+            if (success) vacancyApplications.add(JobApplication.create(fetchJobApplicationDetailsRes.message, contents, job, id: fetchJobApplicationDetailsRes.id, applicant: allApplicantUsers[fetchJobApplicationDetailsRes.applicantId]));
           }
         }
       }

@@ -94,12 +94,12 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     if (_jobApplications == null)
       return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
     else if (_jobApplications.length > 0)
-      return _buildVacancyApplicationItem(context, index == 0, _jobApplications[index]);
+      return _buildJobApplicationItem(context, index == 0, _jobApplications[index]);
     else
       return Container(); // empty job applications
   }
 
-  Widget _buildVacancyApplicationItem(BuildContext context, bool firstElement, JobApplication jobApplication) {
+  Widget _buildJobApplicationItem(BuildContext context, bool firstElement, JobApplication jobApplication) {
     return InkWell(
         onTap: () => _onJobApplicationPressed(jobApplication),
         child: Card(
