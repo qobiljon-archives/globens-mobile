@@ -1,5 +1,6 @@
 import 'package:globens_flutter_client/widgets/modal_views/AvailableTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalView.dart';
+import 'package:globens_flutter_client/widgets/screens/ProductContentViewer.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
@@ -10,6 +11,7 @@ import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -42,6 +44,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   ProductDeliveryType _selectedProductDeliveryType;
   Currency _selectedCurrency;
   List<File> _productContentFiles = <File>[];
+  List<Content> _existingProductContents = <Content>[];
+  List<Content> _existingProductContentsToBeRemoved = <Content>[];
   Set<String> _uploadingFiles = Set();
   Map<String, int> _fromUntilDateTime = <String, int>{"from": -1, "until": -1};
   Map<String, Set<int>> _productAvailableTimeSlots = Map<String, Set<int>>();
@@ -56,10 +60,10 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     _selectedCurrency = Currency.KRW;
 
     _productTypes = <ProductDeliveryType, Tuple2<String, String>>{
-      ProductDeliveryType.FILE_DOWNLOADABLE: Tuple2(Locale.get('Downloadable files'), 'assets/product_type_downloadable.png'),
-      ProductDeliveryType.FILE_STREAMED: Tuple2(Locale.get('Streamed files'), 'assets/product_type_streamed.png'),
-      ProductDeliveryType.SCHEDULED_FACE_TO_FACE: Tuple2(Locale.get('Scheduled face-to-face meeting'), 'assets/product_type_scheduled.png'),
-      ProductDeliveryType.SCHEDULED_ONLINE_CALL: Tuple2(Locale.get('Scheduled online call'), 'assets/product_type_scheduled.png'),
+      ProductDeliveryType.FILE_DOWNLOADABLE: Tuple2('Downloadable files', 'assets/product_type_downloadable.png'),
+      ProductDeliveryType.FILE_STREAMED: Tuple2('Streamed files', 'assets/product_type_streamed.png'),
+      ProductDeliveryType.SCHEDULED_FACE_TO_FACE: Tuple2('Scheduled face-to-face meeting', 'assets/product_type_scheduled.png'),
+      ProductDeliveryType.SCHEDULED_ONLINE_CALL: Tuple2('Scheduled online call', 'assets/product_type_scheduled.png'),
     };
 
     grpcFetchProductCategories().then((tp) {
@@ -91,9 +95,14 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       _priceTextController.text = _product.price.toString();
       _descriptionTextController.text = _product.description;
       if (_selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED) {
-        // todo view/edit files
+        () async {
+          for (var contentId in _product.contents['ids']) {
+            var res = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
+            if (res.item1) _existingProductContents.add(res.item2);
+          }
+          if (mounted) setState(() {});
+        }.call();
       } else if (_selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL) {
-        // todo view/edit schedule
         _fromUntilDateTime['from'] = _product.contents['from'];
         _fromUntilDateTime['until'] = _product.contents['until'];
 
@@ -108,12 +117,19 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    bool uploadFile = _selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED;
-    bool calendarSchedule = _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL;
+    bool isFile = _selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED;
+    bool isSchedule = _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL;
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Product details"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white),)),
+      appBar: AppBar(
+          leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()),
+          backgroundColor: Colors.blue,
+          title: Text(
+            Locale.get("Product details"),
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: Colors.white),
+          )),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
@@ -184,7 +200,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   elevation: 16,
                   underline: Container(),
                   onChanged: _onProductTypeChanged,
-                  items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", _productTypes[selectedProductType].item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
+                  items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", Locale.get(_productTypes[selectedProductType].item1)), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
                 ),
               ),
             ),
@@ -196,10 +212,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   children: [
                     Flexible(
                         child: TextField(
-                            controller: _priceTextController,
-                            keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true),
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
-                            decoration: InputDecoration(labelText: calendarSchedule ? Locale.get("Price per time slot") : Locale.get("Price"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., 1000"), border: InputBorder.none))),
+                            controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: isSchedule ? Locale.get("Price per time slot") : Locale.get("Price"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., 1000"), border: InputBorder.none))),
                     DropdownButton<String>(
                         value: _selectedCurrency.name,
                         icon: Icon(Icons.expand_more),
@@ -227,30 +240,47 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 child: Container(
                     padding: EdgeInsets.only(left: 10.0, right: 10.0),
                     child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
-            getSectionSplitter(Locale.get(calendarSchedule ? "Schedule" : "Product content")),
-            if (uploadFile && _productContentFiles.length > 0)
+            getSectionSplitter(Locale.get(isSchedule ? "Schedule" : "Product content")),
+            if (isFile && _existingProductContents.length > 0)
+              Column(
+                  children: _existingProductContents
+                      .map((content) => GestureDetector(
+                            onTap: () => _onExistingContentClick(content),
+                            child: Card(
+                                shadowColor: Colors.lightGreenAccent,
+                                margin: EdgeInsets.only(top: 10.0),
+                                child: Container(
+                                    padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
+                                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                      SizedBox(width: 10.0, height: 10.0),
+                                      Icon(getFileTypeIcon(content.title), color: Colors.black87, size: 30.0),
+                                      SizedBox(width: 10.0, height: 10.0),
+                                      Expanded(child: Text(content.title, overflow: TextOverflow.ellipsis)),
+                                      IconButton(onPressed: () => _removeExistingContent(content), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent)),
+                                    ]))),
+                          ))
+                      .toList()),
+            if (isFile && _productContentFiles.length > 0)
               Column(
                   children: _productContentFiles
-                      .map((file) => Card(
-                          margin: EdgeInsets.only(top: 10.0),
-                          child: Container(
-                              padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
-                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                SizedBox(width: 10.0, height: 10.0),
-                                if (_uploadingFiles.contains(file.path)) SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
-                                if (!_uploadingFiles.contains(file.path)) Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
-                                SizedBox(width: 10.0, height: 10.0),
-                                Expanded(
-                                  child: Text(
-                                    RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
-                              ]))))
+                      .map((file) => GestureDetector(
+                            onTap: () => _onNewUploadFileClick(file),
+                            child: Card(
+                                margin: EdgeInsets.only(top: 10.0),
+                                child: Container(
+                                    padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
+                                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                      SizedBox(width: 10.0, height: 10.0),
+                                      if (_uploadingFiles.contains(file.path)) SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
+                                      if (!_uploadingFiles.contains(file.path)) Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
+                                      SizedBox(width: 10.0, height: 10.0),
+                                      Expanded(child: Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2), overflow: TextOverflow.ellipsis)),
+                                      IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
+                                    ]))),
+                          ))
                       .toList()),
-            if (uploadFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-            if (calendarSchedule)
+            if (isFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (isSchedule)
               GestureDetector(
                 onTap: () => _selectDateTime('from'),
                 child: Card(
@@ -263,7 +293,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                       ),
                     )),
               ),
-            if (calendarSchedule)
+            if (isSchedule)
               GestureDetector(
                 onTap: () => _selectDateTime('until'),
                 child: Card(
@@ -276,7 +306,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                       ),
                     )),
               ),
-            if (calendarSchedule)
+            if (isSchedule)
               GestureDetector(
                 onTap: _selectTimeSlots,
                 child: Card(
@@ -289,10 +319,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
               ),
             getSectionSplitter(Locale.get("Proceed with this product")),
             RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published)
-              RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text("PUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published)
-              RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text("UNPUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published) RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text("PUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published) RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text("UNPUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
           ],
         ),
       ),
@@ -379,10 +407,6 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     }
   }
 
-  void _onBackButtonPressed() {
-    Navigator.of(context).pop();
-  }
-
   void _showPhotoUploadOptions() async {
     PhotoSelectorModalView.resultImageBytes = null;
     await showModalBottomSheet(isScrollControlled: true, context: context, builder: (context) => PhotoSelectorModalView.getContainer(context));
@@ -390,76 +414,6 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     setState(() {
       _productImageBytes = resultImageBytes;
     });
-  }
-
-  void _createOrUpdateProductPressed() async {
-    double price = double.tryParse(_priceTextController.text) ?? double.nan;
-    if (_titleTextController.text.length < 2) {
-      await toast(Locale.get("Product title must not be shorter than two characters!"));
-      return;
-    } else if (price == double.nan) {
-      _priceTextController.text = "0";
-      await toast(Locale.get("Please check the price value!"));
-      return;
-    } else if (_descriptionTextController.text.length == 0) {
-      await toast(Locale.get("Product description must be at least one character!"));
-      return;
-    } else if (_productImageBytes == null) {
-      await toast(Locale.get("Please upload a feature image for the product!"));
-      return;
-    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file') && _productContentFiles.length < 1) {
-      await toast(Locale.get('At least one attachment (file) required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductDeliveryType].item1));
-      return;
-    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule') && _productAvailableTimeSlots.length == 0) {
-      await toast(Locale.get('At least one available time slot required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductDeliveryType].item1));
-      return;
-    }
-
-    Map<String, dynamic> contents = {'ids': <int>[]};
-    bool success = true;
-
-    setState(() {
-      for (File localFile in _productContentFiles) _uploadingFiles.add(localFile.path);
-    });
-
-    if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file')) {
-      // todo add upload progressbar
-      for (File localFile in _productContentFiles) {
-        var fileName = path.basename(localFile.path);
-        var tp = await grpcCreateNewContent(AppUser.sessionKey, Content.create(fileName, "", ""));
-        success &= tp.item1;
-        if (success) {
-          var id = tp.item2;
-          var uploadedFile = await DriveHelper.uploadFile(fileName, localFile);
-          success &= uploadedFile != null;
-          if (success) {
-            grpcUpdateContent(AppUser.sessionKey, Content.create(fileName, uploadedFile.item1, uploadedFile.item2, id: id));
-            contents['ids'].add(id);
-            setState(() {
-              _uploadingFiles.remove(localFile.path);
-            });
-          }
-        }
-      }
-    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule')) {
-      Map<String, List<int>> availableTimeSlots = new Map<String, List<int>>();
-      for (String key in _productAvailableTimeSlots.keys) {
-        availableTimeSlots[key] = _productAvailableTimeSlots[key].toList();
-      }
-      contents = {'from': _fromUntilDateTime['from'], 'until': _fromUntilDateTime['until'], 'slots': availableTimeSlots};
-    }
-
-    if (_product == null)
-      success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents));
-    else
-      success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, id: _product.id));
-
-    if (success)
-      Navigator.of(context).pop();
-    else {
-      await AppUser.signOut();
-      await Navigator.of(context).pushReplacementNamed('/');
-    }
   }
 
   void _uploadFilePressed() async {
@@ -482,6 +436,98 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     setState(() {
       _productContentFiles.remove(file);
     });
+  }
+
+  void _removeExistingContent(Content content) async {
+    _existingProductContentsToBeRemoved.add(content);
+    setState(() {
+      _existingProductContents.remove(content);
+    });
+  }
+
+  void _onExistingContentClick(Content content) async {
+    // view from google drive
+    await Navigator.pushNamed(context, ProductContentViewer.route_name, arguments: content);
+  }
+
+  void _onNewUploadFileClick(File file) async {
+    // view from device file
+    await OpenFile.open(file.path);
+  }
+
+  void _createOrUpdateProductPressed() async {
+    double price = double.tryParse(_priceTextController.text) ?? double.nan;
+    if (_titleTextController.text.length < 2) {
+      await toast(Locale.get("Product title must not be shorter than two characters!"));
+      return;
+    } else if (price == double.nan) {
+      _priceTextController.text = "0";
+      await toast(Locale.get("Please check the price value!"));
+      return;
+    } else if (_descriptionTextController.text.length == 0) {
+      await toast(Locale.get("Product description must be at least one character!"));
+      return;
+    } else if (_productImageBytes == null) {
+      await toast(Locale.get("Please upload a feature image for the product!"));
+      return;
+    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file') && _productContentFiles.length + _existingProductContents.length < 1) {
+      await toast(Locale.get('At least one attachment (file) required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductDeliveryType].item1));
+      return;
+    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule') && _productAvailableTimeSlots.length == 0) {
+      await toast(Locale.get('At least one available time slot required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductDeliveryType].item1));
+      return;
+    }
+
+    Map<String, dynamic> contents;
+    bool success = true;
+
+    if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file')) {
+      setState(() {
+        for (File localFile in _productContentFiles) _uploadingFiles.add(localFile.path);
+      });
+
+      contents = {'ids': <int>[]};
+      // prior existing contents
+      for (Content content in _existingProductContents) contents['ids'].add(content.id);
+      // new upload contents
+      for (File localFile in _productContentFiles) {
+        var fileName = path.basename(localFile.path);
+        var tp = await grpcCreateNewContent(AppUser.sessionKey, Content.create(fileName, "", ""));
+        success &= tp.item1;
+        if (success) {
+          var id = tp.item2;
+          var uploadedFile = await DriveHelper.uploadFile(fileName, localFile);
+          success &= uploadedFile != null;
+          if (success) {
+            grpcUpdateContent(AppUser.sessionKey, Content.create(fileName, uploadedFile.item1, uploadedFile.item2, id: id));
+            contents['ids'].add(id);
+            setState(() {
+              _uploadingFiles.remove(localFile.path);
+            });
+          }
+        }
+      }
+      // prior existing contents to be removed
+      for (Content content in _existingProductContentsToBeRemoved) await grpcRemoveContent(AppUser.sessionKey, content);
+    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule')) {
+      Map<String, List<int>> availableTimeSlots = new Map<String, List<int>>();
+      for (String key in _productAvailableTimeSlots.keys) {
+        availableTimeSlots[key] = _productAvailableTimeSlots[key].toList();
+      }
+      contents = {'from': _fromUntilDateTime['from'], 'until': _fromUntilDateTime['until'], 'slots': availableTimeSlots};
+    }
+
+    if (_product == null)
+      success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents));
+    else
+      success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, id: _product.id));
+
+    if (success)
+      Navigator.of(context).pop();
+    else {
+      await AppUser.signOut();
+      await Navigator.of(context).pushReplacementNamed('/');
+    }
   }
 
   void _publishProductPressed() async {
