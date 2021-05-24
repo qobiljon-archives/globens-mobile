@@ -27,17 +27,16 @@ class _CountrySelectionState extends State<CountrySelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(Locale.get("Country")),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Country"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
+      body: ListView.separated(
+        separatorBuilder: (context, index) => Divider(
+          height: 1,
+          color: Colors.black12,
         ),
-        body: ListView.separated(
-          separatorBuilder: (context, index) => Divider(
-            height: 1,
-            color: Colors.black12,
-          ),
-          itemCount: countries.length,
-          itemBuilder: (context, index) => _buildCountryRow(countries[index]),
-        ));
+        itemCount: countries.length,
+        itemBuilder: (context, index) => _buildCountryRow(countries[index]),
+      ),
+    );
   }
 
   Widget _buildCountryRow(String countryCode) {

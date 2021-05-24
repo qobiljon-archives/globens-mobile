@@ -24,7 +24,6 @@ class BusinessPageDetailsScreen extends StatefulWidget {
 }
 
 class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
-  Row _header;
   List<Product> _products;
   List<Job> _jobs;
   Container _createProductButton;
@@ -34,18 +33,6 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
   @override
   void initState() {
     super.initState();
-
-    // 1. static part : set up common part of header and footer
-    _header = Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: _onBackButtonPressed,
-        ),
-        getTitleWidget(Locale.get('Business page'), textColor: Colors.black, margin: EdgeInsets.all(0))
-      ],
-    );
 
     _createProductButton = Container(
         margin: EdgeInsets.all(20),
@@ -99,9 +86,10 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get('${Locale.REPLACE} (business page)', _businessPage.title), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
       body: Container(
         child: ListView.builder(
-          itemCount: 2 + productRows + 2 + jobRows + (_businessPage.role == Job.BUSINESS_OWNER_ROLE ? 1 : 0),
+          itemCount: 1 + productRows + 2 + jobRows + (_businessPage.role == Job.BUSINESS_OWNER_ROLE ? 1 : 0),
           itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
         ),
       ),
@@ -113,12 +101,12 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     int jobRows = _jobs == null ? 1 : max(_jobs.length, 1);
     Size screenSize = MediaQuery.of(context).size;
 
-    if (index == 2 + productRows + 2 + jobRows) {
+    if (index == 1 + productRows + 2 + jobRows) {
       // create new vacancy button
       return _createVacancyButton;
-    } else if (index >= 2 + productRows + 2) {
+    } else if (index >= 1 + productRows + 2) {
       // vacancies section
-      index -= 2 + productRows + 2;
+      index -= 1 + productRows + 2;
       if (_jobs == null)
         return SpinKitFoldingCube(
           color: Colors.blue,
@@ -128,15 +116,15 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
         return _buildJobItem(context, _jobs[index]);
       else
         return Container(); // empty jobs
-    } else if (index == 2 + productRows + 1) {
+    } else if (index == 1 + productRows + 1) {
       // splitter
       return getSectionSplitter(Locale.get("Employees and vacancies"));
-    } else if (index == 2 + productRows) {
+    } else if (index == 1 + productRows) {
       // create new product button
       return _createProductButton;
-    } else if (index >= 2) {
+    } else if (index >= 1) {
       // products section
-      index -= 2;
+      index -= 1;
       if (_products == null)
         return SpinKitFoldingCube(
           color: Colors.blue,
@@ -146,12 +134,9 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
         return _buildProductRow(context, index, screenSize);
       else
         return Container(); // empty products
-    } else if (index == 1) {
+    } else {
       // splitter
       return getSectionSplitter(Locale.get("Products"));
-    } else {
-      // header section
-      return _header;
     }
   }
 
@@ -247,35 +232,36 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
   Widget _buildJobItem(BuildContext context, Job job) {
     return InkWell(
-        onTap: () => _onJobPressed(context, job, _businessPage),
-        child: Card(
-          margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                margin: EdgeInsets.all(10.0),
-                child: CircleAvatar(
-                  radius: 20.0,
-                  backgroundImage: job.isVacant ? AssetImage("assets/placeholder_vacancy.png") : NetworkImage(job.hiredUser.picture),
-                ),
+      onTap: () => job.isVacant && _businessPage.role == Job.BUSINESS_OWNER_ROLE ? _onVacancyClickPressed(context, job, _businessPage) : null,
+      child: Card(
+        margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              margin: EdgeInsets.all(10.0),
+              child: CircleAvatar(
+                radius: 20.0,
+                backgroundImage: job.isVacant ? AssetImage("assets/placeholder_vacancy.png") : NetworkImage(job.hiredUser.picture),
               ),
-              Expanded(
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text(
-                    shorten(job.title, 28, ellipsize: true),
-                    style: TextStyle(fontSize: 20.0),
-                  ),
-                  Text(
-                    job.isVacant ? "[ vacant position ]" : "${job.hiredUser.name} (${job.hiredUser.email})",
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
-                  )
-                ]),
-              )
-            ],
-          ),
-        ));
+            ),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(
+                  shorten(job.title, 28, ellipsize: true),
+                  style: TextStyle(fontSize: 20.0),
+                ),
+                Text(
+                  job.isVacant ? "[ vacant position ]" : "${job.hiredUser.name} (${job.hiredUser.email})",
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic),
+                )
+              ]),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> _fetchBusinessPageContent() async {
@@ -328,10 +314,6 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     }
   }
 
-  void _onBackButtonPressed() {
-    Navigator.of(context).pop();
-  }
-
   void _onCreateVacancyPressed() async {
     await Navigator.of(context).pushNamed(VacancyCreatorScreen.route_name, arguments: _businessPage);
     Tuple2<bool, List<Job>> res = await grpcFetchBusinessPageJobs(AppUser.sessionKey, _businessPage);
@@ -354,7 +336,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
     await _fetchBusinessPageContent();
   }
 
-  void _onJobPressed(BuildContext context, Job job, BusinessPage businessPage) async {
+  void _onVacancyClickPressed(BuildContext context, Job job, BusinessPage businessPage) async {
     await Navigator.of(context).pushNamed(JobApplicationsListScreen.route_name, arguments: {'job': job, 'businessPage': businessPage});
     await _fetchBusinessPageContent();
   }

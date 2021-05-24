@@ -37,7 +37,7 @@ class _JobApplicationCreatorScreenState extends State<JobApplicationCreatorScree
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(Locale.get("Job application form"))),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Job application form"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),

@@ -21,23 +21,9 @@ class CategoryProductsScreen extends StatefulWidget {
 }
 
 class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
-  Widget _header;
   ProductCategory _category;
   List<Product> _products;
   List<Job> _vacantJobs;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _header = Row(children: [
-      IconButton(
-        icon: Icon(Icons.arrow_back_ios),
-        onPressed: _onBackButtonPressed,
-      ),
-      getTitleWidget(Locale.get('Category'), textColor: Colors.black, margin: EdgeInsets.all(0))
-    ]);
-  }
 
   @override
   void didChangeDependencies() {
@@ -71,18 +57,6 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         });
       }
     });
-
-    setState(() {
-      _header = Row(children: [
-        IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: _onBackButtonPressed,
-        ),
-        getTitleWidget(shorten(_category.name, 15, ellipsize: true), textColor: Colors.black, margin: EdgeInsets.all(0))
-      ]);
-
-      _products = _products;
-    });
   }
 
   @override
@@ -92,44 +66,36 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
     int rows = _category.isVacancyCategory ? jobRows : productRows;
 
     return Scaffold(
-      body: ListView.builder(
-        itemCount: 2 + rows,
-        itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Product category: ${Locale.REPLACE}", _category.name), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
+      body: Container(
+        margin: EdgeInsets.only(top: 10),
+        child: ListView.builder(
+          itemCount: rows,
+          itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+        ),
       ),
     );
   }
 
   Widget _getListViewItem(BuildContext context, int index) {
     Size screenSize = MediaQuery.of(context).size;
-    int productRows = _products == null ? 1 : (_products.length / 2).ceil();
-    int jobRows = _vacantJobs == null ? 1 : _vacantJobs.length;
-    int rows = _category.isVacancyCategory ? jobRows : productRows;
-
-    if (index >= 2) {
-      // products section
-      index -= 2;
-      if (_category.isVacancyCategory) {
-        // products = vacancies
-        if (_vacantJobs == null)
-          return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
-        else if (_vacantJobs.length > 0)
-          return _buildVacancyRow(context, _vacantJobs[index], screenSize);
-        else
-          return Container(); // empty vacancies
-      } else {
-        // products == products
-        if (_products == null)
-          return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
-        else if (_products.length > 0)
-          return _buildProductRow(context, index, screenSize);
-        else
-          return Container(); // empty products
-      }
-    } else if (index == 1) {
-      // divider
-      return getSectionSplitter(Locale.get("Related items"));
+    // products section
+    if (_category.isVacancyCategory) {
+      // products = vacancies
+      if (_vacantJobs == null)
+        return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
+      else if (_vacantJobs.length > 0)
+        return _buildVacancyRow(context, _vacantJobs[index], screenSize);
+      else
+        return Container(); // empty vacancies
     } else {
-      return _header;
+      // products == products
+      if (_products == null)
+        return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
+      else if (_products.length > 0)
+        return _buildProductRow(context, index, screenSize);
+      else
+        return Container(); // empty products
     }
   }
 

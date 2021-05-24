@@ -16,7 +16,6 @@ class JobApplicationsListScreen extends StatefulWidget {
 }
 
 class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
-  List<Widget> _header;
   BusinessPage _businessPage;
   Job _job;
   List<JobApplication> _jobApplications = [];
@@ -30,39 +29,28 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
     _businessPage = args['businessPage'] as BusinessPage;
     assert(_businessPage.role == Job.BUSINESS_OWNER_ROLE);
 
-    _header = [
-      Row(children: [
-        IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: _onBackButtonPressed),
-        getTitleWidget(Locale.get("Job applicants"), textColor: Colors.black),
-      ]),
-      getSectionSplitter(Locale.get("Position : ${Locale.REPLACE}", shorten(_job.title, 20, ellipsize: true))),
-    ];
-
     _updateDynamicPart();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Candidates for ${Locale.REPLACE}", _job == null ? "" : _job.title.toLowerCase()), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
       body: ListView.builder(
-        itemCount: _header.length + _jobApplications.length,
+        itemCount: _jobApplications.length,
         itemBuilder: (BuildContext context, index) => _getListViewItems(context, index),
       ),
     );
   }
 
   Widget _getListViewItems(BuildContext context, int index) {
-    if (index < _header.length)
-      return _header[index];
-    else {
-      // job applications section
-      if (_jobApplications == null)
-        return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
-      else if (_jobApplications.length > 0)
-        return _buildVacancyApplicationItem(context, index - _header.length == 0, _jobApplications[index - _header.length]);
-      else
-        return Container(); // empty job applications
-    }
+    // job applications section
+    if (_jobApplications == null)
+      return SpinKitFoldingCube(color: Colors.blue, size: 50.0);
+    else if (_jobApplications.length > 0)
+      return _buildVacancyApplicationItem(context, index == 0, _jobApplications[index]);
+    else
+      return Container(); // empty job applications
   }
 
   Widget _buildVacancyApplicationItem(BuildContext context, bool firstElement, JobApplication jobApplication) {
@@ -101,10 +89,6 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
         await Navigator.of(context).pushReplacementNamed('/');
       }
     });
-  }
-
-  void _onBackButtonPressed() {
-    Navigator.pop(context);
   }
 
   void _onJobApplicationPressed(JobApplication jobApplication) async {

@@ -112,199 +112,191 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     bool calendarSchedule = _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL;
 
     return Scaffold(
-        backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-        body: SafeArea(
-          child: ListView(
-            padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
-            shrinkWrap: true,
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back_ios),
-                    onPressed: _onBackButtonPressed,
-                  ),
-                  getTitleWidget(Locale.get("Product details"), textColor: Colors.black, margin: EdgeInsets.all(0))
-                ],
-              ),
-              getSectionSplitter(Locale.get("Basic information")),
-              Card(
-                  color: Colors.white,
-                  margin: EdgeInsets.zero,
-                  elevation: 1.0,
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: _showPhotoUploadOptions,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
-                                  topRight: Radius.circular(4.0),
-                                ),
-                                child: AspectRatio(aspectRatio: 1, child: _productImageBytes == null ? Image.asset('assets/placeholder_background_image.png', fit: BoxFit.cover) : Image.memory(_productImageBytes, fit: BoxFit.fitWidth)),
-                              ),
-                            ),
-                            Container(
-                              color: Colors.white,
-                              margin: EdgeInsets.only(left: 10.0, top: 10.0),
-                              padding: EdgeInsets.only(left: 5.0, right: 5.0),
-                              child: Text(
-                                Product.price2string(double.tryParse(_priceTextController.text) ?? 0.0, _selectedCurrency),
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(5.0),
-                          child: Container(
-                            height: 20.0,
-                            margin: EdgeInsets.only(top: 10, bottom: 10),
-                            child: TextField(controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
-              Card(
-                margin: EdgeInsets.only(top: 10.0),
+      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Product details"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white),))),
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+          shrinkWrap: true,
+          children: [
+            getSectionSplitter(Locale.get("Basic information")),
+            Card(
+                color: Colors.white,
+                margin: EdgeInsets.zero,
+                elevation: 1.0,
                 child: Container(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: DropdownButton<int>(
-                      isExpanded: true, value: _selectedCategoryId, icon: _getProductImage(), iconSize: 24, elevation: 16, underline: Container(), onChanged: _categorySelected, items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.only(top: 10.0),
-                child: Container(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: DropdownButton<ProductDeliveryType>(
-                    isExpanded: true,
-                    value: _selectedProductDeliveryType,
-                    icon: Image.asset(_productTypes[_selectedProductDeliveryType].item2, width: 20),
-                    iconSize: 24,
-                    elevation: 16,
-                    underline: Container(),
-                    onChanged: _onProductTypeChanged,
-                    items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", _productTypes[selectedProductType].item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
-                  ),
-                ),
-              ),
-              Card(
-                margin: EdgeInsets.only(top: 10.0),
-                child: Container(
-                  margin: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: Row(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Flexible(
-                          child: TextField(
-                              controller: _priceTextController,
-                              keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true),
-                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
-                              decoration: InputDecoration(labelText: calendarSchedule ? Locale.get("Price per time slot") : Locale.get("Price"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., 1000"), border: InputBorder.none))),
-                      DropdownButton<String>(
-                          value: _selectedCurrency.name,
-                          icon: Icon(Icons.expand_more),
-                          iconSize: 24,
-                          elevation: 16,
-                          underline: Container(),
-                          onChanged: (String newCurrencyName) {
-                            setState(() {
-                              if (newCurrencyName == Currency.KRW.name)
-                                _selectedCurrency = Currency.KRW;
-                              else if (newCurrencyName == Currency.RUB.name)
-                                _selectedCurrency = Currency.RUB;
-                              else if (newCurrencyName == Currency.USD.name)
-                                _selectedCurrency = Currency.USD;
-                              else if (newCurrencyName == Currency.UZS.name) _selectedCurrency = Currency.UZS;
-                            });
-                          },
-                          items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList())
+                      Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: _showPhotoUploadOptions,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                              child: AspectRatio(aspectRatio: 1, child: _productImageBytes == null ? Image.asset('assets/placeholder_background_image.png', fit: BoxFit.cover) : Image.memory(_productImageBytes, fit: BoxFit.fitWidth)),
+                            ),
+                          ),
+                          Container(
+                            color: Colors.white,
+                            margin: EdgeInsets.only(left: 10.0, top: 10.0),
+                            padding: EdgeInsets.only(left: 5.0, right: 5.0),
+                            child: Text(
+                              Product.price2string(double.tryParse(_priceTextController.text) ?? 0.0, _selectedCurrency),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.deepOrange),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(5.0),
+                        child: Container(
+                          height: 20.0,
+                          margin: EdgeInsets.only(top: 10, bottom: 10),
+                          child: TextField(controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
+                        ),
+                      )
                     ],
                   ),
+                )),
+            Card(
+              margin: EdgeInsets.only(top: 10.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                child:
+                    DropdownButton<int>(isExpanded: true, value: _selectedCategoryId, icon: _getProductImage(), iconSize: 24, elevation: 16, underline: Container(), onChanged: _categorySelected, items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
+              ),
+            ),
+            Card(
+              margin: EdgeInsets.only(top: 10.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                child: DropdownButton<ProductDeliveryType>(
+                  isExpanded: true,
+                  value: _selectedProductDeliveryType,
+                  icon: Image.asset(_productTypes[_selectedProductDeliveryType].item2, width: 20),
+                  iconSize: 24,
+                  elevation: 16,
+                  underline: Container(),
+                  onChanged: _onProductTypeChanged,
+                  items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", _productTypes[selectedProductType].item1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
                 ),
               ),
-              Card(
-                  margin: EdgeInsets.only(top: 10.0),
-                  child: Container(
-                      padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                      child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
-              getSectionSplitter(Locale.get(calendarSchedule ? "Schedule" : "Product content")),
-              if (uploadFile && _productContentFiles.length > 0)
-                Column(
-                    children: _productContentFiles
-                        .map((file) => Card(
-                            margin: EdgeInsets.only(top: 10.0),
-                            child: Container(
-                                padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
-                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                  SizedBox(width: 10.0, height: 10.0),
-                                  if (_uploadingFiles.contains(file.path)) SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
-                                  if (!_uploadingFiles.contains(file.path)) Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
-                                  SizedBox(width: 10.0, height: 10.0),
-                                  Expanded(
-                                    child: Text(
-                                      RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+            ),
+            Card(
+              margin: EdgeInsets.only(top: 10.0),
+              child: Container(
+                margin: EdgeInsets.only(left: 10.0, right: 10.0),
+                child: Row(
+                  children: [
+                    Flexible(
+                        child: TextField(
+                            controller: _priceTextController,
+                            keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                            decoration: InputDecoration(labelText: calendarSchedule ? Locale.get("Price per time slot") : Locale.get("Price"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., 1000"), border: InputBorder.none))),
+                    DropdownButton<String>(
+                        value: _selectedCurrency.name,
+                        icon: Icon(Icons.expand_more),
+                        iconSize: 24,
+                        elevation: 16,
+                        underline: Container(),
+                        onChanged: (String newCurrencyName) {
+                          setState(() {
+                            if (newCurrencyName == Currency.KRW.name)
+                              _selectedCurrency = Currency.KRW;
+                            else if (newCurrencyName == Currency.RUB.name)
+                              _selectedCurrency = Currency.RUB;
+                            else if (newCurrencyName == Currency.USD.name)
+                              _selectedCurrency = Currency.USD;
+                            else if (newCurrencyName == Currency.UZS.name) _selectedCurrency = Currency.UZS;
+                          });
+                        },
+                        items: Currency.values.map<DropdownMenuItem<String>>((Currency currency) => DropdownMenuItem<String>(value: currency.name, child: Text(currency.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList())
+                  ],
+                ),
+              ),
+            ),
+            Card(
+                margin: EdgeInsets.only(top: 10.0),
+                child: Container(
+                    padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
+            getSectionSplitter(Locale.get(calendarSchedule ? "Schedule" : "Product content")),
+            if (uploadFile && _productContentFiles.length > 0)
+              Column(
+                  children: _productContentFiles
+                      .map((file) => Card(
+                          margin: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                              padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
+                              child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                SizedBox(width: 10.0, height: 10.0),
+                                if (_uploadingFiles.contains(file.path)) SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
+                                if (!_uploadingFiles.contains(file.path)) Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
+                                SizedBox(width: 10.0, height: 10.0),
+                                Expanded(
+                                  child: Text(
+                                    RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
-                                ]))))
-                        .toList()),
-              if (uploadFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-              if (calendarSchedule)
-                GestureDetector(
-                  onTap: () => _selectDateTime('from'),
-                  child: Card(
-                      margin: EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text(Locale.get("Available from")), Text(timestamp2String(_fromUntilDateTime['from']), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))],
-                        ),
-                      )),
-                ),
-              if (calendarSchedule)
-                GestureDetector(
-                  onTap: () => _selectDateTime('until'),
-                  child: Card(
-                      margin: EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text(Locale.get("Available until")), Text(timestamp2String(_fromUntilDateTime['until']), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))],
-                        ),
-                      )),
-                ),
-              if (calendarSchedule)
-                GestureDetector(
-                  onTap: _selectTimeSlots,
-                  child: Card(
+                                ),
+                                IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
+                              ]))))
+                      .toList()),
+            if (uploadFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (calendarSchedule)
+              GestureDetector(
+                onTap: () => _selectDateTime('from'),
+                child: Card(
                     margin: EdgeInsets.only(top: 10.0),
                     child: Container(
-                      padding: EdgeInsets.all(10.0),
-                      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(Locale.get("Available time slots")), Text(Locale.get("${Locale.REPLACE} selected", _countTimeSlots().toString()), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))]),
-                    ),
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text(Locale.get("Available from")), Text(timestamp2String(_fromUntilDateTime['from']), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))],
+                      ),
+                    )),
+              ),
+            if (calendarSchedule)
+              GestureDetector(
+                onTap: () => _selectDateTime('until'),
+                child: Card(
+                    margin: EdgeInsets.only(top: 10.0),
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [Text(Locale.get("Available until")), Text(timestamp2String(_fromUntilDateTime['until']), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))],
+                      ),
+                    )),
+              ),
+            if (calendarSchedule)
+              GestureDetector(
+                onTap: _selectTimeSlots,
+                child: Card(
+                  margin: EdgeInsets.only(top: 10.0),
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [Text(Locale.get("Available time slots")), Text(Locale.get("${Locale.REPLACE} selected", _countTimeSlots().toString()), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))]),
                   ),
                 ),
-              getSectionSplitter(Locale.get("Proceed with this product")),
-              Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
-              if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published)
-                Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text("PUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
-              if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published)
-                Container(margin: EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0), child: RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text("UNPUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)))),
-            ],
-          ),
-        ));
+              ),
+            getSectionSplitter(Locale.get("Proceed with this product")),
+            RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published)
+              RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text("PUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published)
+              RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text("UNPUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+          ],
+        ),
+      ),
+    );
   }
 
   void _categorySelected(int newCategoryId) {

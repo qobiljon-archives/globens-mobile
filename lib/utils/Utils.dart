@@ -105,7 +105,7 @@ String timestamp2HourString(int timestamp) {
 }
 
 IconData getFileTypeIcon(String path) {
-  var format = RegExp(r'^(.+/)(.+)$').firstMatch(path).group(2);
+  var format = RegExp(r'^(.+/)?(.+)$').firstMatch(path).group(2);
   if (format.contains('.')) {
     format = format.substring(format.lastIndexOf(".") + 1).toLowerCase();
 

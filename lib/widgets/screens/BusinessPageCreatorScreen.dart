@@ -32,9 +32,7 @@ class _CreateBusinessPageState extends State<BusinessPageCreatorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Locale.get("Business details")),
-      ),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Business details"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
       body: Container(
         margin: EdgeInsets.only(top: 10.0),
         child: Column(
