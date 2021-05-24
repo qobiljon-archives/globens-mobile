@@ -29,26 +29,30 @@ class _CreateVacancyState extends State<VacancyCreatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Vacancy details"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white),)),
-      body: Container(
-        margin: EdgeInsets.only(top: 10.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+      appBar: AppBar(
+          leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()),
+          backgroundColor: Colors.blue,
+          title: Text(
+            Locale.get('New vacancy'),
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(color: Colors.white),
+          )),
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+          shrinkWrap: true,
           children: [
             Container(
               margin: EdgeInsets.all(10.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20.0),
-                child: Image(
-                  image: AssetImage('assets/placeholder_vacancy.png'),
-                  width: 100,
+              child: Container(
+                height: 100,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image(image: AssetImage('assets/placeholder_vacancy.png')),
                 ),
               ),
             ),
-            Divider(
-              height: 1,
-              color: Colors.black12,
-            ),
+            getSectionSplitter(Locale.get('Vacancy details')),
             Container(
               padding: EdgeInsets.all(26),
               child: Flexible(
