@@ -30,7 +30,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   final _titleTextController = TextEditingController();
   final _priceTextController = TextEditingController();
   final _descriptionTextController = TextEditingController();
-  Map<ProductDeliveryType, Tuple2<String, String>> _productTypes;
+  Map<ProductDeliveryType, Tuple2<ProductType, String>> _productTypes;
 
   Product _product;
   BusinessPage _businessPage;
@@ -57,11 +57,11 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     _selectedProductDeliveryType = ProductDeliveryType.FILE_DOWNLOADABLE;
     _selectedCurrency = Currency.KRW;
 
-    _productTypes = <ProductDeliveryType, Tuple2<String, String>>{
-      ProductDeliveryType.FILE_DOWNLOADABLE: Tuple2('Downloadable files', 'assets/product_type_downloadable.png'),
-      ProductDeliveryType.FILE_STREAMED: Tuple2('Streamed files', 'assets/product_type_streamed.png'),
-      ProductDeliveryType.SCHEDULED_FACE_TO_FACE: Tuple2('Scheduled face-to-face meeting', 'assets/product_type_scheduled.png'),
-      ProductDeliveryType.SCHEDULED_ONLINE_CALL: Tuple2('Scheduled online call', 'assets/product_type_scheduled.png'),
+    _productTypes = <ProductDeliveryType, Tuple2<ProductType, String>>{
+      ProductDeliveryType.FILE_DOWNLOADABLE: Tuple2(ProductType.DOWNLOADABLE, 'assets/product_type_downloadable.png'),
+      ProductDeliveryType.FILE_STREAMED: Tuple2(ProductType.STREAMED, 'assets/product_type_streamed.png'),
+      ProductDeliveryType.SCHEDULED_FACE_TO_FACE: Tuple2(ProductType.MEETUP, 'assets/product_type_scheduled.png'),
+      ProductDeliveryType.SCHEDULED_ONLINE_CALL: Tuple2(ProductType.LIVE, 'assets/product_type_scheduled.png'),
     };
 
     grpcFetchProductCategories().then((tp) {
@@ -198,7 +198,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   elevation: 16,
                   underline: Container(),
                   onChanged: _onProductTypeChanged,
-                  items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", Locale.get(_productTypes[selectedProductType].item1)), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
+                  items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", getProductTypeStr(_productTypes[selectedProductType].item1)), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
                 ),
               ),
             ),
@@ -277,7 +277,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                                     ]))),
                           ))
                       .toList()),
-            if (isFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _addUploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (isFile) Text(Locale.get('Supported formats are:\n${Locale.REPLACE}', getSupportedFormatsStr()), style: TextStyle(fontSize: 12)),
+            if (isFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _addUploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length + _existingProductContents.length == 0 ? Locale.get("Select content") : Locale.get("Add content"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
             if (isSchedule)
               GestureDetector(
                 onTap: () => _selectDateTime('from'),
@@ -419,8 +420,11 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
 
       if (result != null) {
+        var selectedSupportedFiles = <File>[];
+        for (var path in result.paths) if (getContentType(path) != ContentType.NONE) selectedSupportedFiles.add(new File(path));
+
         setState(() {
-          _productContentFiles = result.paths.map((path) => File(path)).toList();
+          for (var file in selectedSupportedFiles) if (!_productContentFiles.contains(file)) _productContentFiles.add(file);
         });
       } else {
         toast(Locale.get("Selection cancelled!"));
@@ -468,18 +472,18 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     } else if (_productImageBytes == null) {
       await toast(Locale.get("Please upload a feature image for the product!"));
       return;
-    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file') && _productContentFiles.length + _existingProductContents.length < 1) {
-      await toast(Locale.get('At least one attachment (file) required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductDeliveryType].item1));
+    } else if ([ProductType.DOWNLOADABLE, ProductType.STREAMED].contains(_productTypes[_selectedProductDeliveryType].item1) && _productContentFiles.length + _existingProductContents.length < 1) {
+      await toast(Locale.get('At least one attachment (file) required for a product of type - ${Locale.REPLACE}', getProductTypeStr(_productTypes[_selectedProductDeliveryType].item1)));
       return;
-    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule') && _productAvailableTimeSlots.length == 0) {
-      await toast(Locale.get('At least one available time slot required for a product of type - ${Locale.REPLACE}', _productTypes[_selectedProductDeliveryType].item1));
+    } else if ([ProductType.MEETUP, ProductType.LIVE].contains(_productTypes[_selectedProductDeliveryType].item1) && _productAvailableTimeSlots.length == 0) {
+      await toast(Locale.get('At least one available time slot required for a product of type - ${Locale.REPLACE}', getProductTypeStr(_productTypes[_selectedProductDeliveryType].item1)));
       return;
     }
 
     Map<String, dynamic> contents;
     bool success = true;
 
-    if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('file')) {
+    if ([ProductType.DOWNLOADABLE, ProductType.STREAMED].contains(_productTypes[_selectedProductDeliveryType].item1)) {
       setState(() {
         for (File localFile in _productContentFiles) _uploadingFiles.add(localFile.path);
       });
@@ -497,32 +501,39 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
           var uploadedFile = await DriveHelper.uploadFile(fileName, localFile);
           success &= uploadedFile != null;
           if (success) {
-            grpcUpdateContent(AppUser.sessionKey, Content.create(fileName, uploadedFile.item1, uploadedFile.item2, id: id));
-            contents['ids'].add(id);
-            setState(() {
-              _uploadingFiles.remove(localFile.path);
-            });
+            success &= await grpcUpdateContent(AppUser.sessionKey, Content.create(fileName, uploadedFile.item1, uploadedFile.item2, id: id));
+            if (success) {
+              contents['ids'].add(id);
+              setState(() {
+                _uploadingFiles.remove(localFile.path);
+              });
+            }
           }
         }
       }
       // prior existing contents to be removed
       for (Content content in _existingProductContentsToBeRemoved) await grpcRemoveContent(AppUser.sessionKey, content);
-    } else if (_productTypes[_selectedProductDeliveryType].item1.toLowerCase().contains('schedule')) {
+    } else if ([ProductType.MEETUP, ProductType.LIVE].contains(_productTypes[_selectedProductDeliveryType].item1)) {
       Map<String, List<int>> availableTimeSlots = new Map<String, List<int>>();
       for (String key in _productAvailableTimeSlots.keys) {
         availableTimeSlots[key] = _productAvailableTimeSlots[key].toList();
       }
       contents = {'from': _fromUntilDateTime['from'], 'until': _fromUntilDateTime['until'], 'slots': availableTimeSlots};
+    } else {
+      toast('Unexpected error occurred, please contact Globens support team.');
+      return;
     }
 
-    if (_product == null)
-      success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents));
-    else
-      success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, id: _product.id));
+    if (success) {
+      if (_product == null)
+        success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents));
+      else
+        success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, id: _product.id));
 
-    if (success)
-      Navigator.of(context).pop();
-    else {
+      if (success) Navigator.of(context).pop();
+    }
+
+    if (!success) {
       await AppUser.signOut();
       await Navigator.of(context).pushReplacementNamed('/');
     }

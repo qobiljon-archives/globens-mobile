@@ -33,35 +33,27 @@ class DriveHelper {
     return null;
   }
 
-  static Future<void> downloadFile(String fileId, String filePath, Function onDone) async {
+  static Future<bool> downloadFile(String fileId, String filePath) async {
     var httpClient = await ga.clientViaServiceAccount(_credentials, _scopes);
     try {
       final api = ga.DriveApi(httpClient);
-      var media = await api.files.get(fileId, downloadOptions: ga.DownloadOptions.FullMedia) as ga.Media;
-      List<int> dataStore = [];
-      await for (var part in media.stream) {
-        dataStore.insertAll(dataStore.length, part);
+      try {
+        var media = await api.files.get(fileId, downloadOptions: ga.DownloadOptions.FullMedia) as ga.Media;
+        List<int> dataStore = [];
+        await for (var part in media.stream) {
+          dataStore.insertAll(dataStore.length, part);
+        }
+        var file = new File(filePath);
+        await file.writeAsBytes(dataStore);
+        // assert(media.length == file.lengthSync());
+        return true;
+      } catch (e) {
+        print(e);
+        return false;
       }
-      var file = new File(filePath);
-      await file.writeAsBytes(dataStore);
-      assert(media.length == file.lengthSync());
-      onDone.call();
-
-      // var dataStore = <int>[];
-      // response.stream.listen((data) {
-      //   dataStore.insertAll(dataStore.length, data);
-      // }, onDone: () async {
-      //   var file = File(filePath);
-      //   file.writeAsBytes(dataStore, mode: FileMode.append, flush: true);
-      //   httpClient.close();
-      //   onDone.call();
-      //   print("content downloaded");
-      // }, onError: (e) {
-      //   httpClient.close();
-      //   print("error downloading content : $e");
-      // });
     } catch (e) {
       print(e);
+      return false;
     }
   }
 

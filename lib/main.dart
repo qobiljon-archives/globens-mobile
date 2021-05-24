@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:globens_flutter_client/widgets/screens/ProductContentViewer.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/JobApplicationsListScreen.dart';
@@ -15,9 +17,17 @@ import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart'
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  getApplicationDocumentsDirectory().then((dir) {
+    var dataDir = Directory("${dir.path}/globens_cache");
+    if (!dataDir.existsSync()) dataDir.create();
+    print(dataDir);
+  });
+
   runApp(MaterialApp(
     themeMode: ThemeMode.light,
     theme: ThemeData(

@@ -167,8 +167,8 @@ class Locale {
     "Product content": ["Koнтeнт продукта", "제품 내용", "Mahsulot tarkibi"],
     "Schedule": ["График", "시간표", "Jadval"],
     "Content type: $REPLACE": ["Тип кoнтeнтa: $REPLACE", "컨텐츠 타입: $REPLACE", "Tarkib turi: $REPLACE"],
-    "Select content": ["Выбрать контент", "콘텐츠 선택", "Tarkibni tanlang"],
-    "Reselect": ["Выбрать повторно", "재 선택", "Qayta tanlang"],
+    "Select content": ["Выбрать контент", "콘텐츠 선택", "Fayl tanlash"],
+    "Add content": ["Добавить контент", "콘텐츠 추가", "Fayl qo'shmoq"],
     "Available from": ["Доступна с", "사용 가능", "Dan mavjud"],
     "Available until": ["Доступно до", "까지 사용 가능", "Gacha mavjud"],
     "Available time slots": ["Доступные временные интервалы", "이용 가능한 시간대", "Mavjud vaqt oraliqlari"],
@@ -199,6 +199,9 @@ class Locale {
     "Send": ["Oтправлять", "보내다", "Topshirish"],
     "Try again later": ["Попробуйте позже", "나중에 다시 시도", "Keyinroq sinab ko'ring"],
     "Anonymous user": ["Анонимный пользователь", "익명 사용자", "Anonim foydalanuvchi"],
-    "Country": ["Страна", "국가", "Davlat"]
+    "Country": ["Страна", "국가", "Davlat"],
+    "Supported formats are:\n$REPLACE": ["Поддерживаемые форматы:\n$REPLACE", "지원 형식은:\n$REPLACE", "Qabul qilinadigan formatlar:\n$REPLACE"],
+    "Globens app cache : $REPLACE MB": ["Кеш приложения : $REPLACE MB", "Globens 앱 캐시 : $REPLACE MB", "Dastur keshi : $REPLACE MB"],
+    "Clean": ["Очистить", "지우기", "O'chirish"],
   };
 }

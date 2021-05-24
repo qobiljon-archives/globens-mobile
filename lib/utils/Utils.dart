@@ -104,44 +104,47 @@ String timestamp2HourString(int timestamp) {
   }
 }
 
-IconData getFileTypeIcon(String path) {
-  var format = RegExp(r'^(.+/)?(.+)$').firstMatch(path).group(2);
-  if (format.contains('.')) {
-    format = format.substring(format.lastIndexOf(".") + 1).toLowerCase();
-
-    if (["mp4", "mov", "avi", "mkv"].contains(format)) {
-      return Icons.ondemand_video;
-    } else if (["doc", "docx", "pdf", "xls", "xlsx", "pptx", "ppt", "txt"].contains(format)) {
-      return Icons.insert_drive_file_outlined;
-    } else if (["jpg", "jpeg", "png", "bmp", "heic"].contains(format)) {
-      return Icons.image;
-    } else {
-      return Icons.attach_file;
-    }
-  } else {
-    return Icons.attach_file;
-  }
+IconData getFileTypeIcon(String filename) {
+  var contentType = getContentType(filename);
+  if (contentType == ContentType.MEDIA)
+    return Icons.play_circle_fill;
+  else if(contentType == ContentType.DOCUMENT)
+    return Icons.insert_drive_file_outlined;
+  else
+    return Icons.error;
 }
 
-IconData getFileTypeIconForFilename(String filename) {
-  if (filename.contains('.')) {
-    final extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
-
-    if (["mp4", "mov", "avi", "mkv"].contains(extension)) {
-      return Icons.ondemand_video;
-    } else if (["doc", "docx", "pdf", "xls", "xlsx", "pptx", "ppt", "txt"].contains(extension)) {
-      return Icons.insert_drive_file_outlined;
-    } else if (["jpg", "jpeg", "png", "bmp", "heic"].contains(extension)) {
-      return Icons.image;
-    } else {
-      return Icons.attach_file;
-    }
-  } else {
-    return Icons.attach_file;
+ContentType getContentType(String filename) {
+  // ['docx','doc','xlsx','xls','pptx','ppt','pdf','txt']
+  if (filename.length > 4) {
+    var extension = filename.substring(filename.length-3).toLowerCase();
+    if (['docx','doc','xlsx','xls','pptx','ppt','pdf','txt'].contains(extension))
+      return ContentType.DOCUMENT;
+    else if (['mp3', 'mp4'].contains(extension))
+      return ContentType.MEDIA;
   }
+  return ContentType.NONE;
 }
 
-enum Types { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
+String getSupportedFormatsStr() {
+  return ['mp3', 'mp4', 'txt', 'docx','doc','xlsx','xls','pptx','ppt','pdf','txt'].join(', ');
+}
+
+String getProductTypeStr(ProductType type) {
+  if (type == ProductType.DOWNLOADABLE)
+    return Locale.get('Downloadable files');
+  else if (type == ProductType.STREAMED)
+    return Locale.get('Streamed files');
+  else if (type == ProductType.MEETUP)
+    return Locale.get('Scheduled face-to-face meeting');
+  else if (type == ProductType.LIVE)
+    return Locale.get('Scheduled online call');
+  else
+    return null;
+}
+
+enum ContentType { DOCUMENT, MEDIA, NONE }
+enum ProductType { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
 enum TimeSlotSize { THIRTY_MINUTES, SIXTY_MINUTES }
 
 // region user management RPCs
