@@ -35,7 +35,8 @@ class _JobApplicationsListScreenState extends State<JobApplicationsListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Candidates for ${Locale.REPLACE}", _job == null ? "" : _job.title.toLowerCase()), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
+      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Candidates for ${Locale.REPLACE}", _job == null ? "" : _job.title.toLowerCase()), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
       body: ListView.builder(
         itemCount: _jobApplications.length,
         itemBuilder: (BuildContext context, index) => _getListViewItems(context, index),

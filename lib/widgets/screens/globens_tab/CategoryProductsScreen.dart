@@ -66,7 +66,8 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
     int rows = _category.isVacancyCategory ? jobRows : productRows;
 
     return Scaffold(
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Product category: ${Locale.REPLACE}", _category.name), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
+      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Product category: ${Locale.REPLACE}", _category.name), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
       body: Container(
         margin: EdgeInsets.only(top: 10),
         child: ListView.builder(

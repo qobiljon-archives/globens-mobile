@@ -45,16 +45,8 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
     bool isSchedule = !isFile && (_product.productType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _product.productType == ProductDeliveryType.SCHEDULED_ONLINE_CALL);
 
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()),
-          backgroundColor: Colors.blue,
-          title: Flexible(
-              child: Text(
-            Locale.get('Product details'),
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white),
-          ))),
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get('Product details'), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
       body: ListView(
         padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
         shrinkWrap: true,

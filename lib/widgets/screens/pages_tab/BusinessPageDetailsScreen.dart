@@ -86,7 +86,7 @@ class _BusinessPageDetailsScreenState extends State<BusinessPageDetailsScreen> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get('${Locale.REPLACE} (business page)', _businessPage.title), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get('${Locale.REPLACE} (business page)', _businessPage.title), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
       body: Container(
         child: ListView.builder(
           itemCount: 1 + productRows + 2 + jobRows + (_businessPage.role == Job.BUSINESS_OWNER_ROLE ? 1 : 0),

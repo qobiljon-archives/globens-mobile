@@ -41,7 +41,8 @@ class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Ratings and Reviews"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
+      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Ratings and Reviews"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
       body: ListView.builder(
         padding: EdgeInsets.all(10.0),
         itemCount: _reviews.length + 1,

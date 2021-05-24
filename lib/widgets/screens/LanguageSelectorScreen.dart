@@ -23,15 +23,8 @@ class _LanguageSelectionState extends State<LanguageSelectorScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()),
-          backgroundColor: Colors.blue,
-          title: Flexible(
-              child: Text(
-            Locale.get("Select language"),
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white),
-          ))),
+      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Select language"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
       body: _buildLanguagesList(),
     );
   }

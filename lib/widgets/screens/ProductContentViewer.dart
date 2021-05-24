@@ -48,25 +48,24 @@ class ProductContentViewerState extends State<ProductContentViewer> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(_content == null ? "" : _content.title, overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
-        body: _controller == null
-            ? Container(
-                margin: EdgeInsets.only(top: 20),
-                child: Column(children: <Widget>[SpinKitWave(color: Colors.blue, size: 50.0), Text('Loading the file')]),
-              )
-            : Center(child: _controller.value.isInitialized ? AspectRatio(aspectRatio: _controller.value.aspectRatio, child: VideoPlayer(_controller)) : Container()),
-        floatingActionButton: _controller != null && _controller.value.isInitialized
-            ? FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    _controller.value.isPlaying ? _controller.pause() : _controller.play();
-                  });
-                },
-                child: Icon(_controller.value.isPlaying ? Icons.pause : Icons.play_arrow))
-            : null,
-      ),
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(240, 242, 245, 1),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(_content == null ? "" : _content.title, overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
+      body: _controller == null
+          ? Container(
+              margin: EdgeInsets.only(top: 20),
+              child: Column(children: <Widget>[SpinKitWave(color: Colors.blue, size: 50.0), Text('Loading the file')]),
+            )
+          : Center(child: _controller.value.isInitialized ? AspectRatio(aspectRatio: _controller.value.aspectRatio, child: VideoPlayer(_controller)) : Container()),
+      floatingActionButton: _controller != null && _controller.value.isInitialized
+          ? FloatingActionButton(
+              onPressed: () {
+                setState(() {
+                  _controller.value.isPlaying ? _controller.pause() : _controller.play();
+                });
+              },
+              child: Icon(_controller.value.isPlaying ? Icons.pause : Icons.play_arrow))
+          : null,
     );
   }
 }

@@ -32,7 +32,7 @@ class _ProductPurchaseScreenState extends State<ProductPurchaseScreen> {
       return Container();
     else
       return IamportPayment(
-        appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Flexible(child: Text(Locale.get("Purchase '${Locale.REPLACE}'", _product.name), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)))),
+        appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Purchase '${Locale.REPLACE}'", _product.name), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
         /* 웹뷰 로딩 컴포넌트 */
         initialChild: Container(
           child: Center(
