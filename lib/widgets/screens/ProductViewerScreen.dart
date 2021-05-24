@@ -10,6 +10,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'ContentViewerScreen.dart';
 
 class ProductViewerScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get('Product details'), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get('Product details'), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)), actions: [IconButton(icon: Icon(Icons.ios_share, color: Colors.white), onPressed: _shareProductPressed)]),
       body: ListView(
         padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
         shrinkWrap: true,
@@ -196,5 +197,9 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
 
   void _openProductReviews() async {
     await Navigator.of(context).pushNamed(ProductReviewsScreen.route_name, arguments: _product);
+  }
+
+  void _shareProductPressed() async {
+    await Share.share(_product.dynamicLink);
   }
 }

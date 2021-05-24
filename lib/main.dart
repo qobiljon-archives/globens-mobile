@@ -18,6 +18,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
+import 'utils/Settings.dart';
+import 'utils/Settings.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -60,3 +63,4 @@ void main() {
     },
   ));
 }
+

@@ -33,68 +33,38 @@ class _CreateBusinessPageState extends State<BusinessPageCreatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Business details"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
-      body: Container(
-        margin: EdgeInsets.only(top: 10.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("New business page"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
+      body: SafeArea(
+        child: ListView(
+          padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: MediaQuery.of(context).viewInsets.bottom),
+          shrinkWrap: true,
           children: [
             Container(
-              margin: EdgeInsets.all(10.0),
-              child: GestureDetector(
-                  onTap: () {
-                    _selectImagePressed(context);
-                  },
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: Image(
-                      image: _businessPageImageBytes == null ? AssetImage('assets/placeholder_business_page.png') : MemoryImage(_businessPageImageBytes),
-                      width: 100,
-                    ),
-                  )),
-            ),
+                height: 100,
+                margin: EdgeInsets.all(10.0),
+                child: GestureDetector(
+                    onTap: () {
+                      _selectImagePressed(context);
+                    },
+                    child: ClipRRect(borderRadius: BorderRadius.circular(20.0), child: Image(image: _businessPageImageBytes == null ? AssetImage('assets/placeholder_business_page.png') : MemoryImage(_businessPageImageBytes), width: 100)))),
+            getSectionSplitter(Locale.get("Business details")),
             InkWell(
                 onTap: _setCountryPressed,
                 child: Container(
                   padding: EdgeInsets.all(16),
                   child: Row(
                     children: [
-                      Icon(
-                        Icons.flag_outlined,
-                      ),
+                      Icon(Icons.flag_outlined),
                       SizedBox(width: 10),
-                      Text(
-                        Locale.get("Country"),
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
+                      Text(Locale.get("Country"), style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
                       Spacer(),
-                      Text(
-                        CountryHelper.countryName(_countryCode),
-                        style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),
-                      ),
-                      Icon(
-                        Icons.chevron_right_sharp,
-                        color: Colors.black,
-                      ),
+                      Text(CountryHelper.countryName(_countryCode), style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal)),
+                      Icon(Icons.chevron_right_sharp, color: Colors.black),
                     ],
                   ),
                 )),
-            Divider(
-              height: 1,
-              color: Colors.black12,
-            ),
-            Container(
-              padding: EdgeInsets.all(26),
-              child: Flexible(
-                  child: TextField(
-                controller: _titleTextController,
-                decoration: InputDecoration(
-                  labelText: Locale.get("Name of business"),
-                  labelStyle: TextStyle(color: Colors.blueAccent),
-                  hintText: Locale.get("e.g., SpaceX"),
-                ),
-              )),
-            ),
+            Divider(height: 1, color: Colors.black12),
+            TextField(controller: _titleTextController, decoration: InputDecoration(labelText: Locale.get("Name of business"), labelStyle: TextStyle(color: Colors.blueAccent), hintText: Locale.get("e.g., SpaceX"))),
             Container(
                 margin: EdgeInsets.only(top: 20.0),
                 child: RaisedButton.icon(

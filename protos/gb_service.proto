@@ -138,6 +138,7 @@ message CreateProduct{
     Currency currency = 8;
     string description = 9;
     string contents = 10;
+    string dynamicLink = 11;
   }
   message Response{
     bool success = 1;
@@ -157,6 +158,7 @@ message UpdateProductDetails{
     Currency currency = 9;
     string description = 10;
     string contents = 11;
+    string dynamicLink = 12;
   }
   message Response{
     bool success = 1;
@@ -200,6 +202,7 @@ message FetchProductDetails{
     Currency currency = 12;
     string description = 13;
     string contents = 14;
+    string dynamicLink = 15;
   }
 }
 message PublishProduct{
@@ -220,6 +223,27 @@ message UnpublishProduct{
     bool success = 1;
   }
 }
+message FetchProductCategoryIds{
+  message Request{}
+  message Response{
+    bool success = 1;
+    repeated int32 id = 2;
+  }
+}
+message FetchProductCategoryDetails{
+  message Request{
+    int32 categoryId = 1;
+  }
+  message Response{
+    bool success = 1;
+    int32 id = 2;
+    string nameJsonStr = 3;
+    bytes pictureBlob = 4;
+    string examplesJsonStr = 5;
+  }
+}
+
+// content management requests/responses
 message CreateNewContent {
   message Request {
     string sessionKey = 1;
@@ -264,25 +288,6 @@ message DeleteContent {
   }
   message Response {
     bool success = 1;
-  }
-}
-message FetchProductCategoryIds{
-  message Request{}
-  message Response{
-    bool success = 1;
-    repeated int32 id = 2;
-  }
-}
-message FetchProductCategoryDetails{
-  message Request{
-    int32 categoryId = 1;
-  }
-  message Response{
-    bool success = 1;
-    int32 id = 2;
-    string nameJsonStr = 3;
-    bytes pictureBlob = 4;
-    string examplesJsonStr = 5;
   }
 }
 
@@ -563,14 +568,17 @@ service GlobensService {
   rpc publishProduct(PublishProduct.Request) returns (PublishProduct.Response) {}
   rpc unpublishProduct(UnpublishProduct.Request) returns (UnpublishProduct.Response) {}
   rpc uncreateProduct(UncreateProduct.Request) returns (UncreateProduct.Response) {}
-  rpc createNewContent(CreateNewContent.Request) returns (CreateNewContent.Response) {}
-  rpc updateContent(UpdateContent.Request) returns (UpdateContent.Response) {}
-  rpc fetchContentDetails(FetchContentDetails.Request) returns (FetchContentDetails.Response) {}
-  rpc deleteContent(DeleteContent.Request) returns (DeleteContent.Response) {}
   rpc fetchNextKProductIds(FetchNextKProductIds.Request) returns (FetchNextKProductIds.Response) {}
   rpc fetchProductDetails(FetchProductDetails.Request) returns (FetchProductDetails.Response) {}
   rpc fetchProductCategoryIds(FetchProductCategoryIds.Request) returns (FetchProductCategoryIds.Response) {}
   rpc fetchProductCategoryDetails(FetchProductCategoryDetails.Request) returns (FetchProductCategoryDetails.Response) {}
+
+
+  // content management RPCs
+  rpc createNewContent(CreateNewContent.Request) returns (CreateNewContent.Response) {}
+  rpc updateContent(UpdateContent.Request) returns (UpdateContent.Response) {}
+  rpc fetchContentDetails(FetchContentDetails.Request) returns (FetchContentDetails.Response) {}
+  rpc deleteContent(DeleteContent.Request) returns (DeleteContent.Response) {}
 
 
   // vacancy management RPCs

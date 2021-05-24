@@ -310,6 +310,7 @@ const CreateProduct_Request$json = const {
     const {'1': 'currency', '3': 8, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
     const {'1': 'description', '3': 9, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'contents', '3': 10, '4': 1, '5': 9, '10': 'contents'},
+    const {'1': 'dynamicLink', '3': 11, '4': 1, '5': 9, '10': 'dynamicLink'},
   ],
 };
 
@@ -323,7 +324,7 @@ const CreateProduct_Response$json = const {
 };
 
 /// Descriptor for `CreateProduct`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createProductDescriptor = $convert.base64Decode('Cg1DcmVhdGVQcm9kdWN0GswCCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSJgoOYnVzaW5lc3NQYWdlSWQYAiABKAVSDmJ1c2luZXNzUGFnZUlkEhIKBG5hbWUYAyABKAlSBG5hbWUSKAoEdHlwZRgEIAEoDjIULlByb2R1Y3REZWxpdmVyeVR5cGVSBHR5cGUSHgoKY2F0ZWdvcnlJZBgFIAEoBVIKY2F0ZWdvcnlJZBIgCgtwaWN0dXJlQmxvYhgGIAEoDFILcGljdHVyZUJsb2ISFAoFcHJpY2UYByABKAJSBXByaWNlEiUKCGN1cnJlbmN5GAggASgOMgkuQ3VycmVuY3lSCGN1cnJlbmN5EiAKC2Rlc2NyaXB0aW9uGAkgASgJUgtkZXNjcmlwdGlvbhIaCghjb250ZW50cxgKIAEoCVIIY29udGVudHMaQgoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIcCglwcm9kdWN0SWQYAiABKAVSCXByb2R1Y3RJZA==');
+final $typed_data.Uint8List createProductDescriptor = $convert.base64Decode('Cg1DcmVhdGVQcm9kdWN0Gu4CCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSJgoOYnVzaW5lc3NQYWdlSWQYAiABKAVSDmJ1c2luZXNzUGFnZUlkEhIKBG5hbWUYAyABKAlSBG5hbWUSKAoEdHlwZRgEIAEoDjIULlByb2R1Y3REZWxpdmVyeVR5cGVSBHR5cGUSHgoKY2F0ZWdvcnlJZBgFIAEoBVIKY2F0ZWdvcnlJZBIgCgtwaWN0dXJlQmxvYhgGIAEoDFILcGljdHVyZUJsb2ISFAoFcHJpY2UYByABKAJSBXByaWNlEiUKCGN1cnJlbmN5GAggASgOMgkuQ3VycmVuY3lSCGN1cnJlbmN5EiAKC2Rlc2NyaXB0aW9uGAkgASgJUgtkZXNjcmlwdGlvbhIaCghjb250ZW50cxgKIAEoCVIIY29udGVudHMSIAoLZHluYW1pY0xpbmsYCyABKAlSC2R5bmFtaWNMaW5rGkIKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSHAoJcHJvZHVjdElkGAIgASgFUglwcm9kdWN0SWQ=');
 @$core.Deprecated('Use updateProductDetailsDescriptor instead')
 const UpdateProductDetails$json = const {
   '1': 'UpdateProductDetails',
@@ -345,6 +346,7 @@ const UpdateProductDetails_Request$json = const {
     const {'1': 'currency', '3': 9, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
     const {'1': 'description', '3': 10, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'contents', '3': 11, '4': 1, '5': 9, '10': 'contents'},
+    const {'1': 'dynamicLink', '3': 12, '4': 1, '5': 9, '10': 'dynamicLink'},
   ],
 };
 
@@ -357,7 +359,7 @@ const UpdateProductDetails_Response$json = const {
 };
 
 /// Descriptor for `UpdateProductDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateProductDetailsDescriptor = $convert.base64Decode('ChRVcGRhdGVQcm9kdWN0RGV0YWlscxrqAgoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EhwKCXByb2R1Y3RJZBgCIAEoBVIJcHJvZHVjdElkEiYKDmJ1c2luZXNzUGFnZUlkGAMgASgFUg5idXNpbmVzc1BhZ2VJZBISCgRuYW1lGAQgASgJUgRuYW1lEigKBHR5cGUYBSABKA4yFC5Qcm9kdWN0RGVsaXZlcnlUeXBlUgR0eXBlEh4KCmNhdGVnb3J5SWQYBiABKAVSCmNhdGVnb3J5SWQSIAoLcGljdHVyZUJsb2IYByABKAxSC3BpY3R1cmVCbG9iEhQKBXByaWNlGAggASgCUgVwcmljZRIlCghjdXJyZW5jeRgJIAEoDjIJLkN1cnJlbmN5UghjdXJyZW5jeRIgCgtkZXNjcmlwdGlvbhgKIAEoCVILZGVzY3JpcHRpb24SGgoIY29udGVudHMYCyABKAlSCGNvbnRlbnRzGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
+final $typed_data.Uint8List updateProductDetailsDescriptor = $convert.base64Decode('ChRVcGRhdGVQcm9kdWN0RGV0YWlscxqMAwoHUmVxdWVzdBIeCgpzZXNzaW9uS2V5GAEgASgJUgpzZXNzaW9uS2V5EhwKCXByb2R1Y3RJZBgCIAEoBVIJcHJvZHVjdElkEiYKDmJ1c2luZXNzUGFnZUlkGAMgASgFUg5idXNpbmVzc1BhZ2VJZBISCgRuYW1lGAQgASgJUgRuYW1lEigKBHR5cGUYBSABKA4yFC5Qcm9kdWN0RGVsaXZlcnlUeXBlUgR0eXBlEh4KCmNhdGVnb3J5SWQYBiABKAVSCmNhdGVnb3J5SWQSIAoLcGljdHVyZUJsb2IYByABKAxSC3BpY3R1cmVCbG9iEhQKBXByaWNlGAggASgCUgVwcmljZRIlCghjdXJyZW5jeRgJIAEoDjIJLkN1cnJlbmN5UghjdXJyZW5jeRIgCgtkZXNjcmlwdGlvbhgKIAEoCVILZGVzY3JpcHRpb24SGgoIY29udGVudHMYCyABKAlSCGNvbnRlbnRzEiAKC2R5bmFtaWNMaW5rGAwgASgJUgtkeW5hbWljTGluaxokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
 @$core.Deprecated('Use uncreateProductDescriptor instead')
 const UncreateProduct$json = const {
   '1': 'UncreateProduct',
@@ -441,11 +443,12 @@ const FetchProductDetails_Response$json = const {
     const {'1': 'currency', '3': 12, '4': 1, '5': 14, '6': '.Currency', '10': 'currency'},
     const {'1': 'description', '3': 13, '4': 1, '5': 9, '10': 'description'},
     const {'1': 'contents', '3': 14, '4': 1, '5': 9, '10': 'contents'},
+    const {'1': 'dynamicLink', '3': 15, '4': 1, '5': 9, '10': 'dynamicLink'},
   ],
 };
 
 /// Descriptor for `FetchProductDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchProductDetailsDescriptor = $convert.base64Decode('ChNGZXRjaFByb2R1Y3REZXRhaWxzGicKB1JlcXVlc3QSHAoJcHJvZHVjdElkGAEgASgFUglwcm9kdWN0SWQarwMKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSDgoCaWQYAiABKAVSAmlkEhIKBG5hbWUYAyABKAlSBG5hbWUSKAoEdHlwZRgEIAEoDjIULlByb2R1Y3REZWxpdmVyeVR5cGVSBHR5cGUSHgoKY2F0ZWdvcnlJZBgFIAEoBVIKY2F0ZWdvcnlJZBIcCglwdWJsaXNoZWQYBiABKAhSCXB1Ymxpc2hlZBIgCgtwaWN0dXJlQmxvYhgHIAEoDFILcGljdHVyZUJsb2ISJgoOYnVzaW5lc3NQYWdlSWQYCCABKAVSDmJ1c2luZXNzUGFnZUlkEhQKBXByaWNlGAkgASgCUgVwcmljZRIUCgVzdGFycxgKIAEoAVIFc3RhcnMSIgoMcmV2aWV3c0NvdW50GAsgASgFUgxyZXZpZXdzQ291bnQSJQoIY3VycmVuY3kYDCABKA4yCS5DdXJyZW5jeVIIY3VycmVuY3kSIAoLZGVzY3JpcHRpb24YDSABKAlSC2Rlc2NyaXB0aW9uEhoKCGNvbnRlbnRzGA4gASgJUghjb250ZW50cw==');
+final $typed_data.Uint8List fetchProductDetailsDescriptor = $convert.base64Decode('ChNGZXRjaFByb2R1Y3REZXRhaWxzGicKB1JlcXVlc3QSHAoJcHJvZHVjdElkGAEgASgFUglwcm9kdWN0SWQa0QMKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSDgoCaWQYAiABKAVSAmlkEhIKBG5hbWUYAyABKAlSBG5hbWUSKAoEdHlwZRgEIAEoDjIULlByb2R1Y3REZWxpdmVyeVR5cGVSBHR5cGUSHgoKY2F0ZWdvcnlJZBgFIAEoBVIKY2F0ZWdvcnlJZBIcCglwdWJsaXNoZWQYBiABKAhSCXB1Ymxpc2hlZBIgCgtwaWN0dXJlQmxvYhgHIAEoDFILcGljdHVyZUJsb2ISJgoOYnVzaW5lc3NQYWdlSWQYCCABKAVSDmJ1c2luZXNzUGFnZUlkEhQKBXByaWNlGAkgASgCUgVwcmljZRIUCgVzdGFycxgKIAEoAVIFc3RhcnMSIgoMcmV2aWV3c0NvdW50GAsgASgFUgxyZXZpZXdzQ291bnQSJQoIY3VycmVuY3kYDCABKA4yCS5DdXJyZW5jeVIIY3VycmVuY3kSIAoLZGVzY3JpcHRpb24YDSABKAlSC2Rlc2NyaXB0aW9uEhoKCGNvbnRlbnRzGA4gASgJUghjb250ZW50cxIgCgtkeW5hbWljTGluaxgPIAEoCVILZHluYW1pY0xpbms=');
 @$core.Deprecated('Use publishProductDescriptor instead')
 const PublishProduct$json = const {
   '1': 'PublishProduct',
@@ -496,6 +499,56 @@ const UnpublishProduct_Response$json = const {
 
 /// Descriptor for `UnpublishProduct`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List unpublishProductDescriptor = $convert.base64Decode('ChBVbnB1Ymxpc2hQcm9kdWN0GkcKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIcCglwcm9kdWN0SWQYAiABKAVSCXByb2R1Y3RJZBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
+@$core.Deprecated('Use fetchProductCategoryIdsDescriptor instead')
+const FetchProductCategoryIds$json = const {
+  '1': 'FetchProductCategoryIds',
+  '3': const [FetchProductCategoryIds_Request$json, FetchProductCategoryIds_Response$json],
+};
+
+@$core.Deprecated('Use fetchProductCategoryIdsDescriptor instead')
+const FetchProductCategoryIds_Request$json = const {
+  '1': 'Request',
+};
+
+@$core.Deprecated('Use fetchProductCategoryIdsDescriptor instead')
+const FetchProductCategoryIds_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
+  ],
+};
+
+/// Descriptor for `FetchProductCategoryIds`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchProductCategoryIdsDescriptor = $convert.base64Decode('ChdGZXRjaFByb2R1Y3RDYXRlZ29yeUlkcxoJCgdSZXF1ZXN0GjQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSDgoCaWQYAiADKAVSAmlk');
+@$core.Deprecated('Use fetchProductCategoryDetailsDescriptor instead')
+const FetchProductCategoryDetails$json = const {
+  '1': 'FetchProductCategoryDetails',
+  '3': const [FetchProductCategoryDetails_Request$json, FetchProductCategoryDetails_Response$json],
+};
+
+@$core.Deprecated('Use fetchProductCategoryDetailsDescriptor instead')
+const FetchProductCategoryDetails_Request$json = const {
+  '1': 'Request',
+  '2': const [
+    const {'1': 'categoryId', '3': 1, '4': 1, '5': 5, '10': 'categoryId'},
+  ],
+};
+
+@$core.Deprecated('Use fetchProductCategoryDetailsDescriptor instead')
+const FetchProductCategoryDetails_Response$json = const {
+  '1': 'Response',
+  '2': const [
+    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
+    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
+    const {'1': 'nameJsonStr', '3': 3, '4': 1, '5': 9, '10': 'nameJsonStr'},
+    const {'1': 'pictureBlob', '3': 4, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'examplesJsonStr', '3': 5, '4': 1, '5': 9, '10': 'examplesJsonStr'},
+  ],
+};
+
+/// Descriptor for `FetchProductCategoryDetails`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fetchProductCategoryDetailsDescriptor = $convert.base64Decode('ChtGZXRjaFByb2R1Y3RDYXRlZ29yeURldGFpbHMaKQoHUmVxdWVzdBIeCgpjYXRlZ29yeUlkGAEgASgFUgpjYXRlZ29yeUlkGqIBCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEg4KAmlkGAIgASgFUgJpZBIgCgtuYW1lSnNvblN0chgDIAEoCVILbmFtZUpzb25TdHISIAoLcGljdHVyZUJsb2IYBCABKAxSC3BpY3R1cmVCbG9iEigKD2V4YW1wbGVzSnNvblN0chgFIAEoCVIPZXhhbXBsZXNKc29uU3Ry');
 @$core.Deprecated('Use createNewContentDescriptor instead')
 const CreateNewContent$json = const {
   '1': 'CreateNewContent',
@@ -606,56 +659,6 @@ const DeleteContent_Response$json = const {
 
 /// Descriptor for `DeleteContent`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List deleteContentDescriptor = $convert.base64Decode('Cg1EZWxldGVDb250ZW50GkcKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIcCgljb250ZW50SWQYAiABKAVSCWNvbnRlbnRJZBokCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNz');
-@$core.Deprecated('Use fetchProductCategoryIdsDescriptor instead')
-const FetchProductCategoryIds$json = const {
-  '1': 'FetchProductCategoryIds',
-  '3': const [FetchProductCategoryIds_Request$json, FetchProductCategoryIds_Response$json],
-};
-
-@$core.Deprecated('Use fetchProductCategoryIdsDescriptor instead')
-const FetchProductCategoryIds_Request$json = const {
-  '1': 'Request',
-};
-
-@$core.Deprecated('Use fetchProductCategoryIdsDescriptor instead')
-const FetchProductCategoryIds_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'id', '3': 2, '4': 3, '5': 5, '10': 'id'},
-  ],
-};
-
-/// Descriptor for `FetchProductCategoryIds`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchProductCategoryIdsDescriptor = $convert.base64Decode('ChdGZXRjaFByb2R1Y3RDYXRlZ29yeUlkcxoJCgdSZXF1ZXN0GjQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3MSDgoCaWQYAiADKAVSAmlk');
-@$core.Deprecated('Use fetchProductCategoryDetailsDescriptor instead')
-const FetchProductCategoryDetails$json = const {
-  '1': 'FetchProductCategoryDetails',
-  '3': const [FetchProductCategoryDetails_Request$json, FetchProductCategoryDetails_Response$json],
-};
-
-@$core.Deprecated('Use fetchProductCategoryDetailsDescriptor instead')
-const FetchProductCategoryDetails_Request$json = const {
-  '1': 'Request',
-  '2': const [
-    const {'1': 'categoryId', '3': 1, '4': 1, '5': 5, '10': 'categoryId'},
-  ],
-};
-
-@$core.Deprecated('Use fetchProductCategoryDetailsDescriptor instead')
-const FetchProductCategoryDetails_Response$json = const {
-  '1': 'Response',
-  '2': const [
-    const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
-    const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
-    const {'1': 'nameJsonStr', '3': 3, '4': 1, '5': 9, '10': 'nameJsonStr'},
-    const {'1': 'pictureBlob', '3': 4, '4': 1, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'examplesJsonStr', '3': 5, '4': 1, '5': 9, '10': 'examplesJsonStr'},
-  ],
-};
-
-/// Descriptor for `FetchProductCategoryDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchProductCategoryDetailsDescriptor = $convert.base64Decode('ChtGZXRjaFByb2R1Y3RDYXRlZ29yeURldGFpbHMaKQoHUmVxdWVzdBIeCgpjYXRlZ29yeUlkGAEgASgFUgpjYXRlZ29yeUlkGqIBCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEg4KAmlkGAIgASgFUgJpZBIgCgtuYW1lSnNvblN0chgDIAEoCVILbmFtZUpzb25TdHISIAoLcGljdHVyZUJsb2IYBCABKAxSC3BpY3R1cmVCbG9iEigKD2V4YW1wbGVzSnNvblN0chgFIAEoCVIPZXhhbXBsZXNKc29uU3Ry');
 @$core.Deprecated('Use createVacantJobDescriptor instead')
 const CreateVacantJob$json = const {
   '1': 'CreateVacantJob',

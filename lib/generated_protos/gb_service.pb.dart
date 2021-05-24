@@ -1594,6 +1594,7 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
     ..e<Currency>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
     ..aOS(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contents')
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dynamicLink', protoName: 'dynamicLink')
     ..hasRequiredFields = false
   ;
 
@@ -1609,6 +1610,7 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
     Currency? currency,
     $core.String? description,
     $core.String? contents,
+    $core.String? dynamicLink,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -1640,6 +1642,9 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
     }
     if (contents != null) {
       _result.contents = contents;
+    }
+    if (dynamicLink != null) {
+      _result.dynamicLink = dynamicLink;
     }
     return _result;
   }
@@ -1753,6 +1758,15 @@ class CreateProduct_Request extends $pb.GeneratedMessage {
   $core.bool hasContents() => $_has(9);
   @$pb.TagNumber(10)
   void clearContents() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.String get dynamicLink => $_getSZ(10);
+  @$pb.TagNumber(11)
+  set dynamicLink($core.String v) { $_setString(10, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasDynamicLink() => $_has(10);
+  @$pb.TagNumber(11)
+  void clearDynamicLink() => clearField(11);
 }
 
 class CreateProduct_Response extends $pb.GeneratedMessage {
@@ -1858,6 +1872,7 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
     ..e<Currency>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contents')
+    ..aOS(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dynamicLink', protoName: 'dynamicLink')
     ..hasRequiredFields = false
   ;
 
@@ -1874,6 +1889,7 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
     Currency? currency,
     $core.String? description,
     $core.String? contents,
+    $core.String? dynamicLink,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -1908,6 +1924,9 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
     }
     if (contents != null) {
       _result.contents = contents;
+    }
+    if (dynamicLink != null) {
+      _result.dynamicLink = dynamicLink;
     }
     return _result;
   }
@@ -2030,6 +2049,15 @@ class UpdateProductDetails_Request extends $pb.GeneratedMessage {
   $core.bool hasContents() => $_has(10);
   @$pb.TagNumber(11)
   void clearContents() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.String get dynamicLink => $_getSZ(11);
+  @$pb.TagNumber(12)
+  set dynamicLink($core.String v) { $_setString(11, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasDynamicLink() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearDynamicLink() => clearField(12);
 }
 
 class UpdateProductDetails_Response extends $pb.GeneratedMessage {
@@ -2455,6 +2483,7 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
     ..e<Currency>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'currency', $pb.PbFieldType.OE, defaultOrMaker: Currency.KRW, valueOf: Currency.valueOf, enumValues: Currency.values)
     ..aOS(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'description')
     ..aOS(14, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'contents')
+    ..aOS(15, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'dynamicLink', protoName: 'dynamicLink')
     ..hasRequiredFields = false
   ;
 
@@ -2474,6 +2503,7 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
     Currency? currency,
     $core.String? description,
     $core.String? contents,
+    $core.String? dynamicLink,
   }) {
     final _result = create();
     if (success != null) {
@@ -2517,6 +2547,9 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
     }
     if (contents != null) {
       _result.contents = contents;
+    }
+    if (dynamicLink != null) {
+      _result.dynamicLink = dynamicLink;
     }
     return _result;
   }
@@ -2666,6 +2699,15 @@ class FetchProductDetails_Response extends $pb.GeneratedMessage {
   $core.bool hasContents() => $_has(13);
   @$pb.TagNumber(14)
   void clearContents() => clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.String get dynamicLink => $_getSZ(14);
+  @$pb.TagNumber(15)
+  set dynamicLink($core.String v) { $_setString(14, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasDynamicLink() => $_has(14);
+  @$pb.TagNumber(15)
+  void clearDynamicLink() => clearField(15);
 }
 
 class FetchProductDetails extends $pb.GeneratedMessage {
@@ -2969,6 +3011,298 @@ class UnpublishProduct extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static UnpublishProduct getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UnpublishProduct>(create);
   static UnpublishProduct? _defaultInstance;
+}
+
+class FetchProductCategoryIds_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryIds.Request', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryIds_Request._() : super();
+  factory FetchProductCategoryIds_Request() => create();
+  factory FetchProductCategoryIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryIds_Request clone() => FetchProductCategoryIds_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryIds_Request copyWith(void Function(FetchProductCategoryIds_Request) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds_Request)) as FetchProductCategoryIds_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds_Request create() => FetchProductCategoryIds_Request._();
+  FetchProductCategoryIds_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryIds_Request> createRepeated() => $pb.PbList<FetchProductCategoryIds_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds_Request>(create);
+  static FetchProductCategoryIds_Request? _defaultInstance;
+}
+
+class FetchProductCategoryIds_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryIds.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..p<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.P3)
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryIds_Response._() : super();
+  factory FetchProductCategoryIds_Response({
+    $core.bool? success,
+    $core.Iterable<$core.int>? id,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    if (id != null) {
+      _result.id.addAll(id);
+    }
+    return _result;
+  }
+  factory FetchProductCategoryIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryIds_Response clone() => FetchProductCategoryIds_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryIds_Response copyWith(void Function(FetchProductCategoryIds_Response) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds_Response)) as FetchProductCategoryIds_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds_Response create() => FetchProductCategoryIds_Response._();
+  FetchProductCategoryIds_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryIds_Response> createRepeated() => $pb.PbList<FetchProductCategoryIds_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds_Response>(create);
+  static FetchProductCategoryIds_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.List<$core.int> get id => $_getList(1);
+}
+
+class FetchProductCategoryIds extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryIds', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryIds._() : super();
+  factory FetchProductCategoryIds() => create();
+  factory FetchProductCategoryIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryIds clone() => FetchProductCategoryIds()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryIds copyWith(void Function(FetchProductCategoryIds) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds)) as FetchProductCategoryIds; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds create() => FetchProductCategoryIds._();
+  FetchProductCategoryIds createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryIds> createRepeated() => $pb.PbList<FetchProductCategoryIds>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds>(create);
+  static FetchProductCategoryIds? _defaultInstance;
+}
+
+class FetchProductCategoryDetails_Request extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryDetails.Request', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryDetails_Request._() : super();
+  factory FetchProductCategoryDetails_Request({
+    $core.int? categoryId,
+  }) {
+    final _result = create();
+    if (categoryId != null) {
+      _result.categoryId = categoryId;
+    }
+    return _result;
+  }
+  factory FetchProductCategoryDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryDetails_Request clone() => FetchProductCategoryDetails_Request()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryDetails_Request copyWith(void Function(FetchProductCategoryDetails_Request) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails_Request)) as FetchProductCategoryDetails_Request; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails_Request create() => FetchProductCategoryDetails_Request._();
+  FetchProductCategoryDetails_Request createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryDetails_Request> createRepeated() => $pb.PbList<FetchProductCategoryDetails_Request>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails_Request>(create);
+  static FetchProductCategoryDetails_Request? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get categoryId => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set categoryId($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasCategoryId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearCategoryId() => clearField(1);
+}
+
+class FetchProductCategoryDetails_Response extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryDetails.Response', createEmptyInstance: create)
+    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameJsonStr', protoName: 'nameJsonStr')
+    ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'examplesJsonStr', protoName: 'examplesJsonStr')
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryDetails_Response._() : super();
+  factory FetchProductCategoryDetails_Response({
+    $core.bool? success,
+    $core.int? id,
+    $core.String? nameJsonStr,
+    $core.List<$core.int>? pictureBlob,
+    $core.String? examplesJsonStr,
+  }) {
+    final _result = create();
+    if (success != null) {
+      _result.success = success;
+    }
+    if (id != null) {
+      _result.id = id;
+    }
+    if (nameJsonStr != null) {
+      _result.nameJsonStr = nameJsonStr;
+    }
+    if (pictureBlob != null) {
+      _result.pictureBlob = pictureBlob;
+    }
+    if (examplesJsonStr != null) {
+      _result.examplesJsonStr = examplesJsonStr;
+    }
+    return _result;
+  }
+  factory FetchProductCategoryDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryDetails_Response clone() => FetchProductCategoryDetails_Response()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryDetails_Response copyWith(void Function(FetchProductCategoryDetails_Response) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails_Response)) as FetchProductCategoryDetails_Response; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails_Response create() => FetchProductCategoryDetails_Response._();
+  FetchProductCategoryDetails_Response createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryDetails_Response> createRepeated() => $pb.PbList<FetchProductCategoryDetails_Response>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails_Response>(create);
+  static FetchProductCategoryDetails_Response? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool v) { $_setBool(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get id => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set id($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasId() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearId() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get nameJsonStr => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set nameJsonStr($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasNameJsonStr() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearNameJsonStr() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.List<$core.int> get pictureBlob => $_getN(3);
+  @$pb.TagNumber(4)
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPictureBlob() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPictureBlob() => clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get examplesJsonStr => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set examplesJsonStr($core.String v) { $_setString(4, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasExamplesJsonStr() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearExamplesJsonStr() => clearField(5);
+}
+
+class FetchProductCategoryDetails extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryDetails', createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  FetchProductCategoryDetails._() : super();
+  factory FetchProductCategoryDetails() => create();
+  factory FetchProductCategoryDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FetchProductCategoryDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryDetails clone() => FetchProductCategoryDetails()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FetchProductCategoryDetails copyWith(void Function(FetchProductCategoryDetails) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails)) as FetchProductCategoryDetails; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails create() => FetchProductCategoryDetails._();
+  FetchProductCategoryDetails createEmptyInstance() => create();
+  static $pb.PbList<FetchProductCategoryDetails> createRepeated() => $pb.PbList<FetchProductCategoryDetails>();
+  @$core.pragma('dart2js:noInline')
+  static FetchProductCategoryDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails>(create);
+  static FetchProductCategoryDetails? _defaultInstance;
 }
 
 class CreateNewContent_Request extends $pb.GeneratedMessage {
@@ -3657,298 +3991,6 @@ class DeleteContent extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static DeleteContent getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeleteContent>(create);
   static DeleteContent? _defaultInstance;
-}
-
-class FetchProductCategoryIds_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryIds.Request', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchProductCategoryIds_Request._() : super();
-  factory FetchProductCategoryIds_Request() => create();
-  factory FetchProductCategoryIds_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchProductCategoryIds_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryIds_Request clone() => FetchProductCategoryIds_Request()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryIds_Request copyWith(void Function(FetchProductCategoryIds_Request) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds_Request)) as FetchProductCategoryIds_Request; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryIds_Request create() => FetchProductCategoryIds_Request._();
-  FetchProductCategoryIds_Request createEmptyInstance() => create();
-  static $pb.PbList<FetchProductCategoryIds_Request> createRepeated() => $pb.PbList<FetchProductCategoryIds_Request>();
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryIds_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds_Request>(create);
-  static FetchProductCategoryIds_Request? _defaultInstance;
-}
-
-class FetchProductCategoryIds_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryIds.Response', createEmptyInstance: create)
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
-    ..p<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.P3)
-    ..hasRequiredFields = false
-  ;
-
-  FetchProductCategoryIds_Response._() : super();
-  factory FetchProductCategoryIds_Response({
-    $core.bool? success,
-    $core.Iterable<$core.int>? id,
-  }) {
-    final _result = create();
-    if (success != null) {
-      _result.success = success;
-    }
-    if (id != null) {
-      _result.id.addAll(id);
-    }
-    return _result;
-  }
-  factory FetchProductCategoryIds_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchProductCategoryIds_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryIds_Response clone() => FetchProductCategoryIds_Response()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryIds_Response copyWith(void Function(FetchProductCategoryIds_Response) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds_Response)) as FetchProductCategoryIds_Response; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryIds_Response create() => FetchProductCategoryIds_Response._();
-  FetchProductCategoryIds_Response createEmptyInstance() => create();
-  static $pb.PbList<FetchProductCategoryIds_Response> createRepeated() => $pb.PbList<FetchProductCategoryIds_Response>();
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryIds_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds_Response>(create);
-  static FetchProductCategoryIds_Response? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.List<$core.int> get id => $_getList(1);
-}
-
-class FetchProductCategoryIds extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryIds', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchProductCategoryIds._() : super();
-  factory FetchProductCategoryIds() => create();
-  factory FetchProductCategoryIds.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchProductCategoryIds.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryIds clone() => FetchProductCategoryIds()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryIds copyWith(void Function(FetchProductCategoryIds) updates) => super.copyWith((message) => updates(message as FetchProductCategoryIds)) as FetchProductCategoryIds; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryIds create() => FetchProductCategoryIds._();
-  FetchProductCategoryIds createEmptyInstance() => create();
-  static $pb.PbList<FetchProductCategoryIds> createRepeated() => $pb.PbList<FetchProductCategoryIds>();
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryIds getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryIds>(create);
-  static FetchProductCategoryIds? _defaultInstance;
-}
-
-class FetchProductCategoryDetails_Request extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryDetails.Request', createEmptyInstance: create)
-    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'categoryId', $pb.PbFieldType.O3, protoName: 'categoryId')
-    ..hasRequiredFields = false
-  ;
-
-  FetchProductCategoryDetails_Request._() : super();
-  factory FetchProductCategoryDetails_Request({
-    $core.int? categoryId,
-  }) {
-    final _result = create();
-    if (categoryId != null) {
-      _result.categoryId = categoryId;
-    }
-    return _result;
-  }
-  factory FetchProductCategoryDetails_Request.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchProductCategoryDetails_Request.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryDetails_Request clone() => FetchProductCategoryDetails_Request()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryDetails_Request copyWith(void Function(FetchProductCategoryDetails_Request) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails_Request)) as FetchProductCategoryDetails_Request; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryDetails_Request create() => FetchProductCategoryDetails_Request._();
-  FetchProductCategoryDetails_Request createEmptyInstance() => create();
-  static $pb.PbList<FetchProductCategoryDetails_Request> createRepeated() => $pb.PbList<FetchProductCategoryDetails_Request>();
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryDetails_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails_Request>(create);
-  static FetchProductCategoryDetails_Request? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.int get categoryId => $_getIZ(0);
-  @$pb.TagNumber(1)
-  set categoryId($core.int v) { $_setSignedInt32(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasCategoryId() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearCategoryId() => clearField(1);
-}
-
-class FetchProductCategoryDetails_Response extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryDetails.Response', createEmptyInstance: create)
-    ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
-    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nameJsonStr', protoName: 'nameJsonStr')
-    ..a<$core.List<$core.int>>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'examplesJsonStr', protoName: 'examplesJsonStr')
-    ..hasRequiredFields = false
-  ;
-
-  FetchProductCategoryDetails_Response._() : super();
-  factory FetchProductCategoryDetails_Response({
-    $core.bool? success,
-    $core.int? id,
-    $core.String? nameJsonStr,
-    $core.List<$core.int>? pictureBlob,
-    $core.String? examplesJsonStr,
-  }) {
-    final _result = create();
-    if (success != null) {
-      _result.success = success;
-    }
-    if (id != null) {
-      _result.id = id;
-    }
-    if (nameJsonStr != null) {
-      _result.nameJsonStr = nameJsonStr;
-    }
-    if (pictureBlob != null) {
-      _result.pictureBlob = pictureBlob;
-    }
-    if (examplesJsonStr != null) {
-      _result.examplesJsonStr = examplesJsonStr;
-    }
-    return _result;
-  }
-  factory FetchProductCategoryDetails_Response.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchProductCategoryDetails_Response.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryDetails_Response clone() => FetchProductCategoryDetails_Response()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryDetails_Response copyWith(void Function(FetchProductCategoryDetails_Response) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails_Response)) as FetchProductCategoryDetails_Response; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryDetails_Response create() => FetchProductCategoryDetails_Response._();
-  FetchProductCategoryDetails_Response createEmptyInstance() => create();
-  static $pb.PbList<FetchProductCategoryDetails_Response> createRepeated() => $pb.PbList<FetchProductCategoryDetails_Response>();
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryDetails_Response getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails_Response>(create);
-  static FetchProductCategoryDetails_Response? _defaultInstance;
-
-  @$pb.TagNumber(1)
-  $core.bool get success => $_getBF(0);
-  @$pb.TagNumber(1)
-  set success($core.bool v) { $_setBool(0, v); }
-  @$pb.TagNumber(1)
-  $core.bool hasSuccess() => $_has(0);
-  @$pb.TagNumber(1)
-  void clearSuccess() => clearField(1);
-
-  @$pb.TagNumber(2)
-  $core.int get id => $_getIZ(1);
-  @$pb.TagNumber(2)
-  set id($core.int v) { $_setSignedInt32(1, v); }
-  @$pb.TagNumber(2)
-  $core.bool hasId() => $_has(1);
-  @$pb.TagNumber(2)
-  void clearId() => clearField(2);
-
-  @$pb.TagNumber(3)
-  $core.String get nameJsonStr => $_getSZ(2);
-  @$pb.TagNumber(3)
-  set nameJsonStr($core.String v) { $_setString(2, v); }
-  @$pb.TagNumber(3)
-  $core.bool hasNameJsonStr() => $_has(2);
-  @$pb.TagNumber(3)
-  void clearNameJsonStr() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.List<$core.int> get pictureBlob => $_getN(3);
-  @$pb.TagNumber(4)
-  set pictureBlob($core.List<$core.int> v) { $_setBytes(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasPictureBlob() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearPictureBlob() => clearField(4);
-
-  @$pb.TagNumber(5)
-  $core.String get examplesJsonStr => $_getSZ(4);
-  @$pb.TagNumber(5)
-  set examplesJsonStr($core.String v) { $_setString(4, v); }
-  @$pb.TagNumber(5)
-  $core.bool hasExamplesJsonStr() => $_has(4);
-  @$pb.TagNumber(5)
-  void clearExamplesJsonStr() => clearField(5);
-}
-
-class FetchProductCategoryDetails extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FetchProductCategoryDetails', createEmptyInstance: create)
-    ..hasRequiredFields = false
-  ;
-
-  FetchProductCategoryDetails._() : super();
-  factory FetchProductCategoryDetails() => create();
-  factory FetchProductCategoryDetails.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory FetchProductCategoryDetails.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryDetails clone() => FetchProductCategoryDetails()..mergeFromMessage(this);
-  @$core.Deprecated(
-  'Using this can add significant overhead to your binary. '
-  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
-  'Will be removed in next major version')
-  FetchProductCategoryDetails copyWith(void Function(FetchProductCategoryDetails) updates) => super.copyWith((message) => updates(message as FetchProductCategoryDetails)) as FetchProductCategoryDetails; // ignore: deprecated_member_use
-  $pb.BuilderInfo get info_ => _i;
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryDetails create() => FetchProductCategoryDetails._();
-  FetchProductCategoryDetails createEmptyInstance() => create();
-  static $pb.PbList<FetchProductCategoryDetails> createRepeated() => $pb.PbList<FetchProductCategoryDetails>();
-  @$core.pragma('dart2js:noInline')
-  static FetchProductCategoryDetails getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FetchProductCategoryDetails>(create);
-  static FetchProductCategoryDetails? _defaultInstance;
 }
 
 class CreateVacantJob_Request extends $pb.GeneratedMessage {

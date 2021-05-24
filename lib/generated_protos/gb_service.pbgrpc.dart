@@ -101,30 +101,6 @@ class GlobensServiceClient extends $grpc.Client {
       ($0.UncreateProduct_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.UncreateProduct_Response.fromBuffer(value));
-  static final _$createNewContent = $grpc.ClientMethod<
-          $0.CreateNewContent_Request, $0.CreateNewContent_Response>(
-      '/GlobensService/createNewContent',
-      ($0.CreateNewContent_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.CreateNewContent_Response.fromBuffer(value));
-  static final _$updateContent =
-      $grpc.ClientMethod<$0.UpdateContent_Request, $0.UpdateContent_Response>(
-          '/GlobensService/updateContent',
-          ($0.UpdateContent_Request value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.UpdateContent_Response.fromBuffer(value));
-  static final _$fetchContentDetails = $grpc.ClientMethod<
-          $0.FetchContentDetails_Request, $0.FetchContentDetails_Response>(
-      '/GlobensService/fetchContentDetails',
-      ($0.FetchContentDetails_Request value) => value.writeToBuffer(),
-      ($core.List<$core.int> value) =>
-          $0.FetchContentDetails_Response.fromBuffer(value));
-  static final _$deleteContent =
-      $grpc.ClientMethod<$0.DeleteContent_Request, $0.DeleteContent_Response>(
-          '/GlobensService/deleteContent',
-          ($0.DeleteContent_Request value) => value.writeToBuffer(),
-          ($core.List<$core.int> value) =>
-              $0.DeleteContent_Response.fromBuffer(value));
   static final _$fetchNextKProductIds = $grpc.ClientMethod<
           $0.FetchNextKProductIds_Request, $0.FetchNextKProductIds_Response>(
       '/GlobensService/fetchNextKProductIds',
@@ -151,6 +127,30 @@ class GlobensServiceClient extends $grpc.Client {
       ($0.FetchProductCategoryDetails_Request value) => value.writeToBuffer(),
       ($core.List<$core.int> value) =>
           $0.FetchProductCategoryDetails_Response.fromBuffer(value));
+  static final _$createNewContent = $grpc.ClientMethod<
+          $0.CreateNewContent_Request, $0.CreateNewContent_Response>(
+      '/GlobensService/createNewContent',
+      ($0.CreateNewContent_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.CreateNewContent_Response.fromBuffer(value));
+  static final _$updateContent =
+      $grpc.ClientMethod<$0.UpdateContent_Request, $0.UpdateContent_Response>(
+          '/GlobensService/updateContent',
+          ($0.UpdateContent_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.UpdateContent_Response.fromBuffer(value));
+  static final _$fetchContentDetails = $grpc.ClientMethod<
+          $0.FetchContentDetails_Request, $0.FetchContentDetails_Response>(
+      '/GlobensService/fetchContentDetails',
+      ($0.FetchContentDetails_Request value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.FetchContentDetails_Response.fromBuffer(value));
+  static final _$deleteContent =
+      $grpc.ClientMethod<$0.DeleteContent_Request, $0.DeleteContent_Response>(
+          '/GlobensService/deleteContent',
+          ($0.DeleteContent_Request value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.DeleteContent_Response.fromBuffer(value));
   static final _$createVacantJob = $grpc.ClientMethod<
           $0.CreateVacantJob_Request, $0.CreateVacantJob_Response>(
       '/GlobensService/createVacantJob',
@@ -396,30 +396,6 @@ class GlobensServiceClient extends $grpc.Client {
     return $createUnaryCall(_$uncreateProduct, request, options: options);
   }
 
-  $grpc.ResponseFuture<$0.CreateNewContent_Response> createNewContent(
-      $0.CreateNewContent_Request request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$createNewContent, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.UpdateContent_Response> updateContent(
-      $0.UpdateContent_Request request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$updateContent, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.FetchContentDetails_Response> fetchContentDetails(
-      $0.FetchContentDetails_Request request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$fetchContentDetails, request, options: options);
-  }
-
-  $grpc.ResponseFuture<$0.DeleteContent_Response> deleteContent(
-      $0.DeleteContent_Request request,
-      {$grpc.CallOptions? options}) {
-    return $createUnaryCall(_$deleteContent, request, options: options);
-  }
-
   $grpc.ResponseFuture<$0.FetchNextKProductIds_Response> fetchNextKProductIds(
       $0.FetchNextKProductIds_Request request,
       {$grpc.CallOptions? options}) {
@@ -445,6 +421,30 @@ class GlobensServiceClient extends $grpc.Client {
           {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$fetchProductCategoryDetails, request,
         options: options);
+  }
+
+  $grpc.ResponseFuture<$0.CreateNewContent_Response> createNewContent(
+      $0.CreateNewContent_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$createNewContent, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.UpdateContent_Response> updateContent(
+      $0.UpdateContent_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updateContent, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.FetchContentDetails_Response> fetchContentDetails(
+      $0.FetchContentDetails_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$fetchContentDetails, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.DeleteContent_Response> deleteContent(
+      $0.DeleteContent_Request request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deleteContent, request, options: options);
   }
 
   $grpc.ResponseFuture<$0.CreateVacantJob_Response> createVacantJob(
@@ -732,42 +732,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
         ($core.List<$core.int> value) =>
             $0.UncreateProduct_Request.fromBuffer(value),
         ($0.UncreateProduct_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.CreateNewContent_Request,
-            $0.CreateNewContent_Response>(
-        'createNewContent',
-        createNewContent_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.CreateNewContent_Request.fromBuffer(value),
-        ($0.CreateNewContent_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.UpdateContent_Request,
-            $0.UpdateContent_Response>(
-        'updateContent',
-        updateContent_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.UpdateContent_Request.fromBuffer(value),
-        ($0.UpdateContent_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.FetchContentDetails_Request,
-            $0.FetchContentDetails_Response>(
-        'fetchContentDetails',
-        fetchContentDetails_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.FetchContentDetails_Request.fromBuffer(value),
-        ($0.FetchContentDetails_Response value) => value.writeToBuffer()));
-    $addMethod($grpc.ServiceMethod<$0.DeleteContent_Request,
-            $0.DeleteContent_Response>(
-        'deleteContent',
-        deleteContent_Pre,
-        false,
-        false,
-        ($core.List<$core.int> value) =>
-            $0.DeleteContent_Request.fromBuffer(value),
-        ($0.DeleteContent_Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.FetchNextKProductIds_Request,
             $0.FetchNextKProductIds_Response>(
         'fetchNextKProductIds',
@@ -805,6 +769,42 @@ abstract class GlobensServiceBase extends $grpc.Service {
             $0.FetchProductCategoryDetails_Request.fromBuffer(value),
         ($0.FetchProductCategoryDetails_Response value) =>
             value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.CreateNewContent_Request,
+            $0.CreateNewContent_Response>(
+        'createNewContent',
+        createNewContent_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.CreateNewContent_Request.fromBuffer(value),
+        ($0.CreateNewContent_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UpdateContent_Request,
+            $0.UpdateContent_Response>(
+        'updateContent',
+        updateContent_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.UpdateContent_Request.fromBuffer(value),
+        ($0.UpdateContent_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.FetchContentDetails_Request,
+            $0.FetchContentDetails_Response>(
+        'fetchContentDetails',
+        fetchContentDetails_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.FetchContentDetails_Request.fromBuffer(value),
+        ($0.FetchContentDetails_Response value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeleteContent_Request,
+            $0.DeleteContent_Response>(
+        'deleteContent',
+        deleteContent_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.DeleteContent_Request.fromBuffer(value),
+        ($0.DeleteContent_Response value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$0.CreateVacantJob_Request,
             $0.CreateVacantJob_Response>(
         'createVacantJob',
@@ -1109,30 +1109,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
     return uncreateProduct(call, await request);
   }
 
-  $async.Future<$0.CreateNewContent_Response> createNewContent_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.CreateNewContent_Request> request) async {
-    return createNewContent(call, await request);
-  }
-
-  $async.Future<$0.UpdateContent_Response> updateContent_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.UpdateContent_Request> request) async {
-    return updateContent(call, await request);
-  }
-
-  $async.Future<$0.FetchContentDetails_Response> fetchContentDetails_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.FetchContentDetails_Request> request) async {
-    return fetchContentDetails(call, await request);
-  }
-
-  $async.Future<$0.DeleteContent_Response> deleteContent_Pre(
-      $grpc.ServiceCall call,
-      $async.Future<$0.DeleteContent_Request> request) async {
-    return deleteContent(call, await request);
-  }
-
   $async.Future<$0.FetchNextKProductIds_Response> fetchNextKProductIds_Pre(
       $grpc.ServiceCall call,
       $async.Future<$0.FetchNextKProductIds_Request> request) async {
@@ -1155,6 +1131,30 @@ abstract class GlobensServiceBase extends $grpc.Service {
       fetchProductCategoryDetails_Pre($grpc.ServiceCall call,
           $async.Future<$0.FetchProductCategoryDetails_Request> request) async {
     return fetchProductCategoryDetails(call, await request);
+  }
+
+  $async.Future<$0.CreateNewContent_Response> createNewContent_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.CreateNewContent_Request> request) async {
+    return createNewContent(call, await request);
+  }
+
+  $async.Future<$0.UpdateContent_Response> updateContent_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.UpdateContent_Request> request) async {
+    return updateContent(call, await request);
+  }
+
+  $async.Future<$0.FetchContentDetails_Response> fetchContentDetails_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.FetchContentDetails_Request> request) async {
+    return fetchContentDetails(call, await request);
+  }
+
+  $async.Future<$0.DeleteContent_Response> deleteContent_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.DeleteContent_Request> request) async {
+    return deleteContent(call, await request);
   }
 
   $async.Future<$0.CreateVacantJob_Response> createVacantJob_Pre(
@@ -1328,14 +1328,6 @@ abstract class GlobensServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UnpublishProduct_Request request);
   $async.Future<$0.UncreateProduct_Response> uncreateProduct(
       $grpc.ServiceCall call, $0.UncreateProduct_Request request);
-  $async.Future<$0.CreateNewContent_Response> createNewContent(
-      $grpc.ServiceCall call, $0.CreateNewContent_Request request);
-  $async.Future<$0.UpdateContent_Response> updateContent(
-      $grpc.ServiceCall call, $0.UpdateContent_Request request);
-  $async.Future<$0.FetchContentDetails_Response> fetchContentDetails(
-      $grpc.ServiceCall call, $0.FetchContentDetails_Request request);
-  $async.Future<$0.DeleteContent_Response> deleteContent(
-      $grpc.ServiceCall call, $0.DeleteContent_Request request);
   $async.Future<$0.FetchNextKProductIds_Response> fetchNextKProductIds(
       $grpc.ServiceCall call, $0.FetchNextKProductIds_Request request);
   $async.Future<$0.FetchProductDetails_Response> fetchProductDetails(
@@ -1345,6 +1337,14 @@ abstract class GlobensServiceBase extends $grpc.Service {
   $async.Future<$0.FetchProductCategoryDetails_Response>
       fetchProductCategoryDetails($grpc.ServiceCall call,
           $0.FetchProductCategoryDetails_Request request);
+  $async.Future<$0.CreateNewContent_Response> createNewContent(
+      $grpc.ServiceCall call, $0.CreateNewContent_Request request);
+  $async.Future<$0.UpdateContent_Response> updateContent(
+      $grpc.ServiceCall call, $0.UpdateContent_Request request);
+  $async.Future<$0.FetchContentDetails_Response> fetchContentDetails(
+      $grpc.ServiceCall call, $0.FetchContentDetails_Request request);
+  $async.Future<$0.DeleteContent_Response> deleteContent(
+      $grpc.ServiceCall call, $0.DeleteContent_Request request);
   $async.Future<$0.CreateVacantJob_Response> createVacantJob(
       $grpc.ServiceCall call, $0.CreateVacantJob_Request request);
   $async.Future<$0.UpdateJobDetails_Response> updateJobDetails(

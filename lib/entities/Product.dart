@@ -27,11 +27,12 @@ class Product {
   Currency _currency;
   String _description;
   Map<String, dynamic> _contents;
+  String _dynamicLink;
   bool _published;
 
   // endregion
 
-  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, Map<String, dynamic> contents, {int id, double stars, int reviewsCount, bool published}) {
+  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, Map<String, dynamic> contents, String dynamicLink, {int id, double stars, int reviewsCount, bool published}) {
     this._id = id;
     this._name = name;
     this._productType = productType;
@@ -44,12 +45,15 @@ class Product {
     this._currency = currency;
     this._description = description;
     this._contents = contents;
+    this._dynamicLink = dynamicLink;
     this._published = published;
   }
 
   // region Getters
 
   int get id => _id;
+
+  set id(newId) => _id = newId;
 
   String get name => _name;
 
@@ -78,6 +82,10 @@ class Product {
   Map<String, dynamic> get contents => _contents;
 
   String get contentsJson => jsonEncode(this._contents);
+
+  String get dynamicLink => _dynamicLink;
+
+  set dynamicLink(newDynamicLink) => _dynamicLink = newDynamicLink;
 
   bool get published => _published;
 

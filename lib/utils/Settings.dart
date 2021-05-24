@@ -14,3 +14,9 @@ GlobensServiceClient getStub() {
   }
   return _stub;
 }
+
+Future<void> shutdownGRPCChannel() async {
+  if (_channel != null) {
+    await _channel.shutdown();
+  }
+}

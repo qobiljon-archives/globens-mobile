@@ -3,6 +3,7 @@ import 'package:globens_flutter_client/widgets/modal_views/PhotoSelectorModalVie
 import 'package:globens_flutter_client/widgets/screens/ContentViewerScreen.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/ProductCategory.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:globens_flutter_client/entities/BusinessPage.dart';
 import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
@@ -16,9 +17,12 @@ import 'package:open_file/open_file.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 import 'package:tuple/tuple.dart';
 import 'dart:typed_data';
 import 'dart:io';
+
+import '../../utils/Utils.dart';
 
 class ProductCreatorScreen extends StatefulWidget {
   static const String route_name = '/product_creator_screen';
@@ -121,14 +125,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-      appBar: AppBar(
-          leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()),
-          backgroundColor: Colors.blue,
-          title: Text(
-            Locale.get("Product details"),
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white),
-          )),
+      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Product details"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)), actions: [if (_product != null) IconButton(icon: Icon(Icons.ios_share, color: Colors.white), onPressed: _shareProductPressed)]),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
@@ -525,10 +522,31 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     }
 
     if (success) {
-      if (_product == null)
-        success = await grpcCreateProduct(AppUser.sessionKey, _businessPage, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents));
-      else
-        success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, id: _product.id));
+      if (_product == null) {
+        var product = Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, "https://globens.page.link/");
+        var res = await grpcCreateProduct(AppUser.sessionKey, _businessPage, product);
+        if (res.item1) {
+          final DynamicLinkParameters parameters = DynamicLinkParameters(
+            uriPrefix: 'https://globens.page.link',
+            link: Uri.parse('http://globens.ddns.net/product_${res.item2}'),
+            androidParameters: AndroidParameters(
+              packageName: 'uz.globens_flutter_client',
+              minimumVersion: 6,
+            ),
+            iosParameters: IosParameters(
+              bundleId: 'uz.globens',
+              minimumVersion: '1.2.0',
+              appStoreId: '1541476369',
+            ),
+          );
+          var shortDynamicLink = await parameters.buildShortLink();
+
+          product.id = res.item2;
+          product.dynamicLink = shortDynamicLink.shortUrl.toString();
+          await grpcUpdateProduct(AppUser.sessionKey, product);
+        }
+      } else
+        success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, _product.dynamicLink, id: _product.id));
 
       if (success) Navigator.of(context).pop();
     }
@@ -559,5 +577,9 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
         toast(Locale.get('Problem with product content, please try again!'));
       }
     });
+  }
+
+  void _shareProductPressed() async {
+    await Share.share(_product.dynamicLink);
   }
 }

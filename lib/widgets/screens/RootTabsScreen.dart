@@ -1,6 +1,9 @@
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
+import '../../utils/Utils.dart';
+import 'ProductViewerScreen.dart';
 import 'pages_tab/MyBusinessPagesScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +29,9 @@ class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObser
   @override
   void initState() {
     super.initState();
+
+    // firebase dynamic links
+    initDynamicLinks();
 
     if (!AppUser.initialized) {
       AppUser.init();
@@ -72,6 +78,31 @@ class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObser
         ],
       ),
     );
+  }
+
+  void initDynamicLinks() async {
+    FirebaseDynamicLinks.instance.onLink(onSuccess: (PendingDynamicLinkData dynamicLink) async {
+      final Uri deepLink = dynamicLink?.link;
+      if (deepLink != null) {
+        var reg = RegExp(r'^(\/product_)(\d+)$');
+        if (reg.hasMatch(deepLink.path)) {
+          var productId = int.parse(reg.firstMatch(deepLink.path).group(2));
+          var res = await grpcFetchProduct(productId);
+          if (res.item1) {
+            Navigator.pushNamed(context, ProductViewerScreen.route_name, arguments: res.item2);
+          }
+        }
+      }
+    }, onError: (OnLinkErrorException e) async {
+      print('onLinkError');
+      print(e.message);
+    });
+
+    final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.getInitialLink();
+    final Uri deepLink = data?.link;
+    if (deepLink != null) {
+      Navigator.pushNamed(context, deepLink.path);
+    }
   }
 
   void switchTab(int index) {

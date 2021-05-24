@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:413445644782:android:b625f8e249af6b24226eff",
+        "mobilesdk_app_id": "1:413445644782:android:371918ed1b8b58d9226eff",
         "android_client_info": {
-          "package_name": "uz.globens"
+          "package_name": "uz.globens_flutter_client"
         }
       },
       "oauth_client": [
         {
-          "client_id": "413445644782-hbal88heuu7nhj3ckm5jmriaqjp9c7t9.apps.googleusercontent.com",
+          "client_id": "413445644782-af4vtkmth7so2a3tpdsgilh2r4sgc1ru.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "uz.globens",
+            "package_name": "uz.globens_flutter_client",
             "certificate_hash": "787e5c8cbdd4ae2898ac77b5db1293b3fe63780a"
           }
         },
@@ -36,14 +36,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "413445644782-0f4srs46mdfjaq5ogaem3sd3hrshan4n.apps.googleusercontent.com",
+              "client_id": "102063082059212137018",
               "client_type": 3
             },
             {
               "client_id": "413445644782-4127hu79n714j89ua9ahfvvcdsgtj827.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "uz.globens"
+                "bundle_id": "uz.globens",
+                "app_store_id": "1541476369"
               }
             }
           ]
