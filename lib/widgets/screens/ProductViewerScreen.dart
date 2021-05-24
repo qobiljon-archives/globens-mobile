@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/widgets/modal_views/WeeklyTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/modal_views/SingleTimePickerModalView.dart';
 import 'package:globens_flutter_client/widgets/screens/ProductPurchaseScreen.dart';
@@ -194,7 +195,17 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _purchaseProduct() async {
-    await Navigator.of(context).pushNamed(ProductPurchaseScreen.route_name, arguments: _product);
+    if (_product.productType == ProductDeliveryType.FILE_DOWNLOADABLE || _product.productType == ProductDeliveryType.FILE_STREAMED) {
+      for (int contentId in _product.contents['ids']) {
+        var result = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
+        if (result.item1) {
+          var content = result.item2;
+          DriveHelper.shareFileWithThisUser(content.fileId);
+        }
+      }
+    }
+    // await Navigator.of(context).pushNamed(ProductPurchaseScreen.route_name, arguments: _product);
+    toast("Thanks for testing Globens app! You have been given a permission to view the content for free now.");
   }
 
   void _openProductReviews() async {

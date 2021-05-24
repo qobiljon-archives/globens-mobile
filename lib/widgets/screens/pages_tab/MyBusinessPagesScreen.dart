@@ -127,12 +127,13 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     bool success = tp.item1;
     List<BusinessPage> businessPages = tp.item2;
     if (success) {
-      setState(() {
-        _businessPages = businessPages;
-      });
+      if (mounted)
+        setState(() {
+          _businessPages = businessPages;
+        });
     } else {
       await AppUser.signOut();
-      await Navigator.of(context).pushReplacementNamed('/');
+      if (mounted) await Navigator.of(context).pushReplacementNamed('/');
     }
   }
 

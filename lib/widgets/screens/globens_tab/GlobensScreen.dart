@@ -34,8 +34,11 @@ class _GlobensScreenState extends State<GlobensScreen> {
     // 1. static part : set up common part (i.e., header, categories)
     _header = Container(
       margin: EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
-      child: RichText(
-        text: TextSpan(children: <TextSpan>[new TextSpan(text: "Globens", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.blueAccent)), new TextSpan(text: "!", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.lightGreen))]),
+      child: Row(
+        children: [
+          Image.asset('assets/globens_icon_transparent_bg.png', width: 24),
+          RichText(text: new TextSpan(text: "lobens", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.lightBlue))),
+        ],
       ),
     );
 
