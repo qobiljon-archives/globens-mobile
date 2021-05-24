@@ -10,6 +10,7 @@ import 'package:globens_flutter_client/entities/Job.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -24,39 +25,20 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
   ProductCategory _category;
   List<Product> _products;
   List<Job> _vacantJobs;
+  RefreshController _refreshController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _refreshController = RefreshController(initialRefresh: true);
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     _category = ModalRoute.of(context).settings.arguments as ProductCategory;
-
-    grpcFetchNextKProducts(
-            filterDetails: FilterDetails()
-              ..publishedProductsOnly = true
-              ..categoryId = _category.id
-              ..businessPageId = -1)
-        .then((tp) {
-      bool success = tp.item1;
-      List<Product> products = tp.item2;
-
-      if (success) {
-        setState(() {
-          this._products = products;
-        });
-      }
-    });
-
-    grpcFetchVacantPositions(AppUser.sessionKey).then((tp) {
-      bool success = tp.item1;
-      List<Job> jobs = tp.item2;
-
-      if (success) {
-        setState(() {
-          this._vacantJobs = jobs;
-        });
-      }
-    });
   }
 
   @override
@@ -70,12 +52,71 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
       appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Product category: ${Locale.REPLACE}", _category.name), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
       body: Container(
         margin: EdgeInsets.only(top: 10),
-        child: ListView.builder(
-          itemCount: rows,
-          itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+        child: SafeArea(
+          child: SmartRefresher(
+            enablePullDown: true,
+            enablePullUp: true,
+            header: MaterialClassicHeader(
+              color: Colors.blue,
+            ),
+            footer: CustomFooter(
+              builder: (BuildContext context, LoadStatus mode) {
+                Widget body;
+                if (mode == LoadStatus.idle)
+                  body = Text("Pull up to load more");
+                else if (mode == LoadStatus.loading)
+                  body = Text("Loading");
+                else if (mode == LoadStatus.failed)
+                  body = Text("Load Failed! Click retry!");
+                else if (mode == LoadStatus.canLoading)
+                  body = Text("release to load more");
+                else
+                  body = Text("No more Data");
+                return Container(
+                  height: 55.0,
+                  child: Center(child: body),
+                );
+              },
+            ),
+            controller: _refreshController,
+            onRefresh: _onRefresh,
+            child: ListView.builder(
+              itemCount: rows,
+              itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+            ),
+          ),
         ),
       ),
     );
+  }
+
+  void _onRefresh() async {
+    if (_category != null) {
+      var res = await _fetchCategoryProductsAndJobs(_category);
+      if (res.item1 && mounted) {
+        setState(() {
+          _products = res.item2;
+          _vacantJobs = res.item3;
+        });
+      }
+    }
+    _refreshController.refreshCompleted();
+  }
+
+  Future<Tuple3<bool, List<Product>, List<Job>>> _fetchCategoryProductsAndJobs(ProductCategory category) async {
+    var tp1 = await grpcFetchNextKProducts(
+        filterDetails: FilterDetails()
+          ..publishedProductsOnly = true
+          ..categoryId = category.id
+          ..businessPageId = -1);
+    var success = tp1.item1;
+    List<Product> products = tp1.item2;
+
+    var tp2 = await grpcFetchVacantPositions(AppUser.sessionKey);
+    success &= tp2.item1;
+    List<Job> jobs = tp2.item2;
+
+    return Tuple3(success, products, jobs);
   }
 
   Widget _getListViewItem(BuildContext context, int index) {
@@ -240,18 +281,12 @@ class _CategoryProductsScreenState extends State<CategoryProductsScreen> {
         toast(Locale.get("You have already applied for this position!"));
       else {
         await Navigator.of(context).pushNamed(JobApplicationCreatorScreen.route_name, arguments: job);
-        _updateDynamicPart();
+        _refreshController.requestRefresh();
       }
     } else {
       await AppUser.signOut();
       await Navigator.of(context).pushReplacementNamed('/');
     }
-  }
-
-  void _updateDynamicPart() async {}
-
-  void _onBackButtonPressed() {
-    Navigator.of(context).pop();
   }
 
   void _onProductTap(BuildContext context, Product product) async {

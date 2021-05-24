@@ -49,9 +49,9 @@ class RootTabsScreenState extends State<RootTabsScreen> with WidgetsBindingObser
         showUnselectedLabels: false,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            label: 'Globens',
+            label: Locale.get('Globens hub'),
             icon: Image.asset(
-              'assets/globens_icon_transparent_bg.png',
+              'assets/placeholder_products.png',
               width: 25,
             ),
           ),

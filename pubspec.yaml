@@ -66,6 +66,7 @@ dependencies:
   webview_flutter: ^2.0.4
   flutter_inappwebview: ^5.3.2
   flutter_spinkit: ^5.0.0
+  pull_to_refresh: ^2.0.0
 
 
 dev_dependencies:
@@ -105,6 +106,7 @@ flutter:
     - assets/product_type_scheduled.png
     - assets/placeholder_background_image.png
     - assets/placeholder_business_page.png
+    - assets/placeholder_products.png
 
 
 

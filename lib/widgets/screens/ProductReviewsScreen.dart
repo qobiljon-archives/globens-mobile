@@ -1,11 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/entities/Product.dart';
 import 'package:globens_flutter_client/entities/Review.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ProductReviewsScreen extends StatefulWidget {
   static const String route_name = '/product_reviews_screen';
@@ -21,21 +22,20 @@ class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
   var _newReviewStars = 0;
   final _newReviewTitleController = TextEditingController();
   final _newReviewController = TextEditingController();
+  RefreshController _refreshController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _refreshController = RefreshController(initialRefresh: true);
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     _product = ModalRoute.of(context).settings.arguments as Product;
-
-    grpcFetchProductReviews(AppUser.sessionKey, _product.id).then((tp) {
-      bool isSuccess = tp.item1;
-      if (isSuccess) {
-        setState(() {
-          _reviews = tp.item2;
-        });
-      }
-    });
   }
 
   @override
@@ -43,12 +43,47 @@ class _ProductReviewsScreenState extends State<ProductReviewsScreen> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
       appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Ratings and Reviews"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white))),
-      body: ListView.builder(
-        padding: EdgeInsets.all(10.0),
-        itemCount: _reviews.length + 1,
-        itemBuilder: (context, index) => _buildRow(index),
+      body: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: MaterialClassicHeader(color: Colors.blue,),
+        footer: CustomFooter(
+          builder: (BuildContext context, LoadStatus mode) {
+            Widget body;
+            if (mode == LoadStatus.idle)
+              body = Text("Pull up to load more");
+            else if (mode == LoadStatus.loading)
+              body = Text("Loading");
+            else if (mode == LoadStatus.failed)
+              body = Text("Load Failed! Click retry!");
+            else if (mode == LoadStatus.canLoading)
+              body = Text("release to load more");
+            else
+              body = Text("No more Data");
+            return Container(
+              height: 55.0,
+              child: Center(child: body),
+            );
+          },
+        ),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        child: ListView.builder(
+          padding: EdgeInsets.all(10.0),
+          itemCount: _reviews.length + 1,
+          itemBuilder: (context, index) => _buildRow(index),
+        ),
       ),
     );
+  }
+
+  void _onRefresh() async {
+    var res = await grpcFetchProductReviews(AppUser.sessionKey, _product.id);
+    if (res.item1 && mounted)
+      setState(() {
+        _reviews = res.item2;
+      });
+    _refreshController.refreshCompleted();
   }
 
   Widget _buildRow(int index) {

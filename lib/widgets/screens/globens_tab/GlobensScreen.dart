@@ -8,6 +8,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
@@ -26,10 +27,13 @@ class _GlobensScreenState extends State<GlobensScreen> {
   Widget _header;
   List<ProductCategory> _categories;
   List<Product> _products;
+  RefreshController _refreshController;
 
   @override
   void initState() {
     super.initState();
+
+    _refreshController = RefreshController(initialRefresh: true);
 
     // 1. static part : set up common part (i.e., header, categories)
     _header = Container(
@@ -37,13 +41,10 @@ class _GlobensScreenState extends State<GlobensScreen> {
       child: Row(
         children: [
           Image.asset('assets/globens_icon_transparent_bg.png', width: 24),
-          RichText(text: new TextSpan(text: "lobens", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Colors.lightBlue))),
+          RichText(text: new TextSpan(text: "lobens", style: GoogleFonts.fredokaOne(fontSize: 30.0, color: Color.fromARGB(255, 3, 169, 243)))),
         ],
       ),
     );
-
-    // 2. dynamic part : change body (i.e., ad products) from server
-    _fetchCategoriesAndAdProducts();
   }
 
   @override
@@ -51,21 +52,55 @@ class _GlobensScreenState extends State<GlobensScreen> {
     int categoryRows = _categories == null ? 1 : (_categories.length / 2).ceil();
     int productRows = _products == null ? 1 : (_products.length / 2).ceil();
 
-    return ListView.builder(
-      itemCount: 3 + categoryRows + 1 + productRows,
-      itemBuilder: (BuildContext context, int index) => _getListViewItem(index),
+    return SafeArea(
+      child: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: MaterialClassicHeader(color: Colors.blue,),
+        footer: CustomFooter(
+          builder: (BuildContext context, LoadStatus mode) {
+            Widget body;
+            if (mode == LoadStatus.idle)
+              body = Text("Pull up to load more");
+            else if (mode == LoadStatus.loading)
+              body = Text("Loading");
+            else if (mode == LoadStatus.failed)
+              body = Text("Load Failed! Click retry!");
+            else if (mode == LoadStatus.canLoading)
+              body = Text("release to load more");
+            else
+              body = Text("No more Data");
+            return Container(
+              height: 55.0,
+              child: Center(child: body),
+            );
+          },
+        ),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        child: ListView.builder(
+          itemCount: 3 + categoryRows + 1 + productRows,
+          itemBuilder: (BuildContext context, int index) => _getListViewItem(index),
+        ),
+      ),
     );
   }
 
-  Future<void> _fetchCategoriesAndAdProducts() async {
+  void _onRefresh() async {
+    var res = await _fetchCategoriesAndAdProducts();
+    if (res.item1 && mounted) {
+      setState(() {
+        _categories = res.item2;
+        _products = res.item3;
+      });
+    }
+    _refreshController.refreshCompleted();
+  }
+
+  Future<Tuple3<bool, List<ProductCategory>, List<Product>>> _fetchCategoriesAndAdProducts() async {
     final Tuple2<bool, List<ProductCategory>> tp1 = await grpcFetchProductCategories();
     bool success = tp1.item1;
     List<ProductCategory> categories = tp1.item2;
-    if (success && mounted) {
-      setState(() {
-        _categories = categories;
-      });
-    }
 
     final Tuple2<bool, List<Product>> tp2 = await grpcFetchNextKProducts(
         k: 20,
@@ -73,14 +108,10 @@ class _GlobensScreenState extends State<GlobensScreen> {
           ..publishedProductsOnly = true
           ..categoryId = -1
           ..businessPageId = -1);
-    success = tp2.item1;
+    success &= tp2.item1;
     List<Product> products = tp2.item2;
 
-    if (success && mounted) {
-      setState(() {
-        _products = products;
-      });
-    }
+    return Tuple3(success, categories, products);
   }
 
   Widget _getListViewItem(int index) {

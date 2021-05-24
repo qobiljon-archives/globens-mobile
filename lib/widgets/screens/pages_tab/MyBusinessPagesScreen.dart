@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:globens_flutter_client/widgets/screens/BusinessPageCreatorScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/pages_tab/BusinessPageDetailsScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
@@ -8,6 +6,7 @@ import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:tuple/tuple.dart';
 
@@ -24,11 +23,13 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
   List<Widget> _header = [];
   List<BusinessPage> _businessPages;
   List<Widget> _footer = [];
-  bool timeout = false;
+  RefreshController _refreshController;
 
   @override
   void initState() {
     super.initState();
+
+    _refreshController = RefreshController(initialRefresh: true);
 
     // 1. static part : set up common part of header and footer
     _header = [getTitleWidget(Locale.get("My business pages"), textColor: Colors.black)];
@@ -50,19 +51,54 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
         ),
       )
     ];
-
-    // 2. dynamic part : change body (i.e., business pages) from server
-    _fetchMyBusinessPages();
   }
 
   @override
   Widget build(context) {
     int pagesRows = _businessPages == null ? 1 : _businessPages.length;
 
-    return ListView.builder(
-      itemCount: _header.length + pagesRows + _footer.length,
-      itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+    return SafeArea(
+      child: SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: true,
+        header: MaterialClassicHeader(color: Colors.blue,),
+        footer: CustomFooter(
+          builder: (BuildContext context, LoadStatus mode) {
+            Widget body;
+            if (mode == LoadStatus.idle)
+              body = Text("Pull up to load more");
+            else if (mode == LoadStatus.loading)
+              body = Text("Loading");
+            else if (mode == LoadStatus.failed)
+              body = Text("Load Failed! Click retry!");
+            else if (mode == LoadStatus.canLoading)
+              body = Text("release to load more");
+            else
+              body = Text("No more Data");
+            return Container(
+              height: 55.0,
+              child: Center(child: body),
+            );
+          },
+        ),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        child: ListView.builder(
+          itemCount: _header.length + pagesRows + _footer.length,
+          itemBuilder: (BuildContext context, int index) => _getListViewItem(context, index),
+        ),
+      ),
     );
+  }
+
+  void _onRefresh() async {
+    var res = await grpcFetchMyBusinessPages(AppUser.sessionKey);
+    if (res.item1 && mounted) {
+      setState(() {
+        _businessPages = res.item2;
+      });
+    }
+    _refreshController.refreshCompleted();
   }
 
   Widget _buildBusinessPageItem(BuildContext context, BusinessPage businessPage) {
@@ -119,21 +155,6 @@ class _MyBusinessPagesScreenState extends State<MyBusinessPagesScreen> {
     } else {
       // header section
       return _header[index];
-    }
-  }
-
-  Future<void> _fetchMyBusinessPages() async {
-    Tuple2<bool, List<BusinessPage>> tp = await grpcFetchMyBusinessPages(AppUser.sessionKey);
-    bool success = tp.item1;
-    List<BusinessPage> businessPages = tp.item2;
-    if (success) {
-      if (mounted)
-        setState(() {
-          _businessPages = businessPages;
-        });
-    } else {
-      await AppUser.signOut();
-      if (mounted) await Navigator.of(context).pushReplacementNamed('/');
     }
   }
 
