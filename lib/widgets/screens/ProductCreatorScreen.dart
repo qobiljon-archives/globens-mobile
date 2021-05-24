@@ -22,8 +22,6 @@ import 'dart:io';
 class ProductCreatorScreen extends StatefulWidget {
   static const String route_name = '/product_creator_screen';
 
-  ProductCreatorScreen();
-
   @override
   _ProductCreatorScreenState createState() => _ProductCreatorScreenState();
 }
@@ -279,7 +277,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                                     ]))),
                           ))
                       .toList()),
-            if (isFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _uploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (isFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _addUploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length == 0 ? Locale.get("Select content") : Locale.get("Reselect"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
             if (isSchedule)
               GestureDetector(
                 onTap: () => _selectDateTime('from'),
@@ -318,9 +316,9 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 ),
               ),
             getSectionSplitter(Locale.get("Proceed with this product")),
-            RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(_product == null ? "CREATE" : "UPDATE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published) RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text("PUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published) RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text("UNPUBLISH", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(Locale.get(_product == null ? "Create" : "Update"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published) RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text(Locale.get('Publish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published) RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text(Locale.get('Unpublish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
           ],
         ),
       ),
@@ -416,7 +414,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     });
   }
 
-  void _uploadFilePressed() async {
+  void _addUploadFilePressed() async {
     try {
       FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
 

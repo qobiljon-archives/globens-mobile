@@ -163,7 +163,7 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
                   ],
                 )),
           getSectionSplitter(Locale.get("Actions")),
-          if (isFile) RaisedButton.icon(onPressed: _purchaseProduct, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag, color: Colors.white), label: Text(Locale.get("Purchase"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+          if (isFile) RaisedButton.icon(onPressed: _purchaseProduct, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.shopping_bag, color: Colors.white), label: Text(Locale.get("Purchase ( ${Locale.REPLACE} )", "${_product.priceStr}"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
         ],
       ),
     );
