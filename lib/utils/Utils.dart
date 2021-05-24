@@ -120,13 +120,13 @@ ContentType getContentType(String filename) {
     var extension = filename.substring(filename.length - 3).toLowerCase();
     if (['docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt', 'pdf', 'txt'].contains(extension))
       return ContentType.DOCUMENT;
-    else if (['mp3', 'mp4'].contains(extension)) return ContentType.MEDIA;
+    else if (['mp3', 'mp4', 'mov'].contains(extension)) return ContentType.MEDIA;
   }
   return ContentType.NONE;
 }
 
 String getSupportedFormatsStr() {
-  return ['mp3', 'mp4', 'txt', 'docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt', 'pdf', 'txt'].join(', ');
+  return ['mp3', 'mp4', 'mov', 'txt', 'docx', 'doc', 'xlsx', 'xls', 'pptx', 'ppt', 'pdf', 'txt'].join(', ');
 }
 
 String getProductTypeStr(ProductType type) {
