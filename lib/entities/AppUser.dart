@@ -1,13 +1,16 @@
-import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
-import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:tuple/tuple.dart';
 import 'dart:convert' as JSON;
 import 'dart:io';
+
+enum AuthMethod { APPLE, GOOGLE }
 
 class AppUser {
   // region Variables
@@ -15,6 +18,7 @@ class AppUser {
   static GoogleSignIn googleSignIn;
   static SharedPreferences userPrefs;
 
+  static AuthMethod _authMethod;
   static int _id = -1;
   static String _email;
   static String _displayName;
@@ -23,31 +27,23 @@ class AppUser {
   static bool _initialized = false;
   static String _countryCode = "KOR";
 
-  static int get id {
-    return _id;
-  }
+  static AuthMethod get authMethod => _authMethod;
 
-  static bool get initialized {
-    return _initialized;
-  }
+  static int get id => _id;
 
-  static String get email {
-    return _email;
-  }
+  static bool get initialized => _initialized;
 
-  static String get displayName {
-    return _displayName;
-  }
+  static String get email => _email;
 
-  static String get profileImageUrl {
-    return _profileImageUrl;
-  }
+  static String get displayName => _displayName;
 
-  static String get sessionKey {
-    return _sessionKey;
-  }
+  static String get profileImageUrl => _profileImageUrl;
 
-  static String get countryCode => _countryCode; // endregion
+  static String get sessionKey => _sessionKey;
+
+  static String get countryCode => _countryCode;
+
+  // endregion
 
   // region Constructor & init function
   factory AppUser() {
@@ -61,6 +57,7 @@ class AppUser {
     AppUser.userPrefs = await SharedPreferences.getInstance();
     if (AppUser.userPrefs.containsKey("id")) {
       AppUser.setProfileInfo(
+        authMethod: AuthMethod.values.firstWhere((element) => element.toString() == AppUser.userPrefs.getString("authMethod")),
         id: AppUser.userPrefs.getInt("id"),
         email: AppUser.userPrefs.getString("email"),
         displayName: AppUser.userPrefs.getString("displayName"),
@@ -79,7 +76,8 @@ class AppUser {
   // endregion
 
   // region Setters & getters
-  static void setProfileInfo({int id, String email, String displayName, String profileImageUrl, String sessionKey, String countryCode}) {
+  static void setProfileInfo({AuthMethod authMethod, int id, String email, String displayName, String profileImageUrl, String sessionKey, String countryCode}) {
+    if (authMethod != null) AppUser._authMethod = authMethod;
     if (id != null) AppUser._id = id;
     if (email != null) AppUser._email = email;
     if (displayName != null) AppUser._displayName = displayName;
@@ -89,6 +87,7 @@ class AppUser {
   }
 
   static void clearProfileInfo() {
+    AppUser._authMethod = null;
     AppUser._id = -1;
     AppUser._email = null;
     AppUser._displayName = null;
@@ -99,46 +98,69 @@ class AppUser {
   // endregion
 
   // region Utility functions
-  static Future<bool> signIn() async {
-    if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
-    Tuple2<GoogleSignInAccount, Map> tp = await AppUser._googleAuth();
-    if (tp != null) {
-      GoogleSignInAccount user = tp.item1;
-      Map tokens = tp.item2;
-      Tuple3<bool, int, String> res = await gprcAuthenticateUser(JSON.jsonEncode(tokens));
+  static Future<bool> signIn(AuthMethod authMethod) async {
+    if (authMethod == AuthMethod.APPLE) {
+      var res = await _appleAuth();
+      print("email = ${res.email}");
+      print("givenName = ${res.givenName}");
+      print("familyName = ${res.familyName}");
+      print("authorizationCode = ${res.authorizationCode}");
+      print("identityToken = ${res.identityToken}");
+      print("state = ${res.state}");
+      print("userIdentifier = ${res.userIdentifier}");
+      return false;
+    } else if (authMethod == AuthMethod.GOOGLE) {
+      if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
+      var googleRes = await AppUser._googleAuth();
+      if (googleRes != null) {
+        GoogleSignInAccount user = googleRes.item1;
+        Map tokens = googleRes.item2;
+        Tuple3<bool, int, String> grpcRes = await gprcAuthenticateUser(JSON.jsonEncode(tokens));
 
-      bool success = res.item1;
-      int userId = res.item2;
-      String sessionKey = res.item3;
-      if (success) {
-        AppUser.setProfileInfo(
-          id: userId,
-          email: user.email,
-          displayName: user.displayName,
-          profileImageUrl: user.photoUrl,
-          sessionKey: sessionKey,
-          countryCode: "KOR",
-        );
-        AppUser.updateUserPrefsData();
-        return true;
+        bool success = grpcRes.item1;
+        int userId = grpcRes.item2;
+        String sessionKey = grpcRes.item3;
+        if (success) {
+          AppUser.setProfileInfo(
+            id: userId,
+            email: user.email,
+            displayName: user.displayName,
+            profileImageUrl: user.photoUrl,
+            sessionKey: sessionKey,
+            countryCode: "KOR",
+          );
+          AppUser.updateUserPrefsData();
+          return true;
+        }
       }
     }
     return false;
   }
 
   static Future<void> signOut() async {
-    await googleSignIn.signOut();
+    switch (_authMethod) {
+      case AuthMethod.APPLE:
+        // todo sign out from apple
+        break;
+      case AuthMethod.GOOGLE:
+        await googleSignIn.signOut();
+        break;
+    }
     await userPrefs.clear();
     AppUser.clearProfileInfo();
   }
 
   static void updateUserPrefsData() {
-    userPrefs.setInt("id", AppUser._id);
-    userPrefs.setString("email", AppUser._email);
-    userPrefs.setString("displayName", AppUser._displayName);
-    userPrefs.setString("profileImageUrl", AppUser._profileImageUrl);
-    userPrefs.setString("sessionKey", AppUser._sessionKey);
-    userPrefs.setString("countryCode", AppUser._countryCode);
+    if (AppUser._authMethod != null) {
+      userPrefs.setString("authMethod", AppUser._authMethod.toString());
+      userPrefs.setInt("id", AppUser._id);
+      userPrefs.setString("email", AppUser._email);
+      userPrefs.setString("displayName", AppUser._displayName);
+      userPrefs.setString("profileImageUrl", AppUser._profileImageUrl);
+      userPrefs.setString("sessionKey", AppUser._sessionKey);
+      userPrefs.setString("countryCode", AppUser._countryCode);
+    } else
+      clearProfileInfo();
   }
 
   static bool isAuthenticated() {
@@ -152,6 +174,15 @@ class AppUser {
   }
 
   // endregion
+
+  static Future<AuthorizationCredentialAppleID> _appleAuth() async {
+    return await SignInWithApple.getAppleIDCredential(
+      scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName,
+      ],
+    );
+  }
 
   static Future<Tuple2<GoogleSignInAccount, Map>> _googleAuth() async {
     Map<String, dynamic> tokens = {};

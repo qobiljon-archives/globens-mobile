@@ -1,9 +1,8 @@
-import 'dart:convert';
-
-import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
+import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:intl/intl.dart';
 import 'BusinessPage.dart';
+import 'dart:convert';
 
 class Product {
   // region Constants

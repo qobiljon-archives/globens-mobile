@@ -82,9 +82,12 @@ class Locale {
   // Add new strings in the format of ENGLISH: [RUSSIAN, KOREAN, UZBEK]
   static Map<String, List<String>> _stringsMap = {
     "Select language": ["Выберите язык", "언어 선택", "Tilni tanlang"],
-    "Sign in with Google account": ["Войти в систему через Google аккаунт", "Google-로 로그인", "Google orqali tizimga kirish"],
-    "Signed in with Google.": ["Вы вошли в систему с помощью Google.", "Google로 로그인했습니다.", "Google bilan tizimga kirildi."],
-    "Failed to login with Google.\nPlease try again later!": ["Не удалось войти в систему с помощью Google. \nПовторите попытку позже!", "Google로 로그인하지 못했습니다. \n나중에 다시 시도하십시오!", "Google bilan kirish amalga oshmadi. \nIltimos, keyinroq qayta urinib ko'ring!"],
+    "Sign in with Google": ["Войти в систему через Google", "Google-로 로그인", "Google orqali tizimga kirish"],
+    "Signed in with Google.": ["Вы вошли в систему с помощью Google.", "Google로 로그인했습니다.", "Google orqali tizimga kirildi."],
+    "Failed to login with Google.\nPlease try again later!": ["Не удалось войти в систему с помощью Google. \nПовторите попытку позже!", "Google로 로그인하지 못했습니다. \n나중에 다시 시도하십시오!", "Google orqali kirish amalga oshmadi. \nIltimos, keyinroq qayta urinib ko'ring!"],
+    "Sign in with Apple": ["Войти в систему через Apple", "Apple-로 로그인", "Apple orqali tizimga kirish"],
+    "Signed in with Apple.": ["Вы вошли в систему с помощью Apple.", "Google로 로그인했습니다.", "Apple bilan tizimga kirildi."],
+    "Failed to login with Apple.\nPlease try again later!": ["Не удалось войти в систему с помощью Apple. \nПовторите попытку позже!", "Apple로 로그인하지 못했습니다. \n나중에 다시 시도하십시오!", "Apple orqali kirish amalga oshmadi. \nIltimos, keyinroq qayta urinib ko'ring!"],
     "App menu": ["Меню", "앱 메뉴", "Ilova menyusi"],
     "Globens hub": ["Хаб Globens", "Globens 허브", "Globens markazi"],
     "Sign out": ["Выход", "로그 아웃", "Tizimdan chiqish"],
