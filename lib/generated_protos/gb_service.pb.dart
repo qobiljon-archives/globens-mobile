@@ -133,17 +133,22 @@ class FilterDetails extends $pb.GeneratedMessage {
 
 class AuthenticateUser_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AuthenticateUser.Request', createEmptyInstance: create)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tokensJson', protoName: 'tokensJson')
+    ..e<AuthMethod>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'method', $pb.PbFieldType.OE, defaultOrMaker: AuthMethod.APPLE, valueOf: AuthMethod.valueOf, enumValues: AuthMethod.values)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'token')
     ..hasRequiredFields = false
   ;
 
   AuthenticateUser_Request._() : super();
   factory AuthenticateUser_Request({
-    $core.String? tokensJson,
+    AuthMethod? method,
+    $core.String? token,
   }) {
     final _result = create();
-    if (tokensJson != null) {
-      _result.tokensJson = tokensJson;
+    if (method != null) {
+      _result.method = method;
+    }
+    if (token != null) {
+      _result.token = token;
     }
     return _result;
   }
@@ -168,14 +173,23 @@ class AuthenticateUser_Request extends $pb.GeneratedMessage {
   static AuthenticateUser_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AuthenticateUser_Request>(create);
   static AuthenticateUser_Request? _defaultInstance;
 
+  @$pb.TagNumber(1)
+  AuthMethod get method => $_getN(0);
+  @$pb.TagNumber(1)
+  set method(AuthMethod v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasMethod() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMethod() => clearField(1);
+
   @$pb.TagNumber(2)
-  $core.String get tokensJson => $_getSZ(0);
+  $core.String get token => $_getSZ(1);
   @$pb.TagNumber(2)
-  set tokensJson($core.String v) { $_setString(0, v); }
+  set token($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasTokensJson() => $_has(0);
+  $core.bool hasToken() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTokensJson() => clearField(2);
+  void clearToken() => clearField(2);
 }
 
 class AuthenticateUser_Response extends $pb.GeneratedMessage {
@@ -409,6 +423,7 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserDetails.Request', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'countryCode', protoName: 'countryCode')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'googleDriveEmail', protoName: 'googleDriveEmail')
     ..hasRequiredFields = false
   ;
 
@@ -416,6 +431,7 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
   factory UpdateUserDetails_Request({
     $core.String? sessionKey,
     $core.String? countryCode,
+    $core.String? googleDriveEmail,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -423,6 +439,9 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
     }
     if (countryCode != null) {
       _result.countryCode = countryCode;
+    }
+    if (googleDriveEmail != null) {
+      _result.googleDriveEmail = googleDriveEmail;
     }
     return _result;
   }
@@ -464,6 +483,15 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
   $core.bool hasCountryCode() => $_has(1);
   @$pb.TagNumber(2)
   void clearCountryCode() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get googleDriveEmail => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set googleDriveEmail($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasGoogleDriveEmail() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearGoogleDriveEmail() => clearField(3);
 }
 
 class UpdateUserDetails_Response extends $pb.GeneratedMessage {
@@ -608,10 +636,11 @@ class FetchUserDetails_Response extends $pb.GeneratedMessage {
     ..aOB(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'success')
     ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id', $pb.PbFieldType.O3)
     ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'picture')
-    ..a<$core.List<$core.int>>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
-    ..aOS(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'countryCode', protoName: 'countryCode')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'googleDriveEmail', protoName: 'googleDriveEmail')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
+    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'picture')
+    ..a<$core.List<$core.int>>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'pictureBlob', $pb.PbFieldType.OY, protoName: 'pictureBlob')
+    ..aOS(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'countryCode', protoName: 'countryCode')
     ..hasRequiredFields = false
   ;
 
@@ -620,6 +649,7 @@ class FetchUserDetails_Response extends $pb.GeneratedMessage {
     $core.bool? success,
     $core.int? id,
     $core.String? email,
+    $core.String? googleDriveEmail,
     $core.String? name,
     $core.String? picture,
     $core.List<$core.int>? pictureBlob,
@@ -634,6 +664,9 @@ class FetchUserDetails_Response extends $pb.GeneratedMessage {
     }
     if (email != null) {
       _result.email = email;
+    }
+    if (googleDriveEmail != null) {
+      _result.googleDriveEmail = googleDriveEmail;
     }
     if (name != null) {
       _result.name = name;
@@ -698,40 +731,49 @@ class FetchUserDetails_Response extends $pb.GeneratedMessage {
   void clearEmail() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get name => $_getSZ(3);
+  $core.String get googleDriveEmail => $_getSZ(3);
   @$pb.TagNumber(4)
-  set name($core.String v) { $_setString(3, v); }
+  set googleDriveEmail($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasName() => $_has(3);
+  $core.bool hasGoogleDriveEmail() => $_has(3);
   @$pb.TagNumber(4)
-  void clearName() => clearField(4);
+  void clearGoogleDriveEmail() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get picture => $_getSZ(4);
+  $core.String get name => $_getSZ(4);
   @$pb.TagNumber(5)
-  set picture($core.String v) { $_setString(4, v); }
+  set name($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasPicture() => $_has(4);
+  $core.bool hasName() => $_has(4);
   @$pb.TagNumber(5)
-  void clearPicture() => clearField(5);
+  void clearName() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.List<$core.int> get pictureBlob => $_getN(5);
+  $core.String get picture => $_getSZ(5);
   @$pb.TagNumber(6)
-  set pictureBlob($core.List<$core.int> v) { $_setBytes(5, v); }
+  set picture($core.String v) { $_setString(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasPictureBlob() => $_has(5);
+  $core.bool hasPicture() => $_has(5);
   @$pb.TagNumber(6)
-  void clearPictureBlob() => clearField(6);
+  void clearPicture() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.String get countryCode => $_getSZ(6);
+  $core.List<$core.int> get pictureBlob => $_getN(6);
   @$pb.TagNumber(7)
-  set countryCode($core.String v) { $_setString(6, v); }
+  set pictureBlob($core.List<$core.int> v) { $_setBytes(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasCountryCode() => $_has(6);
+  $core.bool hasPictureBlob() => $_has(6);
   @$pb.TagNumber(7)
-  void clearCountryCode() => clearField(7);
+  void clearPictureBlob() => clearField(7);
+
+  @$pb.TagNumber(8)
+  $core.String get countryCode => $_getSZ(7);
+  @$pb.TagNumber(8)
+  set countryCode($core.String v) { $_setString(7, v); }
+  @$pb.TagNumber(8)
+  $core.bool hasCountryCode() => $_has(7);
+  @$pb.TagNumber(8)
+  void clearCountryCode() => clearField(8);
 }
 
 class FetchUserDetails extends $pb.GeneratedMessage {

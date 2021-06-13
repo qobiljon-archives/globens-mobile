@@ -14,12 +14,10 @@ import 'package:globens_flutter_client/widgets/screens/ProductViewerScreen.dart'
 import 'package:globens_flutter_client/widgets/screens/ContentViewerScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
-
-import 'utils/Settings.dart';
-import 'utils/Settings.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +27,7 @@ void main() {
     if (!dataDir.existsSync()) dataDir.create();
     print(dataDir);
   });
+  Firebase.initializeApp();
 
   runApp(MaterialApp(
     themeMode: ThemeMode.light,
@@ -63,4 +62,3 @@ void main() {
     },
   ));
 }
-

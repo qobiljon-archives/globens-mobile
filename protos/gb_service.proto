@@ -13,9 +13,14 @@ message FilterDetails{
 }
 
 // user management requests/responses
+enum AuthMethod {
+  APPLE = 0;
+  GOOGLE = 1;
+}
 message AuthenticateUser {
   message Request{
-    string tokensJson = 2;
+    AuthMethod method = 1;
+    string token = 2;
   }
   message Response{
     bool success = 1;
@@ -35,6 +40,7 @@ message UpdateUserDetails{
   message Request{
     string sessionKey = 1;
     string countryCode = 2;
+    string googleDriveEmail = 3;
   }
   message Response{
     bool success = 1;
@@ -49,10 +55,11 @@ message FetchUserDetails{
     bool success = 1;
     int32 id = 2;
     string email = 3;
-    string name = 4;
-    string picture = 5;
-    bytes pictureBlob = 6;
-    string countryCode = 7;
+    string googleDriveEmail = 4;
+    string name = 5;
+    string picture = 6;
+    bytes pictureBlob = 7;
+    string countryCode = 8;
   }
 }
 

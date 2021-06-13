@@ -1,17 +1,16 @@
-import 'dart:io';
-
 import 'package:globens_flutter_client/widgets/screens/CountrySelectionScreen.dart';
 import 'package:globens_flutter_client/widgets/screens/LanguageSelectorScreen.dart';
+import 'package:globens_flutter_client/generated_protos/gb_service.pbenum.dart';
 import 'package:globens_flutter_client/widgets/screens/RootTabsScreen.dart';
 import 'package:globens_flutter_client/utils/CountryHelper.dart';
 import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/Locale.dart';
 import 'package:globens_flutter_client/utils/Utils.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-
-import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class MenuScreen extends StatefulWidget {
   final RootTabsScreenState rootTabsScreenState;
@@ -43,7 +42,15 @@ class _MenuScreenState extends State<MenuScreen> {
         Center(child: Text(AppUser.isAuthenticated() ? AppUser.displayName : Locale.get("Anonymous user"), style: TextStyle(fontSize: 20.0, color: Colors.black))),
         Center(child: Text(AppUser.isAuthenticated() ? AppUser.email : Locale.get("Sign in"), style: GoogleFonts.lato(fontSize: 14.0, color: Colors.black))),
         SizedBox(height: 10),
-        ActionChip(onPressed: AppUser.isAuthenticated() ? _signOutPressed : _signInPressed, avatar: Image.asset('assets/auth_google.png', width: 25, fit: BoxFit.cover), label: Text(AppUser.isAuthenticated() ? Locale.get("Sign out") : Locale.get("Sign in with Google account"), style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+        if (AppUser.isAuthenticated())
+          ActionChip(
+            onPressed: _signOutPressed,
+            avatar: Image.asset(AppUser.authMethod == AuthMethod.GOOGLE ? 'assets/auth_google.png' : 'assets/auth_apple.png', width: 25, fit: BoxFit.cover),
+            label: Text(Locale.get("Sign out"), style: TextStyle(color: AppUser.authMethod == AuthMethod.APPLE ? Colors.white : Colors.black, fontWeight: FontWeight.bold)),
+            backgroundColor: AppUser.authMethod == AuthMethod.APPLE ? Colors.black : Colors.black12,
+          ),
+        if (!AppUser.isAuthenticated()) ActionChip(onPressed: _googleSignInPressed, avatar: Image.asset('assets/auth_google.png', width: 25, fit: BoxFit.cover), label: Text(Locale.get("Sign in with Google account"), style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold))),
+        if (!AppUser.isAuthenticated() && Platform.isIOS) ActionChip(onPressed: _appleSignInPressed, avatar: Image.asset('assets/auth_apple.png', width: 25, fit: BoxFit.cover), label: Text(Locale.get("Sign in with Apple"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)), backgroundColor: Colors.black),
         SizedBox(height: 10),
         Container(height: 16, decoration: BoxDecoration(color: Colors.black12)),
         if (AppUser.isAuthenticated())
@@ -101,17 +108,26 @@ class _MenuScreenState extends State<MenuScreen> {
     );
   }
 
-  void _signOutPressed() async {
-    await AppUser.signOut();
-    setState(() {});
-  }
-
-  void _signInPressed() async {
-    if (await AppUser.signIn())
+  void _googleSignInPressed() async {
+    if (await AppUser.signIn(AuthMethod.GOOGLE))
       await toast(Locale.get("Signed in with Google."));
     else
       await toast(Locale.get("Failed to login with Google.\nPlease try again later!"));
 
+    setState(() {});
+  }
+
+  void _appleSignInPressed() async {
+    if (await AppUser.signIn(AuthMethod.APPLE))
+      await toast(Locale.get("Signed in with Apple."));
+    else
+      await toast(Locale.get("Failed to login with Google.\nPlease try again later!"));
+
+    setState(() {});
+  }
+
+  void _signOutPressed() async {
+    await AppUser.signOut();
     setState(() {});
   }
 
@@ -125,6 +141,7 @@ class _MenuScreenState extends State<MenuScreen> {
     if (CountrySelectionScreen.resultCountryCode != null) {
       AppUser.setProfileInfo(countryCode: CountrySelectionScreen.resultCountryCode);
       AppUser.updateUserPrefsData();
+      await gprcUpdateUserDetails(AppUser.sessionKey, await AppUser.getMyGlobensUser());
       setState(() {});
     }
   }

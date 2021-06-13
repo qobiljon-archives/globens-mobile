@@ -1,9 +1,8 @@
-import 'dart:convert';
-
-import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:globens_flutter_client/generated_protos/gb_service.pb.dart';
+import 'package:globens_flutter_client/entities/ProductCategory.dart';
 import 'package:intl/intl.dart';
 import 'BusinessPage.dart';
+import 'dart:convert';
 
 class Product {
   // region Constants
@@ -32,7 +31,21 @@ class Product {
 
   // endregion
 
-  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, Map<String, dynamic> contents, String dynamicLink, {int id, double stars, int reviewsCount, bool published}) {
+  Product.create(
+      String name,
+      ProductDeliveryType productType,
+      ProductCategory category,
+      List<int> pictureBlob,
+      BusinessPage businessPage,
+      double price,
+      Currency currency,
+      String description,
+      Map<String, dynamic> contents,
+      String dynamicLink,
+      {int id,
+      double stars,
+      int reviewsCount,
+      bool published}) {
     this._id = id;
     this._name = name;
     this._productType = productType;
