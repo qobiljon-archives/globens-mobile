@@ -159,15 +159,16 @@ const FetchUserDetails_Response$json = const {
     const {'1': 'success', '3': 1, '4': 1, '5': 8, '10': 'success'},
     const {'1': 'id', '3': 2, '4': 1, '5': 5, '10': 'id'},
     const {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'name', '3': 4, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'picture', '3': 5, '4': 1, '5': 9, '10': 'picture'},
-    const {'1': 'pictureBlob', '3': 6, '4': 1, '5': 12, '10': 'pictureBlob'},
-    const {'1': 'countryCode', '3': 7, '4': 1, '5': 9, '10': 'countryCode'},
+    const {'1': 'googleDriveEmail', '3': 4, '4': 1, '5': 9, '10': 'googleDriveEmail'},
+    const {'1': 'name', '3': 5, '4': 1, '5': 9, '10': 'name'},
+    const {'1': 'picture', '3': 6, '4': 1, '5': 9, '10': 'picture'},
+    const {'1': 'pictureBlob', '3': 7, '4': 1, '5': 12, '10': 'pictureBlob'},
+    const {'1': 'countryCode', '3': 8, '4': 1, '5': 9, '10': 'countryCode'},
   ],
 };
 
 /// Descriptor for `FetchUserDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List fetchUserDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFVzZXJEZXRhaWxzGkEKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIWCgZ1c2VySWQYAiABKAVSBnVzZXJJZBq8AQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAEoBVICaWQSFAoFZW1haWwYAyABKAlSBWVtYWlsEhIKBG5hbWUYBCABKAlSBG5hbWUSGAoHcGljdHVyZRgFIAEoCVIHcGljdHVyZRIgCgtwaWN0dXJlQmxvYhgGIAEoDFILcGljdHVyZUJsb2ISIAoLY291bnRyeUNvZGUYByABKAlSC2NvdW50cnlDb2Rl');
+final $typed_data.Uint8List fetchUserDetailsDescriptor = $convert.base64Decode('ChBGZXRjaFVzZXJEZXRhaWxzGkEKB1JlcXVlc3QSHgoKc2Vzc2lvbktleRgBIAEoCVIKc2Vzc2lvbktleRIWCgZ1c2VySWQYAiABKAVSBnVzZXJJZBroAQoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2VzcxIOCgJpZBgCIAEoBVICaWQSFAoFZW1haWwYAyABKAlSBWVtYWlsEioKEGdvb2dsZURyaXZlRW1haWwYBCABKAlSEGdvb2dsZURyaXZlRW1haWwSEgoEbmFtZRgFIAEoCVIEbmFtZRIYCgdwaWN0dXJlGAYgASgJUgdwaWN0dXJlEiAKC3BpY3R1cmVCbG9iGAcgASgMUgtwaWN0dXJlQmxvYhIgCgtjb3VudHJ5Q29kZRgIIAEoCVILY291bnRyeUNvZGU=');
 @$core.Deprecated('Use createBusinessPageDescriptor instead')
 const CreateBusinessPage$json = const {
   '1': 'CreateBusinessPage',

@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/entities/AppUser.dart';
 import 'package:globens_flutter_client/utils/DriveHelper.dart';
 import 'package:globens_flutter_client/entities/Content.dart';
 import 'package:flutter_filereader/flutter_filereader.dart';
@@ -32,11 +33,27 @@ class ContentViewerScreenState extends State<ContentViewerScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _content = ModalRoute.of(context).settings.arguments as Content;
-    _contentType = getContentType(_content.title);
+    () async {
+      if (AppUser.googleDriveEmail == null) {
+        try {
+          if (AppUser.isAuthenticated()) {
+            // apple sign in without google drive access
+            toast("Globens works with Google Drive. To view a product, you would need to give access to your Google account (email address).");
+            if (!await AppUser.googleDriveAuth()) Navigator.of(context).pop();
+          } else {
+            toast("Please sign in to view the content!");
+            Navigator.of(context).pop();
+          }
+        } catch (e) {
+          Navigator.of(context).pop();
+        }
+      }
 
-    getApplicationDocumentsDirectory().then((dir) async {
-      var cacheDir = Directory("${dir.path}/globens_cache");
+      _content = ModalRoute.of(context).settings.arguments as Content;
+      _contentType = getContentType(_content.title);
+
+      var docsDir = await getApplicationDocumentsDirectory();
+      var cacheDir = Directory("${docsDir.path}/globens_cache");
       var file = new File("${cacheDir.path}/${_content.title}");
       var canViewContent = await file.exists();
       if (!canViewContent) {
@@ -71,7 +88,7 @@ class ContentViewerScreenState extends State<ContentViewerScreen> {
       } else {
         toast("Error loading content, please contact Globens support team!");
       }
-    });
+    }.call();
   }
 
   @override

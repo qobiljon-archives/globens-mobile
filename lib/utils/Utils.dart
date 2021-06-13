@@ -191,7 +191,8 @@ Future<Tuple2<bool, GlobensUser>> grpcFetchUserDetails(String sessionKey, int us
       ..sessionKey = sessionKey
       ..userId = userId);
     success = fetchUserDetailsRes.success;
-    if (success) user = GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode);
+    var googleDriveEmail = fetchUserDetailsRes.googleDriveEmail == null || fetchUserDetailsRes.googleDriveEmail.length == 0 ? null : fetchUserDetailsRes.googleDriveEmail;
+    if (success) user = GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, googleDriveEmail, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode);
   } catch (e) {
     print(e);
   }
@@ -495,7 +496,7 @@ Future<Tuple2<bool, List<Job>>> grpcFetchBusinessPageJobs(String sessionKey, Bus
               ..userId = jobDetailsRes.hiredUserId);
 
             if (hiredUserDetailsRes.success) {
-              users[jobDetailsRes.hiredUserId] = GlobensUser.create(hiredUserDetailsRes.id, hiredUserDetailsRes.email, hiredUserDetailsRes.name, hiredUserDetailsRes.picture, hiredUserDetailsRes.pictureBlob, hiredUserDetailsRes.countryCode);
+              users[jobDetailsRes.hiredUserId] = GlobensUser.create(hiredUserDetailsRes.id, hiredUserDetailsRes.email, hiredUserDetailsRes.googleDriveEmail, hiredUserDetailsRes.name, hiredUserDetailsRes.picture, hiredUserDetailsRes.pictureBlob, hiredUserDetailsRes.countryCode);
               jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPage, role: jobDetailsRes.role, hiredUser: users[jobDetailsRes.hiredUserId]));
             } else
               jobs.add(Job.create(jobDetailsRes.title, id: jobDetailsRes.id, businessPage: businessPage, role: jobDetailsRes.role));
@@ -591,7 +592,7 @@ Future<Tuple2<bool, List<JobApplication>>> grpcFetchJobApplications(String sessi
               ..sessionKey = sessionKey
               ..userId = fetchJobApplicationDetailsRes.applicantId);
             success &= fetchUserDetailsRes.success;
-            if (success) allApplicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode));
+            if (success) allApplicantUsers.putIfAbsent(fetchUserDetailsRes.id, () => GlobensUser.create(fetchUserDetailsRes.id, fetchUserDetailsRes.email, fetchUserDetailsRes.googleDriveEmail, fetchUserDetailsRes.name, fetchUserDetailsRes.picture, fetchUserDetailsRes.pictureBlob, fetchUserDetailsRes.countryCode));
           }
 
           if (success) {

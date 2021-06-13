@@ -141,6 +141,7 @@ class _MenuScreenState extends State<MenuScreen> {
     if (CountrySelectionScreen.resultCountryCode != null) {
       AppUser.setProfileInfo(countryCode: CountrySelectionScreen.resultCountryCode);
       AppUser.updateUserPrefsData();
+      await gprcUpdateUserDetails(AppUser.sessionKey, await AppUser.getMyGlobensUser());
       setState(() {});
     }
   }

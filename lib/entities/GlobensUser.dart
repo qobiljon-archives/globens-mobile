@@ -4,6 +4,7 @@ class GlobensUser {
   // region Variables
   int _id;
   String _email;
+  String _googleDriveEmail;
   String _name;
   String _picture;
   List<int> _pictureBlob;
@@ -11,9 +12,10 @@ class GlobensUser {
 
   // endregion
 
-  GlobensUser.create(int id, String email, String name, String picture, List<int> pictureBlob, String countryCode) {
+  GlobensUser.create(int id, String email, String googleDriveEmail, String name, String picture, List<int> pictureBlob, String countryCode) {
     this._id = id;
     this._email = email;
+    this._googleDriveEmail = googleDriveEmail;
     this._name = name;
     this._picture = picture;
     this._pictureBlob = pictureBlob;
@@ -24,6 +26,8 @@ class GlobensUser {
   int get id => _id;
 
   String get email => _email;
+
+  String get googleDriveEmail => _googleDriveEmail;
 
   String get name => _name;
 

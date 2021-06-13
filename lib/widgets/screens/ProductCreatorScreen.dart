@@ -85,37 +85,54 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    var argument = ModalRoute.of(context).settings.arguments;
-    if (argument is Product) {
-      _product = argument;
-      _businessPage = _product.businessPage;
-
-      _productImageBytes = _product.pictureBlob;
-      _selectedCategoryId = _product.category.id;
-      _selectedProductDeliveryType = _product.productType;
-      _selectedCurrency = _product.currency;
-      _titleTextController.text = _product.name;
-      _priceTextController.text = _product.price.toString();
-      _descriptionTextController.text = _product.description;
-      if (_selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED) {
-        () async {
-          for (var contentId in _product.contents['ids']) {
-            var res = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
-            if (res.item1) _existingProductContents.add(res.item2);
+    () async {
+      if (AppUser.googleDriveEmail == null) {
+        try {
+          if (AppUser.isAuthenticated()) {
+            // apple sign in without google drive access
+            toast("Globens works with Google Drive. To view a product, you would need to give access to your Google account (email address).");
+            if (!await AppUser.googleDriveAuth()) Navigator.of(context).pop();
+          } else {
+            toast("Please sign in to view the content!");
+            Navigator.of(context).pop();
           }
-          if (mounted) setState(() {});
-        }.call();
-      } else if (_selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL) {
-        _fromUntilDateTime['from'] = _product.contents['from'];
-        _fromUntilDateTime['until'] = _product.contents['until'];
-
-        _productAvailableTimeSlots.clear();
-        for (var weekday in _product.contents['slots'].keys) {
-          _productAvailableTimeSlots.putIfAbsent(weekday, () => _product.contents['slots'][weekday].cast<int>().toSet());
+        } catch (e) {
+          Navigator.of(context).pop();
         }
       }
-    } else
-      _businessPage = argument as BusinessPage;
+
+      var argument = ModalRoute.of(context).settings.arguments;
+      if (argument is Product) {
+        _product = argument;
+        _businessPage = _product.businessPage;
+
+        _productImageBytes = _product.pictureBlob;
+        _selectedCategoryId = _product.category.id;
+        _selectedProductDeliveryType = _product.productType;
+        _selectedCurrency = _product.currency;
+        _titleTextController.text = _product.name;
+        _priceTextController.text = _product.price.toString();
+        _descriptionTextController.text = _product.description;
+        if (_selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED) {
+          () async {
+            for (var contentId in _product.contents['ids']) {
+              var res = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
+              if (res.item1) _existingProductContents.add(res.item2);
+            }
+            if (mounted) setState(() {});
+          }.call();
+        } else if (_selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_FACE_TO_FACE || _selectedProductDeliveryType == ProductDeliveryType.SCHEDULED_ONLINE_CALL) {
+          _fromUntilDateTime['from'] = _product.contents['from'];
+          _fromUntilDateTime['until'] = _product.contents['until'];
+
+          _productAvailableTimeSlots.clear();
+          for (var weekday in _product.contents['slots'].keys) {
+            _productAvailableTimeSlots.putIfAbsent(weekday, () => _product.contents['slots'][weekday].cast<int>().toSet());
+          }
+        }
+      } else
+        _businessPage = argument as BusinessPage;
+    }.call();
   }
 
   @override
@@ -125,7 +142,11 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(240, 242, 245, 1),
-      appBar: AppBar(leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()), backgroundColor: Colors.blue, title: Text(Locale.get("Product details"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)), actions: [if (_product != null) IconButton(icon: Icon(Icons.ios_share, color: Colors.white), onPressed: _shareProductPressed)]),
+      appBar: AppBar(
+          leading: IconButton(icon: Icon(Icons.arrow_back_ios, color: Colors.white), onPressed: () => Navigator.of(context).pop()),
+          backgroundColor: Colors.blue,
+          title: Text(Locale.get("Product details"), overflow: TextOverflow.ellipsis, style: TextStyle(color: Colors.white)),
+          actions: [if (_product != null) IconButton(icon: Icon(Icons.ios_share, color: Colors.white), onPressed: _shareProductPressed)]),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
@@ -170,7 +191,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                         child: Container(
                           height: 20.0,
                           margin: EdgeInsets.only(top: 10, bottom: 10),
-                          child: TextField(controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
+                          child: TextField(
+                              controller: _titleTextController, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product name"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., Yoga training 24/7"), border: InputBorder.none)),
                         ),
                       )
                     ],
@@ -180,8 +202,15 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
               margin: EdgeInsets.only(top: 10.0),
               child: Container(
                 padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                child:
-                    DropdownButton<int>(isExpanded: true, value: _selectedCategoryId, icon: _getProductImage(), iconSize: 24, elevation: 16, underline: Container(), onChanged: _categorySelected, items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
+                child: DropdownButton<int>(
+                    isExpanded: true,
+                    value: _selectedCategoryId,
+                    icon: _getProductImage(),
+                    iconSize: 24,
+                    elevation: 16,
+                    underline: Container(),
+                    onChanged: _categorySelected,
+                    items: _categories.values.map<DropdownMenuItem<int>>((ProductCategory category) => DropdownMenuItem<int>(value: category.id, child: Text(Locale.get("Product category: ${Locale.REPLACE}", category.name), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList()),
               ),
             ),
             Card(
@@ -196,7 +225,9 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   elevation: 16,
                   underline: Container(),
                   onChanged: _onProductTypeChanged,
-                  items: _productTypes.keys.map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", getProductTypeStr(_productTypes[selectedProductType].item1)), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent)))).toList(),
+                  items: _productTypes.keys
+                      .map<DropdownMenuItem<ProductDeliveryType>>((ProductDeliveryType selectedProductType) => DropdownMenuItem<ProductDeliveryType>(value: selectedProductType, child: Text(Locale.get("Content type: ${Locale.REPLACE}", getProductTypeStr(_productTypes[selectedProductType].item1)), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent))))
+                      .toList(),
                 ),
               ),
             ),
@@ -208,7 +239,10 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                   children: [
                     Flexible(
                         child: TextField(
-                            controller: _priceTextController, keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: isSchedule ? Locale.get("Price per time slot") : Locale.get("Price"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., 1000"), border: InputBorder.none))),
+                            controller: _priceTextController,
+                            keyboardType: TextInputType.numberWithOptions(signed: false, decimal: true),
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                            decoration: InputDecoration(labelText: isSchedule ? Locale.get("Price per time slot") : Locale.get("Price"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., 1000"), border: InputBorder.none))),
                     DropdownButton<String>(
                         value: _selectedCurrency.name,
                         icon: Icon(Icons.expand_more),
@@ -235,7 +269,13 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 margin: EdgeInsets.only(top: 10.0),
                 child: Container(
                     padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                    child: TextField(controller: _descriptionTextController, minLines: 10, maxLines: 10, keyboardType: TextInputType.multiline, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
+                    child: TextField(
+                        controller: _descriptionTextController,
+                        minLines: 10,
+                        maxLines: 10,
+                        keyboardType: TextInputType.multiline,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent),
+                        decoration: InputDecoration(labelText: Locale.get("Product description"), labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueAccent), hintText: Locale.get("e.g., the best product."), border: InputBorder.none)))),
             getSectionSplitter(Locale.get(isSchedule ? "Schedule" : "Product content")),
             if (isFile && _existingProductContents.length > 0)
               Column(
@@ -276,7 +316,13 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                           ))
                       .toList()),
             if (isFile) Text(Locale.get('Supported formats are:\n${Locale.REPLACE}', getSupportedFormatsStr()), style: TextStyle(fontSize: 12)),
-            if (isFile) RaisedButton.icon(onPressed: _uploadingFiles.isNotEmpty ? null : _addUploadFilePressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.attachment_outlined, color: Colors.white), label: Text(_productContentFiles.length + _existingProductContents.length == 0 ? Locale.get("Select content") : Locale.get("Add content"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (isFile)
+              RaisedButton.icon(
+                  onPressed: _uploadingFiles.isNotEmpty ? null : _addUploadFilePressed,
+                  color: Colors.blueAccent,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  icon: Icon(Icons.attachment_outlined, color: Colors.white),
+                  label: Text(_productContentFiles.length + _existingProductContents.length == 0 ? Locale.get("Select content") : Locale.get("Add content"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
             if (isSchedule)
               GestureDetector(
                 onTap: () => _selectDateTime('from'),
@@ -316,8 +362,10 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
               ),
             getSectionSplitter(Locale.get("Proceed with this product")),
             RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(Locale.get(_product == null ? "Create" : "Update"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published) RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text(Locale.get('Publish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
-            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published) RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text(Locale.get('Unpublish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published)
+              RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text(Locale.get('Publish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published)
+              RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text(Locale.get('Unpublish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
           ],
         ),
       ),

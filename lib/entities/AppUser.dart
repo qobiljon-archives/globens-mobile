@@ -22,6 +22,7 @@ class AppUser {
   static AuthMethod _authMethod;
   static int _id = -1;
   static String _email;
+  static String _googleDriveEmail;
   static String _displayName;
   static String _profileImageUrl;
   static String _sessionKey;
@@ -35,6 +36,8 @@ class AppUser {
   static bool get initialized => _initialized;
 
   static String get email => _email;
+
+  static String get googleDriveEmail => _googleDriveEmail;
 
   static String get displayName => _displayName;
 
@@ -61,6 +64,7 @@ class AppUser {
         authMethod: AuthMethod.values.firstWhere((element) => element.toString() == AppUser.userPrefs.getString("authMethod")),
         id: AppUser.userPrefs.getInt("id"),
         email: AppUser.userPrefs.getString("email"),
+        googleDriveEmail: AppUser.userPrefs.getString("googleDriveEmail"),
         displayName: AppUser.userPrefs.getString("displayName"),
         profileImageUrl: AppUser.userPrefs.getString("profileImageUrl"),
         sessionKey: AppUser.userPrefs.getString("sessionKey"),
@@ -70,17 +74,17 @@ class AppUser {
 
     final languageCode = AppUser.userPrefs.getInt("language");
     Locale.languageCode = languageCode != null ? languageCode : Language.ENGLISH;
-    AppUser.googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
     AppUser._initialized = true;
   }
 
   // endregion
 
   // region Setters & getters
-  static void setProfileInfo({AuthMethod authMethod, int id, String email, String displayName, String profileImageUrl, String sessionKey, String countryCode}) {
+  static void setProfileInfo({AuthMethod authMethod, int id, String email, String googleDriveEmail, String displayName, String profileImageUrl, String sessionKey, String countryCode}) {
     if (authMethod != null) AppUser._authMethod = authMethod;
     if (id != null) AppUser._id = id;
     if (email != null) AppUser._email = email;
+    if (googleDriveEmail != null) AppUser._googleDriveEmail = googleDriveEmail;
     if (displayName != null) AppUser._displayName = displayName;
     if (profileImageUrl != null) AppUser._profileImageUrl = profileImageUrl;
     if (sessionKey != null) AppUser._sessionKey = sessionKey;
@@ -91,6 +95,7 @@ class AppUser {
     AppUser._authMethod = null;
     AppUser._id = -1;
     AppUser._email = null;
+    AppUser._googleDriveEmail = null;
     AppUser._displayName = null;
     AppUser._profileImageUrl = null;
     AppUser._countryCode = null;
@@ -136,6 +141,7 @@ class AppUser {
             authMethod: authMethod,
             id: user.id,
             email: user.email,
+            googleDriveEmail: user.googleDriveEmail,
             displayName: user.name,
             profileImageUrl: user.picture,
             sessionKey: sessionKey,
@@ -182,7 +188,7 @@ class AppUser {
 
   static Future<GlobensUser> getMyGlobensUser() async {
     http.Response response = await http.get(_profileImageUrl);
-    if (response.statusCode == HttpStatus.ok) return GlobensUser.create(_id, _email, _displayName, _profileImageUrl, response.bodyBytes, _countryCode);
+    if (response.statusCode == HttpStatus.ok) return GlobensUser.create(_id, _email, _googleDriveEmail, _displayName, _profileImageUrl, response.bodyBytes, _countryCode);
     return null;
   }
 
@@ -221,5 +227,17 @@ class AppUser {
       return Tuple2(account, tokens);
     }
     return null;
+  }
+
+  static Future<bool> googleDriveAuth() async {
+    if (AppUser.googleSignIn != null && await AppUser.googleSignIn.isSignedIn()) AppUser.googleSignIn.signOut();
+    AppUser.googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email']);
+    GoogleSignInAccount account = await AppUser.googleSignIn.signIn();
+    if (account != null) {
+      AppUser.setProfileInfo(googleDriveEmail: account.email);
+      AppUser.updateUserPrefsData();
+      return await gprcUpdateUserDetails(AppUser.sessionKey, await AppUser.getMyGlobensUser());
+    }
+    return false;
   }
 }

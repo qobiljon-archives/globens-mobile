@@ -55,10 +55,11 @@ message FetchUserDetails{
     bool success = 1;
     int32 id = 2;
     string email = 3;
-    string name = 4;
-    string picture = 5;
-    bytes pictureBlob = 6;
-    string countryCode = 7;
+    string googleDriveEmail = 4;
+    string name = 5;
+    string picture = 6;
+    bytes pictureBlob = 7;
+    string countryCode = 8;
   }
 }
 
