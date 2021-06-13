@@ -73,7 +73,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       bool success = tp.item1;
       List<ProductCategory> categories = tp.item2;
       this._categories.clear();
-      for (ProductCategory category in categories) this._categories[category.id] = category;
+      for (ProductCategory category in categories)
+        this._categories[category.id] = category;
       if (success)
         setState(() {
           _selectedCategoryId = _selectedCategoryId;
@@ -85,7 +86,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    () async {
+        () async {
       if (AppUser.googleDriveEmail == null) {
         try {
           if (AppUser.isAuthenticated()) {
@@ -101,7 +102,10 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
         }
       }
 
-      var argument = ModalRoute.of(context).settings.arguments;
+      var argument = ModalRoute
+          .of(context)
+          .settings
+          .arguments;
       if (argument is Product) {
         _product = argument;
         _businessPage = _product.businessPage;
@@ -114,7 +118,7 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
         _priceTextController.text = _product.price.toString();
         _descriptionTextController.text = _product.description;
         if (_selectedProductDeliveryType == ProductDeliveryType.FILE_DOWNLOADABLE || _selectedProductDeliveryType == ProductDeliveryType.FILE_STREAMED) {
-          () async {
+              () async {
             for (var contentId in _product.contents['ids']) {
               var res = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
               if (res.item1) _existingProductContents.add(res.item2);
@@ -149,7 +153,10 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
           actions: [if (_product != null) IconButton(icon: Icon(Icons.ios_share, color: Colors.white), onPressed: _shareProductPressed)]),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery.of(context).viewInsets.bottom),
+          padding: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 30.0 + MediaQuery
+              .of(context)
+              .viewInsets
+              .bottom),
           shrinkWrap: true,
           children: [
             getSectionSplitter(Locale.get("Basic information")),
@@ -280,40 +287,42 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
             if (isFile && _existingProductContents.length > 0)
               Column(
                   children: _existingProductContents
-                      .map((content) => GestureDetector(
-                            onTap: () => _onExistingContentClick(content),
-                            child: Card(
-                                shadowColor: Colors.lightGreenAccent,
-                                margin: EdgeInsets.only(top: 10.0),
-                                child: Container(
-                                    padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
-                                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                      SizedBox(width: 10.0, height: 10.0),
-                                      Icon(getFileTypeIcon(content.title), color: Colors.black87, size: 30.0),
-                                      SizedBox(width: 10.0, height: 10.0),
-                                      Expanded(child: Text(content.title, overflow: TextOverflow.ellipsis)),
-                                      IconButton(onPressed: () => _removeExistingContent(content), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent)),
-                                    ]))),
-                          ))
+                      .map((content) =>
+                      GestureDetector(
+                        onTap: () => _onExistingContentClick(content),
+                        child: Card(
+                            shadowColor: Colors.lightGreenAccent,
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: Container(
+                                padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                  SizedBox(width: 10.0, height: 10.0),
+                                  Icon(getFileTypeIcon(content.title), color: Colors.black87, size: 30.0),
+                                  SizedBox(width: 10.0, height: 10.0),
+                                  Expanded(child: Text(content.title, overflow: TextOverflow.ellipsis)),
+                                  IconButton(onPressed: () => _removeExistingContent(content), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent)),
+                                ]))),
+                      ))
                       .toList()),
             if (isFile && _productContentFiles.length > 0)
               Column(
                   children: _productContentFiles
-                      .map((file) => GestureDetector(
-                            onTap: () => _onNewUploadFileClick(file),
-                            child: Card(
-                                margin: EdgeInsets.only(top: 10.0),
-                                child: Container(
-                                    padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
-                                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                                      SizedBox(width: 10.0, height: 10.0),
-                                      if (_uploadingFiles.contains(file.path)) SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
-                                      if (!_uploadingFiles.contains(file.path)) Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
-                                      SizedBox(width: 10.0, height: 10.0),
-                                      Expanded(child: Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2), overflow: TextOverflow.ellipsis)),
-                                      IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
-                                    ]))),
-                          ))
+                      .map((file) =>
+                      GestureDetector(
+                        onTap: () => _onNewUploadFileClick(file),
+                        child: Card(
+                            margin: EdgeInsets.only(top: 10.0),
+                            child: Container(
+                                padding: EdgeInsets.only(left: 5.0, right: 5.0, top: 2.5, bottom: 2.5),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                                  SizedBox(width: 10.0, height: 10.0),
+                                  if (_uploadingFiles.contains(file.path)) SizedBox(child: CircularProgressIndicator(), height: 24.0, width: 24.0),
+                                  if (!_uploadingFiles.contains(file.path)) Icon(getFileTypeIcon(file.path), color: Colors.black87, size: 30.0),
+                                  SizedBox(width: 10.0, height: 10.0),
+                                  Expanded(child: Text(RegExp(r'^(.+/)(.+)$').firstMatch(file.path).group(2), overflow: TextOverflow.ellipsis)),
+                                  IconButton(onPressed: () => _removeFileContent(file), icon: Icon(Icons.highlight_remove_outlined, color: Colors.redAccent))
+                                ]))),
+                      ))
                       .toList()),
             if (isFile) Text(Locale.get('Supported formats are:\n${Locale.REPLACE}', getSupportedFormatsStr()), style: TextStyle(fontSize: 12)),
             if (isFile)
@@ -361,11 +370,23 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
                 ),
               ),
             getSectionSplitter(Locale.get("Proceed with this product")),
-            RaisedButton.icon(onPressed: _createOrUpdateProductPressed, color: Colors.blueAccent, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.upload_file, color: Colors.white), label: Text(Locale.get(_product == null ? "Create" : "Update"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+            RaisedButton.icon(onPressed: _createOrUpdateProductPressed,
+                color: Colors.blueAccent,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                icon: Icon(Icons.upload_file, color: Colors.white),
+                label: Text(Locale.get(_product == null ? "Create" : "Update"), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
             if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && !_product.published)
-              RaisedButton.icon(onPressed: _publishProductPressed, color: Colors.green, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public, color: Colors.white), label: Text(Locale.get('Publish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+              RaisedButton.icon(onPressed: _publishProductPressed,
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  icon: Icon(Icons.public, color: Colors.white),
+                  label: Text(Locale.get('Publish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
             if (_product != null && [Job.BUSINESS_OWNER_ROLE, Job.INDIVIDUAL_ENTREPRENEUR_ROLE].contains(_product.businessPage.role) && _product.published)
-              RaisedButton.icon(onPressed: _unpublishProductPressed, color: Colors.deepOrange, shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))), icon: Icon(Icons.public_off, color: Colors.white), label: Text(Locale.get('Unpublish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+              RaisedButton.icon(onPressed: _unpublishProductPressed,
+                  color: Colors.deepOrange,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  icon: Icon(Icons.public_off, color: Colors.white),
+                  label: Text(Locale.get('Unpublish'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
           ],
         ),
       ),
@@ -403,7 +424,15 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
     int timestamp;
     try {
       var now = DateTime.now();
-      var oneYearFromNow = DateTime(now.year + 1, now.month, now.day, now.hour, now.minute, now.second, now.millisecond, now.microsecond);
+      var oneYearFromNow = DateTime(
+          now.year + 1,
+          now.month,
+          now.day,
+          now.hour,
+          now.minute,
+          now.second,
+          now.millisecond,
+          now.microsecond);
       var res = await showDatePicker(
         context: context,
         initialDate: _fromUntilDateTime['from'] > 0 ? DateTime.fromMillisecondsSinceEpoch(_fromUntilDateTime['from']) : now,
@@ -466,10 +495,12 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
       FilePickerResult result = await FilePicker.platform.pickFiles(allowMultiple: true);
       if (result != null) {
         var selectedSupportedFiles = <File>[];
-        for (var path in result.paths) if (getContentType(path) != ContentType.NONE) selectedSupportedFiles.add(new File(path));
+        for (var path in result.paths)
+          if (getContentType(path) != ContentType.NONE) selectedSupportedFiles.add(new File(path));
 
         setState(() {
-          for (var file in selectedSupportedFiles) if (!_productContentFiles.contains(file)) _productContentFiles.add(file);
+          for (var file in selectedSupportedFiles)
+            if (!_productContentFiles.contains(file)) _productContentFiles.add(file);
         });
       } else {
         toast(Locale.get("Selection cancelled!"));
@@ -503,6 +534,21 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
   }
 
   void _createOrUpdateProductPressed() async {
+    if (AppUser.googleDriveEmail == null) {
+      try {
+        if (AppUser.isAuthenticated()) {
+          // apple sign in without google drive access
+          toast("Globens works with Google Drive. To create a product, you would need to give access to your Google account (email address).");
+          if (!await AppUser.googleDriveAuth()) return;
+        } else {
+          toast("Please sign in to create a product!");
+          return;
+        }
+      } catch (e) {
+        return;
+      }
+    }
+
     double price = double.tryParse(_priceTextController.text) ?? double.nan;
     if (_titleTextController.text.length < 2) {
       await toast(Locale.get("Product title must not be shorter than two characters!"));
@@ -530,12 +576,14 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
     if ([ProductType.DOWNLOADABLE, ProductType.STREAMED].contains(_productTypes[_selectedProductDeliveryType].item1)) {
       setState(() {
-        for (File localFile in _productContentFiles) _uploadingFiles.add(localFile.path);
+        for (File localFile in _productContentFiles)
+          _uploadingFiles.add(localFile.path);
       });
 
       contents = {'ids': <int>[]};
       // prior existing contents
-      for (Content content in _existingProductContents) contents['ids'].add(content.id);
+      for (Content content in _existingProductContents)
+        contents['ids'].add(content.id);
       // new upload contents
       for (File localFile in _productContentFiles) {
         var fileName = path.basename(localFile.path);
@@ -557,7 +605,8 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
         }
       }
       // prior existing contents to be removed
-      for (Content content in _existingProductContentsToBeRemoved) await grpcRemoveContent(AppUser.sessionKey, content);
+      for (Content content in _existingProductContentsToBeRemoved)
+        await grpcRemoveContent(AppUser.sessionKey, content);
     } else if ([ProductType.MEETUP, ProductType.LIVE].contains(_productTypes[_selectedProductDeliveryType].item1)) {
       Map<String, List<int>> availableTimeSlots = new Map<String, List<int>>();
       for (String key in _productAvailableTimeSlots.keys) {
@@ -571,7 +620,17 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
 
     if (success) {
       if (_product == null) {
-        var product = Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, "https://globens.page.link/");
+        var product = Product.create(
+            _titleTextController.text,
+            _selectedProductDeliveryType,
+            _categories[_selectedCategoryId],
+            _productImageBytes,
+            _businessPage,
+            price,
+            _selectedCurrency,
+            _descriptionTextController.text,
+            contents,
+            "https://globens.page.link/");
         var res = await grpcCreateProduct(AppUser.sessionKey, _businessPage, product);
         if (res.item1) {
           final DynamicLinkParameters parameters = DynamicLinkParameters(
@@ -594,7 +653,18 @@ class _ProductCreatorScreenState extends State<ProductCreatorScreen> {
           await grpcUpdateProduct(AppUser.sessionKey, product);
         }
       } else
-        success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(_titleTextController.text, _selectedProductDeliveryType, _categories[_selectedCategoryId], _productImageBytes, _businessPage, price, _selectedCurrency, _descriptionTextController.text, contents, _product.dynamicLink, id: _product.id));
+        success = await grpcUpdateProduct(AppUser.sessionKey, Product.create(
+            _titleTextController.text,
+            _selectedProductDeliveryType,
+            _categories[_selectedCategoryId],
+            _productImageBytes,
+            _businessPage,
+            price,
+            _selectedCurrency,
+            _descriptionTextController.text,
+            contents,
+            _product.dynamicLink,
+            id: _product.id));
 
       if (success) Navigator.of(context).pop();
     }

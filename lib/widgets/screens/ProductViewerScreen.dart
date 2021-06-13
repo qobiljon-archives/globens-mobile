@@ -182,6 +182,22 @@ class _ProductViewerScreenState extends State<ProductViewerScreen> {
   }
 
   void _purchaseProduct() async {
+    if (AppUser.googleDriveEmail == null) {
+      try {
+        if (AppUser.isAuthenticated()) {
+          // apple sign in without google drive access
+          toast("Globens works with Google Drive. To purchase a product, you would need to give access to your Google account (email address).");
+          if (!await AppUser.googleDriveAuth())
+            return;
+        } else {
+          toast("Please sign in to purchase the content!");
+          return;
+        }
+      } catch (e) {
+        return;
+      }
+    }
+
     if (_product.productType == ProductDeliveryType.FILE_DOWNLOADABLE || _product.productType == ProductDeliveryType.FILE_STREAMED) {
       for (int contentId in _product.contents['ids']) {
         var result = await grpcFetchContentDetails(AppUser.sessionKey, contentId);
