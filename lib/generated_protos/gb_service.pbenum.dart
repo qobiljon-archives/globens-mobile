@@ -9,6 +9,21 @@
 import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
+class AuthMethod extends $pb.ProtobufEnum {
+  static const AuthMethod APPLE = AuthMethod._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'APPLE');
+  static const AuthMethod GOOGLE = AuthMethod._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'GOOGLE');
+
+  static const $core.List<AuthMethod> values = <AuthMethod> [
+    APPLE,
+    GOOGLE,
+  ];
+
+  static final $core.Map<$core.int, AuthMethod> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static AuthMethod? valueOf($core.int value) => _byValue[value];
+
+  const AuthMethod._($core.int v, $core.String n) : super(v, n);
+}
+
 class Currency extends $pb.ProtobufEnum {
   static const Currency KRW = Currency._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'KRW');
   static const Currency USD = Currency._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'USD');

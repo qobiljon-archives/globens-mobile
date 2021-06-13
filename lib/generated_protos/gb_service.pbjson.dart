@@ -8,6 +8,17 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use authMethodDescriptor instead')
+const AuthMethod$json = const {
+  '1': 'AuthMethod',
+  '2': const [
+    const {'1': 'APPLE', '2': 0},
+    const {'1': 'GOOGLE', '2': 1},
+  ],
+};
+
+/// Descriptor for `AuthMethod`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List authMethodDescriptor = $convert.base64Decode('CgpBdXRoTWV0aG9kEgkKBUFQUExFEAASCgoGR09PR0xFEAE=');
 @$core.Deprecated('Use currencyDescriptor instead')
 const Currency$json = const {
   '1': 'Currency',
@@ -59,7 +70,8 @@ const AuthenticateUser$json = const {
 const AuthenticateUser_Request$json = const {
   '1': 'Request',
   '2': const [
-    const {'1': 'tokensJson', '3': 2, '4': 1, '5': 9, '10': 'tokensJson'},
+    const {'1': 'method', '3': 1, '4': 1, '5': 14, '6': '.AuthMethod', '10': 'method'},
+    const {'1': 'token', '3': 2, '4': 1, '5': 9, '10': 'token'},
   ],
 };
 
@@ -74,7 +86,7 @@ const AuthenticateUser_Response$json = const {
 };
 
 /// Descriptor for `AuthenticateUser`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List authenticateUserDescriptor = $convert.base64Decode('ChBBdXRoZW50aWNhdGVVc2VyGikKB1JlcXVlc3QSHgoKdG9rZW5zSnNvbhgCIAEoCVIKdG9rZW5zSnNvbhpcCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEhYKBnVzZXJJZBgCIAEoBVIGdXNlcklkEh4KCnNlc3Npb25LZXkYAyABKAlSCnNlc3Npb25LZXk=');
+final $typed_data.Uint8List authenticateUserDescriptor = $convert.base64Decode('ChBBdXRoZW50aWNhdGVVc2VyGkQKB1JlcXVlc3QSIwoGbWV0aG9kGAEgASgOMgsuQXV0aE1ldGhvZFIGbWV0aG9kEhQKBXRva2VuGAIgASgJUgV0b2tlbhpcCghSZXNwb25zZRIYCgdzdWNjZXNzGAEgASgIUgdzdWNjZXNzEhYKBnVzZXJJZBgCIAEoBVIGdXNlcklkEh4KCnNlc3Npb25LZXkYAyABKAlSCnNlc3Npb25LZXk=');
 @$core.Deprecated('Use deactivateUserDescriptor instead')
 const DeactivateUser$json = const {
   '1': 'DeactivateUser',
@@ -111,6 +123,7 @@ const UpdateUserDetails_Request$json = const {
   '2': const [
     const {'1': 'sessionKey', '3': 1, '4': 1, '5': 9, '10': 'sessionKey'},
     const {'1': 'countryCode', '3': 2, '4': 1, '5': 9, '10': 'countryCode'},
+    const {'1': 'googleDriveEmail', '3': 3, '4': 1, '5': 9, '10': 'googleDriveEmail'},
   ],
 };
 
@@ -123,7 +136,7 @@ const UpdateUserDetails_Response$json = const {
 };
 
 /// Descriptor for `UpdateUserDetails`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List updateUserDetailsDescriptor = $convert.base64Decode('ChFVcGRhdGVVc2VyRGV0YWlscxpLCgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSIAoLY291bnRyeUNvZGUYAiABKAlSC2NvdW50cnlDb2RlGiQKCFJlc3BvbnNlEhgKB3N1Y2Nlc3MYASABKAhSB3N1Y2Nlc3M=');
+final $typed_data.Uint8List updateUserDetailsDescriptor = $convert.base64Decode('ChFVcGRhdGVVc2VyRGV0YWlscxp3CgdSZXF1ZXN0Eh4KCnNlc3Npb25LZXkYASABKAlSCnNlc3Npb25LZXkSIAoLY291bnRyeUNvZGUYAiABKAlSC2NvdW50cnlDb2RlEioKEGdvb2dsZURyaXZlRW1haWwYAyABKAlSEGdvb2dsZURyaXZlRW1haWwaJAoIUmVzcG9uc2USGAoHc3VjY2VzcxgBIAEoCFIHc3VjY2Vzcw==');
 @$core.Deprecated('Use fetchUserDetailsDescriptor instead')
 const FetchUserDetails$json = const {
   '1': 'FetchUserDetails',

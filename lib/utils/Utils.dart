@@ -147,12 +147,14 @@ enum ProductType { DOWNLOADABLE, STREAMED, MEETUP, LIVE }
 enum TimeSlotSize { THIRTY_MINUTES, SIXTY_MINUTES }
 
 // region user management RPCs
-Future<Tuple3<bool, int, String>> gprcAuthenticateUser(String tokensJson) async {
+Future<Tuple3<bool, int, String>> gprcAuthenticateUser(AuthMethod authMethod, String tokensJson) async {
   bool success = false;
   String sessionKey;
   int userId;
   try {
-    final response = await getStub().authenticateUser(AuthenticateUser_Request()..tokensJson = tokensJson);
+    final response = await getStub().authenticateUser(AuthenticateUser_Request()
+      ..method = authMethod
+      ..token = tokensJson);
     success = response.success;
 
     userId = response.userId;
@@ -404,7 +406,8 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, i
         }
 
         if (success)
-          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents), productDetails.dynamicLink, id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
+          products.add(Product.create(productDetails.name, productDetails.type, categories[productDetails.categoryId], productDetails.pictureBlob, businessPages[productDetails.businessPageId], productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents), productDetails.dynamicLink,
+              id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published));
         else
           print('error on gb_product $productDetails');
       }
@@ -418,14 +421,15 @@ Future<Tuple2<bool, List<Product>>> grpcFetchNextKProducts({String sessionKey, i
 
 Future<Tuple2<bool, Product>> grpcFetchProduct(int productId) async {
   final productDetails = await getStub().fetchProductDetails(FetchProductDetails_Request()..productId = productId);
-  if(productDetails.success) {
+  if (productDetails.success) {
     var businessPageDetails = await getStub().fetchBusinessPageDetails(FetchBusinessPageDetails_Request()..businessPageId = productDetails.businessPageId);
-    if(businessPageDetails.success) {
+    if (businessPageDetails.success) {
       var businessPage = BusinessPage.create(businessPageDetails.title, businessPageDetails.pictureBlob, businessPageDetails.countryCode, id: businessPageDetails.id, type: businessPageDetails.type, role: businessPageDetails.role);
       final categoryDetails = await getStub().fetchProductCategoryDetails(FetchProductCategoryDetails_Request()..categoryId = productDetails.categoryId);
       if (categoryDetails.success) {
         var productCategory = ProductCategory.create(categoryDetails.id, categoryDetails.nameJsonStr, categoryDetails.examplesJsonStr, categoryDetails.pictureBlob);
-        var product = Product.create(productDetails.name, productDetails.type, productCategory, productDetails.pictureBlob, businessPage, productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents), productDetails.dynamicLink, id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published);
+        var product =
+            Product.create(productDetails.name, productDetails.type, productCategory, productDetails.pictureBlob, businessPage, productDetails.price, productDetails.currency, productDetails.description, jsonDecode(productDetails.contents), productDetails.dynamicLink, id: productDetails.id, stars: productDetails.stars, reviewsCount: productDetails.reviewsCount, published: productDetails.published);
         return Tuple2(true, product);
       }
     }

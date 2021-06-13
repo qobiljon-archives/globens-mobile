@@ -133,17 +133,22 @@ class FilterDetails extends $pb.GeneratedMessage {
 
 class AuthenticateUser_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'AuthenticateUser.Request', createEmptyInstance: create)
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'tokensJson', protoName: 'tokensJson')
+    ..e<AuthMethod>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'method', $pb.PbFieldType.OE, defaultOrMaker: AuthMethod.APPLE, valueOf: AuthMethod.valueOf, enumValues: AuthMethod.values)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'token')
     ..hasRequiredFields = false
   ;
 
   AuthenticateUser_Request._() : super();
   factory AuthenticateUser_Request({
-    $core.String? tokensJson,
+    AuthMethod? method,
+    $core.String? token,
   }) {
     final _result = create();
-    if (tokensJson != null) {
-      _result.tokensJson = tokensJson;
+    if (method != null) {
+      _result.method = method;
+    }
+    if (token != null) {
+      _result.token = token;
     }
     return _result;
   }
@@ -168,14 +173,23 @@ class AuthenticateUser_Request extends $pb.GeneratedMessage {
   static AuthenticateUser_Request getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AuthenticateUser_Request>(create);
   static AuthenticateUser_Request? _defaultInstance;
 
+  @$pb.TagNumber(1)
+  AuthMethod get method => $_getN(0);
+  @$pb.TagNumber(1)
+  set method(AuthMethod v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasMethod() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMethod() => clearField(1);
+
   @$pb.TagNumber(2)
-  $core.String get tokensJson => $_getSZ(0);
+  $core.String get token => $_getSZ(1);
   @$pb.TagNumber(2)
-  set tokensJson($core.String v) { $_setString(0, v); }
+  set token($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasTokensJson() => $_has(0);
+  $core.bool hasToken() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTokensJson() => clearField(2);
+  void clearToken() => clearField(2);
 }
 
 class AuthenticateUser_Response extends $pb.GeneratedMessage {
@@ -409,6 +423,7 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdateUserDetails.Request', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sessionKey', protoName: 'sessionKey')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'countryCode', protoName: 'countryCode')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'googleDriveEmail', protoName: 'googleDriveEmail')
     ..hasRequiredFields = false
   ;
 
@@ -416,6 +431,7 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
   factory UpdateUserDetails_Request({
     $core.String? sessionKey,
     $core.String? countryCode,
+    $core.String? googleDriveEmail,
   }) {
     final _result = create();
     if (sessionKey != null) {
@@ -423,6 +439,9 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
     }
     if (countryCode != null) {
       _result.countryCode = countryCode;
+    }
+    if (googleDriveEmail != null) {
+      _result.googleDriveEmail = googleDriveEmail;
     }
     return _result;
   }
@@ -464,6 +483,15 @@ class UpdateUserDetails_Request extends $pb.GeneratedMessage {
   $core.bool hasCountryCode() => $_has(1);
   @$pb.TagNumber(2)
   void clearCountryCode() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get googleDriveEmail => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set googleDriveEmail($core.String v) { $_setString(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasGoogleDriveEmail() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearGoogleDriveEmail() => clearField(3);
 }
 
 class UpdateUserDetails_Response extends $pb.GeneratedMessage {

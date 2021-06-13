@@ -31,7 +31,21 @@ class Product {
 
   // endregion
 
-  Product.create(String name, ProductDeliveryType productType, ProductCategory category, List<int> pictureBlob, BusinessPage businessPage, double price, Currency currency, String description, Map<String, dynamic> contents, String dynamicLink, {int id, double stars, int reviewsCount, bool published}) {
+  Product.create(
+      String name,
+      ProductDeliveryType productType,
+      ProductCategory category,
+      List<int> pictureBlob,
+      BusinessPage businessPage,
+      double price,
+      Currency currency,
+      String description,
+      Map<String, dynamic> contents,
+      String dynamicLink,
+      {int id,
+      double stars,
+      int reviewsCount,
+      bool published}) {
     this._id = id;
     this._name = name;
     this._productType = productType;

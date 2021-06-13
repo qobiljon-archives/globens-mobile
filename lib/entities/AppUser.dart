@@ -1,3 +1,4 @@
+import 'package:globens_flutter_client/generated_protos/gb_service.pbenum.dart';
 import 'package:globens_flutter_client/entities/GlobensUser.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -6,11 +7,11 @@ import 'package:globens_flutter_client/utils/Utils.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:crypto/crypto.dart';
 import 'package:tuple/tuple.dart';
-import 'dart:convert' as JSON;
+import 'dart:convert';
+import 'dart:math';
 import 'dart:io';
-
-enum AuthMethod { APPLE, GOOGLE }
 
 class AppUser {
   // region Variables
@@ -99,33 +100,44 @@ class AppUser {
 
   // region Utility functions
   static Future<bool> signIn(AuthMethod authMethod) async {
+    String grpcToken, fullName;
     if (authMethod == AuthMethod.APPLE) {
-      var res = await _appleAuth();
-      print("email = ${res.email}");
-      print("givenName = ${res.givenName}");
-      print("familyName = ${res.familyName}");
-      print("authorizationCode = ${res.authorizationCode}");
-      print("identityToken = ${res.identityToken}");
-      print("state = ${res.state}");
-      print("userIdentifier = ${res.userIdentifier}");
-      return false;
+      // apple sign in clicked
+      var appleRes = await _appleAuth();
+      if (appleRes != null) {
+        fullName = appleRes.item2;
+        var token = appleRes.item3;
+        grpcToken = "$token,$fullName"; // 1st time authorizing
+        if (fullName == null || fullName == "null null") grpcToken = token; // 2nd time authorizing (apple sucks)
+      }
     } else if (authMethod == AuthMethod.GOOGLE) {
+      // google sign in clicked
+      AppUser.googleSignIn = GoogleSignIn(scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile', 'openid']);
       if (await AppUser.googleSignIn.isSignedIn()) await AppUser.googleSignIn.signOut();
       var googleRes = await AppUser._googleAuth();
       if (googleRes != null) {
         GoogleSignInAccount user = googleRes.item1;
-        Map tokens = googleRes.item2;
-        Tuple3<bool, int, String> grpcRes = await gprcAuthenticateUser(JSON.jsonEncode(tokens));
+        fullName = user.displayName;
+        grpcToken = jsonEncode(googleRes.item2);
+      }
+    }
 
-        bool success = grpcRes.item1;
-        int userId = grpcRes.item2;
-        String sessionKey = grpcRes.item3;
-        if (success) {
+    // grpc part
+    if (grpcToken != null) {
+      Tuple3<bool, int, String> grpcRes = await gprcAuthenticateUser(authMethod, grpcToken);
+      bool success = grpcRes.item1;
+      int userId = grpcRes.item2;
+      String sessionKey = grpcRes.item3;
+      if (success) {
+        var userRes = await grpcFetchUserDetails(sessionKey, userId);
+        if (userRes.item1) {
+          var user = userRes.item2;
           AppUser.setProfileInfo(
-            id: userId,
+            authMethod: authMethod,
+            id: user.id,
             email: user.email,
-            displayName: user.displayName,
-            profileImageUrl: user.photoUrl,
+            displayName: user.name,
+            profileImageUrl: user.picture,
             sessionKey: sessionKey,
             countryCode: "KOR",
           );
@@ -134,6 +146,7 @@ class AppUser {
         }
       }
     }
+
     return false;
   }
 
@@ -175,29 +188,38 @@ class AppUser {
 
   // endregion
 
-  static Future<AuthorizationCredentialAppleID> _appleAuth() async {
-    return await SignInWithApple.getAppleIDCredential(
-      scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName,
-      ],
-    );
+  static Future<Tuple3<String, String, String>> _appleAuth() async {
+    try {
+      final charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+      final random = Random.secure();
+      final rawNonce = List.generate(32, (_) => charset[random.nextInt(charset.length)]).join();
+      final nonce = sha256.convert(utf8.encode(rawNonce)).toString();
+
+      // Request credential for the currently signed in Apple account.
+      var appleCredential = await SignInWithApple.getAppleIDCredential(scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName], nonce: nonce);
+      final oauthCredential = OAuthProvider("apple.com").credential(idToken: appleCredential.identityToken, rawNonce: rawNonce);
+      var firebaseCredential = await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+
+      var email = appleCredential.email;
+      var fullName = "${appleCredential.givenName} ${appleCredential.familyName}";
+      var token = await firebaseCredential.user.getIdToken(true);
+      return Tuple3(email, fullName, token);
+    } catch (e) {
+      print(e);
+    }
+    return null;
   }
 
   static Future<Tuple2<GoogleSignInAccount, Map>> _googleAuth() async {
     Map<String, dynamic> tokens = {};
-
     GoogleSignInAccount account = await AppUser.googleSignIn.signIn();
-    print(account.displayName);
     if (account != null) {
       GoogleSignInAuthentication auth = await account.authentication;
-
       tokens.putIfAbsent("idToken", () => auth.idToken);
       tokens.putIfAbsent("accessToken", () => auth.accessToken);
       tokens.putIfAbsent("serverAuthCode", () => auth.serverAuthCode);
       return Tuple2(account, tokens);
     }
-
     return null;
   }
 }
