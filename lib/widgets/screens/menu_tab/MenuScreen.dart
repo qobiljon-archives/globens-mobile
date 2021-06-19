@@ -121,7 +121,7 @@ class _MenuScreenState extends State<MenuScreen> {
     if (await AppUser.signIn(AuthMethod.APPLE))
       await toast(Locale.get("Signed in with Apple."));
     else
-      await toast(Locale.get("Failed to login with Google.\nPlease try again later!"));
+      await toast(Locale.get("Failed to login with Apple.\nPlease try again later!"));
 
     setState(() {});
   }
